@@ -2,11 +2,19 @@ title: Baseline Re-Test and Business Quality Score
 tabs:
   - id: activitylog
     title: Activity Log
+    about:
+      what: "A list of things that happened on the platform: who used PolicyPal, when, and from which app. It does not contain the actual questions or answers."
+      why: "You asked your administrator for 'the data' and got two files. This is the first one. Your job is to work out whether you can use it to judge PolicyPal's answers."
+      todo: "Read the column headings from left to right. Ask yourself: is there any column that holds an answer PolicyPal gave? Also look at the three columns that start with 'Model'."
     type: table
     source: activity-log.csv
     note: "One of the two files your administrator sent. Look at its columns: does it contain the assistant's answers?"
   - id: output
     title: Output Export
+    about:
+      what: "A list of 20 real questions that employees asked PolicyPal. Next to each one you can see what PolicyPal answered and which policy document it said it used."
+      why: "This is the material you mark, like marking a test. You give every answer a pass or a fail on four things from the Quality Standard."
+      todo: "Read each answer. In each of the four last columns, pick Met (it passed) or Not met (it failed). The score box at the top adds everything up for you as you go."
     type: table
     source: output-export.csv
     note: "Score each response against the four criteria on the Quality Standard tab. Choose Met or Not met in every box. The Business Quality Score panel updates as you go."
@@ -34,10 +42,18 @@ tabs:
         - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
   - id: standard
     title: Quality Standard
+    about:
+      what: "The rulebook for PolicyPal. It lists the four things a good answer must do, and it says at what score you should start to worry."
+      why: "To mark answers fairly, you need written rules to mark against. Otherwise it is just your opinion."
+      todo: "Read section 3 (the four things a good answer must do) before you start scoring. Come back to section 8 (when to worry) at the step that tells you to."
     type: doc
     source: quality-standard.md
   - id: answer
     title: My Answer
+    about:
+      what: "Your notes page for this lab."
+      why: "It is where you write down what you found and what you decided, so that another person can read it later and understand it."
+      todo: "Fill it in as the lab steps tell you to. Everything saves by itself."
     type: form
     heading: Test Result and Test Record
     intro: "Read the numbers from the panel on the Output Export tab. The panel shows the arithmetic; your job is to say what it means."
@@ -48,7 +64,6 @@ tabs:
           - {id: keep_why, kind: text, label: "Why are you keeping the other file even though you cannot score it?"}
       - title: "The result"
         fields:
-          - {id: baseline, kind: text, label: "Recorded baseline Business Quality Score"}
           - {id: current, kind: text, label: "Your current Business Quality Score"}
           - {id: change, kind: text, label: "Change in points (current minus baseline)"}
           - {id: below, kind: text, label: "How many responses scored below their own baseline?"}
@@ -59,7 +74,7 @@ tabs:
           - {id: alarm, kind: textarea, rows: 2, label: "Which lines are crossed, and does this trigger a diagnosis?"}
       - title: "State whether business quality has degraded"
         fields:
-          - {id: degraded, kind: textarea, rows: 3, label: "One sentence that cites the change, whether the alarm level was crossed, and the count of responses below baseline.", example: "Business quality has degraded and has crossed the alarm level: the Business Quality Score fell 7 points from 88 to 81, below the 85 floor, and 4 of 20 baseline responses scored below their recorded baseline."}
+          - {id: degraded, kind: textarea, rows: 3, label: "One sentence that cites the change, whether the alarm level was crossed, and the count of responses below baseline."}
       - title: "Start the test record"
         help: "You finish this record in Lab 2.2. Fill the first three sections now."
         fields:
@@ -68,4 +83,5 @@ tabs:
           - {id: tr_standard, kind: text, label: "Against what standard (name and version)"}
       - title: "The handoff"
         fields:
-          - {id: handoff, kind: textarea, rows: 2, label: "If quality has degraded, do you investigate it yourself or hand it straight to the platform owner? One line."}
+          - {id: handoff, kind: select, label: "Quality has degraded. What do you do first?", options: ["Investigate the cause myself first", "Hand it straight to the platform owner"]}
+          - {id: handoff_why, kind: text, label: "Why? One line."}

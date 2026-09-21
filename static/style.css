@@ -41,6 +41,11 @@ body { font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; 
 .saved { font-size: 14px; color: var(--muted); min-width: 90px; }
 .saved.ok { color: var(--ok); }
 
+/* the explainer box at the top of every tab */
+.about { background: #eaf3ff; border: 1px solid #9cc0ee; border-left: 6px solid var(--accent); border-radius: 8px; padding: 12px 18px; margin: 0 0 22px; max-width: 900px; font-size: 16.5px; }
+.about-title { font-weight: 700; color: var(--accent); margin-bottom: 4px; letter-spacing: .02em; text-transform: uppercase; font-size: 13px; cursor: pointer; }
+.about p { margin: 6px 0; }
+
 /* documents */
 .doc { max-width: 860px; }
 .doc h1 { font-size: 24px; } .doc h2 { font-size: 19px; margin-top: 28px; }

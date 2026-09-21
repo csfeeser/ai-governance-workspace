@@ -2,36 +2,36 @@ title: Write the Escalation Ticket
 tabs:
   - id: incident
     title: Triaged Incident
+    about:
+      what: "A problem that has already been sorted for you. It says what kind of problem it is, who should handle it, and the key facts."
+      why: "You are about to write a message to the person who has to fix it. Everything you need for that message is on this page."
+      todo: "Read it from top to bottom. Come back to it as often as you like while you write."
     type: doc
     source: triaged-incident.md
   - id: answer
     title: Escalation Ticket
+    about:
+      what: "A form for the message you send to the person who has to fix the problem. This kind of message is called a ticket."
+      why: "A good ticket lets the other person start work straight away, without having to come back to you with questions."
+      todo: "Fill in the boxes from top to bottom, following the lab steps."
     type: form
     heading: Escalation Ticket
     intro: "Fill every field. The test: could the receiving owner start work from this ticket without replying to ask you a question?"
     sections:
-      - title: "Incident and category"
-        help: "Copy from the triaged record on the Triaged Incident tab."
+      - title: "Incident, category, and routed to"
+        help: "From the Triage result on the Triaged Incident tab. Name the owner by what they are responsible for, not by department."
         fields:
-          - {id: incident, kind: text, label: "Incident and category"}
-      - title: "Routed to"
-        help: "The responsible owner, named by what they are responsible for, not a department name."
-        fields:
-          - {id: routed, kind: text, label: "Routed to"}
+          - {id: incident, kind: text, label: "Incident, category, and the responsible owner"}
       - title: "What was observed"
         help: "Behavior, not feeling. What the workflow is doing, described so anyone could confirm it."
         fields:
-          - {id: observed, kind: textarea, rows: 3, label: "What was observed", example: "Draft replies are roughly 40% longer than before and fail the tone standard, not \"the assistant seems worse.\""}
-      - title: "How often"
-        help: "Use the number."
+          - {id: observed, kind: textarea, rows: 3, label: "What was observed"}
+      - title: "How often, and over what period"
+        help: "Use the numbers: how many, out of how many, and since when."
         fields:
-          - {id: often, kind: text, label: "How often"}
-      - title: "Over what period"
-        help: "Start date and duration."
-        fields:
-          - {id: period, kind: text, label: "Over what period"}
+          - {id: often, kind: textarea, rows: 2, label: "How often, and over what period"}
       - title: "Evidence attached"
-        help: "Name each piece of evidence and what it shows. The triage record summarizes each one; there is no separate file to open."
+        help: "Name each piece of evidence and what it shows."
         fields:
           - {id: evidence, kind: textarea, rows: 3, label: "Evidence attached"}
       - title: "Already ruled out"
@@ -45,18 +45,26 @@ tabs:
       - title: "The ask"
         help: "The specific action you want the owner to take."
         fields:
-          - {id: ask, kind: textarea, rows: 3, label: "The ask", example: "Confirm whether the model version can be pinned or rolled back, and advise a timeline."}
+          - {id: ask, kind: textarea, rows: 3, label: "The ask"}
       - title: "Response-by"
         help: "Aligned to the urgency and the review cadence."
         fields:
-          - {id: responseby, kind: text, label: "Response-by", example: "Initial response within 3 business days; this is customer-facing and ongoing."}
+          - {id: responseby, kind: text, label: "Response-by"}
   - id: incident2
     title: "Bronze: Second Incident"
+    about:
+      what: "A bonus problem. This one is more serious: private customer information was shown to the wrong person."
+      why: "Optional practice. It needs a faster, more urgent message than the first problem."
+      todo: "Read it only if you want the extra challenge."
     type: doc
     optional: true
     source: triaged-incident-2.md
   - id: bronze
     title: "Bronze: Second Ticket"
+    about:
+      what: "A bonus form for the message about the second problem."
+      why: "Optional practice at writing an urgent message."
+      todo: "Only do this if you want the extra challenge."
     type: form
     optional: true
     sections_from: answer

@@ -60,16 +60,16 @@ class ValidateContent(unittest.TestCase):
         self.assertCaught("ai_decison", "did you mean 'ai_decision'")
 
     def test_duplicate_field_id_in_a_lab(self):
-        self.edit("lab-3.1/lab.yml", "{id: low_rate,", "{id: low_who,")
-        self.assertCaught("'low_who' is already used", "unique")
+        self.edit("lab-3.1/lab.yml", "{id: high,", "{id: low,")
+        self.assertCaught("'low' is already used", "unique")
 
     def test_duplicate_tab_title(self):
         self.edit("lab-3.1/lab.yml", "title: My Findings", "title: Reviewer Log")
         self.assertCaught("same title")
 
     def test_select_field_without_options(self):
-        self.edit("lab-4.1/lab.yml", "{id: i2-urg, kind: select, label: \"Urgency\", options: *urg}", "{id: i2-urg, kind: select, label: \"Urgency\"}")
-        self.assertCaught("i2-urg", "options")
+        self.edit("lab-4.1/lab.yml", "{id: i2-action, kind: select, label: \"Action\", options: *acts}", "{id: i2-action, kind: select, label: \"Action\"}")
+        self.assertCaught("i2-action", "options")
 
     def test_unknown_field_kind(self):
         self.edit("lab-1.1/lab.yml", "{id: tier, kind: text,", "{id: tier, kind: txt,")
@@ -110,6 +110,18 @@ class ValidateContent(unittest.TestCase):
     def test_lines_min_greater_than_count(self):
         self.edit("lab-1.1/lab.yml", "{id: tier, kind: text, label: \"Risk tier\"}", "{id: tier, kind: lines, count: 3, min: 5, item: \"Tier\"}")
         self.assertCaught("'min'")
+
+    def test_tab_without_an_about_box(self):
+        self.edit("lab-3.1/lab.yml", "    about:\n      what:", "    nope:\n      what:")
+        self.assertCaught("lab-3.1", "about")
+
+    def test_about_box_with_empty_why(self):
+        p = self.content / "lab-3.2" / "lab.yml"
+        text = p.read_text(encoding="utf-8")
+        import re
+        text = re.sub(r'(    about:\n      what: "[^\n]*"\n      why: )"[^\n]*"', r'\1""', text, count=1)
+        p.write_text(text, encoding="utf-8")
+        self.assertCaught("lab-3.2", "'why'")
 
     def test_command_line_exit_codes(self):
         self.assertEqual(validate.main(["validate.py", str(self.content)]), 0)

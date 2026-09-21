@@ -2,6 +2,10 @@ title: Diagnose the Degradation and Document the Test
 tabs:
   - id: sample
     title: Scored Sample
+    about:
+      what: "20 PolicyPal answers that have already been marked. Each row shows the mark the answer got when the starting score was set, and the mark it gets now. Each mark is out of 4."
+      why: "The quality of PolicyPal's answers has dropped. This table is your evidence. Your job in this lab is to find out when it dropped and why."
+      todo: "Click the 'date' heading to put the rows in date order. Look for the date where the marks start to fall. The box at the top shows the totals for you."
     type: table
     source: sample.csv
     note: "Every response is already scored. Click the date heading to sort by date and look for where the low scores start. The panel shows the Business Quality Score and how each criterion moved."
@@ -25,32 +29,52 @@ tabs:
         - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
   - id: activitylog
     title: Activity Log
+    about:
+      what: "The platform's diary for the same weeks. Each row records one time somebody used PolicyPal, including which AI model was running at that moment."
+      why: "The AI model is the 'brain' behind PolicyPal, and another company makes it. If that company quietly swapped it for a different one, you would see it here. That could explain why the answers got worse."
+      todo: "Click 'CreationTime' to put the rows in date order. Watch the ModelName and ModelVersion columns and notice if they change."
     type: table
     source: activity-log.csv
     note: "The platform's activity log for the same period. Look at the model columns: ModelProviderName, ModelName and ModelVersion. Click CreationTime to sort by date."
     hide: [Operation, AppIdentity, AgentName, SensitivityLabelId, XPIADetected, IsPrompt]
   - id: answer
     title: Test Record
+    about:
+      what: "A report form. It is where you write up what you tested, what you found, and why you think it happened."
+      why: "An investigation only counts if someone else can read your write-up later and understand it. This is that write-up."
+      todo: "Fill it in one part at a time, following the lab steps."
     type: form
     heading: Quality Test Record
     intro: "A third party should be able to read this record cold and know what was tested, how, and what you concluded."
     sections:
       - title: "Confirm the drop"
         fields:
-          - {id: current, kind: text, label: "Current Business Quality Score"}
-          - {id: change, kind: text, label: "Change from the recorded baseline (points)"}
           - {id: change_date, kind: text, label: "Date the quality drop begins"}
       - title: "Rule out three of the four causes"
-        help: "The four causes are changed inputs, a vendor model update, a changed company policy, and a modified prompt. For each of the first three, say what you checked and what you found."
+        help: "The four causes are changed inputs, a vendor model update, a changed company policy, and a modified prompt. For each of the first three, choose what you found."
         fields:
-          - {id: r_policy, kind: textarea, rows: 2, label: "Changed company policy: what did you check and find?"}
-          - {id: r_prompt, kind: textarea, rows: 2, label: "Modified prompt: what did you check and find?"}
-          - {id: r_inputs, kind: textarea, rows: 2, label: "Changed inputs: what did you check and find?"}
+          - id: r_policy
+            kind: select
+            label: "Changed company policy"
+            options:
+              - "Ruled out: the cited policies and their effective dates are the same before and after the drop"
+              - "Not ruled out: the cited policies or their effective dates changed around the date of the drop"
+          - id: r_prompt
+            kind: select
+            label: "Modified prompt"
+            options:
+              - "Ruled out: the questions are phrased the same way before and after the drop"
+              - "Not ruled out: the phrasing of the questions changed around the date of the drop"
+          - id: r_inputs
+            kind: select
+            label: "Changed inputs"
+            options:
+              - "Ruled out: the same policy documents are cited before and after the drop"
+              - "Not ruled out: the documents being cited changed around the date of the drop"
       - title: "The vendor model update"
         fields:
           - {id: m_change, kind: textarea, rows: 2, label: "What changed in the model fields, and on what date?"}
-          - {id: m_gap, kind: text, label: "How far apart are the model change and the quality drop?"}
-          - {id: cause, kind: textarea, rows: 3, label: "State the cause in one sentence and cite the specific evidence (file, column, values).", example: "Cause: vendor model update on 2026-08-11. Evidence: in the activity log, ModelName changes from gpt-4o to gpt-55-high and ModelVersion from 2024-11-20 to 2025-06-15 on that date, one day before the Business Quality Score drop."}
+          - {id: cause, kind: textarea, rows: 3, label: "State the cause in one sentence and cite the specific evidence (tab, column, values)."}
       - title: "What was tested"
         fields:
           - {id: tr_what, kind: textarea, rows: 2, label: "The workflow, and the baseline case set: ID range and count"}
@@ -59,7 +83,7 @@ tabs:
           - {id: tr_when, kind: text, label: "The date this test was run"}
       - title: "Against what standard"
         fields:
-          - {id: tr_standard, kind: text, label: "The quality standard name and its version"}
+          - {id: tr_standard, kind: text, label: "The quality standard name"}
       - title: "Method"
         fields:
           - {id: tr_method, kind: textarea, rows: 3, label: "How the test was run and what was checked"}
@@ -69,11 +93,12 @@ tabs:
       - title: "Conclusion"
         fields:
           - {id: tr_conclusion, kind: textarea, rows: 3, label: "Degraded or not degraded. If degraded: the cause and the evidence you cite for it"}
-      - title: "Prepared by / date"
-        fields:
-          - {id: tr_by, kind: text, label: "Your name and today's date"}
   - id: bronzesample
     title: "Bronze: Second Sample"
+    about:
+      what: "Bonus practice data: another set of marked answers, from a different time period."
+      why: "Optional. It lets you try the same investigation again on new data."
+      todo: "Only do this if you want the extra challenge. The clue is in the 'Source effective date' column."
     type: table
     optional: true
     source: bronze-sample.csv
@@ -99,6 +124,10 @@ tabs:
         - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
   - id: challenges
     title: Challenges
+    about:
+      what: "Three optional bonus questions, called bronze, silver and gold."
+      why: "For people who finish early or want extra practice. Nobody has to do them."
+      todo: "Type your answers here if you try them."
     type: form
     optional: true
     heading: Challenges

@@ -132,7 +132,7 @@ def build_table(lab_dir, tab):
 
 def build_tab(lab_dir, tab, raw_tabs):
     base = {"id": tab["id"], "title": tab["title"], "type": tab["type"],
-            "optional": bool(tab.get("optional"))}
+            "optional": bool(tab.get("optional")), "about": tab.get("about")}
     if tab["type"] == "doc":
         text = (lab_dir / tab["source"]).read_text(encoding="utf-8")
         html = markdown.markdown(text, extensions=["tables", "sane_lists"])

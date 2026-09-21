@@ -1,83 +1,130 @@
 title: Assemble the AI Evidence Packet
 tabs:
-  - {id: a1, title: a1-business-purpose, type: doc, source: a1-business-purpose.md}
-  - {id: a2, title: a2-system-instructions-v3, type: doc, source: a2-system-instructions-v3.md}
-  - {id: a3, title: a3-system-instructions-v2, type: doc, source: a3-system-instructions-v2.md}
+  - id: a1
+    title: a1-business-purpose
+    about:
+      what: "A short statement of what PolicyPal is for and who uses it."
+      why: "One of the first things an auditor asks is: what is this tool for? This is the file that answers that. (An auditor is a person whose job is to check that a company really did what it says it did.)"
+      todo: "Read it. Then decide which section of the packet it belongs in."
+    type: doc
+    source: a1-business-purpose.md
+  - id: a2
+    title: a2-system-instructions-v3
+    about:
+      what: "The rules PolicyPal was told to follow, version 3, starting on 1 June 2026."
+      why: "An auditor wants to see what the AI was told to do. There are two versions of these rules in the folder, so you have to decide which one belongs in the packet."
+      todo: "Read the date near the top. Compare it with the other version before you decide."
+    type: doc
+    source: a2-system-instructions-v3.md
+  - id: a3
+    title: a3-system-instructions-v2
+    about:
+      what: "The rules PolicyPal was told to follow, version 2."
+      why: "An auditor wants to see what the AI was told to do. There are two versions of these rules in the folder, so you have to decide which one belongs in the packet."
+      todo: "Read the date near the top. Compare it with the other version before you decide."
+    type: doc
+    source: a3-system-instructions-v2.md
   - id: a4
     title: a4-review-sample-q2
+    about:
+      what: "A table of 12 answers from an AI tool, from April to June. Each answer has been marked for quality."
+      why: "Auditors want proof that someone really checked the quality of the AI's answers, and when."
+      todo: "Read the first column, 'workflow'. It tells you which AI tool the answers come from."
     type: table
     source: a4-review-sample-q2.csv
-  - {id: a5, title: a5-hitl-override-summary-q2, type: doc, source: a5-hitl-override-summary-q2.md}
-  - {id: a6, title: a6-remediation-plan-RA, type: doc, source: a6-remediation-plan-RA.md}
-  - {id: a7, title: a7-incident-history, type: doc, source: a7-incident-history.md}
+  - id: a5
+    title: a5-hitl-override-summary-q2
+    about:
+      what: "A summary of how often each of the five human reviewers disagreed with the AI, plus a note about the reviewers."
+      why: "Auditors want proof that the humans checking the AI were really checking. This summary is about that."
+      todo: "Read it. Then decide which section of the packet it belongs in."
+    type: doc
+    source: a5-hitl-override-summary-q2.md
+  - id: a6
+    title: a6-remediation-plan-RA
+    about:
+      what: "A plan to fix a problem with one reviewer, R-A, who almost never disagrees with the AI."
+      why: "Auditors do not only want to hear about problems. They want to see what you did about them."
+      todo: "Read it. Then decide which section of the packet it belongs in."
+    type: doc
+    source: a6-remediation-plan-RA.md
+  - id: a7
+    title: a7-incident-history
+    about:
+      what: "A list of past problems with PolicyPal and what was done about each one."
+      why: "Auditors want to see that when things went wrong, you noticed and you acted."
+      todo: "Read it. Then decide which section of the packet it belongs in."
+    type: doc
+    source: a7-incident-history.md
   - id: a8
     title: a8-finance-assistant-sample-q2
+    about:
+      what: "A table of marked answers from an AI tool, laid out just like the one in a4."
+      why: "The folder holds two tables like this. A packet about PolicyPal should only hold papers about PolicyPal."
+      todo: "Read the first column, 'workflow', to see which AI tool the answers come from."
     type: table
     source: a8-finance-assistant-sample-q2.csv
   - id: answer
     title: My Packet
+    about:
+      what: "The evidence packet itself. It is one big form. You use it to say which papers from the folder you would hand to an auditor, and where each one goes."
+      why: "An auditor is a person whose job is to check that a company really did what it says it did. This packet is your proof that the company really kept an eye on its AI."
+      todo: "Work through it from top to bottom, following the lab steps. Some files in the folder do not belong in the packet. That is on purpose."
     type: form
     heading: AI Evidence Packet
-    intro: "You have eight files and only some belong in the packet. For each of the six sections, choose the file that belongs, then record its date, the span of operation it covers, and where the exported copy is kept. If a section has no file, choose 'None in the folder' and record the gap."
+    intro: "You have eight files and only some belong in the packet. For each of the six sections, choose the file that belongs. If a section has no file, choose 'None in the folder' and record the gap."
     sections:
       - title: "Packet header"
         fields:
           - {id: workflow, kind: text, label: "Workflow"}
-          - {id: prepared, kind: text, label: "Prepared by"}
-          - {id: coverage, kind: text, label: "Packet coverage period", example: "2026-Q2"}
-          - {id: assembled, kind: text, label: "Date assembled"}
+          - {id: coverage, kind: text, label: "Packet coverage period"}
+          - {id: prepared, kind: text, label: "Prepared by, and the date assembled"}
       - title: "Known gaps"
         help: "If a section has no artifact, record what is missing, who owns producing it, and by when. Do not leave it silently blank."
         fields:
-          - {id: gaps, kind: textarea, rows: 3, label: "Known gaps", example: "Section 6 (change-control and approval log) is missing. Owner: the function that maintains the workflow's configuration records. Due before this packet is submitted."}
+          - {id: gaps, kind: textarea, rows: 3, label: "Known gaps"}
       - title: "1. Business purpose statement"
         fields:
-          - {id: s1-file, kind: select, label: "File", options: &files ["a1-business-purpose", "a2-system-instructions-v3", "a3-system-instructions-v2", "a4-review-sample-q2", "a5-hitl-override-summary-q2", "a6-remediation-plan-RA", "a7-incident-history", "a8-finance-assistant-sample-q2", "None in the folder"]}
-          - {id: s1-date, kind: text, label: "Date"}
-          - {id: s1-cover, kind: text, label: "Coverage period (the span of operation it evidences)"}
-          - {id: s1-keep, kind: text, label: "Retention location", example: "A named shared drive or governance system, not \"in Copilot\" and not \"the Purview audit log\"."}
+          - id: s1-file
+            kind: select
+            label: "File"
+            options: &files ["a1-business-purpose", "a2-system-instructions-v3", "a3-system-instructions-v2", "a4-review-sample-q2", "a5-hitl-override-summary-q2", "a6-remediation-plan-RA", "a7-incident-history", "a8-finance-assistant-sample-q2", "None in the folder"]
+          - {id: s1-when, kind: text, label: "Date and coverage period"}
       - title: "2. System instructions and baseline business rules"
         help: "Two files hold system instructions and business rules. Pick the current one by effective date."
         fields:
           - {id: s2-file, kind: select, label: "File", options: *files}
-          - {id: s2-date, kind: text, label: "Date"}
-          - {id: s2-cover, kind: text, label: "Coverage period"}
-          - {id: s2-keep, kind: text, label: "Retention location"}
-          - {id: excl-a3, kind: textarea, rows: 2, label: "The other system-instructions file: which is it, and why is it excluded?"}
+          - {id: s2-when, kind: text, label: "Date and coverage period"}
+          - id: excl-a3
+            kind: select
+            label: "Why is a3-system-instructions-v2 excluded?"
+            options: &why ["It is a superseded version of a file already included", "It belongs to a different workflow", "It is a duplicate of another file", "It is the wrong type of file"]
       - title: "3. Sampled review records and quality scores"
-        help: "One of the scored samples is not PolicyPal."
+        help: "One of the two scored samples is not PolicyPal."
         fields:
           - {id: s3-file, kind: select, label: "File", options: *files}
-          - {id: s3-date, kind: text, label: "Date"}
-          - {id: s3-cover, kind: text, label: "Coverage period"}
-          - {id: s3-keep, kind: text, label: "Retention location"}
-          - {id: excl-a8, kind: textarea, rows: 2, label: "The other scored sample: which is it, how did you know it is not PolicyPal, and why is it excluded?"}
+          - {id: s3-when, kind: text, label: "Date and coverage period"}
+          - {id: excl-a8, kind: select, label: "Why is a8-finance-assistant-sample-q2 excluded?", options: *why}
       - title: "4. HITL override summary and reviewer quality audit (first item)"
         fields:
           - {id: s4a-file, kind: select, label: "File", options: *files}
-          - {id: s4a-date, kind: text, label: "Date"}
-          - {id: s4a-cover, kind: text, label: "Coverage period"}
-          - {id: s4a-keep, kind: text, label: "Retention location"}
+          - {id: s4a-when, kind: text, label: "Date and coverage period"}
       - title: "4. HITL override summary and reviewer quality audit (second item)"
         fields:
           - {id: s4b-file, kind: select, label: "File", options: *files}
-          - {id: s4b-date, kind: text, label: "Date"}
-          - {id: s4b-cover, kind: text, label: "Coverage period"}
-          - {id: s4b-keep, kind: text, label: "Retention location"}
+          - {id: s4b-when, kind: text, label: "Date and coverage period"}
       - title: "5. Incident and escalation history"
         fields:
           - {id: s5-file, kind: select, label: "File", options: *files}
-          - {id: s5-date, kind: text, label: "Date"}
-          - {id: s5-cover, kind: text, label: "Coverage period"}
-          - {id: s5-keep, kind: text, label: "Retention location"}
+          - {id: s5-when, kind: text, label: "Date and coverage period"}
       - title: "6. Change-control and approval log"
         help: "Check the folder. If the log is not there, choose 'None in the folder' and make sure the gap is written into Known gaps above."
         fields:
           - {id: s6-file, kind: select, label: "File", options: *files}
-          - {id: s6-date, kind: text, label: "Date", required: false}
-          - {id: s6-cover, kind: text, label: "Coverage period", required: false}
-          - {id: s6-keep, kind: text, label: "Retention location", required: false}
-      - title: "The auditor test"
-        help: "Hand the packet to someone cold. Can they tell that oversight happened for the whole coverage period?"
+      - title: "Where the exported copies are kept"
+        help: "The AI platforms keep roughly 180 days of exportable data. This packet has to outlast that."
         fields:
-          - {id: weakest, kind: textarea, rows: 2, label: "Which section is the weakest, and how would you strengthen it?"}
+          - id: keep
+            kind: select
+            label: "Where should the exported copies of these items be kept?"
+            options: ["GRC evidence library / PolicyPal / 2026", "Copilot audit log", "Purview", "Claude workspace"]

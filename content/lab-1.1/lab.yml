@@ -2,10 +2,18 @@ title: Set the Business Quality Standard for a Deployed AI Workflow
 tabs:
   - id: intake
     title: Intake Record
+    about:
+      what: "A fact sheet about PolicyPal, the AI assistant that has just been handed to you. It says what PolicyPal is, when it started, how risky it is rated, and how many people use it."
+      why: "You cannot look after something until you know the basics about it. The person who had this job before you filled this sheet in."
+      todo: "Read it from top to bottom. Find the line called 'Assigned risk tier'. You will need that rating in a few steps."
     type: doc
     source: intake-record.md
   - id: issues
     title: Open Issues
+    about:
+      what: "A list of eight problems that people have reported about PolicyPal. Each row is one problem."
+      why: "Some problems are yours to fix, because they are about rules, content, or what people do. Others belong to the tech team, because they are about the computer systems. If you send a problem to the wrong person, nobody fixes it."
+      todo: "Read all eight problems first. Then use the drop-down in the last column to pick who owns each one."
     type: table
     source: open-issues.csv
     note: "Fill in the Owner column for all eight issues."
@@ -14,10 +22,18 @@ tabs:
         options: ["Business AI Owner", "Platform / technical owner"]
   - id: cadence
     title: Review Cadence
+    about:
+      what: "A small chart. It says how often an AI tool must be checked, and how many of its answers must be checked each time, depending on how risky the tool is."
+      why: "Riskier tools get checked more often and more carefully. You do not get to choose. You look it up."
+      todo: "Find the row that matches PolicyPal's risk rating from the Intake Record. Then note the two things that row tells you."
     type: doc
     source: review-cadence.md
   - id: answer
     title: My Answer
+    about:
+      what: "Your own form. This is where you write the rulebook for PolicyPal. The rulebook is called a Business Quality Standard."
+      why: "A rulebook says what a good answer from PolicyPal looks like and what it must never do. Later, anyone can check PolicyPal's real answers against your rulebook."
+      todo: "Fill in the boxes from top to bottom. The lab steps tell you which part to fill in and when. Everything saves by itself."
     type: form
     heading: Business Quality Standard
     intro: "Fill in every section. Keep entries short and checkable: a colleague should be able to apply this standard tomorrow without asking you a question."

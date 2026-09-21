@@ -102,6 +102,23 @@ field. `required: false` makes a field optional.
 | `editable` | Columns students fill in with a dropdown. Options are strings, or `{value, label}` pairs. |
 | `scorecard` | Shows a live Business Quality Score panel from per-criterion 0/1 columns (see Labs 2.1 and 2.2). |
 
+**Every tab needs an `about` box.** It is the blue box at the top of the tab, in plain words, for a
+student who has no idea what they are looking at. `what` says what the document is, `why` says why they
+are looking at it, and `todo` (optional) says what to do there. The check refuses to build a tab without
+`what` and `why`, so a new tab cannot ship unexplained. Write it as if for someone who has never seen
+the subject: short sentences, no jargon, and explain any term you have to use.
+
+```yaml
+- id: intake
+  title: Intake Record
+  about:
+    what: "A fact sheet about PolicyPal, the AI assistant you have just been put in charge of."
+    why: "You cannot look after something until you know the basics about it."
+    todo: "Read it from top to bottom."
+  type: doc
+  source: intake-record.md
+```
+
 **Optional tabs and reused forms:** `optional: true` keeps a tab out of the progress count (used
 for Bronze challenges). `sections_from: <tab id>` copies another form's questions, with
 `id_prefix:` keeping the saved answers separate and `hide_examples: true` dropping the examples.

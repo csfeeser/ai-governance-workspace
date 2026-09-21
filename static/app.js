@@ -116,7 +116,18 @@ function renderLab() {
     h("div", { id: "panelwrap", style: "display:flex;flex-direction:column;flex:1;min-height:0" },
       h("div", { class: "tabbar-tools" }, saved, h("span", { class: "spacer" }),
         h("button", { class: "btn", onclick: () => savePdf(tab) }, "Save as PDF")),
-      h("div", { id: "panel" }, renderTab(tab))));
+      h("div", { id: "panel" }, aboutBox(tab.about), renderTab(tab))));
+}
+
+// The plain-language box at the top of every tab: what this is, why it is here, what to do.
+function aboutBox(a) {
+  if (!a) return null;
+  const row = (label, text) => text && h("p", {}, h("strong", {}, label + " "), text);
+  return h("details", { class: "about", open: true },
+    h("summary", { class: "about-title" }, "About this tab (click here to hide or show this box)"),
+    row("What this is:", a.what),
+    row("Why you are looking at it:", a.why),
+    row("What to do here:", a.todo));
 }
 
 function renderTab(tab) {

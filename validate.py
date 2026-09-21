@@ -23,7 +23,8 @@ FIELD_KINDS = {"text", "textarea", "select", "lines"}
 LAB_KEYS = {"title", "tabs"}
 TAB_KEYS = {"id", "title", "type", "optional", "source", "note", "computed", "hide", "labels",
             "editable", "summary", "scorecard", "heading", "intro", "sections", "sections_from",
-            "id_prefix", "hide_examples"}
+            "id_prefix", "hide_examples", "about"}
+ABOUT_KEYS = {"what", "why", "todo"}
 SECTION_KEYS = {"title", "help", "fields"}
 FIELD_KEYS = {"id", "kind", "label", "example", "rows", "required", "options", "count", "min", "item"}
 
@@ -298,6 +299,15 @@ def check_lab(lab_id, lab_dir, rep):
             continue
         if list(t.get("id") for t in tabs if isinstance(t, dict)).count(tab["id"]) > 1 and tabs_by_id.get(tab["id"]) is not tab:
             rep.error(where, "this tab id is used more than once in the lab")
+        about = tab.get("about")
+        if not isinstance(about, dict):
+            rep.error(where, "needs an 'about' box: a short plain-language note at the top of the tab saying "
+                             "'what' this is and 'why' the student is looking at it (optionally 'todo')")
+        else:
+            check_unknown_keys(about, ABOUT_KEYS, f"{where} > about", rep)
+            for key in ("what", "why"):
+                if not str(about.get(key) or "").strip():
+                    rep.error(f"{where} > about", f"needs a non-empty '{key}'")
         if not tab.get("title"):
             rep.error(where, "needs a 'title' (the name students click)")
         elif tab["title"] in titles:

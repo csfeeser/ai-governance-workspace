@@ -2,62 +2,82 @@ title: Triage and Route Five Incidents
 tabs:
   - id: incidents
     title: Incident Log
+    about:
+      what: "Five short stories about things that went wrong with AI tools at a company."
+      why: "You have to sort them. For each one you decide what kind of problem it is, who should deal with it, and how quickly."
+      todo: "Read all five before you do anything else. Some of them only make sense once you have read the others."
     type: doc
     source: incidents.md
   - id: answer
     title: My Triage
+    about:
+      what: "Your sorting sheet. For each problem you pick the kind of problem it is, the person who should deal with it, and what to do next."
+      why: "Sorting problems quickly and sending each one to the right person is the whole job. Doing it well stops small problems from turning into big ones."
+      todo: "Use the drop-down menus. Follow the lab steps and do one incident at a time."
     type: form
-    heading: Triage Table
-    intro: "Read all five incidents on the Incident Log tab before you classify any. For each incident choose a category, give a one-line reason, and route it to an owner named by what they are responsible for, not by department."
+    heading: Triage
+    intro: "Read all five incidents on the Incident Log tab before you classify any. For each incident, choose a category, the responsible owner, and what to do. Name the owner by what they are responsible for, not by department."
     sections:
       - title: "Incident 1"
         fields:
-          - {id: i1-cat, kind: select, label: "Category", options: &cats ["Business rule", "Business content", "Security or privacy", "Technical or vendor", "Risk or compliance"]}
-          - {id: i1-why, kind: text, label: "One-line reason"}
-          - {id: i1-owner, kind: text, label: "Responsible owner (by responsibility)", example: "The team that runs the affected process or maintains the affected thing."}
-          - {id: i1-urg, kind: select, label: "Urgency", options: &urg ["Immediate", "Elevated", "Routine"]}
-          - {id: i1-esc, kind: select, label: "Escalate now?", options: &esc ["Yes, escalate now", "No, monitor and log"]}
-          - {id: i1-stall, kind: text, label: "If the route stalls, what is your next move?"}
+          - id: i1-cat
+            kind: select
+            label: "Category"
+            options: &cats ["Business rule", "Business content", "Security or privacy", "Technical or vendor", "Risk or compliance"]
+          - id: i1-owner
+            kind: select
+            label: "Responsible owner"
+            options: &owners
+              - "The team that owns the HR policy library"
+              - "The IT department"
+              - "The team responsible for the platform and the vendor relationship"
+              - "The HR department"
+              - "The information-security function, with the legal function notified"
+              - "The legal department"
+              - "The risk and compliance function"
+              - "The team responsible for the affected technology"
+          - id: i1-action
+            kind: select
+            label: "Action"
+            options: &acts ["Escalate immediately", "Escalate now", "Monitor and log, do not escalate yet"]
       - title: "Incident 2"
         fields:
           - {id: i2-cat, kind: select, label: "Category", options: *cats}
-          - {id: i2-why, kind: text, label: "One-line reason"}
-          - {id: i2-owner, kind: text, label: "Responsible owner (by responsibility)"}
-          - {id: i2-urg, kind: select, label: "Urgency", options: *urg}
-          - {id: i2-esc, kind: select, label: "Escalate now?", options: *esc}
-          - {id: i2-stall, kind: text, label: "If the route stalls, what is your next move?"}
+          - {id: i2-owner, kind: select, label: "Responsible owner", options: *owners}
+          - {id: i2-action, kind: select, label: "Action", options: *acts}
       - title: "Incident 3"
-        help: "Security or privacy incidents do not wait for the monthly review. Flag the urgency."
+        help: "Security or privacy incidents do not wait for the monthly review."
         fields:
           - {id: i3-cat, kind: select, label: "Category", options: *cats}
-          - {id: i3-why, kind: text, label: "One-line reason"}
-          - {id: i3-owner, kind: text, label: "Responsible owner (by responsibility)"}
-          - {id: i3-urg, kind: select, label: "Urgency", options: *urg}
-          - {id: i3-esc, kind: select, label: "Escalate now?", options: *esc}
-          - {id: i3-stall, kind: text, label: "If the route stalls, what is your next move?"}
+          - {id: i3-owner, kind: select, label: "Responsible owner", options: *owners}
+          - {id: i3-action, kind: select, label: "Action", options: *acts}
       - title: "Incident 4"
-        help: "This one fits two categories. Write both readings before you pick one."
+        help: "This one fits two categories. Choose both, then decide which risk matters more."
         fields:
-          - {id: i4-read1, kind: text, label: "First reading (category and why)"}
-          - {id: i4-read2, kind: text, label: "Second reading (category and why)"}
-          - {id: i4-cat, kind: select, label: "Which category matters more?", options: *cats}
-          - {id: i4-why, kind: text, label: "Why does that risk dominate?"}
-          - {id: i4-owner, kind: text, label: "Responsible owner (by responsibility)"}
-          - {id: i4-urg, kind: select, label: "Urgency", options: *urg}
-          - {id: i4-esc, kind: select, label: "Escalate now?", options: *esc}
-          - {id: i4-stall, kind: text, label: "If the route stalls, what is your next move?"}
+          - {id: i4-cat, kind: select, label: "The category that matters more", options: *cats}
+          - {id: i4-other, kind: select, label: "The other category that also fits", options: *cats}
+          - {id: i4-owner, kind: select, label: "Responsible owner", options: *owners}
+          - {id: i4-action, kind: select, label: "Action", options: *acts}
+          - {id: i4-why, kind: text, label: "One line: why does that risk dominate?"}
       - title: "Incident 5"
-        help: "Decide whether this meets the bar to escalate now, and state your threshold."
         fields:
           - {id: i5-cat, kind: select, label: "Category", options: *cats}
-          - {id: i5-why, kind: text, label: "One-line reason"}
-          - {id: i5-owner, kind: text, label: "Responsible owner (by responsibility)"}
-          - {id: i5-urg, kind: select, label: "Urgency", options: *urg}
-          - {id: i5-esc, kind: select, label: "Escalate now?", options: *esc}
-          - {id: i5-threshold, kind: text, label: "What threshold would make you escalate it?"}
-          - {id: i5-stall, kind: text, label: "If the route stalls, what is your next move?"}
-      - title: "Org-chart check"
-        help: "Re-read every responsible owner you wrote. If any names an actual department, rewrite it as a responsibility. Then choose the one incident you would escalate first."
+          - {id: i5-owner, kind: select, label: "Responsible owner", options: *owners}
+          - {id: i5-action, kind: select, label: "Action", options: *acts}
+          - {id: i5-threshold, kind: text, label: "What would have to change for you to escalate this now?"}
+      - title: "If the route stalls"
+        help: "Routing is a handoff, not a resolution. The owner does not respond, disputes that they own it, or no one owns the affected thing."
         fields:
-          - {id: first, kind: select, label: "The one incident you escalate first", options: ["Incident 1", "Incident 2", "Incident 3", "Incident 4", "Incident 5"]}
-          - {id: first-why, kind: text, label: "Why (impact combined with urgency)"}
+          - id: stall
+            kind: select
+            label: "Your first move"
+            options:
+              - "Re-route by responsibility"
+              - "Take an unowned risk to the risk and compliance function"
+              - "Escalate to whoever the owner reports to"
+              - "Log the gap with a dated follow-up"
+              - "Wait for the next monthly review"
+      - title: "Escalate first"
+        fields:
+          - {id: first, kind: select, label: "The one incident you would escalate first", options: ["Incident 1", "Incident 2", "Incident 3", "Incident 4", "Incident 5"]}
+          - {id: first-why, kind: text, label: "One line: why? (impact combined with urgency)"}

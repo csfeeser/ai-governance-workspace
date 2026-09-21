@@ -2,26 +2,48 @@ title: The Remediation Plan
 tabs:
   - id: finding
     title: Finding
+    about:
+      what: "A short report about one reviewer, called R-A, who almost never disagrees with the AI."
+      why: "This is the problem you are going to write a plan to fix."
+      todo: "Read it once, slowly. Notice the two key numbers: R-A disagrees with the AI 2% of the time, while the team average is 18%."
     type: doc
     source: finding.md
   - id: answer
     title: Remediation Plan
+    about:
+      what: "A plan form. A plan says what is wrong, what will be done about it, who will do it, and how you will know it worked."
+      why: "Auditors do not accept a plan that only says 'we will do better'. They want a date and a number that show whether it worked."
+      todo: "Fill in the boxes from top to bottom, following the lab steps."
     type: form
     heading: Remediation Plan
     intro: "Fill every field. The test of a good plan: someone else, a month from now, can look at the verification section and say plainly whether the fix worked."
     sections:
       - title: "Name the real problem"
-        help: "The problem is not that a person is a bad reviewer. Write the distinction before you start the plan."
+        help: "The problem is not that a person is a bad reviewer. Choose the statement that describes the real problem."
         fields:
-          - {id: real, kind: textarea, rows: 2, label: "What is the real problem, in terms of how the process works?"}
+          - id: real
+            kind: select
+            label: "What is the real problem?"
+            options:
+              - "The reviewer is at fault and should be replaced"
+              - "The review process is not producing consistent, independent judgment"
+              - "The AI is at fault"
       - title: "1. Finding"
         help: "One sentence: the real problem, stated as a process or control gap, not as a person."
         fields:
-          - {id: finding, kind: textarea, rows: 3, label: "Finding", example: "Approvals from reviewer R-A are not receiving independent review: R-A's override rate is 2% against a team average of 18%, with a near-zero rate in every week and case type."}
+          - {id: finding, kind: textarea, rows: 3, label: "Finding"}
       - title: "2. Action"
-        help: "The plan's first step is a second reviewer re-scoring a sample of R-A's recent approvals, to establish whether independent judgment is actually missing. Then pick the action that follows and justify it in a line: targeted re-training on the review standard, ongoing second-review sampling, workload rebalancing, or reassignment."
+        help: "The plan's first step is a second reviewer re-scoring a sample of the reviewer's recent decisions. Choose the action that follows."
         fields:
-          - {id: action, kind: textarea, rows: 4, label: "The corrective step, with a one-line justification"}
+          - id: action
+            kind: select
+            label: "Corrective action"
+            options:
+              - "Targeted re-training on the review standard"
+              - "Ongoing second-review sampling"
+              - "Workload rebalancing"
+              - "Reassignment"
+          - {id: action_why, kind: text, required: false, label: "One line: why does this action address the finding?"}
       - title: "3. Owner"
         help: "Named by responsibility: the function that runs the human review process for this workflow, not a personal name."
         fields:
@@ -37,17 +59,17 @@ tabs:
       - title: "6. Verification: measurable target"
         help: "The exact number, at the exact value, that will mean the finding is resolved."
         fields:
-          - {id: target, kind: textarea, rows: 3, label: "Measurable target", example: "R-A's override rate within 5 points of the team average, and zero recurrence of approving cases that peers override on the same case type, over a two-week sample."}
+          - {id: target, kind: textarea, rows: 3, label: "Measurable target"}
       - title: "7. Verification: evidence"
         help: "What data the re-check will pull to test the target."
         fields:
           - {id: evidence, kind: textarea, rows: 2, label: "Evidence"}
-      - title: "8. Distribution"
-        help: "Who receives a copy."
-        fields:
-          - {id: distribution, kind: text, label: "Distribution"}
   - id: bronze
     title: "Bronze: Plan for R-B"
+    about:
+      what: "A bonus form for a second plan. This one is about a different reviewer, called R-B, who disagrees with the AI far more often than everyone else."
+      why: "Optional practice at writing a plan for a different kind of problem."
+      todo: "Only do this if you want the extra challenge."
     type: form
     optional: true
     sections_from: answer

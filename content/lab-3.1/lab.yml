@@ -2,6 +2,10 @@ title: Reviewer Metrics and Anomaly Detection
 tabs:
   - id: log
     title: Reviewer Log
+    about:
+      what: "A list of 212 decisions made by five human reviewers over 30 days. Each row shows what the AI wanted to do, what the human reviewer decided, and who the reviewer was."
+      why: "Having a human check the AI only helps if the human is really checking. This list lets you spot a reviewer who might just be clicking 'approve' on everything."
+      todo: "Use the 'Group by' menu to see totals for each reviewer or each week. The 'override' column is already filled in for you: 1 means the human disagreed with the AI, and 0 means they agreed."
     type: table
     source: reviewer-log.csv
     note: "Each row is one human review decision over 30 days. The override column is already calculated: 1 means the human disagreed with the AI. Use Group by to see rates by reviewer, week, or case type."
@@ -10,22 +14,24 @@ tabs:
     summary: {column: override, label: overrides}
   - id: answer
     title: My Findings
+    about:
+      what: "Your notes page for this lab. It is where you write down what the numbers showed."
+      why: "Numbers only help if you say what they mean. This page is where you say it."
+      todo: "Fill it in as the lab steps tell you to. Everything saves by itself."
     type: form
     heading: Reviewer Findings
     intro: "Record what the numbers show. Give the figure that supports each finding."
     sections:
       - title: "Overall"
         fields:
-          - {id: overall, kind: text, label: "Overall override rate (%)", example: "18"}
+          - {id: overall, kind: text, label: "Overall override rate (%)"}
       - title: "Low-override outlier"
         fields:
-          - {id: low_who, kind: text, label: "Reviewer"}
-          - {id: low_rate, kind: text, label: "Override rate (%)"}
-          - {id: low_test, kind: textarea, rows: 3, label: "Test the easy-queue explanation: what do you see within case types and weeks, and what one check would settle it?"}
+          - {id: low, kind: text, label: "Reviewer and override rate"}
+          - {id: low_test, kind: textarea, rows: 3, label: "What do the case-type and week views show, and what one check would settle it?"}
       - title: "High-override outlier"
         fields:
-          - {id: high_who, kind: text, label: "Reviewer"}
-          - {id: high_rate, kind: text, label: "Override rate (%)"}
+          - {id: high, kind: text, label: "Reviewer and override rate"}
           - {id: high_test, kind: textarea, rows: 2, label: "Is it the reviewer or the AI? What did you compare?"}
       - title: "Weekly trend"
         fields:
@@ -33,5 +39,4 @@ tabs:
       - title: "Duplicate cases"
         help: "Filter case_id for DUP- to see the six pairs."
         fields:
-          - {id: dup_who, kind: text, label: "Reviewer who decided a duplicate case two different ways"}
-          - {id: dup_count, kind: text, label: "How many of their pairs were inconsistent?"}
+          - {id: dup, kind: text, label: "Reviewer who decided a duplicate case two different ways, and how many of their pairs were inconsistent"}

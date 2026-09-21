@@ -2,10 +2,18 @@ title: The Auditor's Read
 tabs:
   - id: packet
     title: Submitted Packet
+    about:
+      what: "A finished evidence packet that somebody else put together."
+      why: "This time you are the auditor. An auditor is a person who checks a company's proof. Read it as someone who does not trust it yet: is there enough here to believe the company really watched over its AI?"
+      todo: "Read all of it. Do not fix anything. Just notice what is wrong or missing."
     type: doc
     source: submitted-packet.md
   - id: answer
     title: Auditor Findings
+    about:
+      what: "Your report on the packet: what is wrong with it, which problem is the worst, and whether you would accept it."
+      why: "A finding is a problem that an auditor writes down. Writing findings clearly is how you make sure the company fixes them."
+      todo: "Fill it in from top to bottom, following the lab steps."
     type: form
     heading: Auditor Findings
     intro: "Read the packet as an auditor would. The question is not whether it is neat, but whether there is enough here to believe oversight happened."
@@ -21,29 +29,29 @@ tabs:
           - {id: c6, kind: select, label: "6. Change-control and approval log", options: *comp}
       - title: "Finding 1"
         fields:
-          - {id: f1-what, kind: textarea, rows: 2, label: "What is wrong"}
-          - {id: f1-why, kind: textarea, rows: 2, label: "Why an auditor cares"}
-          - {id: f1-fix, kind: textarea, rows: 2, label: "What would fix it"}
+          - {id: f1-where, kind: select, label: "Where in the packet is it?", options: &where ["Section 1", "Section 2", "Section 3", "Section 4", "Section 5", "Section 6", "The retention-location column across the whole index"]}
+          - {id: f1-what, kind: textarea, rows: 3, label: "What is wrong, why an auditor cares, and what would fix it"}
       - title: "Finding 2"
         fields:
-          - {id: f2-what, kind: textarea, rows: 2, label: "What is wrong"}
-          - {id: f2-why, kind: textarea, rows: 2, label: "Why an auditor cares"}
-          - {id: f2-fix, kind: textarea, rows: 2, label: "What would fix it"}
+          - {id: f2-where, kind: select, label: "Where in the packet is it?", options: *where}
+          - {id: f2-what, kind: textarea, rows: 3, label: "What is wrong, why an auditor cares, and what would fix it"}
       - title: "Finding 3"
         fields:
-          - {id: f3-what, kind: textarea, rows: 2, label: "What is wrong"}
-          - {id: f3-why, kind: textarea, rows: 2, label: "Why an auditor cares"}
-          - {id: f3-fix, kind: textarea, rows: 2, label: "What would fix it"}
+          - {id: f3-where, kind: select, label: "Where in the packet is it?", options: *where}
+          - {id: f3-what, kind: textarea, rows: 3, label: "What is wrong, why an auditor cares, and what would fix it"}
       - title: "Rank by severity"
         fields:
           - {id: worst, kind: select, label: "Most severe finding", options: ["Finding 1", "Finding 2", "Finding 3"]}
-          - {id: worst-why, kind: text, label: "One-line reason for the top rank"}
       - title: "Your decision"
         fields:
           - {id: accept, kind: select, label: "Would you accept the packet as it stands?", options: ["Yes, accept as it stands", "No, do not accept yet"]}
           - {id: accept-why, kind: text, label: "One line: why, and what it needs"}
   - id: challenges
     title: Challenges
+    about:
+      what: "Three optional bonus questions, called bronze, silver and gold."
+      why: "For people who finish early. Nobody has to do them."
+      todo: "Type your answers here if you try them."
     type: form
     optional: true
     heading: Challenges
