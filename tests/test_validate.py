@@ -108,7 +108,7 @@ class ValidateContent(unittest.TestCase):
         self.assertTrue(any("lab-9.9" in w for w in rep.warnings))
 
     def test_lines_min_greater_than_count(self):
-        self.edit("lab-1.1/lab.yml", "count: 3, min: 2, item: \"Criterion\"", "count: 3, min: 5, item: \"Criterion\"")
+        self.edit("lab-1.1/lab.yml", "{id: tier, kind: text, label: \"Risk tier\"}", "{id: tier, kind: lines, count: 3, min: 5, item: \"Tier\"}")
         self.assertCaught("'min'")
 
     def test_command_line_exit_codes(self):
