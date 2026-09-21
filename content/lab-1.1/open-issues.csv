@@ -1,0 +1,9 @@
+#,raised,description,owner
+1,2026-06-14,"The assistant sometimes cites ""PTO Policy 2023"" instead of the current 2025 version. The 2023 document is still present in the SharePoint source.",
+2,2026-06-19,There is no defined trigger for handing accommodation or protected-leave questions to a human. The assistant answers them directly.,
+3,2026-06-21,Two employees asked the same expense question and were given different per-diem figures.,
+4,2026-06-25,Response latency spikes to 8–10 seconds around 9:00 each morning.,
+5,2026-06-27,IT changed the underlying model version last Tuesday. No notice was given to the workflow owner.,
+6,2026-06-28,"Some users in one region intermittently get an ""authentication failed"" error when opening the assistant.",
+7,2026-07-01,The assistant answered a question about statutory maternity leave with specific legal detail about entitlements and notice periods.,
+8,2026-07-02,"Users have asked that the assistant also draft the leave-request email for them, not just answer the policy question.",

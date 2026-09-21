@@ -1,0 +1,21 @@
+# Sidebar order. A lab with no `dir` shows as "coming soon".
+modules:
+  - title: "Module 1: The Business AI Owner's Role"
+    labs:
+      - {id: lab-1.1, dir: lab-1.1, title: "1.1 Set the Business Quality Standard"}
+  - title: "Module 2: Quality Auditing"
+    labs:
+      - {id: lab-2.1, title: "2.1 Baseline Re-Test and Business Quality Score"}
+      - {id: lab-2.2, title: "2.2 Diagnose the Degradation"}
+  - title: "Module 3: Human-in-the-Loop Oversight"
+    labs:
+      - {id: lab-3.1, dir: lab-3.1, title: "3.1 Reviewer Metrics and Anomaly Detection"}
+      - {id: lab-3.2, title: "3.2 The Remediation Plan"}
+  - title: "Module 4: The Escalation Matrix"
+    labs:
+      - {id: lab-4.1, title: "4.1 Triage and Route Five Incidents"}
+      - {id: lab-4.2, title: "4.2 Write the Escalation Ticket"}
+  - title: "Module 5: The Audit Hand-Off Packet"
+    labs:
+      - {id: lab-5.1, title: "5.1 Assemble the AI Evidence Packet"}
+      - {id: lab-5.2, title: "5.2 The Auditor's Read"}

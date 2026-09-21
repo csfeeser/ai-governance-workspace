@@ -1,0 +1,62 @@
+title: Set the Business Quality Standard for a Deployed AI Workflow
+tabs:
+  - id: intake
+    title: Intake Record
+    type: doc
+    source: intake-record.md
+  - id: issues
+    title: Open Issues
+    type: table
+    source: open-issues.csv
+    note: "Fill in the Owner column for all eight issues."
+    editable:
+      - column: owner
+        options: ["Business AI Owner", "Platform / technical owner"]
+  - id: cadence
+    title: Review Cadence
+    type: doc
+    source: review-cadence.md
+  - id: answer
+    title: My Answer
+    type: form
+    heading: Business Quality Standard
+    intro: "Fill in every section. Keep entries short and checkable: a colleague should be able to apply this standard tomorrow without asking you a question."
+    sections:
+      - title: "1. Workflow and purpose"
+        fields:
+          - {id: purpose, kind: textarea, rows: 2, label: "One sentence: what this workflow does and for whom.", example: "PolicyPal answers employee questions about company HR policy (PTO, benefits, expense, travel, conduct), grounded on the HR Policy Library."}
+      - title: "2. Risk tier, review cadence, and sample size"
+        help: "Read these from the Intake Record and Review Cadence tabs. You read these; you do not set them."
+        fields:
+          - {id: tier, kind: text, label: "Risk tier"}
+          - {id: cadence, kind: text, label: "Review cadence"}
+          - {id: sample, kind: text, label: "Baseline sample size"}
+      - title: "2b. Justify the two borderline issues"
+        help: "Pick the two issues on the Open Issues tab where the owner was not obvious. In one line each, say what makes your assignment correct."
+        fields:
+          - {id: just1, kind: textarea, rows: 2, label: "Borderline issue 1 (number and justification)"}
+          - {id: just2, kind: textarea, rows: 2, label: "Borderline issue 2 (number and justification)"}
+      - title: "3. What a correct answer looks like"
+        help: "2 or 3 concrete criteria a reviewer could mark yes or no."
+        fields:
+          - {id: correct, kind: lines, count: 3, min: 2, item: "Criterion", example: "Cites a named, current policy document by title and effective date."}
+      - title: "4. Business rules that must always hold"
+        help: "List 3, phrased as absolutes."
+        fields:
+          - {id: rules, kind: lines, count: 3, item: "Rule", example: "Never states a dollar figure or entitlement that is not written in current policy."}
+      - title: "5. Errors that are unacceptable"
+        help: "List 2 or 3."
+        fields:
+          - {id: errors, kind: lines, count: 3, min: 2, item: "Error", example: "Inventing a policy or a policy provision that does not exist."}
+      - title: "6. When a human must intervene"
+        help: "List the triggers that should stop the assistant and route the employee to a person."
+        fields:
+          - {id: triggers, kind: lines, count: 3, min: 1, item: "Trigger", example: "Any question about an accommodation or a protected leave."}
+      - title: "7. Tolerable inconsistency"
+        help: "One threshold, in plain language or as a percentage."
+        fields:
+          - {id: tolerance, kind: textarea, rows: 2, label: "Threshold", example: "Two employees who ask the same question must get the same entitlement figure, every time."}
+      - title: "8. Quality alarm level"
+        help: "The score that triggers a diagnosis. A floor, a maximum drop from the baseline, or both. Set it now, before you have a result to argue with."
+        fields:
+          - {id: alarm, kind: textarea, rows: 2, label: "Alarm level", example: "Investigate when the Business Quality Score is below 85, or drops more than 5 points from the recorded baseline."}

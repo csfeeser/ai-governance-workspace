@@ -1,0 +1,8 @@
+data
+data_test
+__pycache__
+lab-pages-draft
+*.pyc
+.github
+.git
+README.md

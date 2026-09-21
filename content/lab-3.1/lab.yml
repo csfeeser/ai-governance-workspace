@@ -1,0 +1,37 @@
+title: Reviewer Metrics and Anomaly Detection
+tabs:
+  - id: log
+    title: Reviewer Log
+    type: table
+    source: reviewer-log.csv
+    note: "Each row is one human review decision over 30 days. The override column is already calculated: 1 means the human disagreed with the AI. Use Group by to see rates by reviewer, week, or case type."
+    computed:
+      - {name: override, differs: [ai_decision, human_decision]}
+    summary: {column: override, label: overrides}
+  - id: answer
+    title: My Findings
+    type: form
+    heading: Reviewer Findings
+    intro: "Record what the numbers show. Give the figure that supports each finding."
+    sections:
+      - title: "Overall"
+        fields:
+          - {id: overall, kind: text, label: "Overall override rate (%)", example: "18"}
+      - title: "Low-override outlier"
+        fields:
+          - {id: low_who, kind: text, label: "Reviewer"}
+          - {id: low_rate, kind: text, label: "Override rate (%)"}
+          - {id: low_test, kind: textarea, rows: 3, label: "Test the easy-queue explanation: what do you see within case types and weeks, and what one check would settle it?"}
+      - title: "High-override outlier"
+        fields:
+          - {id: high_who, kind: text, label: "Reviewer"}
+          - {id: high_rate, kind: text, label: "Override rate (%)"}
+          - {id: high_test, kind: textarea, rows: 2, label: "Is it the reviewer or the AI? What did you compare?"}
+      - title: "Weekly trend"
+        fields:
+          - {id: trend, kind: textarea, rows: 2, label: "What does the week-over-week override rate show, and what would you check next?"}
+      - title: "Duplicate cases"
+        help: "Filter case_id for DUP- to see the six pairs."
+        fields:
+          - {id: dup_who, kind: text, label: "Reviewer who decided a duplicate case two different ways"}
+          - {id: dup_count, kind: text, label: "How many of their pairs were inconsistent?"}

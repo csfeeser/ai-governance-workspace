@@ -1,0 +1,77 @@
+name: Build and publish image
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  IMAGE: ghcr.io/csfeeser/ai-governance-workspace
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image (not pushed yet)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          load: true
+          tags: workspace-test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Smoke test
+        run: |
+          docker run -d --name t -p 2224:2224 -v testdata:/data workspace-test
+          for i in $(seq 1 30); do curl -sf localhost:2224/api/labs >/dev/null && break; sleep 1; done
+
+          # Every lab that is marked available must load.
+          curl -sf localhost:2224/api/labs | python3 -c "import sys,json; labs=[l for m in json.load(sys.stdin) for l in m['labs'] if l['available']]; assert labs, 'no labs available'; print(len(labs), 'labs available')"
+          curl -sf localhost:2224/ | grep -q "AI Governance Workspace"
+
+          # Save an answer, restart the container, and confirm it persisted on the volume.
+          curl -sf -X PUT -H 'Content-Type: application/json' \
+            -d '{"key":"f:purpose","value":"smoke test"}' localhost:2224/api/labs/lab-1.1/answers >/dev/null
+          docker restart t
+          for i in $(seq 1 30); do curl -sf localhost:2224/api/labs >/dev/null && break; sleep 1; done
+          curl -sf localhost:2224/api/labs/lab-1.1 | grep -q "smoke test"
+
+          # PDF export must return a real PDF for one tab of each type.
+          for tab in lab-1.1/intake lab-1.1/issues lab-1.1/answer lab-3.1/log; do
+            lab=${tab%%/*}; id=${tab##*/}
+            curl -sf "localhost:2224/api/labs/$lab/tabs/$id/pdf" | head -c 4 | grep -q '%PDF'
+          done
+          echo "smoke test passed"
+
+      - name: Show container logs on failure
+        if: failure()
+        run: docker logs t
+
+      - name: Push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:latest
+            ${{ env.IMAGE }}:${{ github.sha }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          cache-from: type=gha
