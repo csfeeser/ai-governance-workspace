@@ -10,15 +10,15 @@ tabs:
     type: table
     source: output-export.csv
     note: "Score each response against the four criteria on the Quality Standard tab. Choose Met or Not met in every box. The Business Quality Score panel updates as you go."
-    hide: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs]
+    hide: [date, baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs]
     labels:
       case_id: Case
       employee_question: Question
       assistant_response: Assistant response
       cited_source: Cited source
-      current_score_c1: "c1 Current, named source"
+      current_score_c1: "c1 Named source"
       current_score_c2: "c2 Exact figure"
-      current_score_c3: "c3 Answers the question"
+      current_score_c3: "c3 Answers question"
       current_score_c4: "c4 Human referral"
     editable:
       - {column: current_score_c1, options: &met [{value: "1", label: Met}, {value: "0", label: Not met}]}

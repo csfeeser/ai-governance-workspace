@@ -253,11 +253,14 @@ function renderTable(tab) {
       select("Group by", v => { ui.group = v; draw(); }, groupable),
       select("Split by", v => { ui.split = v; draw(); }, groupable));
   }
-  tools.append(h("button", { class: "btn", onclick: () => {
-    ui.sort = null; ui.filters = {}; ui.group = ""; ui.split = "";
-    tools.querySelectorAll("select").forEach(s => (s.value = ""));
-    draw();
-  } }, "Clear sort, filters and grouping"), count);
+  if (!Object.keys(editable).length) {
+    tools.append(h("button", { class: "btn", onclick: () => {
+      ui.sort = null; ui.filters = {}; ui.group = ""; ui.split = "";
+      tools.querySelectorAll("select").forEach(s => (s.value = ""));
+      draw();
+    } }, "Clear sort, filters and grouping"));
+  }
+  tools.append(count);
   root.append(tools, view);
 
   function filtered() {
@@ -282,6 +285,7 @@ function renderTable(tab) {
         draw();
       },
     }, label(c), ui.sort === c && h("span", { class: "arrow" }, ui.dir === 1 ? "▲" : "▼"))));
+    const hasFilters = !Object.keys(editable).length;
     const filters = h("tr", { class: "filters" }, cols.map(c => {
       if (c in editable) return h("th", {});
       let el;
@@ -295,7 +299,7 @@ function renderTable(tab) {
       return h("th", {}, el);
     }));
     const tbody = h("tbody", {});
-    const table = h("table", { class: "data" }, h("thead", {}, heads, filters), tbody);
+    const table = h("table", { class: "data" }, h("thead", {}, heads, hasFilters && filters), tbody);
 
     function drawBody() {
       const rs = filtered();
@@ -307,7 +311,7 @@ function renderTable(tab) {
       tbody.replaceChildren(...rs.map(({ r, i }) => h("tr", {}, cols.map(c => cell(r, i, c)))));
     }
     drawBody();
-    return h("div", { class: "tablewrap" }, table);
+    return h("div", { class: "tablewrap" + (card ? " with-card" : "") }, table);
   }
 
   function cell(r, i, c) {
@@ -368,7 +372,7 @@ function renderTable(tab) {
 // student's dropdown answers when that column is editable.
 function makeScorecard(tab) {
   const sc = tab.scorecard, editable = tab.editable || {};
-  const el = h("div", { class: "scorecard" });
+  const el = h("div", { class: "scorecard" + (Object.keys(editable).length ? " sticky" : "") });
   const cur = (i, col) => {
     const v = col in editable ? state.answers[`t:${tab.id}:${i}:${col}`] : tab.rows[i][col];
     return v === "1" ? 1 : v === "0" ? 0 : null;
@@ -403,6 +407,8 @@ function makeScorecard(tab) {
         stat("Recorded baseline", isNaN(baselineBqs) ? "\u2013" : String(baselineBqs)),
         stat("Change (points)", change === null ? "\u2013" : (change > 0 ? "+" : "") + change),
         stat("Responses below their own baseline", done ? `${below} of ${n}` : "\u2013")),
+      h("details", { class: "crit-details", open: !Object.keys(editable).length },
+        h("summary", {}, "How each criterion moved"),
       h("table", { class: "data crit" },
         h("thead", {}, h("tr", { class: "heads" },
           ["Criterion", "Passing now", "Passing at baseline", "Change"].map(x => h("th", { style: "cursor:default" }, x)))),
@@ -412,7 +418,7 @@ function makeScorecard(tab) {
             h("td", { class: "num" }, ready ? `${p.now} of ${n}` : "\u2013"),
             h("td", { class: "num" }, `${p.base} of ${n}`),
             h("td", { class: "num" }, ready ? (d > 0 ? "+" : "") + d : "\u2013"));
-        }))));
+        })))));
   }
   update();
   return { el, update };
