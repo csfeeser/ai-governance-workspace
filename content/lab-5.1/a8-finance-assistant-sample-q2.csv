@@ -1,0 +1,7 @@
+workflow,quarter,standard_version,case_id,date,employee_question,score_c1,score_c2,score_c3,bqs_q2
+FinanceAssistant,2026-Q2,"Finance Assistant Answer Standard v1 (2026-02-01)",FA-01,2026-04-10,"Mileage deduction rate",1,1,1,79
+FinanceAssistant,2026-Q2,"Finance Assistant Answer Standard v1 (2026-02-01)",FA-02,2026-04-24,"Meal expense category",1,0,1,
+FinanceAssistant,2026-Q2,"Finance Assistant Answer Standard v1 (2026-02-01)",FA-03,2026-05-08,"Client entertainment deductibility",0,0,1,
+FinanceAssistant,2026-Q2,"Finance Assistant Answer Standard v1 (2026-02-01)",FA-04,2026-05-22,"Per diem tax treatment",1,1,0,
+FinanceAssistant,2026-Q2,"Finance Assistant Answer Standard v1 (2026-02-01)",FA-05,2026-06-05,"Home office deduction",1,1,1,
+FinanceAssistant,2026-Q2,"Finance Assistant Answer Standard v1 (2026-02-01)",FA-06,2026-06-19,"Equipment depreciation",1,0,1,

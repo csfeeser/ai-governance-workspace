@@ -53,25 +53,64 @@ python server.py            # http://localhost:2224, data in ./data
 
 Or build the image: `docker build -t ai-governance-workspace .`
 
-## How a lab is defined
+## Editing labs
 
-Each lab is a folder in `content/` with a `lab.yml` listing its **fixed tabs**, in order.
-Tab titles are the names the course page tells students to click, so keep them in sync.
+Nearly everything is plain text in `content/`. To change a lab, edit its files, check them,
+and push. No code changes are needed for wording, data, questions or tab order.
+
+```bash
+python validate.py                 # checks every lab; prints plain-language problems
+python -m unittest discover -s tests   # tests the checker itself
+```
+
+**The check runs in CI before anything is built.** If `validate.py` finds an error, the
+workflow stops and no image is built or published. It catches bad YAML indentation, misspelled
+settings (with a "did you mean ...?" hint), missing files, columns that do not exist, duplicate
+field ids or tab names, dropdowns with no options, and ragged CSV rows. Warnings (for example a
+folder that is not listed in `labs.yml`) do not stop the build.
+
+To preview edits on a machine without rebuilding, mount the folder over the built-in copy. The
+server re-reads changed files on the next page load:
+
+```bash
+docker run --rm -p 2224:2224 -v "$(pwd)/content:/app/content" ai-governance-workspace
+```
+
+### How a lab is defined
+
+Each lab is a folder in `content/` with a `lab.yml` listing its **fixed tabs**, in order. Tab
+titles are the names the course page tells students to click, so keep them in sync. Register
+a lab in `content/labs.yml` by giving it a `dir`. Labs without one show as "soon".
 
 | Tab `type` | Source | Student can |
 |---|---|---|
 | `doc` | a Markdown file | read it |
 | `table` | a CSV file | sort, filter, group by / split by; fill `editable` columns with a dropdown |
-| `form` | `sections:` in `lab.yml` | type answers (autosaved); `example:` is shown above the field |
+| `form` | `sections:` in `lab.yml` | type or choose answers (autosaved) |
 
-Table options: `computed` adds pre-calculated columns (`differs: [a, b]` gives 1 when the
-columns differ), `summary` picks the 0/1 column that group-by rates are computed from.
-`lines` fields expand into N one-line inputs; `min` sets how many are required.
+**Form fields** (`kind:`): `text`, `textarea`, `select` (needs `options:`), and `lines` (expands
+into `count` one-line inputs, `min` of them required). `example:` shows a grey example above the
+field. `required: false` makes a field optional.
 
-Register a lab in `content/labs.yml` by giving it a `dir`. Labs without one show as "soon".
+**Table options:**
+
+| Setting | What it does |
+|---|---|
+| `computed` | Adds a calculated column: `differs: [a, b]` gives 1 when two columns differ, `sum: [a, b, c]` adds numeric columns. |
+| `summary` | Names the 0/1 column that Group by rates are calculated from. |
+| `hide` / `labels` | Hide columns, or rename headers for display. |
+| `editable` | Columns students fill in with a dropdown. Options are strings, or `{value, label}` pairs. |
+| `scorecard` | Shows a live Business Quality Score panel from per-criterion 0/1 columns (see Labs 2.1 and 2.2). |
+
+**Optional tabs and reused forms:** `optional: true` keeps a tab out of the progress count (used
+for Bronze challenges). `sections_from: <tab id>` copies another form's questions, with
+`id_prefix:` keeping the saved answers separate and `hide_examples: true` dropping the examples.
 
 **Keep field ids stable.** Saved answers are keyed by lab and field id. Renaming an id in
 `lab.yml` orphans any answer a student already saved under the old one.
+
+Anything not listed here (a new calculation, a new kind of field) is a change to `server.py`
+or `static/app.js`, not a content edit.
 
 ## Behaviour to know
 

@@ -1,0 +1,11 @@
+case_id,date,employee_question,assistant_response,cited_source,cited_source_effective,baseline_score_c1,baseline_score_c2,baseline_score_c3,baseline_score_c4,baseline_bqs,current_score_c1,current_score_c2,current_score_c3,current_score_c4
+BR-01,2026-08-02,"How many PTO days do I accrue in year two?","You accrue 15 PTO days per year in years one through four.","PTO Policy 2025",2025-01-01,1,1,1,1,95,1,1,1,1
+BR-02,2026-08-04,"What is the carryover cap for unused PTO?","The carryover cap is 5 days of unused PTO.","PTO Policy 2025",2025-01-01,1,1,1,1,,1,1,1,1
+BR-03,2026-08-06,"What is the mileage reimbursement rate?","The mileage reimbursement rate is $0.67 per mile.","Expense & Travel Policy 2025",2025-04-01,1,1,0,1,,1,1,0,1
+BR-04,2026-08-08,"How much notice for planned PTO?","Give at least two weeks' notice for planned PTO of three or more consecutive days.","PTO Policy 2025",2025-01-01,1,1,1,1,,1,1,1,1
+BR-05,2026-08-10,"How many bereavement days am I entitled to?","Bereavement leave is 5 working days per eligible event.","PTO Policy 2025",2025-01-01,1,1,1,1,,1,1,1,1
+BR-06,2026-08-12,"What is the domestic meal per diem?","The domestic meal per diem is $64 per day.","Expense & Travel Policy 2025",2025-04-01,1,1,1,0,,1,1,1,0
+BR-07,2026-08-18,"How many PTO days do I accrue in year two?","You accrue 12 PTO days per year in years one through four.","PTO Policy 2026",2026-08-15,1,1,1,1,,1,0,1,1
+BR-08,2026-08-20,"What is the carryover cap for unused PTO?","The carryover cap is 3 days of unused PTO.","PTO Policy 2026",2026-08-15,1,1,1,1,,1,0,1,1
+BR-09,2026-08-24,"How many bereavement days am I entitled to?","Bereavement leave is 3 working days per eligible event.","PTO Policy 2026",2026-08-15,1,1,1,1,,1,0,1,1
+BR-10,2026-08-27,"How many PTO days do I get from year five onward?","You accrue 18 PTO days per year from year five onward.","PTO Policy 2026",2026-08-15,1,1,1,1,,1,0,1,1

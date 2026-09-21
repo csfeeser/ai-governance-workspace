@@ -1,0 +1,83 @@
+title: Assemble the AI Evidence Packet
+tabs:
+  - {id: a1, title: a1-business-purpose, type: doc, source: a1-business-purpose.md}
+  - {id: a2, title: a2-system-instructions-v3, type: doc, source: a2-system-instructions-v3.md}
+  - {id: a3, title: a3-system-instructions-v2, type: doc, source: a3-system-instructions-v2.md}
+  - id: a4
+    title: a4-review-sample-q2
+    type: table
+    source: a4-review-sample-q2.csv
+  - {id: a5, title: a5-hitl-override-summary-q2, type: doc, source: a5-hitl-override-summary-q2.md}
+  - {id: a6, title: a6-remediation-plan-RA, type: doc, source: a6-remediation-plan-RA.md}
+  - {id: a7, title: a7-incident-history, type: doc, source: a7-incident-history.md}
+  - id: a8
+    title: a8-finance-assistant-sample-q2
+    type: table
+    source: a8-finance-assistant-sample-q2.csv
+  - id: answer
+    title: My Packet
+    type: form
+    heading: AI Evidence Packet
+    intro: "You have eight files and only some belong in the packet. For each of the six sections, choose the file that belongs, then record its date, the span of operation it covers, and where the exported copy is kept. If a section has no file, choose 'None in the folder' and record the gap."
+    sections:
+      - title: "Packet header"
+        fields:
+          - {id: workflow, kind: text, label: "Workflow"}
+          - {id: prepared, kind: text, label: "Prepared by"}
+          - {id: coverage, kind: text, label: "Packet coverage period", example: "2026-Q2"}
+          - {id: assembled, kind: text, label: "Date assembled"}
+      - title: "Known gaps"
+        help: "If a section has no artifact, record what is missing, who owns producing it, and by when. Do not leave it silently blank."
+        fields:
+          - {id: gaps, kind: textarea, rows: 3, label: "Known gaps", example: "Section 6 (change-control and approval log) is missing. Owner: the function that maintains the workflow's configuration records. Due before this packet is submitted."}
+      - title: "1. Business purpose statement"
+        fields:
+          - {id: s1-file, kind: select, label: "File", options: &files ["a1-business-purpose", "a2-system-instructions-v3", "a3-system-instructions-v2", "a4-review-sample-q2", "a5-hitl-override-summary-q2", "a6-remediation-plan-RA", "a7-incident-history", "a8-finance-assistant-sample-q2", "None in the folder"]}
+          - {id: s1-date, kind: text, label: "Date"}
+          - {id: s1-cover, kind: text, label: "Coverage period (the span of operation it evidences)"}
+          - {id: s1-keep, kind: text, label: "Retention location", example: "A named shared drive or governance system, not \"in Copilot\" and not \"the Purview audit log\"."}
+      - title: "2. System instructions and baseline business rules"
+        help: "Two files hold system instructions and business rules. Pick the current one by effective date."
+        fields:
+          - {id: s2-file, kind: select, label: "File", options: *files}
+          - {id: s2-date, kind: text, label: "Date"}
+          - {id: s2-cover, kind: text, label: "Coverage period"}
+          - {id: s2-keep, kind: text, label: "Retention location"}
+          - {id: excl-a3, kind: textarea, rows: 2, label: "The other system-instructions file: which is it, and why is it excluded?"}
+      - title: "3. Sampled review records and quality scores"
+        help: "One of the scored samples is not PolicyPal."
+        fields:
+          - {id: s3-file, kind: select, label: "File", options: *files}
+          - {id: s3-date, kind: text, label: "Date"}
+          - {id: s3-cover, kind: text, label: "Coverage period"}
+          - {id: s3-keep, kind: text, label: "Retention location"}
+          - {id: excl-a8, kind: textarea, rows: 2, label: "The other scored sample: which is it, how did you know it is not PolicyPal, and why is it excluded?"}
+      - title: "4. HITL override summary and reviewer quality audit (first item)"
+        fields:
+          - {id: s4a-file, kind: select, label: "File", options: *files}
+          - {id: s4a-date, kind: text, label: "Date"}
+          - {id: s4a-cover, kind: text, label: "Coverage period"}
+          - {id: s4a-keep, kind: text, label: "Retention location"}
+      - title: "4. HITL override summary and reviewer quality audit (second item)"
+        fields:
+          - {id: s4b-file, kind: select, label: "File", options: *files}
+          - {id: s4b-date, kind: text, label: "Date"}
+          - {id: s4b-cover, kind: text, label: "Coverage period"}
+          - {id: s4b-keep, kind: text, label: "Retention location"}
+      - title: "5. Incident and escalation history"
+        fields:
+          - {id: s5-file, kind: select, label: "File", options: *files}
+          - {id: s5-date, kind: text, label: "Date"}
+          - {id: s5-cover, kind: text, label: "Coverage period"}
+          - {id: s5-keep, kind: text, label: "Retention location"}
+      - title: "6. Change-control and approval log"
+        help: "Check the folder. If the log is not there, choose 'None in the folder' and make sure the gap is written into Known gaps above."
+        fields:
+          - {id: s6-file, kind: select, label: "File", options: *files}
+          - {id: s6-date, kind: text, label: "Date", required: false}
+          - {id: s6-cover, kind: text, label: "Coverage period", required: false}
+          - {id: s6-keep, kind: text, label: "Retention location", required: false}
+      - title: "The auditor test"
+        help: "Hand the packet to someone cold. Can they tell that oversight happened for the whole coverage period?"
+        fields:
+          - {id: weakest, kind: textarea, rows: 2, label: "Which section is the weakest, and how would you strengthen it?"}

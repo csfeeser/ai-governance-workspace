@@ -1,0 +1,117 @@
+title: Diagnose the Degradation and Document the Test
+tabs:
+  - id: sample
+    title: Scored Sample
+    type: table
+    source: sample.csv
+    note: "Every response is already scored. Click the date heading to sort by date and look for where the low scores start. The panel shows the Business Quality Score and how each criterion moved."
+    computed:
+      - {name: baseline_total, sum: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4]}
+      - {name: current_total, sum: [current_score_c1, current_score_c2, current_score_c3, current_score_c4]}
+    hide: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4]
+    labels:
+      case_id: Case
+      employee_question: Question
+      assistant_response: Assistant response
+      cited_source: Cited source
+      baseline_total: "Baseline score (of 4)"
+      current_total: "Current score (of 4)"
+    scorecard:
+      baseline_bqs: baseline_bqs
+      criteria:
+        - {label: "c1 Current, named source", current: current_score_c1, baseline: baseline_score_c1}
+        - {label: "c2 Exact figure or entitlement", current: current_score_c2, baseline: baseline_score_c2}
+        - {label: "c3 Answers the question asked", current: current_score_c3, baseline: baseline_score_c3}
+        - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
+  - id: activitylog
+    title: Activity Log
+    type: table
+    source: activity-log.csv
+    note: "The platform's activity log for the same period. Look at the model columns: ModelProviderName, ModelName and ModelVersion. Click CreationTime to sort by date."
+    hide: [Operation, AppIdentity, AgentName, SensitivityLabelId, XPIADetected, IsPrompt]
+  - id: answer
+    title: Test Record
+    type: form
+    heading: Quality Test Record
+    intro: "A third party should be able to read this record cold and know what was tested, how, and what you concluded."
+    sections:
+      - title: "Confirm the drop"
+        fields:
+          - {id: current, kind: text, label: "Current Business Quality Score"}
+          - {id: change, kind: text, label: "Change from the recorded baseline (points)"}
+          - {id: change_date, kind: text, label: "Date the quality drop begins"}
+      - title: "Rule out three of the four causes"
+        help: "The four causes are changed inputs, a vendor model update, a changed company policy, and a modified prompt. For each of the first three, say what you checked and what you found."
+        fields:
+          - {id: r_policy, kind: textarea, rows: 2, label: "Changed company policy: what did you check and find?"}
+          - {id: r_prompt, kind: textarea, rows: 2, label: "Modified prompt: what did you check and find?"}
+          - {id: r_inputs, kind: textarea, rows: 2, label: "Changed inputs: what did you check and find?"}
+      - title: "The vendor model update"
+        fields:
+          - {id: m_change, kind: textarea, rows: 2, label: "What changed in the model fields, and on what date?"}
+          - {id: m_gap, kind: text, label: "How far apart are the model change and the quality drop?"}
+          - {id: cause, kind: textarea, rows: 3, label: "State the cause in one sentence and cite the specific evidence (file, column, values).", example: "Cause: vendor model update on 2026-08-11. Evidence: in the activity log, ModelName changes from gpt-4o to gpt-55-high and ModelVersion from 2024-11-20 to 2025-06-15 on that date, one day before the Business Quality Score drop."}
+      - title: "What was tested"
+        fields:
+          - {id: tr_what, kind: textarea, rows: 2, label: "The workflow, and the baseline case set: ID range and count"}
+      - title: "When"
+        fields:
+          - {id: tr_when, kind: text, label: "The date this test was run"}
+      - title: "Against what standard"
+        fields:
+          - {id: tr_standard, kind: text, label: "The quality standard name and its version"}
+      - title: "Method"
+        fields:
+          - {id: tr_method, kind: textarea, rows: 3, label: "How the test was run and what was checked"}
+      - title: "Result"
+        fields:
+          - {id: tr_result, kind: textarea, rows: 3, label: "Current score against baseline, how many responses scored below their own baseline, and the criterion that moved most"}
+      - title: "Conclusion"
+        fields:
+          - {id: tr_conclusion, kind: textarea, rows: 3, label: "Degraded or not degraded. If degraded: the cause and the evidence you cite for it"}
+      - title: "Prepared by / date"
+        fields:
+          - {id: tr_by, kind: text, label: "Your name and today's date"}
+  - id: bronzesample
+    title: "Bronze: Second Sample"
+    type: table
+    optional: true
+    source: bronze-sample.csv
+    note: "Challenge. A second pre-scored sample from a different period. Diagnose its quality drop the same way. This time the fingerprint is in the cited_source_effective column."
+    computed:
+      - {name: baseline_total, sum: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4]}
+      - {name: current_total, sum: [current_score_c1, current_score_c2, current_score_c3, current_score_c4]}
+    hide: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4]
+    labels:
+      case_id: Case
+      employee_question: Question
+      assistant_response: Assistant response
+      cited_source: Cited source
+      cited_source_effective: "Source effective date"
+      baseline_total: "Baseline score (of 4)"
+      current_total: "Current score (of 4)"
+    scorecard:
+      baseline_bqs: baseline_bqs
+      criteria:
+        - {label: "c1 Current, named source", current: current_score_c1, baseline: baseline_score_c1}
+        - {label: "c2 Exact figure or entitlement", current: current_score_c2, baseline: baseline_score_c2}
+        - {label: "c3 Answers the question asked", current: current_score_c3, baseline: baseline_score_c3}
+        - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
+  - id: challenges
+    title: Challenges
+    type: form
+    optional: true
+    heading: Challenges
+    intro: "Optional. Each challenge stands alone."
+    sections:
+      - title: "Bronze"
+        help: "Which cause does the second sample point to, and what is your proof?"
+        fields:
+          - {id: bronze, kind: textarea, rows: 3, label: "Cause and evidence"}
+      - title: "Silver"
+        help: "A second real change is in the activity log in the same window as the model swap."
+        fields:
+          - {id: silver, kind: textarea, rows: 3, label: "What is it, and how does it compound the model change rather than replace it as the cause?"}
+      - title: "Gold"
+        fields:
+          - {id: gold, kind: textarea, rows: 5, label: "Five sentences for non-technical stakeholders: what changed, how you know, what it is costing, what you are asking for, and by when"}

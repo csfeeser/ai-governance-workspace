@@ -187,18 +187,23 @@ def doc_flowables(tab, st):
 
 
 def table_flowables(tab, st, answers):
-    cols = tab["columns"]
+    cols = [c for c in tab["columns"] if c not in tab["hide"]]
     editable = tab["editable"]
-    header = [Paragraph(escape(clean(c)), st["hcell"]) for c in cols]
+    labels = tab["labels"]
+    header = [Paragraph(escape(clean(labels.get(c, c))), st["hcell"]) for c in cols]
     data = [header]
     for i, row in enumerate(tab["rows"]):
         cells = []
         for c in cols:
-            val = answers.get(f"t:{tab['id']}:{i}:{c}", "") if c in editable else row[c]
+            if c in editable:
+                val = answers.get(f"t:{tab['id']}:{i}:{c}", "")
+                val = next((o["label"] for o in editable[c] if o["value"] == val), val)
+            else:
+                val = row[c]
             cells.append(Paragraph(escape(clean(val)), st["cell"]))
         data.append(cells)
     # Give wider columns to longer content (capped so one column cannot take the page).
-    weights = [26 if c in editable else max(6, min(60, max(len(c), *(len(r[c]) for r in tab["rows"]))))
+    weights = [26 if c in editable else max(6, min(60, max(len(labels.get(c, c)), *(len(r[c]) for r in tab["rows"]))))
                for c in cols]
     usable = (landscape(letter)[0] if len(cols) > 5 else letter[0]) - 1.2 * inch
     widths = [usable * w / sum(weights) for w in weights]
@@ -232,7 +237,7 @@ def render(lab_title, tab, answers):
     else:
         story = form_flowables(tab, st, answers)
 
-    wide = tab["type"] == "table" and len(tab["columns"]) > 5
+    wide = tab["type"] == "table" and len([c for c in tab["columns"] if c not in tab["hide"]]) > 5
     pagesize = landscape(letter) if wide else letter
     footer_text = clean(f"{lab_title} | {tab['title']} | {date.today().isoformat()}")
 

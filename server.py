@@ -71,8 +71,8 @@ def find_lab_entry(lab_id):
     return None
 
 
-def expand_fields(sections):
-    """Turn `lines` fields into N text inputs and mark which are required."""
+def expand_fields(sections, prefix="", optional=False, examples=True):
+    """Turn `lines` fields into N text inputs, apply an id prefix, and mark which are required."""
     out = []
     for sec in sections:
         fields = []
@@ -82,16 +82,23 @@ def expand_fields(sections):
                 required = f.get("min", count)
                 for i in range(1, count + 1):
                     fields.append({
-                        "id": f"{f['id']}-{i}",
+                        "id": f"{prefix}{f['id']}-{i}",
                         "kind": "text",
                         "label": f"{f.get('item', 'Item')} {i}",
-                        "example": f.get("example") if i == 1 else None,
-                        "required": i <= required,
+                        "example": f.get("example") if i == 1 and examples else None,
+                        "required": i <= required and not optional,
                     })
             else:
-                fields.append({**f, "required": f.get("required", True)})
+                fields.append({**f, "id": f"{prefix}{f['id']}",
+                               "example": f.get("example") if examples else None,
+                               "required": f.get("required", True) and not optional})
         out.append({"title": sec["title"], "help": sec.get("help"), "fields": fields})
     return out
+
+
+def normalize_options(options):
+    """Dropdown options may be plain strings or {value, label} pairs."""
+    return [o if isinstance(o, dict) else {"value": str(o), "label": str(o)} for o in options]
 
 
 def read_csv(path):
@@ -103,22 +110,29 @@ def build_table(lab_dir, tab):
     rows = read_csv(lab_dir / tab["source"])
     columns = list(rows[0].keys()) if rows else []
     for comp in tab.get("computed", []):
-        a, b = comp["differs"]
         for r in rows:
-            r[comp["name"]] = "1" if r[a] != r[b] else "0"
+            if "differs" in comp:
+                a, b = comp["differs"]
+                r[comp["name"]] = "1" if r[a] != r[b] else "0"
+            else:
+                r[comp["name"]] = str(sum(int(r[c] or 0) for c in comp["sum"]))
         columns.append(comp["name"])
-    editable = {e["column"]: e.get("options") for e in tab.get("editable", [])}
+    editable = {e["column"]: normalize_options(e["options"]) for e in tab.get("editable", [])}
     return {
         "columns": columns,
         "rows": rows,
         "editable": editable,
+        "hide": tab.get("hide", []),
+        "labels": tab.get("labels", {}),
         "summary": tab.get("summary"),
+        "scorecard": tab.get("scorecard"),
         "note": tab.get("note"),
     }
 
 
-def build_tab(lab_dir, tab):
-    base = {"id": tab["id"], "title": tab["title"], "type": tab["type"]}
+def build_tab(lab_dir, tab, raw_tabs):
+    base = {"id": tab["id"], "title": tab["title"], "type": tab["type"],
+            "optional": bool(tab.get("optional"))}
     if tab["type"] == "doc":
         text = (lab_dir / tab["source"]).read_text(encoding="utf-8")
         html = markdown.markdown(text, extensions=["tables", "sane_lists"])
@@ -126,23 +140,43 @@ def build_tab(lab_dir, tab):
     if tab["type"] == "table":
         return {**base, **build_table(lab_dir, tab)}
     if tab["type"] == "form":
+        sections = tab.get("sections")
+        if "sections_from" in tab:
+            sections = next(t for t in raw_tabs if t["id"] == tab["sections_from"])["sections"]
         return {
             **base,
             "heading": tab.get("heading", tab["title"]),
             "intro": tab.get("intro"),
-            "sections": expand_fields(tab["sections"]),
+            "sections": expand_fields(sections, tab.get("id_prefix", ""), base["optional"],
+                                     not tab.get("hide_examples")),
         }
     abort(500, f"unknown tab type {tab['type']}")
 
 
+_lab_cache = {}
+
+
+def _signature(lab_dir):
+    """Changes whenever any file in the lab folder (or labs.yml) is edited."""
+    files = [CONTENT / "labs.yml", *sorted(lab_dir.iterdir())]
+    return tuple((f.name, f.stat().st_mtime_ns) for f in files)
+
+
 def load_lab(lab_id):
+    """Parse a lab, reusing the last parse until a content file changes. Treat the result as read-only."""
     entry = find_lab_entry(lab_id)
     if not entry or "dir" not in entry:
         abort(404)
     lab_dir = CONTENT / entry["dir"]
+    sig = _signature(lab_dir)
+    cached = _lab_cache.get(lab_id)
+    if cached and cached[0] == sig:
+        return cached[1]
     manifest = load_yaml(lab_dir / "lab.yml")
-    tabs = [build_tab(lab_dir, t) for t in manifest["tabs"]]
-    return {"id": lab_id, "title": manifest["title"], "tabs": tabs}
+    tabs = [build_tab(lab_dir, t, manifest["tabs"]) for t in manifest["tabs"]]
+    lab = {"id": lab_id, "title": manifest["title"], "tabs": tabs}
+    _lab_cache[lab_id] = (sig, lab)
+    return lab
 
 
 def required_keys(lab):
@@ -152,7 +186,7 @@ def required_keys(lab):
         if tab["type"] == "form":
             for sec in tab["sections"]:
                 keys += [f"f:{f['id']}" for f in sec["fields"] if f["required"]]
-        elif tab["type"] == "table":
+        elif tab["type"] == "table" and not tab["optional"]:
             for col in tab["editable"]:
                 keys += [f"t:{tab['id']}:{i}:{col}" for i in range(len(tab["rows"]))]
     return keys
@@ -191,9 +225,8 @@ def api_labs():
 @app.get("/api/labs/<lab_id>")
 def api_lab(lab_id):
     lab = load_lab(lab_id)
-    for tab in lab["tabs"]:
-        tab.pop("markdown", None)
-    return jsonify({**lab, "answers": saved_answers(lab_id), "status": status_for(lab_id)})
+    tabs = [{k: v for k, v in tab.items() if k != "markdown"} for tab in lab["tabs"]]
+    return jsonify({**lab, "tabs": tabs, "answers": saved_answers(lab_id), "status": status_for(lab_id)})
 
 
 @app.put("/api/labs/<lab_id>/answers")

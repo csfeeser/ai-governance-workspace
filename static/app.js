@@ -1,8 +1,9 @@
 // AI Governance workspace front end. No build step, no dependencies.
 "use strict";
 
-const state = { labs: [], lab: null, tabId: null, answers: {}, saving: 0 };
+const state = { labs: [], lab: null, tabId: null, answers: {}, saving: 0, queued: 0 };
 const pending = new Map();   // key -> timeout id, for debounced saves
+let saveChain = Promise.resolve();   // saves go out one at a time so they cannot arrive out of order
 
 // ---------------------------------------------------------------- helpers
 
@@ -161,8 +162,14 @@ function queueSave(key, value) {
   pending.set(key, setTimeout(() => doSave(labId, key, value), 500));
 }
 
-async function doSave(labId, key, value) {
+function doSave(labId, key, value) {
   pending.delete(key);
+  state.queued++;
+  saveChain = saveChain.then(() => sendSave(labId, key, value));
+  return saveChain;
+}
+
+async function sendSave(labId, key, value) {
   state.saving++;
   try {
     const status = await api(`/api/labs/${labId}/answers`, {
@@ -171,16 +178,17 @@ async function doSave(labId, key, value) {
     });
     if (state.lab && state.lab.id === labId) state.lab.status = status;
     updateStatus(labId, status);
-    if (!pending.size) setSaved("✓ Saved", true);
+    if (!pending.size && state.queued === 1) setSaved("✓ Saved", true);
   } catch (e) {
     setSaved("Could not save. Check your connection.");
-  } finally { state.saving--; }
+  } finally { state.saving--; state.queued--; }
 }
 
 async function flushSaves() {
   const labId = state.lab && state.lab.id;
   const keys = [...pending.keys()];
-  for (const k of keys) { clearTimeout(pending.get(k)); await doSave(labId, k, state.answers[k] || ""); }
+  for (const k of keys) { clearTimeout(pending.get(k)); doSave(labId, k, state.answers[k] || ""); }
+  await saveChain;
 }
 
 // ---------------------------------------------------------------- forms
@@ -193,11 +201,17 @@ function renderForm(tab) {
     if (sec.help) wrap.append(h("p", { class: "help" }, sec.help));
     for (const f of sec.fields) {
       const key = "f:" + f.id, id = "fld-" + f.id;
-      const input = f.kind === "textarea"
-        ? h("textarea", { id, rows: f.rows || 3 })
-        : h("input", { id, type: "text", autocomplete: "off" });
+      let input;
+      if (f.kind === "select") {
+        input = h("select", { id }, h("option", { value: "" }, "Choose\u2026"),
+          f.options.map(o => h("option", { value: o }, o)));
+      } else if (f.kind === "textarea") {
+        input = h("textarea", { id, rows: f.rows || 3 });
+      } else {
+        input = h("input", { id, type: "text", autocomplete: "off" });
+      }
       input.value = state.answers[key] || "";
-      input.addEventListener("input", () => queueSave(key, input.value));
+      input.addEventListener(f.kind === "select" ? "change" : "input", () => queueSave(key, input.value));
       wrap.append(h("div", { class: "field" },
         h("label", { for: id }, f.label, !f.required && h("span", { class: "optional" }, " (optional)")),
         f.example && h("div", { class: "example" }, "Example: " + f.example),
@@ -211,7 +225,8 @@ function renderForm(tab) {
 
 function renderTable(tab) {
   const ui = { sort: null, dir: 1, filters: {}, group: "", split: "" };
-  const cols = tab.columns;
+  const cols = tab.columns.filter(c => !(tab.hide || []).includes(c));
+  const label = c => (tab.labels || {})[c] || c;
   const editable = tab.editable || {};
   const isNum = c => tab.rows.every(r => r[c] !== "" && !isNaN(Number(r[c])));
   const distinct = c => [...new Set(tab.rows.map(r => r[c]))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
@@ -221,6 +236,8 @@ function renderTable(tab) {
 
   const root = h("div", {});
   if (tab.note) root.append(h("p", { class: "table-note" }, tab.note));
+  const card = tab.scorecard ? makeScorecard(tab) : null;
+  if (card) root.append(card.el);
   const tools = h("div", { class: "table-tools" });
   const view = h("div", {});
   const count = h("span", { class: "count" });
@@ -264,7 +281,7 @@ function renderTable(tab) {
         else { ui.sort = c; ui.dir = 1; }
         draw();
       },
-    }, c, ui.sort === c && h("span", { class: "arrow" }, ui.dir === 1 ? "▲" : "▼"))));
+    }, label(c), ui.sort === c && h("span", { class: "arrow" }, ui.dir === 1 ? "▲" : "▼"))));
     const filters = h("tr", { class: "filters" }, cols.map(c => {
       if (c in editable) return h("th", {});
       let el;
@@ -297,11 +314,11 @@ function renderTable(tab) {
     if (c in editable) {
       const key = `t:${tab.id}:${i}:${c}`;
       const s = h("select", {}, h("option", { value: "" }, "Choose…"),
-        editable[c].map(o => h("option", { value: o }, o)));
+        editable[c].map(o => h("option", { value: o.value }, o.label)));
       s.value = state.answers[key] || "";
       const mark = () => s.classList.toggle("unset", !s.value);
       mark();
-      s.addEventListener("change", () => { queueSave(key, s.value); mark(); });
+      s.addEventListener("change", () => { queueSave(key, s.value); mark(); if (card) card.update(); });
       return h("td", {}, s);
     }
     return h("td", { class: isNum(c) ? "num" : "" }, r[c]);
@@ -343,6 +360,62 @@ function renderTable(tab) {
 
   draw();
   return root;
+}
+
+// ---------------------------------------------------------------- scorecard
+
+// Live Business Quality Score panel. Current scores come from the row data, or from the
+// student's dropdown answers when that column is editable.
+function makeScorecard(tab) {
+  const sc = tab.scorecard, editable = tab.editable || {};
+  const el = h("div", { class: "scorecard" });
+  const cur = (i, col) => {
+    const v = col in editable ? state.answers[`t:${tab.id}:${i}:${col}`] : tab.rows[i][col];
+    return v === "1" ? 1 : v === "0" ? 0 : null;
+  };
+  const baselineBqs = Number((tab.rows.map(r => r[sc.baseline_bqs]).find(v => v !== "")) || NaN);
+
+  function update() {
+    const n = tab.rows.length, k = sc.criteria.length, total = n * k;
+    let scored = 0, passed = 0, below = 0;
+    const perCrit = sc.criteria.map(() => ({ now: 0, base: 0, scored: 0 }));
+    tab.rows.forEach((r, i) => {
+      let rowScored = 0, rowNow = 0, rowBase = 0;
+      sc.criteria.forEach((c, j) => {
+        const v = cur(i, c.current);
+        const b = Number(r[c.baseline]) || 0;
+        perCrit[j].base += b;
+        rowBase += b;
+        if (v !== null) { scored++; rowScored++; passed += v; rowNow += v; perCrit[j].now += v; perCrit[j].scored++; }
+      });
+      if (rowScored === k && rowNow < rowBase) below++;
+    });
+    const done = scored === total;
+    const bqs = done ? Math.round(100 * passed / total) : null;
+    const change = done && !isNaN(baselineBqs) ? bqs - baselineBqs : null;
+    const stat = (name, value, hint) => h("div", { class: "stat" },
+      h("div", { class: "stat-name" }, name), h("div", { class: "stat-value" }, value),
+      hint && h("div", { class: "stat-hint" }, hint));
+    el.replaceChildren(
+      h("div", { class: "stats" },
+        stat("Current Business Quality Score", done ? String(bqs) : "\u2013",
+          done ? null : `Score every response to see it (${scored} of ${total} checks scored)`),
+        stat("Recorded baseline", isNaN(baselineBqs) ? "\u2013" : String(baselineBqs)),
+        stat("Change (points)", change === null ? "\u2013" : (change > 0 ? "+" : "") + change),
+        stat("Responses below their own baseline", done ? `${below} of ${n}` : "\u2013")),
+      h("table", { class: "data crit" },
+        h("thead", {}, h("tr", { class: "heads" },
+          ["Criterion", "Passing now", "Passing at baseline", "Change"].map(x => h("th", { style: "cursor:default" }, x)))),
+        h("tbody", {}, sc.criteria.map((c, j) => {
+          const p = perCrit[j], d = p.now - p.base, ready = p.scored === n;
+          return h("tr", {}, h("td", {}, c.label),
+            h("td", { class: "num" }, ready ? `${p.now} of ${n}` : "\u2013"),
+            h("td", { class: "num" }, `${p.base} of ${n}`),
+            h("td", { class: "num" }, ready ? (d > 0 ? "+" : "") + d : "\u2013"));
+        }))));
+  }
+  update();
+  return { el, update };
 }
 
 // ---------------------------------------------------------------- start

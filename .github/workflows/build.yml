@@ -3,13 +3,35 @@ name: Build and publish image
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 env:
   IMAGE: ghcr.io/csfeeser/ai-governance-workspace
 
 jobs:
+  # Runs first. If the course content or the validator's own tests fail, nothing below runs,
+  # so no broken image is ever built or published.
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate course content
+        run: |
+          pip install pyyaml
+          python validate.py
+
+      - name: Test the validator
+        run: python -m unittest discover -s tests
+
   build:
+    needs: validate
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -39,10 +61,24 @@ jobs:
         run: |
           docker run -d --name smoke -p 2224:2224 -v testdata:/data workspace-test
           for i in $(seq 1 30); do curl -sf localhost:2224/api/labs >/dev/null && break; sleep 1; done
-
-          # Every lab that is marked available must load.
-          curl -sf localhost:2224/api/labs | python3 -c "import sys,json; labs=[l for m in json.load(sys.stdin) for l in m['labs'] if l['available']]; assert labs, 'no labs available'; print(len(labs), 'labs available')"
           curl -sf localhost:2224/ | grep -q "AI Governance Workspace"
+
+          # Every lab must load, and every tab of every lab must export a valid PDF.
+          python3 - <<'PY'
+          import json, urllib.request
+          def get(path):
+              return urllib.request.urlopen("http://localhost:2224" + path).read()
+          labs = [l for m in json.loads(get("/api/labs")) for l in m["labs"]]
+          assert labs, "no labs listed"
+          tabs = 0
+          for lab in labs:
+              assert lab["available"], f"{lab['id']} is listed but has no folder"
+              data = json.loads(get(f"/api/labs/{lab['id']}"))
+              for tab in data["tabs"]:
+                  assert get(f"/api/labs/{lab['id']}/tabs/{tab['id']}/pdf").startswith(b"%PDF"), (lab["id"], tab["id"])
+                  tabs += 1
+          print(f"{len(labs)} labs, {tabs} tabs: all load and export to PDF")
+          PY
 
           # Save an answer, restart the container, and confirm it persisted on the volume.
           curl -sf -X PUT -H 'Content-Type: application/json' \
@@ -50,12 +86,6 @@ jobs:
           docker restart smoke
           for i in $(seq 1 30); do curl -sf localhost:2224/api/labs >/dev/null && break; sleep 1; done
           curl -sf localhost:2224/api/labs/lab-1.1 | grep -q "smoke test"
-
-          # PDF export must return a real PDF for one tab of each type.
-          for tab in lab-1.1/intake lab-1.1/issues lab-1.1/answer lab-3.1/log; do
-            lab=${tab%%/*}; id=${tab##*/}
-            curl -sf "localhost:2224/api/labs/$lab/tabs/$id/pdf" | head -c 4 | grep -q '%PDF'
-          done
           echo "smoke test passed"
 
       - name: Show container logs on failure

@@ -1,0 +1,57 @@
+title: The Remediation Plan
+tabs:
+  - id: finding
+    title: Finding
+    type: doc
+    source: finding.md
+  - id: answer
+    title: Remediation Plan
+    type: form
+    heading: Remediation Plan
+    intro: "Fill every field. The test of a good plan: someone else, a month from now, can look at the verification section and say plainly whether the fix worked."
+    sections:
+      - title: "Name the real problem"
+        help: "The problem is not that a person is a bad reviewer. Write the distinction before you start the plan."
+        fields:
+          - {id: real, kind: textarea, rows: 2, label: "What is the real problem, in terms of how the process works?"}
+      - title: "1. Finding"
+        help: "One sentence: the real problem, stated as a process or control gap, not as a person."
+        fields:
+          - {id: finding, kind: textarea, rows: 3, label: "Finding", example: "Approvals from reviewer R-A are not receiving independent review: R-A's override rate is 2% against a team average of 18%, with a near-zero rate in every week and case type."}
+      - title: "2. Action"
+        help: "The plan's first step is a second reviewer re-scoring a sample of R-A's recent approvals, to establish whether independent judgment is actually missing. Then pick the action that follows and justify it in a line: targeted re-training on the review standard, ongoing second-review sampling, workload rebalancing, or reassignment."
+        fields:
+          - {id: action, kind: textarea, rows: 4, label: "The corrective step, with a one-line justification"}
+      - title: "3. Owner"
+        help: "Named by responsibility: the function that runs the human review process for this workflow, not a personal name."
+        fields:
+          - {id: owner, kind: text, label: "Owner"}
+      - title: "4. Interim safeguard"
+        help: "What protects the workflow in the weeks before the fix lands."
+        fields:
+          - {id: interim, kind: textarea, rows: 2, label: "Interim safeguard"}
+      - title: "5. Verification: re-check date"
+        help: "Use the workflow's review cadence. PolicyPal is Medium tier, so the cadence is monthly."
+        fields:
+          - {id: recheck, kind: text, label: "Re-check date"}
+      - title: "6. Verification: measurable target"
+        help: "The exact number, at the exact value, that will mean the finding is resolved."
+        fields:
+          - {id: target, kind: textarea, rows: 3, label: "Measurable target", example: "R-A's override rate within 5 points of the team average, and zero recurrence of approving cases that peers override on the same case type, over a two-week sample."}
+      - title: "7. Verification: evidence"
+        help: "What data the re-check will pull to test the target."
+        fields:
+          - {id: evidence, kind: textarea, rows: 2, label: "Evidence"}
+      - title: "8. Distribution"
+        help: "Who receives a copy."
+        fields:
+          - {id: distribution, kind: text, label: "Distribution"}
+  - id: bronze
+    title: "Bronze: Plan for R-B"
+    type: form
+    optional: true
+    sections_from: answer
+    id_prefix: b-
+    hide_examples: true
+    heading: "Bronze: Remediation Plan for Reviewer R-B"
+    intro: "Optional. Write a second plan for the over-riding reviewer R-B (about 43% against a team average of 18%). Choose a different corrective action, but keep the same verification rigor: a dated re-check, a measurable target, and named evidence."

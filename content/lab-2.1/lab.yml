@@ -1,0 +1,71 @@
+title: Baseline Re-Test and Business Quality Score
+tabs:
+  - id: activitylog
+    title: Activity Log
+    type: table
+    source: activity-log.csv
+    note: "One of the two files your administrator sent. Look at its columns: does it contain the assistant's answers?"
+  - id: output
+    title: Output Export
+    type: table
+    source: output-export.csv
+    note: "Score each response against the four criteria on the Quality Standard tab. Choose Met or Not met in every box. The Business Quality Score panel updates as you go."
+    hide: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs]
+    labels:
+      case_id: Case
+      employee_question: Question
+      assistant_response: Assistant response
+      cited_source: Cited source
+      current_score_c1: "c1 Current, named source"
+      current_score_c2: "c2 Exact figure"
+      current_score_c3: "c3 Answers the question"
+      current_score_c4: "c4 Human referral"
+    editable:
+      - {column: current_score_c1, options: &met [{value: "1", label: Met}, {value: "0", label: Not met}]}
+      - {column: current_score_c2, options: *met}
+      - {column: current_score_c3, options: *met}
+      - {column: current_score_c4, options: *met}
+    scorecard:
+      baseline_bqs: baseline_bqs
+      criteria:
+        - {label: "c1 Current, named source", current: current_score_c1, baseline: baseline_score_c1}
+        - {label: "c2 Exact figure or entitlement", current: current_score_c2, baseline: baseline_score_c2}
+        - {label: "c3 Answers the question asked", current: current_score_c3, baseline: baseline_score_c3}
+        - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
+  - id: standard
+    title: Quality Standard
+    type: doc
+    source: quality-standard.md
+  - id: answer
+    title: My Answer
+    type: form
+    heading: Test Result and Test Record
+    intro: "Read the numbers from the panel on the Output Export tab. The panel shows the arithmetic; your job is to say what it means."
+    sections:
+      - title: "Which file can you score?"
+        fields:
+          - {id: scorable, kind: select, label: "Which of the two files can be scored for quality?", options: ["Activity Log", "Output Export"]}
+          - {id: keep_why, kind: text, label: "Why are you keeping the other file even though you cannot score it?"}
+      - title: "The result"
+        fields:
+          - {id: baseline, kind: text, label: "Recorded baseline Business Quality Score"}
+          - {id: current, kind: text, label: "Your current Business Quality Score"}
+          - {id: change, kind: text, label: "Change in points (current minus baseline)"}
+          - {id: below, kind: text, label: "How many responses scored below their own baseline?"}
+          - {id: worst, kind: text, label: "Which criterion lost the most passing responses?"}
+      - title: "Check against the alarm level"
+        help: "The standard sets the line in advance. Read Section 8 of the Quality Standard tab."
+        fields:
+          - {id: alarm, kind: textarea, rows: 2, label: "Which lines are crossed, and does this trigger a diagnosis?"}
+      - title: "State whether business quality has degraded"
+        fields:
+          - {id: degraded, kind: textarea, rows: 3, label: "One sentence that cites the change, whether the alarm level was crossed, and the count of responses below baseline.", example: "Business quality has degraded and has crossed the alarm level: the Business Quality Score fell 7 points from 88 to 81, below the 85 floor, and 4 of 20 baseline responses scored below their recorded baseline."}
+      - title: "Start the test record"
+        help: "You finish this record in Lab 2.2. Fill the first three sections now."
+        fields:
+          - {id: tr_what, kind: textarea, rows: 2, label: "What was tested (the workflow, and the baseline case set: ID range and count)"}
+          - {id: tr_when, kind: text, label: "When (the date this test was run)"}
+          - {id: tr_standard, kind: text, label: "Against what standard (name and version)"}
+      - title: "The handoff"
+        fields:
+          - {id: handoff, kind: textarea, rows: 2, label: "If quality has degraded, do you investigate it yourself or hand it straight to the platform owner? One line."}

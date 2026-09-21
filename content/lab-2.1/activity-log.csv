@@ -1,0 +1,121 @@
+CreationTime,UserId,Operation,AppHost,AppIdentity,AgentName,AgentVersion,AccessedResources,SensitivityLabelId,XPIADetected,AISystemPlugin,ModelProviderName,ModelName,ModelVersion,MessageId,IsPrompt
+2026-07-06T09:10:00Z,a.rivera@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,bc8960a9-1a3d-ad3c-bd9c-8b9de465e150,true
+2026-07-06T09:10:03Z,a.rivera@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,972a8469-6c03-0822-07a0-37f817fc695a,false
+2026-07-06T10:21:00Z,p.oconnor@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,6b65a6a4-386e-72ff-96da-cf3647378190,true
+2026-07-06T10:21:02Z,p.oconnor@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,c241330b-ce4a-28df-b2b9-571a6c307511,false
+2026-07-06T11:44:00Z,m.chen@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,1a2a73ed-17be-6142-18c2-d8f55be6128e,true
+2026-07-06T11:44:07Z,m.chen@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,9a8dca03-43b7-ce9f-0b1f-759cbacfb3d0,false
+2026-07-06T12:27:00Z,l.moreau@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,e2acf72f-dc98-5c94-93cd-b45e3139d32c,true
+2026-07-06T12:27:03Z,l.moreau@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,0bbb2599-a948-3a57-c5e7-fc374a15544d,false
+2026-07-06T12:59:00Z,s.patel@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,a2bc372f-d588-5d65-29a3-5af35ec42e08,true
+2026-07-06T12:59:05Z,s.patel@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,ab9099a4-4458-b3aa-efc8-a5e5aefcfad8,false
+2026-07-06T13:29:00Z,r.singh@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,29d4beef-7656-6123-451b-ece6fd5166e6,true
+2026-07-06T13:29:05Z,r.singh@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,af42e12f-5304-d7c5-c4b0-0e51c6a7ee39,false
+2026-07-06T14:39:00Z,a.rivera@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,3602f8ac-e9c3-f162-9132-b7c9e059a0ee,true
+2026-07-06T14:39:07Z,a.rivera@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,366eb16f-a7ca-7fcd-6548-ea1fe27a984d,false
+2026-07-06T16:48:00Z,m.chen@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,89fa6a68-4343-bf3c-95a7-e5d76dadd6c7,true
+2026-07-06T16:48:08Z,m.chen@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,5cabcc97-3825-ff50-ff5e-82702369b584,false
+2026-07-07T09:06:00Z,j.okafor@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,a0a04dc4-28f4-cac5-ae34-98ae6c12ace8,true
+2026-07-07T09:06:03Z,j.okafor@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,62801c45-61b1-988c-ff01-877477d21e02,false
+2026-07-07T10:22:00Z,p.oconnor@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,ae849217-e281-8976-c039-c4c2444ea7c8,true
+2026-07-07T10:22:07Z,p.oconnor@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,1c8eaee9-4b22-6f4c-287d-00d474273ca3,false
+2026-07-07T11:41:00Z,p.oconnor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,deda4e16-a013-4c66-d777-81f6a39231a7,true
+2026-07-07T11:41:05Z,p.oconnor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,2720797d-5fb8-c333-295b-f4188a14be62,false
+2026-07-07T11:53:00Z,r.singh@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,BingWebSearch,OpenAI,gpt-4o,2024-11-20,edd96831-5cec-e0f3-fc3e-ce88d4e80839,true
+2026-07-07T11:53:06Z,r.singh@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,BingWebSearch,OpenAI,gpt-4o,2024-11-20,3d4cbf37-0ed4-3da9-e0c5-f26b913e4de2,false
+2026-07-07T12:25:00Z,j.okafor@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,c40db9b4-2031-20de-a8e5-f26479ac1b1e,true
+2026-07-07T12:25:04Z,j.okafor@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,43dac043-8715-df57-9b49-f6e06c52c49f,false
+2026-07-07T13:31:00Z,p.oconnor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,fec21bbe-abf3-a65e-5f98-e64d702753a1,true
+2026-07-07T13:31:09Z,p.oconnor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,1efa2197-3f76-3985-1064-0562568cc69b,false
+2026-07-07T14:41:00Z,r.singh@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,PTO Policy 2023.docx,General,false,,OpenAI,gpt-4o,2024-11-20,a18ff6b6-0f12-3a9b-1141-080ae7c99b26,true
+2026-07-07T14:41:07Z,r.singh@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,PTO Policy 2023.docx,General,false,,OpenAI,gpt-4o,2024-11-20,1223b513-839f-3ced-474a-7c44ab4220a7,false
+2026-07-07T15:47:00Z,p.oconnor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,93829b43-7900-3e35-c8dc-ceb87914c120,true
+2026-07-07T15:47:08Z,p.oconnor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,30beb45f-1825-18d0-a8b3-5ab36e595ed3,false
+2026-07-07T17:47:00Z,l.moreau@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,ac619e63-a748-fbf2-a56c-0f841931e9ee,true
+2026-07-07T17:47:08Z,l.moreau@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,ba6c34ab-56dc-ccf3-dc96-3fa71bf90e27,false
+2026-07-07T18:48:00Z,s.patel@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,474ebc19-766e-3ff3-dfde-134cec5b227c,true
+2026-07-07T18:48:09Z,s.patel@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,ceda8bbb-dc81-db20-8ce2-0cf319108be5,false
+2026-07-08T09:03:00Z,j.okafor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,7b3a4e3e-36b8-dd59-66aa-0f02e7067ef4,true
+2026-07-08T09:03:04Z,j.okafor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,610461e3-008d-fc3d-63f2-ed3043e458fc,false
+2026-07-08T11:11:00Z,t.nguyen@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,a97065e1-b7e9-7c96-27a0-4bf5309d258c,true
+2026-07-08T11:11:05Z,t.nguyen@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,f7fd5646-0ef8-9445-bc59-0f9a8acd4e10,false
+2026-07-08T12:43:00Z,a.rivera@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,eb5cf467-da4b-87f7-284d-f5f50e8fa8e0,true
+2026-07-08T12:43:03Z,a.rivera@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,d9f195d0-2f92-118a-9854-acda1165e210,false
+2026-07-08T13:55:00Z,l.moreau@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,3f07f814-9434-9832-0a2c-14fc9e8fc965,true
+2026-07-08T13:55:08Z,l.moreau@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,a8499b92-956b-90b2-85d5-ef4850fd9d3f,false
+2026-07-08T15:13:00Z,s.patel@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,21813d25-abf3-a53f-4ccc-50f0750cab75,true
+2026-07-08T15:13:03Z,s.patel@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,02627f73-7552-9f04-ff9a-ff00902059e4,false
+2026-07-08T15:50:00Z,j.okafor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,eeea163e-5958-e180-119c-3e89e117dac3,true
+2026-07-08T15:50:07Z,j.okafor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,48f4ef12-2862-702c-d570-b41b8b10550c,false
+2026-07-08T17:19:00Z,r.singh@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,4ca415ea-ee87-a9d3-1a84-e0ccf05db76e,true
+2026-07-08T17:19:04Z,r.singh@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,43b409ef-1d8c-e3c4-1b66-8da0be0f051b,false
+2026-07-08T18:10:00Z,t.nguyen@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,341ef40b-afff-a25d-da58-8162439472e6,true
+2026-07-08T18:10:09Z,t.nguyen@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,40497b71-e7c4-e87d-d89a-17a00d01280f,false
+2026-07-09T10:10:00Z,t.nguyen@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,a319dcb4-fad4-430f-295d-711cbdc14f1f,true
+2026-07-09T10:10:08Z,t.nguyen@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,8f9797b0-0279-1ca3-1343-e213f1eedba3,false
+2026-07-09T11:00:00Z,p.oconnor@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,8d7248e2-25e9-6e06-20a0-4eea0ab54bde,true
+2026-07-09T11:00:07Z,p.oconnor@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,e623a689-eede-cbce-f8e1-0a36dc570131,false
+2026-07-09T12:43:00Z,s.patel@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,c7b5b2bc-8f54-e256-dfed-f94d6808593f,true
+2026-07-09T12:43:04Z,s.patel@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,ecfedb99-ee0c-3c9a-dd56-f9e82999b735,false
+2026-07-09T13:40:00Z,l.moreau@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,BingWebSearch,OpenAI,gpt-4o,2024-11-20,c84a7b28-ee49-6966-cd5f-dd33ab7f089a,true
+2026-07-09T13:40:05Z,l.moreau@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,BingWebSearch,OpenAI,gpt-4o,2024-11-20,444d610b-28c1-c991-b386-61ee1bac27a7,false
+2026-07-09T14:01:00Z,d.abbas@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,598336e3-4e20-d20e-cb9b-3a43df0f06cb,true
+2026-07-09T14:01:05Z,d.abbas@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,060edf5b-a8f7-3170-6601-47525408f9ac,false
+2026-07-09T14:30:00Z,t.nguyen@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,adf4e62d-fb2c-d7fa-8945-f07154c63cd8,true
+2026-07-09T14:30:02Z,t.nguyen@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,1d870966-e085-f86c-42de-94a12db69edb,false
+2026-07-09T15:49:00Z,a.rivera@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,ba81edd9-c953-504d-6fb7-fbf69b3080d5,true
+2026-07-09T15:49:03Z,a.rivera@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,629c2ae3-e645-939b-30a9-0b5c41357e8c,false
+2026-07-09T17:52:00Z,a.rivera@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,f2e9702d-aa0b-ebb7-5487-505c9f871ce7,true
+2026-07-09T17:52:03Z,a.rivera@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,b841d0a0-e669-4ce1-81d2-aab94f2d4796,false
+2026-07-10T09:48:00Z,k.brooks@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,2095eef6-311c-6ba2-aa38-610ff0bbac67,true
+2026-07-10T09:48:04Z,k.brooks@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,9d9262af-91b0-4d0b-67f4-d56f8c459ce2,false
+2026-07-10T10:00:00Z,t.nguyen@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,9b4e2c24-a79a-527e-7709-71317118e364,true
+2026-07-10T10:00:05Z,t.nguyen@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,82dc4c8e-7922-cb32-e6b3-cbc8f5b78cc7,false
+2026-07-10T10:55:00Z,j.okafor@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,55cee5db-17e8-d184-f3b6-3c20c04a96c4,true
+2026-07-10T10:55:06Z,j.okafor@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,39820cff-ce7a-32fa-25b8-0bd40640be0f,false
+2026-07-10T12:09:00Z,d.abbas@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,31c681ec-b7e5-b244-624c-664f7e8f8095,true
+2026-07-10T12:09:05Z,d.abbas@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,25c73c44-a7f3-b008-016b-c03fe4855aa1,false
+2026-07-10T12:48:00Z,l.moreau@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,76ecbdd6-0cdb-8eb2-3fcb-d92ceadf5085,true
+2026-07-10T12:48:03Z,l.moreau@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,74daaebf-2222-cd29-76f2-87f8aae65fc1,false
+2026-07-10T14:21:00Z,d.abbas@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,722764e6-e5af-28be-be60-7984dc8aee30,true
+2026-07-10T14:21:09Z,d.abbas@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,425a609f-c074-3f4b-d701-46fda33dc7af,false
+2026-07-10T16:37:00Z,s.patel@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,3c07c574-458f-55fa-51d8-8a47e49d681d,true
+2026-07-10T16:37:03Z,s.patel@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,236c7b87-269c-3b33-620e-271eb1a6b1f1,false
+2026-07-10T17:43:00Z,j.okafor@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,7746d0ba-6a70-0ff0-34f3-6b8ed5385b0e,true
+2026-07-10T17:43:08Z,j.okafor@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,e7a37e81-c511-9586-f231-0500b20dcb6e,false
+2026-07-11T09:32:00Z,d.abbas@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,c0e3befd-63d6-da7b-e442-d5f2f41402b1,true
+2026-07-11T09:32:08Z,d.abbas@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,89c8d2ab-bf5d-bc10-8bcf-9a6eccc42903,false
+2026-07-11T10:40:00Z,d.abbas@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,076e2bba-638c-560c-ab3b-cc53addc3e13,true
+2026-07-11T10:40:08Z,d.abbas@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,b963f37f-2a40-d72b-77a6-20aceb67146a,false
+2026-07-11T10:58:00Z,l.moreau@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,22bd3388-dde9-7631-2e85-42990cdf742b,true
+2026-07-11T10:58:08Z,l.moreau@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,53cd6268-362f-7467-53ac-c2df56666f9f,false
+2026-07-11T12:47:00Z,t.nguyen@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,78660765-04f6-bfc0-8a17-fff90d557b61,true
+2026-07-11T12:47:07Z,t.nguyen@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,39669fa7-a66f-1190-c7fe-a6d9f510ab53,false
+2026-07-11T13:09:00Z,a.rivera@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,9f0fda8d-2702-3d11-2050-ab61793b4c32,true
+2026-07-11T13:09:03Z,a.rivera@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,90604f62-f2a0-37cc-770c-4199b31022f0,false
+2026-07-11T14:55:00Z,m.chen@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,BingWebSearch,OpenAI,gpt-4o,2024-11-20,f6f7f0cc-4fa0-1bac-9424-edcb0692dc63,true
+2026-07-11T14:55:06Z,m.chen@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,BingWebSearch,OpenAI,gpt-4o,2024-11-20,93676a02-ad66-e874-f54a-658b60141de9,false
+2026-07-11T15:57:00Z,j.okafor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,d9acd158-af2b-99b4-ce37-cbd51efd76e9,true
+2026-07-11T15:57:02Z,j.okafor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,58e25888-8861-6daa-a959-11a75eddbbbf,false
+2026-07-11T17:36:00Z,a.rivera@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,6efb63b1-f5f6-5cb8-a2b5-d426e43e4288,true
+2026-07-11T17:36:09Z,a.rivera@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,b5122df8-272a-6f7c-2d17-8591bbda0242,false
+2026-07-11T18:57:00Z,r.singh@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,44b591f7-5282-da09-3ed8-ef43d4aac9a3,true
+2026-07-11T18:57:03Z,r.singh@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,4767d76c-e1b2-7367-3e6d-76f7c01f36bf,false
+2026-07-12T10:46:00Z,k.brooks@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,2e8d0e87-7cd0-364d-5ad5-4223cc3ebdde,true
+2026-07-12T10:46:07Z,k.brooks@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,4797b2c9-e15c-989d-b380-46b9e14eb70d,false
+2026-07-12T11:00:00Z,p.oconnor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,PTO Policy 2023.docx,General,false,,OpenAI,gpt-4o,2024-11-20,680bac63-7d13-8e20-c217-b0cb3d85de89,true
+2026-07-12T11:00:09Z,p.oconnor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,PTO Policy 2023.docx,General,false,,OpenAI,gpt-4o,2024-11-20,a559e463-b63b-7da6-72bb-046acafda613,false
+2026-07-12T11:35:00Z,t.nguyen@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,4e6384bb-a9f9-94e0-5e78-8db079279973,true
+2026-07-12T11:35:07Z,t.nguyen@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Expense & Travel Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,6cedd15d-ff23-bef5-8ce6-5a1054aebd1b,false
+2026-07-12T13:43:00Z,t.nguyen@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,b8a6171f-314d-50c7-1e9b-892ebe2d740a,true
+2026-07-12T13:43:04Z,t.nguyen@contoso.com,CopilotInteraction,Outlook,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,3108d448-3764-bd15-7bf4-b97e46c8adfe,false
+2026-07-12T15:07:00Z,j.okafor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,2defe193-4d61-039f-b540-206788bd13d1,true
+2026-07-12T15:07:06Z,j.okafor@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Benefits Guide 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,0ba6eab9-f96b-0df5-8da8-b2894ac9778d,false
+2026-07-12T15:51:00Z,d.abbas@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,48ca7651-782a-7a8d-70c2-2f325738811d,true
+2026-07-12T15:51:02Z,d.abbas@contoso.com,CopilotInteraction,Teams,PolicyPal,PolicyPal,1.4,Code of Conduct 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,40a26c60-f0e9-dc99-7a4c-d2761d34d08e,false
+2026-07-12T16:19:00Z,l.moreau@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,PTO Policy 2023.docx,General,false,,OpenAI,gpt-4o,2024-11-20,afbb411a-0db9-26d7-2631-9016cfa701cd,true
+2026-07-12T16:19:06Z,l.moreau@contoso.com,CopilotInteraction,BizChat,PolicyPal,PolicyPal,1.4,PTO Policy 2023.docx,General,false,,OpenAI,gpt-4o,2024-11-20,15ce6a66-fe71-3f89-1e52-c3b28edddfcd,false
+2026-07-12T18:17:00Z,r.singh@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,7354ea6f-e893-7156-4c1f-96a9dc33e1f9,true
+2026-07-12T18:17:08Z,r.singh@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,Remote Work Policy 2024.docx,General,false,,OpenAI,gpt-4o,2024-11-20,4e2d6645-9191-9efb-0f6b-f5c99c10c572,false
+2026-07-12T18:54:00Z,s.patel@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,2834e4c0-3d67-2c7f-8d4f-28121337739e,true
+2026-07-12T18:54:02Z,s.patel@contoso.com,CopilotInteraction,Word,PolicyPal,PolicyPal,1.4,PTO Policy 2025.docx,General,false,,OpenAI,gpt-4o,2024-11-20,68949b8d-7354-b07a-9804-4a8f784c2f29,false
