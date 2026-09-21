@@ -37,7 +37,7 @@ jobs:
 
       - name: Smoke test
         run: |
-          docker run -d --name t -p 2224:2224 -v testdata:/data workspace-test
+          docker run -d --name smoke -p 2224:2224 -v testdata:/data workspace-test
           for i in $(seq 1 30); do curl -sf localhost:2224/api/labs >/dev/null && break; sleep 1; done
 
           # Every lab that is marked available must load.
@@ -47,7 +47,7 @@ jobs:
           # Save an answer, restart the container, and confirm it persisted on the volume.
           curl -sf -X PUT -H 'Content-Type: application/json' \
             -d '{"key":"f:purpose","value":"smoke test"}' localhost:2224/api/labs/lab-1.1/answers >/dev/null
-          docker restart t
+          docker restart smoke
           for i in $(seq 1 30); do curl -sf localhost:2224/api/labs >/dev/null && break; sleep 1; done
           curl -sf localhost:2224/api/labs/lab-1.1 | grep -q "smoke test"
 
@@ -60,7 +60,7 @@ jobs:
 
       - name: Show container logs on failure
         if: failure()
-        run: docker logs t
+        run: docker logs smoke
 
       - name: Push image
         uses: docker/build-push-action@v6
