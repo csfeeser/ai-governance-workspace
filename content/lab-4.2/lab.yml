@@ -1,74 +1,169 @@
 title: Write the Escalation Ticket
 tabs:
   - id: incident
-    title: Triaged Incident
-    about:
-      what: "A problem that has already been sorted for you. It says what kind of problem it is, who should handle it, and the key facts."
-      why: "You are about to write a message to the person who has to fix it. Everything you need for that message is on this page."
-      todo: "Read it from top to bottom. Come back to it as often as you like while you write."
-    type: doc
-    source: triaged-incident.md
-  - id: answer
-    title: Escalation Ticket
-    about:
-      what: "A form for the message you send to the person who has to fix the problem. This kind of message is called a ticket."
-      why: "A good ticket lets the other person start work straight away, without having to come back to you with questions."
-      todo: "Fill in the boxes from top to bottom, following the lab steps."
-    type: form
-    heading: Escalation Ticket
-    intro: "Fill every field. The test: could the receiving owner start work from this ticket without replying to ask you a question?"
-    sections:
-      - title: "Incident, category, and routed to"
-        help: "From the Triage result on the Triaged Incident tab. Name the owner by what they are responsible for, not by department."
+    title: The Incident
+    type: steps
+    steps:
+      - title: Say what the problem is and who it goes to
+        text: |
+          A problem has already been sorted (triaged) for you, and you know who has to fix it. In this lab you write them a ticket: a message that tells them what is wrong and what you need from them. A vague ticket means the other person has to come back with questions, and the fix is delayed.
+
+          Read the triaged incident below from top to bottom. It has three parts: the **Triage result**, the **Supporting facts**, and the **Evidence available**. Every fact you need for the ticket is there.
+
+          The first thing a receiver needs is what this is about and why they are getting it. In the box, write what the problem is, its category, and who is responsible for it. Copy these from the **Triage result** table. Name the owner by the job they do, not by a department.
         fields:
           - {id: incident, kind: text, label: "Incident, category, and the responsible owner"}
-      - title: "What was observed"
-        help: "Behavior, not feeling. What the workflow is doing, described so anyone could confirm it."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "______ assistant, category ______, routed to the team responsible for ______."'
+          - title: "Hint 2: an example answer"
+            text: '"Sales-support assistant (Claude), category Technical / vendor, routed to the team responsible for the platform and the vendor relationship for this assistant."'
+        show:
+          - doc: triaged-incident.md
+
+  - id: happened
+    title: What Happened
+    type: steps
+    steps:
+      - title: Say what is happening
+        text: |
+          Say what anyone could see for themselves. "It seems worse" is a feeling. "The replies are 40% longer" is something anyone can check.
+
+          Using the supporting facts below, describe what the assistant is doing.
         fields:
           - {id: observed, kind: textarea, rows: 3, label: "What was observed"}
-      - title: "How often, and over what period"
-        help: "Use the numbers: how many, out of how many, and since when."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "Since ______, draft replies are roughly ______% longer than before and have shifted ______ in tone."'
+          - title: "Hint 2: an example answer"
+            text: '"Since 2026-08-12, draft replies are roughly 40% longer than before and have shifted off-tone (informal and verbose)."'
+        show:
+          - doc: triaged-incident.md
+            section: Supporting facts
+
+      - title: Say how often, and since when
+        text: |
+          Numbers turn "it happens a lot" into something a person can judge for themselves.
+
+          Write how many, out of how many, and since when. The numbers are in the supporting facts below.
         fields:
           - {id: often, kind: textarea, rows: 2, label: "How often, and over what period"}
-      - title: "Evidence attached"
-        help: "Name each piece of evidence and what it shows."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "______ of ______ sampled replies fail the tone standard (______%), since ______, about ______ weeks."'
+        answer: "18 of 50 sampled replies fail the tone standard (36%), since 2026-08-12, about three weeks at the time of writing."
+        show:
+          - doc: triaged-incident.md
+            section: Supporting facts
+
+      - title: List your proof
+        text: |
+          A claim with no proof is easy to dismiss. List each piece of evidence below and say what it shows. The list already summarises each one, so there is nothing else to open.
         fields:
           - {id: evidence, kind: textarea, rows: 3, label: "Evidence attached"}
-      - title: "Already ruled out"
-        help: "What you have already checked, so the receiver does not repeat your diagnosis."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "1. The scored sample of ______ replies, showing ______. 2. The activity-log excerpt, showing ______ on ______. 3. The ______ standard used to score the sample."'
+          - title: "Hint 2: an example answer"
+            text: '"1. The scored sample of 50 replies, showing 18 fail the tone standard. 2. The activity-log excerpt, showing the model identity changed on 2026-08-11. 3. The tone standard used to score the sample."'
+        show:
+          - doc: triaged-incident.md
+            section: Evidence available
+
+      - title: Say what you have already checked
+        text: |
+          Saying what you have already ruled out saves the other person from checking it again.
+
+          Write what you have already checked and found was not the cause. The list is in the supporting facts below.
         fields:
           - {id: ruledout, kind: textarea, rows: 2, label: "Already ruled out"}
-      - title: "Business impact"
-        help: "Quantified where possible."
+        answer: "The material the assistant reads from is unchanged, the instructions given to it (the system prompt) are unchanged, and the way users phrase their questions is unchanged."
+        show:
+          - doc: triaged-incident.md
+            section: Supporting facts
+
+  - id: ask
+    title: Impact and Ask
+    type: steps
+    steps:
+      - title: Say what it is costing
+        text: |
+          A problem gets fixed faster when people can see what it costs. Write what this is costing the business, with numbers if you can. The supporting facts are below.
         fields:
           - {id: impact, kind: textarea, rows: 2, label: "Business impact"}
-      - title: "The ask"
-        help: "The specific action you want the owner to take."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "About ______ customer-facing ______ per week are drafted in the wrong ______, which is a ______ risk."'
+        answer: "About 200 customer-facing emails per week are drafted in the wrong tone, which is a risk to the brand and to consistency."
+        show:
+          - doc: triaged-incident.md
+            section: Supporting facts
+
+      - title: Say exactly what you want them to do
+        text: |
+          This is the most important part. If you only say "please look into this", nothing specific will happen.
+
+          Write the one specific thing you want the owner to do. Think about this: the AI model changed the day before the problem started. What could the team that runs the platform do about a model version?
         fields:
           - {id: ask, kind: textarea, rows: 3, label: "The ask"}
-      - title: "Response-by"
-        help: "Aligned to the urgency and the review cadence."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "Confirm whether the ______ can be ______, and advise a ______."'
+          - title: "Hint 2: an example answer"
+            text: '"Confirm whether the model version can be pinned or rolled back, and advise a timeline."'
+        show:
+          - doc: triaged-incident.md
+            section: Supporting facts
+
+      - title: Say when you need an answer
+        text: |
+          People fit work around deadlines. If you do not give one, yours will be last in the queue.
+
+          Say when you need a reply. Match it to how urgent this is: the **Urgency** row below says it is serious, ongoing and customer-facing, but it is not private data being shown.
         fields:
           - {id: responseby, kind: text, label: "Response-by"}
-  - id: incident2
-    title: "Bronze: Second Incident"
-    about:
-      what: "A bonus problem. This one is more serious: private customer information was shown to the wrong person."
-      why: "Optional practice. It needs a faster, more urgent message than the first problem."
-      todo: "Read it only if you want the extra challenge."
-    type: doc
-    optional: true
-    source: triaged-incident-2.md
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "Initial response within ______ business days; this is ______ and ______."'
+          - title: "Hint 2: an example answer"
+            text: '"Initial response within 3 business days; this is customer-facing and ongoing."'
+        show:
+          - doc: triaged-incident.md
+            section: Triage result
+
+  - id: answer
+    title: Escalation Ticket
+    type: report
+    heading: Escalation Ticket
+    intro: "The test: could the receiving owner start work from this ticket without replying to ask you a question? A ticket like this is also a line in the evidence packet's incident history (Module 5). To keep a copy, click Save as PDF."
+    sections:
+      - {title: "Incident, category, and routed to", fields: [incident]}
+      - {title: "What was observed", fields: [observed]}
+      - {title: "How often, and over what period", fields: [often]}
+      - {title: "Evidence attached", fields: [evidence]}
+      - {title: "Already ruled out", fields: [ruledout]}
+      - {title: "Business impact", fields: [impact]}
+      - {title: "The ask", fields: [ask]}
+      - {title: "Response-by", fields: [responseby]}
+
   - id: bronze
     title: "Bronze: Second Ticket"
-    about:
-      what: "A bonus form for the message about the second problem."
-      why: "Optional practice at writing an urgent message."
-      todo: "Only do this if you want the extra challenge."
-    type: form
+    type: steps
     optional: true
-    sections_from: answer
-    id_prefix: b-
-    hide_examples: true
-    heading: "Bronze: Escalation Ticket for the Data Exposure"
-    intro: "Optional. Write the ticket for the security and privacy incident. The ask and the response-by are materially different from the model-swap ticket: this calls for immediate containment, not a next-cycle fix."
+    steps:
+      - title: "Bronze challenge: the data exposure ticket"
+        text: |
+          This tab is optional. Nothing here counts towards your progress.
+
+          Below is a more serious problem: private customer information was shown to the wrong person. Write the ticket for it. The form is the same as before, but what you ask for and when you need it will be very different, because this one is urgent. It calls for the exposure to be stopped straight away, not a fix in the next cycle.
+        fields:
+          - {id: b-incident, kind: text, label: "Incident, category, and the responsible owner"}
+          - {id: b-observed, kind: textarea, rows: 3, label: "What was observed"}
+          - {id: b-often, kind: textarea, rows: 2, label: "How often, and over what period"}
+          - {id: b-evidence, kind: textarea, rows: 3, label: "Evidence attached"}
+          - {id: b-ruledout, kind: textarea, rows: 2, label: "Already ruled out"}
+          - {id: b-impact, kind: textarea, rows: 2, label: "Business impact"}
+          - {id: b-ask, kind: textarea, rows: 3, label: "The ask"}
+          - {id: b-responseby, kind: text, label: "Response-by"}
+        show:
+          - doc: triaged-incident-2.md
