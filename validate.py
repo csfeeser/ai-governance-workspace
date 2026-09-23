@@ -31,7 +31,7 @@ STEP_KEYS = {"title", "text", "fields", "hints", "answer", "show"}
 HINT_KEYS = {"title", "text"}
 MATERIAL_KINDS = {"doc", "markdown", "table", "answers"}
 TABLE_KEYS = {"id", "source", "note", "computed", "hide", "labels", "editable", "summary", "scorecard",
-              "where", "readonly", "tools", "view"}
+              "where", "readonly", "tools", "view", "group", "split", "sort"}
 TABLE_VIEWS = {"rows", "scorecard"}
 REPORT_SECTION_KEYS = {"title", "help", "fields"}
 
@@ -335,6 +335,14 @@ def check_steps(tab, lab_dir, where, rep, seen_ids, tables, echoes):
                     continue
                 check_unknown_keys(spec, TABLE_KEYS, mw, rep)
                 check_table(spec, lab_dir, mw, rep)
+                if (lab_dir / str(spec.get("source"))).is_file():
+                    parsed = read_csv(lab_dir / spec["source"], Report(), "")
+                    cols = (parsed[0] if parsed else []) + [c.get("name") for c in spec.get("computed") or []]
+                    for key in ("group", "split", "sort"):
+                        if spec.get(key) and spec[key] not in cols:
+                            rep.error(mw, f"{key} column '{spec[key]}' does not exist{suggest(spec[key], cols)}")
+                    if spec.get("split") and not spec.get("group"):
+                        rep.error(mw, "'split' only works together with 'group'")
                 view = spec.get("view", "rows")
                 if view not in TABLE_VIEWS:
                     rep.error(mw, f"view '{view}' is not one of {', '.join(sorted(TABLE_VIEWS))}{suggest(view, TABLE_VIEWS)}")

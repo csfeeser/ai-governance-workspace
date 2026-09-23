@@ -312,7 +312,8 @@ function renderReport(tab) {
 function renderTable(tab) {
   // Just the live score panel, for steps that read the result of marking done in an earlier step.
   if (tab.view === "scorecard") return makeScorecard(tab, { open: true, sticky: false }).el;
-  const ui = { sort: null, dir: 1, filters: {}, group: "", split: "" };
+  // A step can open a table already grouped, split or sorted the way that step needs.
+  const ui = { sort: tab.sort || null, dir: 1, filters: {}, group: tab.group || "", split: tab.split || "" };
   const cols = tab.columns.filter(c => !(tab.hide || []).includes(c));
   const label = c => (tab.labels || {})[c] || c;
   const editable = tab.editable || {};
@@ -332,16 +333,17 @@ function renderTable(tab) {
   const view = h("div", {});
   const count = h("span", { class: "count" });
 
-  function select(label, onchange, options) {
+  function select(label, onchange, options, value) {
     const s = h("select", { onchange: e => onchange(e.target.value) },
       h("option", { value: "" }, "None"), options.map(o => h("option", { value: o }, o)));
+    s.value = value || "";
     return h("label", {}, label, s);
   }
 
   if (tools_on && groupable.length && !Object.keys(editable).length) {
     tools.append(
-      select("Group by", v => { ui.group = v; draw(); }, groupable),
-      select("Split by", v => { ui.split = v; draw(); }, groupable));
+      select("Group by", v => { ui.group = v; draw(); }, groupable, ui.group),
+      select("Split by", v => { ui.split = v; draw(); }, groupable, ui.split));
   }
   if (tools_on && !Object.keys(editable).length) {
     tools.append(h("button", { class: "btn", onclick: () => {

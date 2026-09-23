@@ -1,42 +1,198 @@
 title: Reviewer Metrics and Anomaly Detection
 tabs:
   - id: log
-    title: Reviewer Log
-    about:
-      what: "A list of 212 decisions made by five human reviewers over 30 days. Each row shows what the AI wanted to do, what the human reviewer decided, and who the reviewer was."
-      why: "Having a human check the AI only helps if the human is really checking. This list lets you spot a reviewer who might just be clicking 'approve' on everything."
-      todo: "Use the 'Group by' menu to see totals for each reviewer or each week. The 'override' column is already filled in for you: 1 means the human disagreed with the AI, and 0 means they agreed."
-    type: table
-    source: reviewer-log.csv
-    note: "Each row is one human review decision over 30 days. The override column is already calculated: 1 means the human disagreed with the AI. Use Group by to see rates by reviewer, week, or case type."
-    computed:
-      - {name: override, differs: [ai_decision, human_decision]}
-    summary: {column: override, label: overrides}
-  - id: answer
-    title: My Findings
-    about:
-      what: "Your notes page for this lab. It is where you write down what the numbers showed."
-      why: "Numbers only help if you say what they mean. This page is where you say it."
-      todo: "Fill it in as the lab steps tell you to. Everything saves by itself."
-    type: form
-    heading: Reviewer Findings
-    intro: "Record what the numbers show. Give the figure that supports each finding."
-    sections:
-      - title: "Overall"
+    title: The Log
+    type: steps
+    steps:
+      - title: Understand the list of decisions
+        text: |
+          Companies often say "a human checks the AI's work". In this lab you look at what five human checkers (reviewers) actually did, and spot any who may not be doing the job properly.
+
+          Below is a list of 212 decisions made by the five reviewers over 30 days. Each row is one case a reviewer looked at. It shows:
+
+          - what the AI decided (`ai_decision`): approve, reject, or route to a human
+          - what the reviewer decided (`human_decision`)
+          - which reviewer it was, which week, and what type of case
+
+          The `override` column on the right has been filled in for you. `1` means the reviewer disagreed with the AI. `0` means the reviewer agreed.
+
+          Scroll through a few rows until you can say what one row means. There is nothing to type in this step.
+        show:
+          - table: &log
+              source: reviewer-log.csv
+              computed:
+                - {name: override, differs: [ai_decision, human_decision]}
+              summary: {column: override, label: overrides}
+
+      - title: Find the overall override rate
+        text: |
+          The override rate is out of every 100 decisions, how many the reviewer changed. The overall rate is the number to compare each reviewer against.
+
+          The table below is already grouped by reviewer. It has one row per reviewer, and one extra row at the bottom called **All**. Read the percentage in the **Rate** column of the **All** row, and type it.
         fields:
           - {id: overall, kind: text, label: "Overall override rate (%)"}
-      - title: "Low-override outlier"
+        answer: "`18%`. That means the reviewers agreed with the AI about 82% of the time."
+        show:
+          - table: {<<: *log, group: reviewer}
+
+  - id: low
+    title: Low Outlier
+    type: steps
+    steps:
+      - title: Spot the reviewer who almost never disagrees
+        text: |
+          A reviewer whose rate is far below the others might be clicking "approve" without reading. That is only a reason to look closer. It is not proof yet.
+
+          Read the **Rate** column for each of the five reviewers below. Find the reviewer whose rate is much lower than the others, and type the reviewer and their rate.
         fields:
           - {id: low, kind: text, label: "Reviewer and override rate"}
+        answer: "`R-A`, at `2%`, when the team average is 18%. (The others: R-B 43%, R-C 17%, R-D 16%, R-E 14%.)"
+        show:
+          - table: {<<: *log, group: reviewer}
+
+      - title: Check whether R-A just has an easy pile
+        text: |
+          Before you accuse anyone, check the boring explanation. Maybe R-A simply got easy cases that did not need changing. If so, R-A would still change the odd hard case. If R-A never changes any of them, that is different.
+
+          Below are two tables, both grouped by reviewer:
+
+          - The first is split by case type.
+          - The second is split by week.
+
+          Each box shows overrides out of decisions. For example, `1/11` means 1 override out of 11 decisions. Read across R-A's row in each table.
+
+          Write what the two tables showed, and the one check that would settle whether R-A is really checking.
+        fields:
           - {id: low_test, kind: textarea, rows: 3, label: "What do the case-type and week views show, and what one check would settle it?"}
-      - title: "High-override outlier"
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "R-A overrides ______ in ______ of the five case types and ______ of the four weeks, which an easy queue would not ______. A ______ reviewer re-scoring a sample of R-A''s ______ would settle it."'
+          - title: "Hint 2: an example answer"
+            text: '"R-A overrides nothing in four of the five case types and in three of the four weeks, which an easy queue would not produce. A second reviewer re-scoring a sample of R-A''s approvals would settle it."'
+        answer: "R-A overrides nothing in four of the five case types, including case types where the other reviewers change decisions regularly. R-A's rate is zero in three of the four weeks. The one exception is a single override on a `pto` case in week 3. Mention that exception; do not explain it away. With only 42 decisions, one override is what an honest look at this data shows."
+        show:
+          - markdown: "#### Grouped by reviewer, split by case type"
+          - table: {<<: *log, group: reviewer, split: case_type}
+          - markdown: "#### Grouped by reviewer, split by week"
+          - table: {<<: *log, group: reviewer, split: week}
+
+  - id: high
+    title: High Outlier
+    type: steps
+    steps:
+      - title: Spot the reviewer who disagrees the most
+        text: |
+          The opposite problem is worth looking at too. A reviewer who overrides far more than everyone else might be doing something odd.
+
+          Find the reviewer below whose rate is much higher than the others, and type the reviewer and their rate.
         fields:
           - {id: high, kind: text, label: "Reviewer and override rate"}
+        answer: "`R-B`, at `43%`."
+        show:
+          - table: {<<: *log, group: reviewer}
+
+      - title: Check that it is the reviewer and not the AI
+        text: |
+          If R-B just got a strange batch of cases, the AI could be to blame. If R-B got the same kind of work as everyone else, the reviewer is the difference.
+
+          Below are two tables, both grouped by reviewer:
+
+          - The first is split by case type. Compare the number of decisions in R-B's boxes (the number after the slash) with the other reviewers' boxes. Does R-B get a similar mix of cases?
+          - The second is split by what the AI decided. Does R-B see a similar mix of AI decisions?
+
+          Write what you compared and what it tells you.
+        fields:
           - {id: high_test, kind: textarea, rows: 2, label: "Is it the reviewer or the AI? What did you compare?"}
-      - title: "Weekly trend"
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "R-B''s ______ mix and ______ decisions look ______ the other reviewers'', so the high override rate points to the ______, not the ______."'
+          - title: "Hint 2: an example answer"
+            text: '"R-B''s case mix and AI decisions match the rest of the team. The high override rate is the reviewer, not the AI."'
+        show:
+          - markdown: "#### Grouped by reviewer, split by case type"
+          - table: {<<: *log, group: reviewer, split: case_type}
+          - markdown: "#### Grouped by reviewer, split by what the AI decided"
+          - table: {<<: *log, group: reviewer, split: ai_decision}
+
+  - id: trend
+    title: Trend and Repeats
+    type: steps
+    steps:
+      - title: Look at how the rate changed week by week
+        text: |
+          A rate that is climbing means something is changing. You need to know when, so you can ask why.
+
+          The table below is grouped by week. Read the rate for weeks `W1`, `W2`, `W3`, and `W4`. Write what the change shows and what you would check next.
         fields:
           - {id: trend, kind: textarea, rows: 2, label: "What does the week-over-week override rate show, and what would you check next?"}
-      - title: "Duplicate cases"
-        help: "Filter case_id for DUP- to see the six pairs."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "The override rate rose from ______ to ______ over the month. It could mean the ______ is getting worse or that the ______ are getting stricter. I would check the ______ for the same period."'
+          - title: "Hint 2: an example answer"
+            text: '"The override rate rose from about 11% to about 26% over the month. It could mean the AI is getting worse or that the reviewers are getting stricter. I would check a quality audit of the AI''s output for the same period to tell which."'
+        show:
+          - table: {<<: *log, group: week}
+
+      - title: Check the secret repeat cases
+        text: |
+          To test whether a reviewer is really reading, the company slipped the same case to the same reviewer twice, on two different days. A careful reviewer decides it the same way both times.
+
+          Below are only the repeat cases, sorted by case number. There are six pairs. Each case appears twice, ending in `a` and `b`, for example `DUP-01a` and `DUP-01b`.
+
+          For each pair, compare the `human_decision` on the `a` row with the one on the `b` row. Then type the reviewer who decided a repeat case two different ways, and how many of their pairs came out different.
         fields:
           - {id: dup, kind: text, label: "Reviewer who decided a duplicate case two different ways, and how many of their pairs were inconsistent"}
+        answer: "`R-D`, on one of their two pairs (`DUP-05a` approve, `DUP-05b` reject)."
+        show:
+          - table:
+              <<: *log
+              tools: false
+              sort: case_id
+              where: {case_id: [DUP-01a, DUP-01b, DUP-02a, DUP-02b, DUP-03a, DUP-03b, DUP-04a, DUP-04b, DUP-05a, DUP-05b, DUP-06a, DUP-06b]}
+
+  - id: answer
+    title: My Findings
+    type: report
+    heading: Reviewer Findings
+    intro: "What the numbers show, with the figure that supports each finding. The metrics point you to who to examine and what to check next; they do not hand you a verdict. The finding about R-A is what Lab 3.2 is about. To keep a copy, click Save as PDF."
+    sections:
+      - {title: "Overall", fields: [overall]}
+      - {title: "Low-override outlier", fields: [low, low_test]}
+      - {title: "High-override outlier", fields: [high, high_test]}
+      - {title: "Weekly trend", fields: [trend]}
+      - {title: "Duplicate cases", fields: [dup]}
+
+  - id: challenges
+    title: Challenges
+    type: steps
+    optional: true
+    steps:
+      - title: "Bronze challenge: the rate without R-A"
+        text: |
+          This tab is optional. Nothing here counts towards your progress.
+
+          Use the **Rows** and **overrides** columns below to work out the overall override rate with R-A's decisions left out. By how many points was R-A's tiny rate pulling the overall number down?
+        fields:
+          - {id: bronze, kind: textarea, rows: 2, label: "The overall rate without R-A, and how many points R-A pulled it down"}
+        answer: "Without R-A: 38 overrides out of 170 decisions, about `22%`. R-A was pulling the overall rate down by about 4 points (from about 22% to 18%)."
+        show:
+          - table: {<<: *log, group: reviewer}
+
+      - title: "Silver challenge: the hidden climber"
+        text: |
+          One reviewer's own rate climbs steeply from week to week, while the others stay flat. It is hidden inside the team total, because their 30-day rate still looks normal.
+
+          The table below is grouped by reviewer and split by week. Find the reviewer, and say what you would check first.
+        fields:
+          - {id: silver, kind: textarea, rows: 2, label: "The reviewer whose rate is climbing, and what you would check first"}
+        answer: "`R-C`: 0/11 in W1, 1/10 in W2, 2/10 in W3, 4/11 in W4, while their 30-day rate is an ordinary 17%. Check what changed for R-C: new case types, a new instruction, or whether the AI's answers on R-C's cases got worse."
+        show:
+          - table: {<<: *log, group: reviewer, split: week}
+
+      - title: "Gold challenge: the early-warning number"
+        text: |
+          The overall override rate rose from about 11% to about 26% over the month. Suggest the one number you would watch every week that would have shown this two weeks earlier, and say why it would have.
+        fields:
+          - {id: gold, kind: textarea, rows: 3, label: "The number you would watch every week, and why it would have shown the rise earlier"}
+        show:
+          - table: {<<: *log, group: week}

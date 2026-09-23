@@ -14,6 +14,39 @@ sys.path.insert(0, str(ROOT))
 import validate  # noqa: E402
 
 
+LEGACY_LAB = """title: Legacy lab
+tabs:
+  - id: notes
+    title: Notes
+    about:
+      what: "Some notes."
+      why: "To test the old format."
+    type: doc
+    source: notes.md
+  - id: answer
+    title: My Answer
+    about:
+      what: "A form."
+      why: "To test forms."
+    type: form
+    sections:
+      - title: "One"
+        fields:
+          - {id: high, kind: text, label: "High"}
+          - {id: low, kind: text, label: "Low"}
+          - {id: pick, kind: select, label: "Pick", options: [a, b]}
+  - id: bronze
+    title: Bronze
+    about:
+      what: "A copy."
+      why: "To test sections_from."
+    type: form
+    optional: true
+    sections_from: answer
+    id_prefix: b-
+"""
+
+
 class ValidateContent(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
@@ -28,6 +61,19 @@ class ValidateContent(unittest.TestCase):
         text = p.read_text(encoding="utf-8")
         self.assertIn(old, text, f"test setup: '{old}' not found in {rel}")
         p.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+    def add_legacy_lab(self):
+        """A small lab in the older doc/table/form format, so those tab types stay tested
+        after every real lab has moved to steps."""
+        d = self.content / "lab-legacy"
+        d.mkdir()
+        (d / "notes.md").write_text("# Notes\n\nSome notes.\n", encoding="utf-8")
+        (d / "lab.yml").write_text(LEGACY_LAB, encoding="utf-8")
+        labs = self.content / "labs.yml"
+        labs.write_text(labs.read_text(encoding="utf-8") +
+                        '  - title: "Legacy"\n    labs:\n      - {id: lab-legacy, dir: lab-legacy, title: "Legacy"}\n',
+                        encoding="utf-8")
+        self.assertEqual(validate.validate(self.content).errors, [], "the legacy fixture itself must pass")
 
     def errors(self):
         return "\n".join(validate.validate(self.content).errors)
@@ -60,16 +106,18 @@ class ValidateContent(unittest.TestCase):
         self.assertCaught("ai_decison", "did you mean 'ai_decision'")
 
     def test_duplicate_field_id_in_a_lab(self):
-        self.edit("lab-3.1/lab.yml", "{id: high,", "{id: low,")
+        self.add_legacy_lab()
+        self.edit("lab-legacy/lab.yml", "{id: high,", "{id: low,")
         self.assertCaught("'low' is already used", "unique")
 
     def test_duplicate_tab_title(self):
-        self.edit("lab-3.1/lab.yml", "title: My Findings", "title: Reviewer Log")
+        self.edit("lab-3.1/lab.yml", "title: High Outlier", "title: Low Outlier")
         self.assertCaught("same title")
 
     def test_select_field_without_options(self):
-        self.edit("lab-4.1/lab.yml", "{id: i2-action, kind: select, label: \"Action\", options: *acts}", "{id: i2-action, kind: select, label: \"Action\"}")
-        self.assertCaught("i2-action", "options")
+        self.add_legacy_lab()
+        self.edit("lab-legacy/lab.yml", ', options: [a, b]}', '}')
+        self.assertCaught("pick", "options")
 
     def test_unknown_field_kind(self):
         self.edit("lab-1.1/lab.yml", "{id: tier, kind: text,", "{id: tier, kind: txt,")
@@ -90,11 +138,13 @@ class ValidateContent(unittest.TestCase):
         self.assertCaught("CSV line", "columns")
 
     def test_sections_from_needs_a_prefix(self):
-        self.edit("lab-3.2/lab.yml", "    id_prefix: b-\n", "")
+        self.add_legacy_lab()
+        self.edit("lab-legacy/lab.yml", "    id_prefix: b-\n", "")
         self.assertCaught("id_prefix")
 
     def test_sections_from_unknown_tab(self):
-        self.edit("lab-3.2/lab.yml", "sections_from: answer", "sections_from: anser")
+        self.add_legacy_lab()
+        self.edit("lab-legacy/lab.yml", "sections_from: answer", "sections_from: anser")
         self.assertCaught("sections_from", "did you mean 'answer'")
 
     def test_lab_registered_but_folder_missing(self):
@@ -112,16 +162,14 @@ class ValidateContent(unittest.TestCase):
         self.assertCaught("'min'")
 
     def test_tab_without_an_about_box(self):
-        self.edit("lab-3.1/lab.yml", "    about:\n      what:", "    nope:\n      what:")
-        self.assertCaught("lab-3.1", "about")
+        self.add_legacy_lab()
+        self.edit("lab-legacy/lab.yml", "    about:\n      what: \"Some notes.\"", "    nope:\n      what: \"Some notes.\"")
+        self.assertCaught("lab-legacy", "about")
 
     def test_about_box_with_empty_why(self):
-        p = self.content / "lab-3.2" / "lab.yml"
-        text = p.read_text(encoding="utf-8")
-        import re
-        text = re.sub(r'(    about:\n      what: "[^\n]*"\n      why: )"[^\n]*"', r'\1""', text, count=1)
-        p.write_text(text, encoding="utf-8")
-        self.assertCaught("lab-3.2", "'why'")
+        self.add_legacy_lab()
+        self.edit("lab-legacy/lab.yml", 'why: "To test forms."', 'why: ""')
+        self.assertCaught("lab-legacy", "'why'")
 
     def test_step_without_text(self):
         self.edit("lab-1.1/lab.yml", "      - title: Find PolicyPal's risk tier and review requirements\n        text: |", "      - title: Find PolicyPal's risk tier and review requirements\n        txt: |")
@@ -159,6 +207,14 @@ class ValidateContent(unittest.TestCase):
     def test_score_panel_needs_a_scorecard(self):
         self.edit("lab-2.1/lab.yml", "              view: scorecard\n", "              view: scorcard\n")
         self.assertCaught("view 'scorcard'", "did you mean 'scorecard'")
+
+    def test_step_table_group_column_that_does_not_exist(self):
+        self.edit("lab-3.1/lab.yml", "group: reviewer, split: case_type}", "group: reviewr, split: case_type}")
+        self.assertCaught("group column 'reviewr'", "did you mean 'reviewer'")
+
+    def test_echoed_answer_that_no_step_asks_for(self):
+        self.edit("lab-2.2/lab.yml", "- answers: [cause]", "- answers: [caus]")
+        self.assertCaught("'caus', which is not an answer box", "did you mean 'cause'")
 
     def test_command_line_exit_codes(self):
         self.assertEqual(validate.main(["validate.py", str(self.content)]), 0)
