@@ -3,6 +3,7 @@
 
 const state = { labs: [], lab: null, tabId: null, answers: {}, saving: 0, queued: 0 };
 const pending = new Map();   // key -> timeout id, for debounced saves
+const bound = new Map();     // answer key -> functions that redraw every place that answer is shown
 let saveChain = Promise.resolve();   // saves go out one at a time so they cannot arrive out of order
 
 // ---------------------------------------------------------------- helpers
@@ -14,7 +15,7 @@ function h(tag, attrs, ...children) {
     else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
     else if (v !== false && v != null) el.setAttribute(k, v === true ? "" : v);
   }
-  for (const c of children.flat()) {
+  for (const c of children.flat(Infinity)) {
     if (c == null || c === false) continue;
     el.append(c.nodeType ? c : document.createTextNode(c));
   }
@@ -93,7 +94,7 @@ function showWelcome() {
   renderSidebar();
   document.getElementById("main").replaceChildren(h("div", { id: "welcome" },
     h("h1", {}, "AI Governance Workspace"),
-    h("p", {}, "Choose a lab from the list on the left. Your course page tells you which lab to open and which tab to use."),
+    h("p", {}, "Choose the lab your instructor names from the list on the left. Then work through its tabs from left to right, doing each numbered step in order."),
     h("p", {}, "Everything you type is saved automatically.")));
 }
 
@@ -102,6 +103,8 @@ function showWelcome() {
 function renderLab() {
   const lab = state.lab, tab = lab.tabs.find(t => t.id === state.tabId);
   const saved = h("span", { class: "saved", id: "saved" });
+  bound.clear();
+  const next = lab.tabs[lab.tabs.indexOf(tab) + 1];
   const main = document.getElementById("main");
   main.replaceChildren(
     h("div", { class: "lab-header" },
@@ -115,8 +118,12 @@ function renderLab() {
       }, t.title))),
     h("div", { id: "panelwrap", style: "display:flex;flex-direction:column;flex:1;min-height:0" },
       h("div", { class: "tabbar-tools" }, saved, h("span", { class: "spacer" }),
-        h("button", { class: "btn", onclick: () => savePdf(tab) }, "Save as PDF")),
-      h("div", { id: "panel" }, aboutBox(tab.about), renderTab(tab))));
+        tab.type !== "steps" && h("button", { class: "btn", onclick: () => savePdf(tab) }, "Save as PDF")),
+      h("div", { id: "panel" }, aboutBox(tab.about), renderTab(tab),
+        tab.type === "steps" && next && h("div", { class: "next-tab" },
+          h("span", {}, "Finished every step on this tab?"),
+          h("button", { class: "btn primary", onclick: () => { go(lab.id, next.id); document.getElementById("panel").scrollTop = 0; } },
+            `Go to the next tab: ${next.title} \u2192`)))));
 }
 
 // The plain-language box at the top of every tab: what this is, why it is here, what to do.
@@ -133,6 +140,8 @@ function aboutBox(a) {
 function renderTab(tab) {
   if (tab.type === "doc") return h("div", { class: "doc" }, docNode(tab.html));
   if (tab.type === "table") return renderTable(tab);
+  if (tab.type === "steps") return renderSteps(tab);
+  if (tab.type === "report") return renderReport(tab);
   return renderForm(tab);
 }
 
@@ -165,8 +174,9 @@ function setSaved(text, ok) {
   if (el) { el.textContent = text; el.className = "saved" + (ok ? " ok" : ""); }
 }
 
-function queueSave(key, value) {
+function queueSave(key, value, from) {
   state.answers[key] = value;
+  for (const fn of bound.get(key) || []) if (fn !== from) fn(value);
   clearTimeout(pending.get(key));
   setSaved("Saving…");
   const labId = state.lab.id;
@@ -210,23 +220,71 @@ function renderForm(tab) {
   for (const sec of tab.sections) {
     wrap.append(h("h2", {}, sec.title));
     if (sec.help) wrap.append(h("p", { class: "help" }, sec.help));
+    for (const f of sec.fields) wrap.append(renderField(f));
+  }
+  return wrap;
+}
+
+// Remember a way to redraw this element when the same answer changes somewhere else on the page.
+function bind(key, fn) {
+  if (!bound.has(key)) bound.set(key, []);
+  bound.get(key).push(fn);
+  return fn;
+}
+
+function renderField(f) {
+  const key = "f:" + f.id, id = "fld-" + f.id;
+  let input;
+  if (f.kind === "select") {
+    input = h("select", { id }, h("option", { value: "" }, "Choose\u2026"),
+      f.options.map(o => h("option", { value: o }, o)));
+  } else if (f.kind === "textarea") {
+    input = h("textarea", { id, rows: f.rows || 3 });
+  } else {
+    input = h("input", { id, type: "text", autocomplete: "off" });
+  }
+  input.value = state.answers[key] || "";
+  const redraw = bind(key, v => { input.value = v; });
+  input.addEventListener(f.kind === "select" ? "change" : "input", () => queueSave(key, input.value, redraw));
+  return h("div", { class: "field" },
+    h("label", { for: id }, f.label, !f.required && h("span", { class: "optional" }, " (optional)")),
+    f.example && h("div", { class: "example" }, "Example: " + f.example),
+    input);
+}
+
+// ---------------------------------------------------------------- steps
+
+// A tab made of numbered steps. Each step is a coloured box holding the instructions and any
+// answer boxes, followed by the material the student needs for that step.
+function renderSteps(tab) {
+  return h("div", { class: "steps" }, tab.steps.map(s => [
+    h("section", { class: "step", id: `step-${s.number}` },
+      h("div", { class: "step-label" }, `Step ${s.number}`),
+      h("h2", { class: "step-title" }, s.title),
+      h("div", { class: "step-text" }, docNode(s.html)),
+      s.fields.map(renderField),
+      s.hints.map(x => h("details", { class: "hint" }, h("summary", {}, x.title), docNode(x.html))),
+      s.answer && h("details", { class: "hint answer" }, h("summary", {}, "Show the answer"), docNode(s.answer))),
+    s.show.map(m => h("div", { class: "material" },
+      m.kind === "doc" ? h("div", { class: "doc" }, docNode(m.html)) : renderTable(m))),
+  ]));
+}
+
+// A read-only page that gathers the answers typed into the step boxes on the other tabs.
+function renderReport(tab) {
+  const wrap = h("div", { class: "form report" },
+    h("p", { class: "report-note" }, "This page fills itself in from your answers on the other tabs. You cannot type here. To change an answer, change it in its step."),
+    h("h1", {}, tab.heading));
+  if (tab.intro) wrap.append(h("p", { class: "intro" }, tab.intro));
+  for (const sec of tab.sections) {
+    wrap.append(h("h2", {}, sec.title));
+    if (sec.help) wrap.append(h("p", { class: "help" }, sec.help));
     for (const f of sec.fields) {
-      const key = "f:" + f.id, id = "fld-" + f.id;
-      let input;
-      if (f.kind === "select") {
-        input = h("select", { id }, h("option", { value: "" }, "Choose\u2026"),
-          f.options.map(o => h("option", { value: o }, o)));
-      } else if (f.kind === "textarea") {
-        input = h("textarea", { id, rows: f.rows || 3 });
-      } else {
-        input = h("input", { id, type: "text", autocomplete: "off" });
-      }
-      input.value = state.answers[key] || "";
-      input.addEventListener(f.kind === "select" ? "change" : "input", () => queueSave(key, input.value));
+      const v = (state.answers["f:" + f.id] || "").trim();
       wrap.append(h("div", { class: "field" },
-        h("label", { for: id }, f.label, !f.required && h("span", { class: "optional" }, " (optional)")),
-        f.example && h("div", { class: "example" }, "Example: " + f.example),
-        input));
+        h("div", { class: "report-label" }, f.label),
+        v ? h("div", { class: "report-value" }, v)
+          : h("div", { class: "report-value empty" }, `Not answered yet. Answer it in Step ${f.step}.`)));
     }
   }
   return wrap;
@@ -245,6 +303,8 @@ function renderTable(tab) {
     !(tab.summary && c === tab.summary.column);
   const groupable = cols.filter(smallSet);
 
+  const base = (tab.show_rows || tab.rows.map((_, i) => i)).map(i => ({ r: tab.rows[i], i }));
+  const tools_on = tab.tools !== false;
   const root = h("div", {});
   if (tab.note) root.append(h("p", { class: "table-note" }, tab.note));
   const card = tab.scorecard ? makeScorecard(tab) : null;
@@ -259,23 +319,23 @@ function renderTable(tab) {
     return h("label", {}, label, s);
   }
 
-  if (groupable.length && !Object.keys(editable).length) {
+  if (tools_on && groupable.length && !Object.keys(editable).length) {
     tools.append(
       select("Group by", v => { ui.group = v; draw(); }, groupable),
       select("Split by", v => { ui.split = v; draw(); }, groupable));
   }
-  if (!Object.keys(editable).length) {
+  if (tools_on && !Object.keys(editable).length) {
     tools.append(h("button", { class: "btn", onclick: () => {
       ui.sort = null; ui.filters = {}; ui.group = ""; ui.split = "";
       tools.querySelectorAll("select").forEach(s => (s.value = ""));
       draw();
     } }, "Clear sort, filters and grouping"));
   }
-  tools.append(count);
+  if (tools_on) tools.append(count);
   root.append(tools, view);
 
   function filtered() {
-    return tab.rows.map((r, i) => ({ r, i })).filter(({ r }) =>
+    return base.filter(({ r }) =>
       Object.entries(ui.filters).every(([c, v]) => {
         if (!v) return true;
         return smallSet(c) ? r[c] === v : r[c].toLowerCase().includes(v.toLowerCase());
@@ -284,7 +344,7 @@ function renderTable(tab) {
 
   function draw() {
     const rows = filtered();
-    count.textContent = `Showing ${rows.length} of ${tab.rows.length} rows`;
+    count.textContent = `Showing ${rows.length} of ${base.length} rows`;
     view.replaceChildren(ui.group ? groupView(rows) : rowView());
   }
 
@@ -296,7 +356,7 @@ function renderTable(tab) {
         draw();
       },
     }, label(c), ui.sort === c && h("span", { class: "arrow" }, ui.dir === 1 ? "▲" : "▼"))));
-    const hasFilters = !Object.keys(editable).length;
+    const hasFilters = tools_on && !Object.keys(editable).length;
     const filters = h("tr", { class: "filters" }, cols.map(c => {
       if (c in editable) return h("th", {});
       let el;
@@ -318,7 +378,7 @@ function renderTable(tab) {
         const c = ui.sort, num = isNum(c);
         rs.sort((a, b) => ui.dir * (num ? Number(a.r[c]) - Number(b.r[c]) : a.r[c].localeCompare(b.r[c], undefined, { numeric: true })));
       }
-      count.textContent = `Showing ${rs.length} of ${tab.rows.length} rows`;
+      count.textContent = `Showing ${rs.length} of ${base.length} rows`;
       tbody.replaceChildren(...rs.map(({ r, i }) => h("tr", {}, cols.map(c => cell(r, i, c)))));
     }
     drawBody();
@@ -328,12 +388,24 @@ function renderTable(tab) {
   function cell(r, i, c) {
     if (c in editable) {
       const key = `t:${tab.id}:${i}:${c}`;
+      if (tab.readonly) {
+        const td = h("td", {});
+        const show = v => {
+          const o = editable[c].find(o => o.value === v);
+          td.textContent = v ? (o ? o.label : v) : "(not chosen yet)";
+          td.classList.toggle("unset-text", !v);
+        };
+        show(state.answers[key] || "");
+        bind(key, show);
+        return td;
+      }
       const s = h("select", {}, h("option", { value: "" }, "Choose…"),
         editable[c].map(o => h("option", { value: o.value }, o.label)));
       s.value = state.answers[key] || "";
       const mark = () => s.classList.toggle("unset", !s.value);
       mark();
-      s.addEventListener("change", () => { queueSave(key, s.value); mark(); if (card) card.update(); });
+      const redraw = bind(key, v => { s.value = v; mark(); });
+      s.addEventListener("change", () => { queueSave(key, s.value, redraw); mark(); if (card) card.update(); });
       return h("td", {}, s);
     }
     return h("td", { class: isNum(c) ? "num" : "" }, r[c]);

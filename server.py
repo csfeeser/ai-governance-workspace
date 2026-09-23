@@ -130,6 +130,53 @@ def build_table(lab_dir, tab):
     }
 
 
+def md(text):
+    return markdown.markdown(text or "", extensions=["tables", "sane_lists"])
+
+
+def build_material(lab_dir, item, tab_id, n):
+    """One block of course material shown under a step: a Markdown file, inline Markdown, or a table."""
+    if "doc" in item:
+        text = (lab_dir / item["doc"]).read_text(encoding="utf-8")
+        return {"kind": "doc", "html": md(text), "markdown": text}
+    if "markdown" in item:
+        return {"kind": "doc", "html": md(item["markdown"]), "markdown": item["markdown"]}
+    spec = item["table"]
+    table = build_table(lab_dir, spec)
+    rows = table["rows"]
+    where = spec.get("where") or {}
+    show = [i for i, r in enumerate(rows)
+            if all(str(r.get(c)) in [str(v) for v in vals] for c, vals in where.items())]
+    return {"kind": "table", "id": spec.get("id", f"{tab_id}-{n}"), **table,
+            "show_rows": show, "readonly": bool(spec.get("readonly")),
+            "tools": spec.get("tools", True)}
+
+
+def build_steps(lab_dir, tab, first_number):
+    steps = []
+    for n, s in enumerate(tab["steps"], start=first_number):
+        fields = expand_fields([{"title": "", "fields": s.get("fields") or []}])[0]["fields"]
+        steps.append({
+            "number": n,
+            "title": s["title"],
+            "html": md(s.get("text")),
+            "fields": fields,
+            "hints": [{"title": x["title"], "html": md(x["text"])} for x in s.get("hints") or []],
+            "answer": md(s["answer"]) if s.get("answer") else None,
+            "show": [build_material(lab_dir, m, tab["id"], f"{n}-{j}") for j, m in enumerate(s.get("show") or [])],
+        })
+    return steps
+
+
+def build_report(tab, fields_by_id):
+    """A read-only page that gathers the answers typed in the step boxes."""
+    sections = []
+    for sec in tab["sections"]:
+        sections.append({"title": sec["title"], "help": sec.get("help"),
+                         "fields": [fields_by_id[fid] for fid in sec["fields"]]})
+    return {"heading": tab.get("heading", tab["title"]), "intro": tab.get("intro"), "sections": sections}
+
+
 def build_tab(lab_dir, tab, raw_tabs):
     base = {"id": tab["id"], "title": tab["title"], "type": tab["type"],
             "optional": bool(tab.get("optional")), "about": tab.get("about")}
@@ -173,7 +220,24 @@ def load_lab(lab_id):
     if cached and cached[0] == sig:
         return cached[1]
     manifest = load_yaml(lab_dir / "lab.yml")
-    tabs = [build_tab(lab_dir, t, manifest["tabs"]) for t in manifest["tabs"]]
+    tabs, number, fields_by_id = [], 1, {}
+    for t in manifest["tabs"]:
+        if t["type"] == "steps":
+            built = {"id": t["id"], "title": t["title"], "type": "steps", "optional": bool(t.get("optional")),
+                     "steps": build_steps(lab_dir, t, number)}
+            number += len(built["steps"])
+            for s in built["steps"]:
+                for f in s["fields"]:
+                    fields_by_id[f["id"]] = {**f, "step": s["number"]}
+        elif t["type"] == "report":
+            built = None   # built below, once every step field is known
+        else:
+            built = build_tab(lab_dir, t, manifest["tabs"])
+        tabs.append(built)
+    for i, t in enumerate(manifest["tabs"]):
+        if t["type"] == "report":
+            tabs[i] = {"id": t["id"], "title": t["title"], "type": "report", "optional": False,
+                       **build_report(t, fields_by_id)}
     lab = {"id": lab_id, "title": manifest["title"], "tabs": tabs}
     _lab_cache[lab_id] = (sig, lab)
     return lab
@@ -189,7 +253,14 @@ def required_keys(lab):
         elif tab["type"] == "table" and not tab["optional"]:
             for col in tab["editable"]:
                 keys += [f"t:{tab['id']}:{i}:{col}" for i in range(len(tab["rows"]))]
-    return keys
+        elif tab["type"] == "steps":
+            for s in tab["steps"]:
+                keys += [f"f:{f['id']}" for f in s["fields"] if f["required"] and not tab["optional"]]
+                for m in s["show"]:
+                    if m["kind"] == "table" and not m["readonly"] and not tab["optional"]:
+                        for col in m["editable"]:
+                            keys += [f"t:{m['id']}:{i}:{col}" for i in m["show_rows"]]
+    return list(dict.fromkeys(keys))
 
 
 def status_for(lab_id):
@@ -225,7 +296,13 @@ def api_labs():
 @app.get("/api/labs/<lab_id>")
 def api_lab(lab_id):
     lab = load_lab(lab_id)
-    tabs = [{k: v for k, v in tab.items() if k != "markdown"} for tab in lab["tabs"]]
+    tabs = []
+    for tab in lab["tabs"]:
+        tab = {k: v for k, v in tab.items() if k != "markdown"}
+        if tab["type"] == "steps":
+            tab["steps"] = [{**s, "show": [{k: v for k, v in m.items() if k != "markdown"} for m in s["show"]]}
+                            for s in tab["steps"]]
+        tabs.append(tab)
     return jsonify({**lab, "tabs": tabs, "answers": saved_answers(lab_id), "status": status_for(lab_id)})
 
 

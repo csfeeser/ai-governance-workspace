@@ -1,78 +1,228 @@
 title: Set the Business Quality Standard for a Deployed AI Workflow
 tabs:
-  - id: intake
-    title: Intake Record
-    about:
-      what: "A fact sheet about PolicyPal, the AI assistant that has just been handed to you. It says what PolicyPal is, when it started, how risky it is rated, and how many people use it."
-      why: "You cannot look after something until you know the basics about it. The person who had this job before you filled this sheet in."
-      todo: "Read it from top to bottom. Find the line called 'Assigned risk tier'. You will need that rating in a few steps."
-    type: doc
-    source: intake-record.md
-  - id: issues
-    title: Open Issues
-    about:
-      what: "A list of eight problems that people have reported about PolicyPal. Each row is one problem."
-      why: "Some problems are yours to fix, because they are about rules, content, or what people do. Others belong to the tech team, because they are about the computer systems. If you send a problem to the wrong person, nobody fixes it."
-      todo: "Read all eight problems first. Then use the drop-down in the last column to pick who owns each one."
-    type: table
-    source: open-issues.csv
-    note: "Fill in the Owner column for all eight issues."
-    editable:
-      - column: owner
-        options: ["Business AI Owner", "Platform / technical owner"]
-  - id: cadence
-    title: Review Cadence
-    about:
-      what: "A small chart. It says how often an AI tool must be checked, and how many of its answers must be checked each time, depending on how risky the tool is."
-      why: "Riskier tools get checked more often and more carefully. You do not get to choose. You look it up."
-      todo: "Find the row that matches PolicyPal's risk rating from the Intake Record. Then note the two things that row tells you."
-    type: doc
-    source: review-cadence.md
-  - id: answer
-    title: My Answer
-    about:
-      what: "Your own form. This is where you write the rulebook for PolicyPal. The rulebook is called a Business Quality Standard."
-      why: "A rulebook says what a good answer from PolicyPal looks like and what it must never do. Later, anyone can check PolicyPal's real answers against your rulebook."
-      todo: "Fill in the boxes from top to bottom. The lab steps tell you which part to fill in and when. Everything saves by itself."
-    type: form
-    heading: Business Quality Standard
-    intro: "Fill in every section. Keep entries short and checkable: a colleague should be able to apply this standard tomorrow without asking you a question."
-    sections:
-      - title: "1. Workflow and purpose"
+  - id: basics
+    title: PolicyPal Basics
+    type: steps
+    steps:
+      - title: Get to know PolicyPal
+        text: |
+          PolicyPal is an AI assistant that answers employees' HR policy questions. As of today, you are responsible for it.
+
+          Below this box is PolicyPal's **intake record**. It is a fact sheet filled in by the person who looked after PolicyPal before you.
+
+          - Read the intake record below, from top to bottom.
+          - Then come back up to this box and write one sentence saying what PolicyPal does and who it is for.
         fields:
-          - {id: purpose, kind: textarea, rows: 2, label: "One sentence: what this workflow does and for whom.", example: "PolicyPal answers employee questions about company HR policy (PTO, benefits, expense, travel, conduct), grounded on the HR Policy Library."}
-      - title: "2. Risk tier, review cadence, and sample size"
-        help: "Read these from the Intake Record and Review Cadence tabs. You read these; you do not set them."
+          - {id: purpose, kind: textarea, rows: 2, label: "One sentence: what this workflow does and for whom."}
+        hints:
+          - title: "Hint: where to look"
+            text: "Look at the rows called **Business purpose** and **Grounding source**. Grounding source means where PolicyPal gets its answers from."
+          - title: "Hint: an example answer"
+            text: "`PolicyPal answers employee questions about company HR policy (PTO, benefits, expense, travel, conduct), grounded on the HR Policy Library.`"
+        show:
+          - doc: intake-record.md
+
+      - title: Find PolicyPal's risk tier and review requirements
+        text: |
+          Every AI tool gets a **risk tier**: Low, Medium, or High. It says how much could go wrong. You do not decide it. Another team (Risk & InfoSec) decided it with HR before PolicyPal went live. You only read it.
+
+          The risk tier determines:
+
+          - the **review cadence**: how often PolicyPal must be checked
+          - the **baseline sample size**: how many of PolicyPal's answers must be checked each time
+
+          1. Find PolicyPal's risk tier in the row below.
+          2. Find that risk tier in the chart below.
+          3. Type the risk tier, review cadence, and baseline sample size in the boxes.
         fields:
           - {id: tier, kind: text, label: "Risk tier"}
           - {id: cadence, kind: text, label: "Review cadence"}
           - {id: sample, kind: text, label: "Baseline sample size"}
-      - title: "2b. Justify the two borderline issues"
-        help: "Pick the two issues on the Open Issues tab where the owner was not obvious. In one line each, say what makes your assignment correct."
+        answer: |
+          - Risk tier: `Medium`
+          - Review cadence: `Monthly`
+          - Baseline sample size: `20 responses`
+        show:
+          - markdown: |
+              | Field | Value |
+              |---|---|
+              | **Assigned risk tier** | **Medium** (assigned by Risk & InfoSec with HR, 2026-02-18) |
+          - doc: review-cadence.md
+
+  - id: issues
+    title: Open Issues
+    type: steps
+    steps:
+      - title: Decide who owns each problem
+        text: |
+          The person who looked after PolicyPal before you left a list of eight problems. It is below this box. Some problems are yours to fix. Others belong to the technical team. If a problem goes to the wrong person, nobody fixes it.
+
+          Read all eight problems first. Then, in the **Owner** column, choose one owner for each problem:
+
+          - **Business AI Owner** (you): fixing it means changing a business rule, the content PolicyPal reads, or something people do.
+          - **Platform / technical owner**: fixing it means changing the computer systems, the AI model, or code.
+        answer: |
+          - **Business AI Owner:** 1, 2, 3, 7
+          - **Platform / technical owner:** 4, 5, 6, 8
+
+          Issues 1 and 8 are the hardest to place. You will explain them in the next step.
+        show:
+          - table:
+              id: issues
+              source: open-issues.csv
+              tools: false
+              labels: {"#": "Issue", raised: Raised, description: Problem, owner: Owner}
+              editable:
+                - column: owner
+                  options: ["Business AI Owner", "Platform / technical owner"]
+
+      - title: Explain the two hardest choices
+        text: |
+          Some problems could belong to either side. Pick the two problems where you found it hardest to decide.
+
+          For each one, write its number and one line saying why the owner you chose is right. The list below shows the owner you chose for each problem.
         fields:
           - {id: just1, kind: textarea, rows: 2, label: "Borderline issue 1 (number and justification)"}
           - {id: just2, kind: textarea, rows: 2, label: "Borderline issue 2 (number and justification)"}
-      - title: "3. What a correct answer looks like"
-        help: "Two criteria a reviewer could mark yes or no."
+        hints:
+          - title: "Hint: example answers"
+            text: |
+              - Issue 1 (the assistant cites an old policy version) is arguable: the old document sitting in the source is a content problem, but deciding the rule about what the assistant may cite is yours.
+              - Issue 8 (users want a new drafting feature) is a build request for whoever owns the agent configuration, not a quality problem.
+        show:
+          - table:
+              id: issues
+              source: open-issues.csv
+              readonly: true
+              tools: false
+              hide: [raised]
+              labels: {"#": "Issue", description: Problem, owner: Your choice}
+              editable:
+                - column: owner
+                  options: ["Business AI Owner", "Platform / technical owner"]
+
+  - id: standard
+    title: Write the Standard
+    type: steps
+    steps:
+      - title: Say what a correct answer looks like
+        text: |
+          Now you write the rulebook for PolicyPal. It is called the **Business Quality Standard**.
+
+          Start with what a correct answer looks like. The two problems below show answers that were not correct. For each one, write one check that would have caught it.
+
+          Each check must be something a reviewer can mark yes or no, not a feeling.
         fields:
           - {id: correct-1, kind: text, label: "A criterion that would have caught Issue 1 (an old policy version cited)"}
           - {id: correct-2, kind: text, label: "A criterion that would have caught Issue 3 (two employees given different figures)"}
-      - title: "4. Business rules that must always hold"
-        help: "Two rules the assistant must never break, phrased as absolutes."
+        hints:
+          - title: "Hint 1: sentences to start from"
+            text: |
+              Fill in the blanks:
+
+              - "The answer cites a ______ policy document."
+              - "Every ______ in the answer matches ______."
+          - title: "Hint 2: example answers"
+            text: |
+              - "Cites a named, current policy document."
+              - "Every claim in the answer matches the entitlement or figure exactly as written in policy."
+        show:
+          - table: {source: open-issues.csv, tools: false, hide: [raised, owner], labels: {"#": "Issue", description: Problem}, where: {"#": [1, 3]}}
+
+      - title: Write the rules that must always hold
+        text: |
+          A **business rule** is an absolute: something PolicyPal must never do, or must always do.
+
+          The two problems below happened because a rule was missing. For each one, write one rule that would have stopped it.
         fields:
           - {id: rules-1, kind: text, label: "A rule that would have prevented Issue 3 (different per-diem figures)"}
           - {id: rules-2, kind: text, label: "A rule that would have prevented Issue 7 (legal detail about maternity leave)"}
-      - title: "5. Errors that are unacceptable"
-        help: "Two failures that are never tolerable, no matter how rare."
+        hints:
+          - title: "Hint 1: sentences to start from"
+            text: |
+              Fill in the blanks:
+
+              - "Never state a ______ that is not written in ______."
+              - "Never give ______ advice; send those questions to ______."
+          - title: "Hint 2: example answers"
+            text: |
+              - "Never state a dollar figure or day count that is not written in current policy."
+              - "Never give legal or interpretation advice; send those questions to HR."
+        show:
+          - table: {source: open-issues.csv, tools: false, hide: [raised, owner], labels: {"#": "Issue", description: Problem}, where: {"#": [3, 7]}}
+
+      - title: Name the errors that are never acceptable
+        text: |
+          An **unacceptable error** is a mistake that is never OK, no matter how rarely it happens.
+
+          Each problem below shows one. Write the error each problem shows.
         fields:
           - {id: errors-1, kind: text, label: "An unacceptable error shown by Issue 1 (an old policy version cited)"}
           - {id: errors-2, kind: text, label: "An unacceptable error shown by Issue 7 (legal detail about maternity leave)"}
-      - title: "6. When a human must intervene"
-        help: "Two situations where the assistant should stop and route the employee to a person."
+        hints:
+          - title: "Hint 1: sentences to start from"
+            text: |
+              Fill in the blanks:
+
+              - "Citing a ______ policy as if it were ______."
+              - "Answering a ______ question with detail instead of ______."
+          - title: "Hint 2: example answers"
+            text: |
+              - "Citing an obsolete policy as if it were current."
+              - "Answering a protected or statutory leave question with detail instead of referring it to HR."
+        show:
+          - table: {source: open-issues.csv, tools: false, hide: [raised, owner], labels: {"#": "Issue", description: Problem}, where: {"#": [1, 7]}}
+
+      - title: Say when a person must take over
+        text: |
+          A **trigger** is a situation where PolicyPal should stop and send the employee to a real person.
+
+          Each problem below points to one. Write one trigger for each.
         fields:
           - {id: triggers-1, kind: text, label: "A trigger that would have caught Issue 2 (accommodation or protected-leave questions)"}
           - {id: triggers-2, kind: text, label: "A trigger for the situation behind Issue 1 (two versions of one policy in the library)"}
-      - title: "7. Tolerable inconsistency"
-        help: "One threshold, in plain language or as a percentage."
+        hints:
+          - title: "Hint 1: sentences to start from"
+            text: |
+              Fill in the blanks:
+
+              - "Any question about ______ or ______."
+              - "Any question where two ______ of the same policy ______."
+          - title: "Hint 2: example answers"
+            text: |
+              - "Any question about an accommodation or leave."
+              - "Any question where two versions of a policy conflict, so it is unclear which one is current."
+        show:
+          - table: {source: open-issues.csv, tools: false, hide: [raised, owner], labels: {"#": "Issue", description: Problem}, where: {"#": [2, 1]}}
+
+      - title: Say how much difference is acceptable
+        text: |
+          In the problem below, two employees asked the same question and got different figures.
+
+          Some difference in wording between two answers is normal. A difference in the figure is not.
+
+          Write one limit: how much difference is acceptable between two answers to the same question? Say it in plain words or as a percentage.
         fields:
           - {id: tolerance, kind: textarea, rows: 2, label: "How much difference is acceptable between two answers to the same question? (Issue 3)"}
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "Two employees who ask the same ______ must get the same ________."'
+          - title: "Hint 2: an example answer"
+            text: '"Two employees who ask the same question must get the same entitlement figure, every time."'
+        show:
+          - table: {source: open-issues.csv, tools: false, hide: [raised, owner], labels: {"#": "Issue", description: Problem}, where: {"#": [3]}}
+
+  - id: answer
+    title: My Answer
+    type: report
+    heading: Business Quality Standard
+    intro: "This is the rulebook you wrote for PolicyPal. A colleague should be able to use it tomorrow without asking you a question. Module 2 marks PolicyPal's answers against it, and Module 5 files it in the evidence packet. To keep a copy, click Save as PDF."
+    sections:
+      - {title: "1. Workflow and purpose", fields: [purpose]}
+      - {title: "2. Risk tier, review cadence, and sample size", fields: [tier, cadence, sample]}
+      - {title: "2b. The two borderline issues", fields: [just1, just2]}
+      - {title: "3. What a correct answer looks like", fields: [correct-1, correct-2]}
+      - {title: "4. Business rules that must always hold", fields: [rules-1, rules-2]}
+      - {title: "5. Errors that are unacceptable", fields: [errors-1, errors-2]}
+      - {title: "6. When a human must intervene", fields: [triggers-1, triggers-2]}
+      - {title: "7. Tolerable inconsistency", fields: [tolerance]}

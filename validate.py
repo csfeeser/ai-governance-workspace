@@ -17,16 +17,22 @@ import yaml
 
 ID_RE = re.compile(r"^[\w-]+$")   # ids end up inside saved-answer keys, so keep them simple
 LAB_ID_RE = re.compile(r"^[\w.-]+$")   # lab ids only appear in URLs, so dots are fine
-TAB_TYPES = {"doc", "table", "form"}
+TAB_TYPES = {"doc", "table", "form", "steps", "report"}
 FIELD_KINDS = {"text", "textarea", "select", "lines"}
 
 LAB_KEYS = {"title", "tabs"}
 TAB_KEYS = {"id", "title", "type", "optional", "source", "note", "computed", "hide", "labels",
             "editable", "summary", "scorecard", "heading", "intro", "sections", "sections_from",
-            "id_prefix", "hide_examples", "about"}
+            "id_prefix", "hide_examples", "about", "steps"}
 ABOUT_KEYS = {"what", "why", "todo"}
 SECTION_KEYS = {"title", "help", "fields"}
 FIELD_KEYS = {"id", "kind", "label", "example", "rows", "required", "options", "count", "min", "item"}
+STEP_KEYS = {"title", "text", "fields", "hints", "answer", "show"}
+HINT_KEYS = {"title", "text"}
+MATERIAL_KINDS = {"doc", "markdown", "table"}
+TABLE_KEYS = {"id", "source", "note", "computed", "hide", "labels", "editable", "summary", "scorecard",
+              "where", "readonly", "tools"}
+REPORT_SECTION_KEYS = {"title", "help", "fields"}
 
 
 class Report:
@@ -264,6 +270,121 @@ def check_form(tab, tabs_by_id, where, rep, seen_ids):
     check_form_fields(sections, tab.get("id_prefix", ""), where, rep, seen_ids)
 
 
+def check_steps(tab, lab_dir, where, rep, seen_ids, tables):
+    """A tab of numbered steps: each step's box, its answer fields, and the material shown under it."""
+    if "about" in tab:
+        rep.error(where, "a steps tab has no 'about' box. Put that explanation in the first step instead")
+    steps = tab.get("steps")
+    if not isinstance(steps, list) or not steps:
+        rep.error(where, "a steps tab needs a non-empty 'steps' list")
+        return
+    for si, step in enumerate(steps):
+        sw = f"{where} > step {si + 1}" + (f" ('{step.get('title')}')" if isinstance(step, dict) and step.get("title") else "")
+        if not isinstance(step, dict):
+            rep.error(sw, "must be a mapping with a title and text")
+            continue
+        check_unknown_keys(step, STEP_KEYS, sw, rep)
+        for key in ("title", "text"):
+            if not str(step.get(key) or "").strip():
+                rep.error(sw, f"needs a non-empty '{key}'")
+        if step.get("fields"):
+            check_form_fields([{"title": step.get("title") or "step", "fields": step["fields"]}], "", sw, rep, seen_ids)
+        for hi, hint in enumerate(step.get("hints") or []):
+            hw = f"{sw} > hints[{hi}]"
+            if not isinstance(hint, dict):
+                rep.error(hw, "must be a mapping with a 'title' and 'text'")
+                continue
+            check_unknown_keys(hint, HINT_KEYS, hw, rep)
+            for key in ("title", "text"):
+                if not str(hint.get(key) or "").strip():
+                    rep.error(hw, f"needs a non-empty '{key}'")
+        for mi, item in enumerate(step.get("show") or []):
+            mw = f"{sw} > show[{mi}]"
+            kinds = [k for k in (item if isinstance(item, dict) else {}) if k in MATERIAL_KINDS]
+            if not isinstance(item, dict) or len(kinds) != 1 or len(item) != 1:
+                rep.error(mw, f"each item must have exactly one of: {', '.join(sorted(MATERIAL_KINDS))}"
+                              f"{suggest(next(iter(item), ''), MATERIAL_KINDS) if isinstance(item, dict) and item else ''}")
+                continue
+            if "doc" in item:
+                src = item["doc"]
+                if not (lab_dir / str(src)).is_file():
+                    rep.error(mw, f"source file '{src}' does not exist in {lab_dir.name}/")
+                elif not (lab_dir / src).read_text(encoding="utf-8").strip():
+                    rep.error(mw, f"source file '{src}' is empty")
+            elif "markdown" in item:
+                if not str(item["markdown"] or "").strip():
+                    rep.error(mw, "'markdown' is empty")
+            else:
+                spec = item["table"]
+                if not isinstance(spec, dict):
+                    rep.error(mw, "'table' must be a mapping with at least a 'source'")
+                    continue
+                check_unknown_keys(spec, TABLE_KEYS, mw, rep)
+                check_table(spec, lab_dir, mw, rep)
+                if spec.get("id") is not None and not ID_RE.match(str(spec["id"])):
+                    rep.error(mw, "the table 'id' must use only letters, numbers, - and _")
+                tables.append((mw, spec))
+                where_ = spec.get("where") or {}
+                if where_ and (lab_dir / str(spec.get("source"))).is_file():
+                    parsed = read_csv(lab_dir / spec["source"], Report(), "")
+                    if parsed:
+                        header, rows = parsed
+                        for c, vals in where_.items():
+                            if c not in header:
+                                rep.error(f"{mw} > where", f"column '{c}' is not in the CSV{suggest(c, header)}")
+                            elif not isinstance(vals, list):
+                                rep.error(f"{mw} > where", f"'{c}' needs a list of values, for example [1, 3]")
+                            else:
+                                present = {r[c] for r in rows}
+                                for v in vals:
+                                    if str(v) not in present:
+                                        rep.error(f"{mw} > where", f"no row has {c} = {v}")
+
+
+def check_tables_link_up(tables, rep):
+    """Editable tables need their own id; a read-only copy must point at one of them."""
+    editable_ids = {}
+    for mw, spec in tables:
+        if spec.get("editable") and not spec.get("readonly"):
+            tid = spec.get("id")
+            if not tid:
+                rep.error(mw, "an editable table needs an 'id', because saved answers are keyed by it")
+            elif tid in editable_ids:
+                rep.error(mw, f"the editable table id '{tid}' is already used in {editable_ids[tid]}")
+            else:
+                editable_ids[tid] = mw
+    for mw, spec in tables:
+        if spec.get("readonly"):
+            if spec.get("id") not in editable_ids:
+                rep.error(mw, f"a read-only table shows the answers from an editable table, so its 'id' must match one"
+                              f"{suggest(spec.get('id'), editable_ids)}")
+            if not spec.get("editable"):
+                rep.error(mw, "a read-only table needs the same 'editable' columns as the table it copies")
+
+
+def check_report(tab, where, rep, step_fields):
+    sections = tab.get("sections")
+    if "about" in tab:
+        rep.error(where, "a report tab has no 'about' box. Use 'intro' instead")
+    if not isinstance(sections, list) or not sections:
+        rep.error(where, "a report needs a non-empty 'sections' list")
+        return
+    for si, sec in enumerate(sections):
+        sw = f"{where} > sections[{si}]"
+        if not isinstance(sec, dict):
+            rep.error(sw, "must be a mapping with a title and fields")
+            continue
+        check_unknown_keys(sec, REPORT_SECTION_KEYS, sw, rep)
+        if not sec.get("title"):
+            rep.error(sw, "needs a 'title'")
+        if not isinstance(sec.get("fields"), list) or not sec["fields"]:
+            rep.error(sw, "needs a non-empty 'fields' list of field ids from the steps")
+            continue
+        for fid in sec["fields"]:
+            if fid not in step_fields:
+                rep.error(sw, f"field '{fid}' is not an answer box in any step{suggest(fid, step_fields)}")
+
+
 def check_lab(lab_id, lab_dir, rep):
     where_lab = lab_id
     manifest = load_yaml(lab_dir / "lab.yml", rep, f"{where_lab} > lab.yml")
@@ -282,7 +403,7 @@ def check_lab(lab_id, lab_dir, rep):
         rep.error(where_lab, "lab.yml needs a non-empty 'tabs' list")
         return
 
-    tabs_by_id, titles, seen_ids = {}, {}, {}
+    tabs_by_id, titles, seen_ids, tables = {}, {}, {}, []
     for t in tabs:
         if isinstance(t, dict) and t.get("id"):
             tabs_by_id[t["id"]] = t
@@ -300,7 +421,9 @@ def check_lab(lab_id, lab_dir, rep):
         if list(t.get("id") for t in tabs if isinstance(t, dict)).count(tab["id"]) > 1 and tabs_by_id.get(tab["id"]) is not tab:
             rep.error(where, "this tab id is used more than once in the lab")
         about = tab.get("about")
-        if not isinstance(about, dict):
+        if tab.get("type") in ("steps", "report"):
+            pass   # steps carry their own explanation; checked in check_steps / check_report
+        elif not isinstance(about, dict):
             rep.error(where, "needs an 'about' box: a short plain-language note at the top of the tab saying "
                              "'what' this is and 'why' the student is looking at it (optionally 'todo')")
         else:
@@ -328,10 +451,20 @@ def check_lab(lab_id, lab_dir, rep):
                 rep.error(where, f"source file '{src}' is empty")
         elif ttype == "table":
             check_table(tab, lab_dir, where, rep)
+        elif ttype == "steps":
+            check_steps(tab, lab_dir, where, rep, seen_ids, tables)
+        elif ttype == "report":
+            pass   # checked once every step field is known
         else:
             check_form(tab, tabs_by_id, where, rep, seen_ids)
 
-    if not any(t.get("type") == "form" and not t.get("optional") for t in tabs if isinstance(t, dict)) \
+    check_tables_link_up(tables, rep)
+    step_fields = [fid for fid, w in seen_ids.items() if "> step " in w]
+    for tab in tabs:
+        if isinstance(tab, dict) and tab.get("type") == "report":
+            check_report(tab, f"{where_lab} > tab '{tab.get('id')}'", rep, step_fields)
+
+    if not any(t.get("type") in ("form", "steps") and not t.get("optional") for t in tabs if isinstance(t, dict)) \
             and not any(t.get("editable") for t in tabs if isinstance(t, dict)):
         rep.warn(where_lab, "has no required form or editable table, so progress will never show as complete")
 

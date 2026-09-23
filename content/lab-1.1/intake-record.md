@@ -3,8 +3,6 @@
 *This record is what the previous owner and the platform team know about PolicyPal. As of
 today it transfers to you.*
 
-## Part 1 — Workflow facts
-
 | Field | Value |
 |---|---|
 | Workflow name | PolicyPal |

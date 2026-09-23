@@ -123,6 +123,35 @@ class ValidateContent(unittest.TestCase):
         p.write_text(text, encoding="utf-8")
         self.assertCaught("lab-3.2", "'why'")
 
+    def test_step_without_text(self):
+        self.edit("lab-1.1/lab.yml", "      - title: Find PolicyPal's risk tier and review requirements\n        text: |", "      - title: Find PolicyPal's risk tier and review requirements\n        txt: |")
+        self.assertCaught("Find PolicyPal's risk tier", "'text'")
+
+    def test_step_material_file_missing(self):
+        self.edit("lab-1.1/lab.yml", "- doc: review-cadence.md", "- doc: review-cadance.md")
+        self.assertCaught("review-cadance.md", "does not exist")
+
+    def test_step_material_unknown_kind(self):
+        self.edit("lab-1.1/lab.yml", "- doc: review-cadence.md", "- docs: review-cadence.md")
+        self.assertCaught("exactly one of", "did you mean 'doc'")
+
+    def test_step_table_row_filter_matches_nothing(self):
+        self.edit("lab-1.1/lab.yml", 'where: {"#": [3, 7]}', 'where: {"#": [3, 70]}')
+        self.assertCaught("no row has # = 70")
+
+    def test_readonly_table_must_copy_an_editable_one(self):
+        self.edit("lab-1.1/lab.yml", "              id: issues\n              source: open-issues.csv\n              readonly: true",
+                  "              id: isues\n              source: open-issues.csv\n              readonly: true")
+        self.assertCaught("read-only table", "did you mean 'issues'")
+
+    def test_report_field_that_no_step_asks_for(self):
+        self.edit("lab-1.1/lab.yml", "fields: [tolerance]}", "fields: [tolerence]}")
+        self.assertCaught("'tolerence' is not an answer box", "did you mean 'tolerance'")
+
+    def test_step_field_ids_must_be_unique(self):
+        self.edit("lab-1.1/lab.yml", "{id: just2, kind: textarea", "{id: just1, kind: textarea")
+        self.assertCaught("'just1' is already used")
+
     def test_command_line_exit_codes(self):
         self.assertEqual(validate.main(["validate.py", str(self.content)]), 0)
         self.edit("lab-3.1/lab.yml", "source: reviewer-log.csv", "source: nope.csv")

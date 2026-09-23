@@ -87,6 +87,39 @@ a lab in `content/labs.yml` by giving it a `dir`. Labs without one show as "soon
 | `doc` | a Markdown file | read it |
 | `table` | a CSV file | sort, filter, group by / split by; fill `editable` columns with a dropdown |
 | `form` | `sections:` in `lab.yml` | type or choose answers (autosaved) |
+| `steps` | `steps:` in `lab.yml` | follow numbered steps, each with its own answer boxes and the material under it |
+| `report` | `sections:` naming step field ids | read a page built from their step answers (read-only; this is the PDF they save) |
+
+**Steps tabs (the new format; Lab 1.1 uses it).** Students work through the tabs left to right and each
+tab top to bottom, never going back. Every instruction is a numbered step in an orange box; step numbers
+run across the whole lab. The material a step needs goes right under it in `show:`, even if an earlier
+step already showed it.
+
+```yaml
+- id: basics
+  title: PolicyPal Basics
+  type: steps
+  steps:
+    - title: Find PolicyPal's risk tier          # the step heading
+      text: |                                    # Markdown instructions
+        Find the risk tier in the row below.
+      fields:                                    # answer boxes, same format as form fields
+        - {id: tier, kind: text, label: "Risk tier"}
+      hints:                                     # optional, each opens on click
+        - {title: "Hint: where to look", text: "The **Assigned risk tier** row."}
+      answer: "`Medium`"                         # optional "Show the answer"
+      show:                                      # material under the step, in order
+        - doc: intake-record.md                  # a Markdown file
+        - markdown: "| a | b |\n|---|---|\n| 1 | 2 |"   # or inline Markdown
+        - table:                                 # or a CSV table (same settings as a table tab)
+            source: open-issues.csv
+            where: {"#": [1, 3]}                 # optional: only these rows
+            tools: false                         # optional: hide sort/filter/group controls
+```
+
+An editable table needs an `id` (answers are keyed by it). To show the student's choices again in a later
+step, repeat the table with the same `id` and `readonly: true`. A `report` tab lists field ids from the
+steps; a missing answer says which step to go back to.
 
 **Form fields** (`kind:`): `text`, `textarea`, `select` (needs `options:`), and `lines` (expands
 into `count` one-line inputs, `min` of them required). `example:` shows a grey example above the

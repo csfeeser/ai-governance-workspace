@@ -12,7 +12,7 @@ The risk tier is assigned by Risk & InfoSec together with the business unit. The
 AI Owner reads the tier off the workflow's intake record and applies the cadence and
 sample size it requires; the owner does not assess the tier or change it.
 
-The **baseline sample size** is the number of responses scored in each periodic baseline
+The *baseline sample size* is the number of responses scored in each periodic baseline
 re-test (Lab 2.1). Higher-risk workflows are reviewed more often and on a larger sample;
 the tier is what decides how much effort each review costs, so it is not a value you set
 per review.
