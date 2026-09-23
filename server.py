@@ -134,10 +134,27 @@ def md(text):
     return markdown.markdown(text or "", extensions=["tables", "sane_lists"])
 
 
+def doc_section(text, heading):
+    """The part of a Markdown document from the heading whose text is `heading` up to the next
+    heading of the same or a higher level. Returns None if there is no such heading."""
+    lines = text.splitlines()
+    for i, line in enumerate(lines):
+        m = re.match(r"^(#+)\s+(.*?)\s*$", line)
+        if m and m.group(2) == heading:
+            level = len(m.group(1))
+            end = next((j for j in range(i + 1, len(lines))
+                        if re.match(r"^#{1,%d}\s" % level, lines[j])), len(lines))
+            return "\n".join(lines[i:end]).strip() + "\n"
+    return None
+
+
 def build_material(lab_dir, item, tab_id, n):
-    """One block of course material shown under a step: a Markdown file, inline Markdown, or a table."""
+    """One block of course material shown under a step: a Markdown file (or one section of it),
+    inline Markdown, or a table."""
     if "doc" in item:
         text = (lab_dir / item["doc"]).read_text(encoding="utf-8")
+        if item.get("section"):
+            text = doc_section(text, item["section"]) or ""
         return {"kind": "doc", "html": md(text), "markdown": text}
     if "markdown" in item:
         return {"kind": "doc", "html": md(item["markdown"]), "markdown": item["markdown"]}
@@ -149,7 +166,7 @@ def build_material(lab_dir, item, tab_id, n):
             if all(str(r.get(c)) in [str(v) for v in vals] for c, vals in where.items())]
     return {"kind": "table", "id": spec.get("id", f"{tab_id}-{n}"), **table,
             "show_rows": show, "readonly": bool(spec.get("readonly")),
-            "tools": spec.get("tools", True)}
+            "tools": spec.get("tools", True), "view": spec.get("view", "rows")}
 
 
 def build_steps(lab_dir, tab, first_number):
@@ -257,7 +274,7 @@ def required_keys(lab):
             for s in tab["steps"]:
                 keys += [f"f:{f['id']}" for f in s["fields"] if f["required"] and not tab["optional"]]
                 for m in s["show"]:
-                    if m["kind"] == "table" and not m["readonly"] and not tab["optional"]:
+                    if m["kind"] == "table" and not m["readonly"] and m["view"] == "rows" and not tab["optional"]:
                         for col in m["editable"]:
                             keys += [f"t:{m['id']}:{i}:{col}" for i in m["show_rows"]]
     return list(dict.fromkeys(keys))

@@ -152,6 +152,14 @@ class ValidateContent(unittest.TestCase):
         self.edit("lab-1.1/lab.yml", "{id: just2, kind: textarea", "{id: just1, kind: textarea")
         self.assertCaught("'just1' is already used")
 
+    def test_step_doc_section_that_does_not_exist(self):
+        self.edit("lab-2.1/lab.yml", 'section: "8. Quality alarm level"', 'section: "8. Quality alarm"')
+        self.assertCaught("no heading called '8. Quality alarm'", "did you mean '8. Quality alarm level'")
+
+    def test_score_panel_needs_a_scorecard(self):
+        self.edit("lab-2.1/lab.yml", "              view: scorecard\n", "              view: scorcard\n")
+        self.assertCaught("view 'scorcard'", "did you mean 'scorecard'")
+
     def test_command_line_exit_codes(self):
         self.assertEqual(validate.main(["validate.py", str(self.content)]), 0)
         self.edit("lab-3.1/lab.yml", "source: reviewer-log.csv", "source: nope.csv")

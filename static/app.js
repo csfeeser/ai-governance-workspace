@@ -293,6 +293,8 @@ function renderReport(tab) {
 // ---------------------------------------------------------------- tables
 
 function renderTable(tab) {
+  // Just the live score panel, for steps that read the result of marking done in an earlier step.
+  if (tab.view === "scorecard") return makeScorecard(tab, { open: true, sticky: false }).el;
   const ui = { sort: null, dir: 1, filters: {}, group: "", split: "" };
   const cols = tab.columns.filter(c => !(tab.hide || []).includes(c));
   const label = c => (tab.labels || {})[c] || c;
@@ -453,9 +455,10 @@ function renderTable(tab) {
 
 // Live Business Quality Score panel. Current scores come from the row data, or from the
 // student's dropdown answers when that column is editable.
-function makeScorecard(tab) {
+function makeScorecard(tab, opts = {}) {
   const sc = tab.scorecard, editable = tab.editable || {};
-  const el = h("div", { class: "scorecard" + (Object.keys(editable).length ? " sticky" : "") });
+  const marking = Object.keys(editable).length && !opts.open;
+  const el = h("div", { class: "scorecard" + (marking && opts.sticky !== false ? " sticky" : "") });
   const cur = (i, col) => {
     const v = col in editable ? state.answers[`t:${tab.id}:${i}:${col}`] : tab.rows[i][col];
     return v === "1" ? 1 : v === "0" ? 0 : null;
@@ -490,7 +493,7 @@ function makeScorecard(tab) {
         stat("Recorded baseline", isNaN(baselineBqs) ? "\u2013" : String(baselineBqs)),
         stat("Change (points)", change === null ? "\u2013" : (change > 0 ? "+" : "") + change),
         stat("Responses below their own baseline", done ? `${below} of ${n}` : "\u2013")),
-      h("details", { class: "crit-details", open: !Object.keys(editable).length },
+      h("details", { class: "crit-details", open: !marking },
         h("summary", {}, "How each criterion moved"),
       h("table", { class: "data crit" },
         h("thead", {}, h("tr", { class: "heads" },

@@ -31,7 +31,8 @@ STEP_KEYS = {"title", "text", "fields", "hints", "answer", "show"}
 HINT_KEYS = {"title", "text"}
 MATERIAL_KINDS = {"doc", "markdown", "table"}
 TABLE_KEYS = {"id", "source", "note", "computed", "hide", "labels", "editable", "summary", "scorecard",
-              "where", "readonly", "tools"}
+              "where", "readonly", "tools", "view"}
+TABLE_VIEWS = {"rows", "scorecard"}
 REPORT_SECTION_KEYS = {"title", "help", "fields"}
 
 
@@ -301,7 +302,10 @@ def check_steps(tab, lab_dir, where, rep, seen_ids, tables):
         for mi, item in enumerate(step.get("show") or []):
             mw = f"{sw} > show[{mi}]"
             kinds = [k for k in (item if isinstance(item, dict) else {}) if k in MATERIAL_KINDS]
-            if not isinstance(item, dict) or len(kinds) != 1 or len(item) != 1:
+            extra = [k for k in (item if isinstance(item, dict) else {}) if k not in MATERIAL_KINDS]
+            if isinstance(item, dict) and len(kinds) == 1 and extra == ["section"] and kinds == ["doc"]:
+                pass   # a doc may name one section to show
+            elif not isinstance(item, dict) or len(kinds) != 1 or extra:
                 rep.error(mw, f"each item must have exactly one of: {', '.join(sorted(MATERIAL_KINDS))}"
                               f"{suggest(next(iter(item), ''), MATERIAL_KINDS) if isinstance(item, dict) and item else ''}")
                 continue
@@ -311,6 +315,11 @@ def check_steps(tab, lab_dir, where, rep, seen_ids, tables):
                     rep.error(mw, f"source file '{src}' does not exist in {lab_dir.name}/")
                 elif not (lab_dir / src).read_text(encoding="utf-8").strip():
                     rep.error(mw, f"source file '{src}' is empty")
+                elif item.get("section"):
+                    text = (lab_dir / src).read_text(encoding="utf-8")
+                    headings = [re.sub(r"^#+\s+", "", l).strip() for l in text.splitlines() if re.match(r"^#+\s", l)]
+                    if item["section"] not in headings:
+                        rep.error(mw, f"'{src}' has no heading called '{item['section']}'{suggest(item['section'], headings)}")
             elif "markdown" in item:
                 if not str(item["markdown"] or "").strip():
                     rep.error(mw, "'markdown' is empty")
@@ -321,6 +330,11 @@ def check_steps(tab, lab_dir, where, rep, seen_ids, tables):
                     continue
                 check_unknown_keys(spec, TABLE_KEYS, mw, rep)
                 check_table(spec, lab_dir, mw, rep)
+                view = spec.get("view", "rows")
+                if view not in TABLE_VIEWS:
+                    rep.error(mw, f"view '{view}' is not one of {', '.join(sorted(TABLE_VIEWS))}{suggest(view, TABLE_VIEWS)}")
+                elif view == "scorecard" and not spec.get("scorecard"):
+                    rep.error(mw, "view: scorecard needs a 'scorecard' setting to show")
                 if spec.get("id") is not None and not ID_RE.match(str(spec["id"])):
                     rep.error(mw, "the table 'id' must use only letters, numbers, - and _")
                 tables.append((mw, spec))
@@ -345,21 +359,22 @@ def check_tables_link_up(tables, rep):
     """Editable tables need their own id; a read-only copy must point at one of them."""
     editable_ids = {}
     for mw, spec in tables:
-        if spec.get("editable") and not spec.get("readonly"):
+        if spec.get("editable") and not spec.get("readonly") and spec.get("view", "rows") == "rows":
             tid = spec.get("id")
             if not tid:
                 rep.error(mw, "an editable table needs an 'id', because saved answers are keyed by it")
-            elif tid in editable_ids:
-                rep.error(mw, f"the editable table id '{tid}' is already used in {editable_ids[tid]}")
-            else:
-                editable_ids[tid] = mw
+            elif tid in editable_ids and editable_ids[tid][1] != spec.get("source"):
+                rep.error(mw, f"the editable table id '{tid}' is already used for a different file in {editable_ids[tid][0]}")
+            elif tid not in editable_ids:
+                editable_ids[tid] = (mw, spec.get("source"))
+    # A table split across steps (same id and file, different rows) is one set of answers.
     for mw, spec in tables:
-        if spec.get("readonly"):
+        if spec.get("readonly") or spec.get("view") == "scorecard":
             if spec.get("id") not in editable_ids:
                 rep.error(mw, f"a read-only table shows the answers from an editable table, so its 'id' must match one"
                               f"{suggest(spec.get('id'), editable_ids)}")
             if not spec.get("editable"):
-                rep.error(mw, "a read-only table needs the same 'editable' columns as the table it copies")
+                rep.error(mw, "a read-only table or score panel needs the same 'editable' columns as the table it copies")
 
 
 def check_report(tab, where, rep, step_fields):
