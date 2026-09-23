@@ -29,7 +29,7 @@ SECTION_KEYS = {"title", "help", "fields"}
 FIELD_KEYS = {"id", "kind", "label", "example", "rows", "required", "options", "count", "min", "item"}
 STEP_KEYS = {"title", "text", "fields", "hints", "answer", "show"}
 HINT_KEYS = {"title", "text"}
-MATERIAL_KINDS = {"doc", "markdown", "table"}
+MATERIAL_KINDS = {"doc", "markdown", "table", "answers"}
 TABLE_KEYS = {"id", "source", "note", "computed", "hide", "labels", "editable", "summary", "scorecard",
               "where", "readonly", "tools", "view"}
 TABLE_VIEWS = {"rows", "scorecard"}
@@ -271,7 +271,7 @@ def check_form(tab, tabs_by_id, where, rep, seen_ids):
     check_form_fields(sections, tab.get("id_prefix", ""), where, rep, seen_ids)
 
 
-def check_steps(tab, lab_dir, where, rep, seen_ids, tables):
+def check_steps(tab, lab_dir, where, rep, seen_ids, tables, echoes):
     """A tab of numbered steps: each step's box, its answer fields, and the material shown under it."""
     if "about" in tab:
         rep.error(where, "a steps tab has no 'about' box. Put that explanation in the first step instead")
@@ -323,6 +323,11 @@ def check_steps(tab, lab_dir, where, rep, seen_ids, tables):
             elif "markdown" in item:
                 if not str(item["markdown"] or "").strip():
                     rep.error(mw, "'markdown' is empty")
+            elif "answers" in item:
+                if not isinstance(item["answers"], list) or not item["answers"]:
+                    rep.error(mw, "'answers' needs a list of field ids from earlier steps")
+                else:
+                    echoes.append((mw, item["answers"]))
             else:
                 spec = item["table"]
                 if not isinstance(spec, dict):
@@ -369,7 +374,7 @@ def check_tables_link_up(tables, rep):
                 editable_ids[tid] = (mw, spec.get("source"))
     # A table split across steps (same id and file, different rows) is one set of answers.
     for mw, spec in tables:
-        if spec.get("readonly") or spec.get("view") == "scorecard":
+        if spec.get("readonly") or (spec.get("view") == "scorecard" and spec.get("editable")):
             if spec.get("id") not in editable_ids:
                 rep.error(mw, f"a read-only table shows the answers from an editable table, so its 'id' must match one"
                               f"{suggest(spec.get('id'), editable_ids)}")
@@ -418,7 +423,7 @@ def check_lab(lab_id, lab_dir, rep):
         rep.error(where_lab, "lab.yml needs a non-empty 'tabs' list")
         return
 
-    tabs_by_id, titles, seen_ids, tables = {}, {}, {}, []
+    tabs_by_id, titles, seen_ids, tables, echoes = {}, {}, {}, [], []
     for t in tabs:
         if isinstance(t, dict) and t.get("id"):
             tabs_by_id[t["id"]] = t
@@ -467,7 +472,7 @@ def check_lab(lab_id, lab_dir, rep):
         elif ttype == "table":
             check_table(tab, lab_dir, where, rep)
         elif ttype == "steps":
-            check_steps(tab, lab_dir, where, rep, seen_ids, tables)
+            check_steps(tab, lab_dir, where, rep, seen_ids, tables, echoes)
         elif ttype == "report":
             pass   # checked once every step field is known
         else:
@@ -475,6 +480,10 @@ def check_lab(lab_id, lab_dir, rep):
 
     check_tables_link_up(tables, rep)
     step_fields = [fid for fid, w in seen_ids.items() if "> step " in w]
+    for mw, ids in echoes:
+        for fid in ids:
+            if fid not in step_fields:
+                rep.error(mw, f"'answers' lists '{fid}', which is not an answer box in any step{suggest(fid, step_fields)}")
     for tab in tabs:
         if isinstance(tab, dict) and tab.get("type") == "report":
             check_report(tab, f"{where_lab} > tab '{tab.get('id')}'", rep, step_fields)

@@ -80,8 +80,8 @@ class ValidateContent(unittest.TestCase):
         self.assertCaught("'ownr' is not in the CSV", "did you mean 'owner'")
 
     def test_scorecard_column_that_is_not_zero_or_one(self):
-        self.edit("lab-2.2/lab.yml", "current: current_score_c1, baseline: baseline_score_c1}\n        - {label: \"c2 Exact figure or entitlement\", current: current_score_c2, baseline: baseline_score_c2}\n        - {label: \"c3 Answers the question asked\", current: current_score_c3, baseline: baseline_score_c3}\n        - {label: \"c4 Human referral where required\", current: current_score_c4, baseline: baseline_score_c4}\n  - id: activitylog",
-                  "current: employee_question, baseline: baseline_score_c1}\n        - {label: \"c2 Exact figure or entitlement\", current: current_score_c2, baseline: baseline_score_c2}\n        - {label: \"c3 Answers the question asked\", current: current_score_c3, baseline: baseline_score_c3}\n        - {label: \"c4 Human referral where required\", current: current_score_c4, baseline: baseline_score_c4}\n  - id: activitylog")
+        self.edit("lab-2.2/lab.yml", '- {label: "c1 Current, named source", current: current_score_c1,',
+                  '- {label: "c1 Current, named source", current: employee_question,')
         self.assertCaught("employee_question", "only 0 or 1")
 
     def test_ragged_csv_row(self):

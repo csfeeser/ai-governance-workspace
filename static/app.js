@@ -120,8 +120,8 @@ function renderLab() {
       h("div", { class: "tabbar-tools" }, saved, h("span", { class: "spacer" }),
         tab.type !== "steps" && h("button", { class: "btn", onclick: () => savePdf(tab) }, "Save as PDF")),
       h("div", { id: "panel" }, aboutBox(tab.about), renderTab(tab),
-        tab.type === "steps" && next && h("div", { class: "next-tab" },
-          h("span", {}, "Finished every step on this tab?"),
+        (tab.type === "steps" || tab.type === "report") && next && h("div", { class: "next-tab" },
+          h("span", {}, tab.type === "report" ? "Want extra practice? The next tab is optional." : "Finished every step on this tab?"),
           h("button", { class: "btn primary", onclick: () => { go(lab.id, next.id); document.getElementById("panel").scrollTop = 0; } },
             `Go to the next tab: ${next.title} \u2192`)))));
 }
@@ -266,8 +266,29 @@ function renderSteps(tab) {
       s.hints.map(x => h("details", { class: "hint" }, h("summary", {}, x.title), docNode(x.html))),
       s.answer && h("details", { class: "hint answer" }, h("summary", {}, "Show the answer"), docNode(s.answer))),
     s.show.map(m => h("div", { class: "material" },
-      m.kind === "doc" ? h("div", { class: "doc" }, docNode(m.html)) : renderTable(m))),
+      m.kind === "doc" ? h("div", { class: "doc" }, docNode(m.html))
+        : m.kind === "answers" ? renderEcho(m.fields) : renderTable(m))),
   ]));
+}
+
+// Answers the student gave in earlier steps, shown again read-only where a later step needs them.
+function answerBox(f) {
+  const box = h("div", { class: "report-value" });
+  const show = v => {
+    v = (v || "").trim();
+    box.textContent = v || `Not answered yet. Answer it in Step ${f.step}.`;
+    box.classList.toggle("empty", !v);
+  };
+  show(state.answers["f:" + f.id]);
+  bind("f:" + f.id, show);
+  return box;
+}
+
+function renderEcho(fields) {
+  return h("div", { class: "echo" },
+    h("div", { class: "echo-title" }, "Your earlier answers"),
+    fields.map(f => h("div", { class: "field" },
+      h("div", { class: "report-label" }, `Step ${f.step}: ${f.label}`), answerBox(f))));
 }
 
 // A read-only page that gathers the answers typed into the step boxes on the other tabs.
@@ -280,11 +301,7 @@ function renderReport(tab) {
     wrap.append(h("h2", {}, sec.title));
     if (sec.help) wrap.append(h("p", { class: "help" }, sec.help));
     for (const f of sec.fields) {
-      const v = (state.answers["f:" + f.id] || "").trim();
-      wrap.append(h("div", { class: "field" },
-        h("div", { class: "report-label" }, f.label),
-        v ? h("div", { class: "report-value" }, v)
-          : h("div", { class: "report-value empty" }, `Not answered yet. Answer it in Step ${f.step}.`)));
+      wrap.append(h("div", { class: "field" }, h("div", { class: "report-label" }, f.label), answerBox(f)));
     }
   }
   return wrap;

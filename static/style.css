@@ -132,6 +132,9 @@ td.unset-text { color: var(--warn); font-style: italic; }
 .btn.primary:hover { background: #174a96; }
 
 /* the read-only answer page */
+.echo { max-width: 900px; background: #f8fafc; border: 1px solid var(--line); border-radius: 8px; padding: 10px 16px; }
+.echo-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.echo .field { margin: 8px 0; }
 .report-note { background: #eef1f5; border-radius: 6px; padding: 8px 12px; color: var(--muted); font-size: 15px; }
 .report-label { font-weight: 600; margin-bottom: 4px; }
 .report-value { white-space: pre-wrap; background: #f8fafc; border: 1px solid var(--line); border-radius: 6px; padding: 8px 11px; }

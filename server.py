@@ -158,6 +158,9 @@ def build_material(lab_dir, item, tab_id, n):
         return {"kind": "doc", "html": md(text), "markdown": text}
     if "markdown" in item:
         return {"kind": "doc", "html": md(item["markdown"]), "markdown": item["markdown"]}
+    if "answers" in item:
+        # Earlier answers shown again, read-only; labels are filled in once every step is built.
+        return {"kind": "answers", "ids": list(item["answers"]), "fields": []}
     spec = item["table"]
     table = build_table(lab_dir, spec)
     rows = table["rows"]
@@ -251,6 +254,11 @@ def load_lab(lab_id):
         else:
             built = build_tab(lab_dir, t, manifest["tabs"])
         tabs.append(built)
+    for t in tabs:
+        for s in (t or {}).get("steps", []):
+            for m in s["show"]:
+                if m["kind"] == "answers":
+                    m["fields"] = [fields_by_id[fid] for fid in m["ids"]]
     for i, t in enumerate(manifest["tabs"]):
         if t["type"] == "report":
             tabs[i] = {"id": t["id"], "title": t["title"], "type": "report", "optional": False,
