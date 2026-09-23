@@ -1,25 +1,16 @@
 title: The Remediation Plan
 tabs:
   - id: finding
-    title: Finding
-    about:
-      what: "A short report about one reviewer, called R-A, who almost never disagrees with the AI."
-      why: "This is the problem you are going to write a plan to fix."
-      todo: "Read it once, slowly. Notice the two key numbers: R-A disagrees with the AI 2% of the time, while the team average is 18%."
-    type: doc
-    source: finding.md
-  - id: answer
-    title: Remediation Plan
-    about:
-      what: "A plan form. A plan says what is wrong, what will be done about it, who will do it, and how you will know it worked."
-      why: "Auditors do not accept a plan that only says 'we will do better'. They want a date and a number that show whether it worked."
-      todo: "Fill in the boxes from top to bottom, following the lab steps."
-    type: form
-    heading: Remediation Plan
-    intro: "Fill every field. The test of a good plan: someone else, a month from now, can look at the verification section and say plainly whether the fix worked."
-    sections:
-      - title: "Name the real problem"
-        help: "The problem is not that a person is a bad reviewer. Choose the statement that describes the real problem."
+    title: The Finding
+    type: steps
+    steps:
+      - title: Read the finding and name the real problem
+        text: |
+          In the last lab you found a reviewer, R-A, who almost never disagrees with the AI. Now you write a plan to fix that.
+
+          Below is the finding: the written-down report of the problem. Read it all the way through. Notice the two key numbers: R-A disagrees with the AI 2% of the time, and the team average is 18%.
+
+          It is easy to blame a person. But the way a company works is usually the real cause, and that is what you can actually fix. Choose the statement that describes the real problem.
         fields:
           - id: real
             kind: select
@@ -28,12 +19,36 @@ tabs:
               - "The reviewer is at fault and should be replaced"
               - "The review process is not producing consistent, independent judgment"
               - "The AI is at fault"
-      - title: "1. Finding"
-        help: "One sentence: the real problem, stated as a process or control gap, not as a person."
+        answer: "The review process is not producing consistent, independent judgment. This is a gap in the process, not a fault in one person."
+        show:
+          - doc: finding.md
+
+      - title: Describe the problem in one sentence
+        text: |
+          Write the problem as a gap in how the work is done, not as a comment about a person. That keeps the plan fair and fixable.
+
+          Write one sentence, using the numbers from the finding below.
         fields:
           - {id: finding, kind: textarea, rows: 3, label: "Finding"}
-      - title: "2. Action"
-        help: "The plan's first step is a second reviewer re-scoring a sample of the reviewer's recent decisions. Choose the action that follows."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "Approvals from reviewer ______ are not receiving independent review: their override rate is ______ against a team average of ______, with a near-zero rate in every ______ and ______."'
+          - title: "Hint 2: an example answer"
+            text: '"Approvals from reviewer R-A are not receiving independent review: R-A''s override rate is 2% against a team average of 18%, with a near-zero rate in every week and case type."'
+        show:
+          - doc: finding.md
+
+  - id: plan
+    title: The Plan
+    type: steps
+    steps:
+      - title: Choose what to do about it
+        text: |
+          The first step of any plan like this is to check whether the worry is true: a second reviewer re-marks a sample of R-A's recent approvals. After that, you pick the action that follows.
+
+          Choose one of the four actions. Then, if you like, write one line saying why that action fixes the problem. The line is optional.
+
+          Your finding sentence is below.
         fields:
           - id: action
             kind: select
@@ -44,36 +59,144 @@ tabs:
               - "Workload rebalancing"
               - "Reassignment"
           - {id: action_why, kind: text, required: false, label: "One line: why does this action address the finding?"}
-      - title: "3. Owner"
-        help: "Named by responsibility: the function that runs the human review process for this workflow, not a personal name."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "This addresses the finding because it ______ the ______ that was missing."'
+          - title: "Hint 2: an example answer"
+            text: '"Ongoing second-review sampling addresses the finding because it puts independent judgment back into every reviewer''s approvals, not just R-A''s."'
+        show:
+          - answers: [finding]
+
+      - title: Say who is responsible
+        text: |
+          A plan with no owner does not get done, because everyone assumes someone else has it.
+
+          Name the owner by the job they do, not by a person's name, because people change jobs. The owner here is the team or function that runs the human review process for PolicyPal.
         fields:
           - {id: owner, kind: text, label: "Owner"}
-      - title: "4. Interim safeguard"
-        help: "What protects the workflow in the weeks before the fix lands."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "The ______ that runs the ______ process for PolicyPal."'
+          - title: "Hint 2: an example answer"
+            text: '"The function that runs the human review process for PolicyPal."'
+
+      - title: Add a temporary protection
+        text: |
+          The real fix will take weeks. In the meantime the problem is still there, so you need an interim safeguard: something that protects the workflow until the fix is done.
+
+          Write what protects the workflow until then. The action you chose is below.
         fields:
           - {id: interim, kind: textarea, rows: 2, label: "Interim safeguard"}
-      - title: "5. Verification: re-check date"
-        help: "Use the workflow's review cadence. PolicyPal is Medium tier, so the cadence is monthly."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "______% second review of ______''s ______ until the ______ is in place."'
+          - title: "Hint 2: an example answer"
+            text: '"100% second review of R-A''s approvals until the corrective action is in place."'
+        show:
+          - answers: [action]
+
+  - id: verify
+    title: Verification
+    type: steps
+    steps:
+      - title: Pick the date you will check again
+        text: |
+          Without a date, "we will check later" never happens.
+
+          PolicyPal is rated Medium risk, and Medium-risk tools are reviewed once a month (see the row below). Type a date one month from today.
         fields:
           - {id: recheck, kind: text, label: "Re-check date"}
-      - title: "6. Verification: measurable target"
-        help: "The exact number, at the exact value, that will mean the finding is resolved."
+        show:
+          - markdown: |
+              | Risk tier | Review cadence |
+              |---|---|
+              | Medium (PolicyPal) | Monthly |
+
+      - title: Decide what number will mean it worked
+        text: |
+          "Improved" is not a number. Someone who was not there should be able to look at your target and say plainly "yes, it worked" or "no, it did not".
+
+          Write the exact number that will mean the problem is fixed. The numbers from the finding are below.
+
+          This is the part most plans leave out. If a plan does not say what "fixed" looks like as a number, it is not a remediation plan.
         fields:
           - {id: target, kind: textarea, rows: 3, label: "Measurable target"}
-      - title: "7. Verification: evidence"
-        help: "What data the re-check will pull to test the target."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "______''s override rate is within ______ points of the team average, over a ______ sample."'
+          - title: "Hint 2: an example answer"
+            text: '"R-A''s override rate within 5 points of the team average, and zero recurrence of approving cases that peers override on the same case type, over a two-week sample."'
+        show:
+          - markdown: |
+              | From the finding | |
+              |---|---|
+              | R-A's override rate | 2% (1 of 42 decisions) |
+              | Team average override rate | 18% |
+              | Weeks with a zero rate for R-A | 3 of 4 |
+
+      - title: Say where the number will come from
+        text: |
+          A target is only useful if you know where the number will come from.
+
+          Name the data you will look at when you check. Think back to the list you used in the last lab to measure an override rate. Your target is below.
         fields:
           - {id: evidence, kind: textarea, rows: 2, label: "Evidence"}
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "A fresh ______ export for the ______ period."'
+          - title: "Hint 2: an example answer"
+            text: '"A fresh reviewer-log export for the re-check period."'
+        show:
+          - answers: [target]
+
+  - id: answer
+    title: Remediation Plan
+    type: report
+    heading: Remediation Plan
+    intro: "The test of a good plan: someone else, a month from now, can look at the verification section and say plainly whether the fix worked. In real life a copy goes to the reviewer's manager and to the record for this workflow, and it is one of the six papers in the evidence packet (Module 5). To keep a copy, click Save as PDF."
+    sections:
+      - {title: "The real problem", fields: [real]}
+      - {title: "1. Finding", fields: [finding]}
+      - {title: "2. Action", fields: [action, action_why]}
+      - {title: "3. Owner", fields: [owner]}
+      - {title: "4. Interim safeguard", fields: [interim]}
+      - {title: "5. Verification: re-check date", fields: [recheck]}
+      - {title: "6. Verification: measurable target", fields: [target]}
+      - {title: "7. Verification: evidence", fields: [evidence]}
+
   - id: bronze
     title: "Bronze: Plan for R-B"
-    about:
-      what: "A bonus form for a second plan. This one is about a different reviewer, called R-B, who disagrees with the AI far more often than everyone else."
-      why: "Optional practice at writing a plan for a different kind of problem."
-      todo: "Only do this if you want the extra challenge."
-    type: form
+    type: steps
     optional: true
-    sections_from: answer
-    id_prefix: b-
-    hide_examples: true
-    heading: "Bronze: Remediation Plan for Reviewer R-B"
-    intro: "Optional. Write a second plan for the over-riding reviewer R-B (about 43% against a team average of 18%). Choose a different corrective action, but keep the same verification rigor: a dated re-check, a measurable target, and named evidence."
+    steps:
+      - title: "Bronze challenge: write a plan for R-B"
+        text: |
+          This tab is optional. Nothing here counts towards your progress.
+
+          Write a second plan for a different problem. Reviewer R-B disagrees with the AI about 43% of the time, when the team average is 18%. The facts are below.
+
+          Choose a different action from your R-A plan, but keep this plan just as checkable: a date, a number, and where the number comes from.
+        fields:
+          - {id: b-finding, kind: textarea, rows: 3, label: "Finding"}
+          - id: b-action
+            kind: select
+            label: "Corrective action"
+            options:
+              - "Targeted re-training on the review standard"
+              - "Ongoing second-review sampling"
+              - "Workload rebalancing"
+              - "Reassignment"
+          - {id: b-action_why, kind: text, required: false, label: "One line: why does this action address the finding?"}
+          - {id: b-owner, kind: text, label: "Owner"}
+          - {id: b-interim, kind: textarea, rows: 2, label: "Interim safeguard"}
+          - {id: b-recheck, kind: text, label: "Re-check date"}
+          - {id: b-target, kind: textarea, rows: 3, label: "Measurable target"}
+          - {id: b-evidence, kind: textarea, rows: 2, label: "Evidence"}
+        show:
+          - markdown: |
+              | Reviewer R-B | |
+              |---|---|
+              | R-B's override rate | 43% (18 of 42 decisions) |
+              | Team average override rate | 18% |
+              | R-B's case mix and AI decisions | The same as the rest of the team |
+              | Review cadence (Medium risk) | Monthly |

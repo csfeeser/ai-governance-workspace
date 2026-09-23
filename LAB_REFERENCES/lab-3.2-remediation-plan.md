@@ -19,7 +19,7 @@ By the end of this lab you will be able to write a remediation plan an auditor w
 - **What you are doing:** In the last lab you found a reviewer, R-A, who almost never disagrees with the AI. Now you will write a plan to fix that.
 - **Why it matters:** A plan that only says "we will do better" is worth nothing, because nobody can tell later whether it worked. A good plan says who will do what, by when, and what number will show that it worked.
 - **You do not have to:** download anything, open a spreadsheet, or do any maths. Everything you need is in the workspace, and everything you type saves by itself.
-- **If you feel lost:** every tab starts with a blue box that says what the tab is and what to do there. Read that box first.
+- **If you feel lost:** in the workspace, every instruction is in a numbered orange box. Do the boxes in order, from the left-most tab to the right-most tab.
 
 **Words you will see in this lab**
 - **Finding:** a problem that has been discovered and written down.
@@ -33,139 +33,49 @@ By the end of this lab you will be able to write a remediation plan an auditor w
 
 - If you haven't already done so, click the `WEB PORTS` dropdown in your classroom environment. From that menu click `aux1:2224`.
 - On the page that opens in your browser, click `3.2 The Remediation Plan` in the left sidebar.
+- Then do Step 1 to Step 8 in the workspace. You do not need to keep this page open while you work.
 
-## Procedure
+## What You Will Do in the Workspace
 
-1. **Read the finding.** The finding is the problem you are about to write a plan for. You need to know it well before you start.
-    - Click the tab called `Finding`. It is probably already open.
-    - Read it all the way through.
-    - Notice the two key numbers. Reviewer R-A disagrees with the AI 2% of the time. The team average is 18%.
+Everything you do in this lab happens in the workspace.
 
-0. **Pick what the real problem is.** It is easy to blame a person. But the way a company works is usually the real cause, and that is what you can actually fix.
-    - Click the `Remediation Plan` tab.
-    - In the section **Name the real problem**, use the drop-down to pick the statement that describes the real problem.
+- The workspace has five tabs. Start on the left-most tab and work to the right. You never need to go back to a tab you have finished.
+- On each tab, work from top to bottom. Every instruction is in an orange box with a step number, from Step 1 to Step 8. Everything outside the orange boxes is the material you need for that step.
+- If a step asks you to answer something, the answer box is inside the orange box.
+- Stuck? Each orange box has hints you can open, and most have a **Show the answer** button.
+- At the bottom of each tab, click **Go to the next tab** when you have finished every step on it.
+- Everything you type saves by itself. The counter at the top right shows how many answers you have filled in.
+- The last tab, Bronze: Plan for R-B, is optional. It does not count towards the counter.
 
-    <details><summary>ANSWER:</summary>
+### Tab 1: The Finding (Steps 1 and 2)
 
-    The review process is not producing consistent, independent judgment. This is a gap in the process, not a fault in one person.
+![The Finding tab, showing Step 1 above the written finding about reviewer R-A](images/lab-3.2/1-the-finding.png)
 
-    </details>
+You read the finding about reviewer R-A, decide what the real problem is, and restate it in one sentence as a gap in the process rather than a fault in one person.
 
-0. **Describe the problem in one sentence.** Writing it as a gap in how the work is done, and not as a comment about a person, keeps the plan fair and fixable.
-    - In section **1. Finding**, write one sentence.
-    - Use the numbers from the `Finding` tab.
+### Tab 2: The Plan (Steps 3 to 5)
 
-    <details><summary>Hint 1: a sentence to start from</summary>
+![The Plan tab, showing Step 3 and the four corrective actions to choose from](images/lab-3.2/2-the-plan.png)
 
-    Fill in the blanks: "Approvals from reviewer ______ are not receiving independent review: their override rate is ______ against a team average of ______, with a near-zero rate in every ______ and ______."
+You choose a corrective action, name the owner by the job they do, and add a temporary protection that covers the gap until the fix is in place.
 
-    </details>
+### Tab 3: Verification (Steps 6 to 8)
 
-    <details><summary>Hint 2: an example answer</summary>
+![The Verification tab, showing Step 6 above the review cadence](images/lab-3.2/3-verification.png)
 
-    "Approvals from reviewer R-A are not receiving independent review: R-A's override rate is 2% against a team average of 18%, with a near-zero rate in every week and case type."
+You set a date to check again, the exact number that will mean the fix worked, and the data that number will come from. This is the part most plans leave out.
 
-    </details>
+### Tab 4: Remediation Plan
 
-0. **Choose what to do about it.** The first step is always to check whether the worry is true. A second reviewer re-marks a sample of R-A's recent approvals. After that, you pick the action that follows.
-    - In section **2. Action**, use the drop-down to pick one of the four actions.
-    - In the box below it, write one line saying why that action fixes the problem. (This box is optional.)
+![The Remediation Plan tab, showing the plan built from the student's answers](images/lab-3.2/4-remediation-plan.png)
 
-    <details><summary>Hint 1: a sentence to start from</summary>
+You do not type anything here. This tab gathers your answers into one remediation plan. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 
-    Fill in the blanks: "This addresses the finding because it ______ the ______ that was missing."
+### Tab 5: Bronze: Plan for R-B (optional, Step 9)
 
-    </details>
+![The Bronze tab, showing the challenge above the facts about reviewer R-B](images/lab-3.2/5-bronze-plan-for-r-b.png)
 
-    <details><summary>Hint 2: an example answer</summary>
-
-    "Ongoing second-review sampling addresses the finding because it puts independent judgment back into every reviewer's approvals, not just R-A's."
-
-    </details>
-
-0. **Say who is responsible.** A plan with no owner does not get done, because everyone assumes someone else has it. Name the owner by the job they do, because people change jobs.
-    - In section **3. Owner**, name the team or function that runs the human review process for PolicyPal.
-
-    <details><summary>Hint 1: a sentence to start from</summary>
-
-    Fill in the blanks: "The ______ that runs the ______ process for PolicyPal."
-
-    </details>
-
-    <details><summary>Hint 2: an example answer</summary>
-
-    "The function that runs the human review process for PolicyPal."
-
-    </details>
-
-0. **Add a temporary protection.** The real fix will take weeks. In the meantime the problem is still there, so you need something to cover the gap.
-    - In section **4. Interim safeguard**, write what protects the workflow until the fix is done.
-
-    <details><summary>Hint 1: a sentence to start from</summary>
-
-    Fill in the blanks: "______% second review of ______'s ______ until the ______ is in place."
-
-    </details>
-
-    <details><summary>Hint 2: an example answer</summary>
-
-    "100% second review of R-A's approvals until the corrective action is in place."
-
-    </details>
-
-0. **Pick the date you will check again.** Without a date, "we will check later" never happens. PolicyPal is rated Medium risk, and Medium-risk tools are reviewed once a month.
-    - In section **5. Verification: re-check date**, type a date one month from today.
-
-0. **Decide what number will mean it worked.** "Improved" is not a number. Someone who was not there should be able to look at your target and say plainly "yes, it worked" or "no, it did not".
-    - In section **6. Verification: measurable target**, write the exact number that will mean the problem is fixed.
-
-    <details><summary>Hint 1: a sentence to start from</summary>
-
-    Fill in the blanks: "______'s override rate is within ______ points of the team average, over a ______ sample."
-
-    </details>
-
-    <details><summary>Hint 2: an example answer</summary>
-
-    "R-A's override rate within 5 points of the team average, and zero recurrence of approving cases that peers override on the same case type, over a two-week sample."
-
-    </details>
-
-0. **Say what you will look at to check.** A target is only useful if you know where the number will come from.
-    - In section **7. Verification: evidence**, name the data you will look at when you check. Think back to the list you used in the last lab to measure an override rate.
-
-    <details><summary>Hint 1: a sentence to start from</summary>
-
-    Fill in the blanks: "A fresh ______ export for the ______ period."
-
-    </details>
-
-    <details><summary>Hint 2: an example answer</summary>
-
-    "A fresh reviewer-log export for the re-check period."
-
-    </details>
-
-0. **Test your own plan.** A plan is only good if someone else could use it. Imagine you are that other person, a month from now.
-    - Scroll back through the `Remediation Plan` tab.
-    - Read sections 5, 6, and 7 as if you have never seen them before.
-    - Ask: could I say plainly whether the fix worked?
-    - Find the weakest box and improve it by typing in it.
-
-0. **Check that you have finished.** The workspace keeps count of the boxes you have filled in.
-    - Look at the top right of the workspace. It says something like `X of Y answers filled in`.
-    - When X is the same as Y, you are done.
-    - Your answers save automatically as you type, so there is nothing to save or send.
-    - In real life, a copy of this plan goes to the reviewer's manager and to the record for this workflow. It is also one of the six papers in the evidence packet (Module 5).
-    - If you would like a copy for yourself, click the `Save as PDF` button on the `Remediation Plan` tab.
-
-0. **Remember the main lesson.** The mistake to avoid is a plan with a problem and a wish but no way to check. If a plan does not say what "fixed" looks like as a number, it is not a remediation plan.
-
-## Challenges
-
-This is optional. Your answers to it are saved on the `Bronze: Plan for R-B` tab.
-
-**🥉 Bronze:** Click the `Bronze: Plan for R-B` tab and write a second plan for a different problem. Reviewer R-B disagrees with the AI about 43% of the time, when the team average is 18%. Choose a different action, but keep the plan just as checkable: a date, a number, and where the number comes from.
+An extra challenge for anyone who finishes early: write a second plan, for reviewer R-B, who disagrees with the AI far more than everyone else.
 
 ## Conclusion
 
