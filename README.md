@@ -90,7 +90,7 @@ a lab in `content/labs.yml` by giving it a `dir`. Labs without one show as "soon
 | `steps` | `steps:` in `lab.yml` | follow numbered steps, each with its own answer boxes and the material under it |
 | `report` | `sections:` naming step field ids | read a page built from their step answers (read-only; this is the PDF they save) |
 
-**Steps tabs (the new format; Lab 1.1 uses it).** Students work through the tabs left to right and each
+**Steps tabs (every lab uses them).** Students work through the tabs left to right and each
 tab top to bottom, never going back. Every instruction is a numbered step in an orange box; step numbers
 run across the whole lab. The material a step needs goes right under it in `show:`, even if an earlier
 step already showed it.
@@ -116,6 +116,21 @@ step already showed it.
             where: {"#": [1, 3]}                 # optional: only these rows
             tools: false                         # optional: hide sort/filter/group controls
 ```
+
+More things a step can show under it:
+
+| `show:` item | What it shows |
+|---|---|
+| `doc: file.md` plus `section: "Heading text"` | only that section of the file (up to the next heading of the same level) |
+| `answers: [field-id, ...]` | the student's earlier answers, read-only, updating live, so no step needs a trip back to an earlier tab |
+| `table:` with `group:`, `split:`, `sort:` | the table opened already grouped, split or sorted; the menus still work |
+| `table:` with `view: scorecard` | only the live Business Quality Score panel for that table |
+
+One editable table can be split across steps (for example the first five rows, then the rest): give each
+part the same `id` and `source` and a different `where:`. Their answers are one set.
+
+A steps tab with `optional: true` (challenge tabs) is left out of the progress count. It can follow the
+report tab; the report then links on to it.
 
 An editable table needs an `id` (answers are keyed by it). To show the student's choices again in a later
 step, repeat the table with the same `id` and `readonly: true`. A `report` tab lists field ids from the

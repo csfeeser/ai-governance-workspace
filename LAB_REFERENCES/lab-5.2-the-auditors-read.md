@@ -19,7 +19,7 @@ By the end of this lab you will be able to review an AI evidence packet against 
 - **What you are doing:** This time you are the auditor. Someone else has built an evidence packet, and it looks good at first glance. You will read it like someone who does not trust it yet, and write down what is wrong.
 - **Why it matters:** The best way to learn what a good packet needs is to spot what a bad one is missing. Noticing what is absent is much harder than noticing what is there.
 - **You do not have to:** download anything, open a spreadsheet, or fix the packet. You only read it and write down the problems. Nearly everything is a drop-down menu, and everything you type saves by itself.
-- **If you feel lost:** every tab starts with a blue box that says what the tab is and what to do there. Read that box first.
+- **If you feel lost:** in the workspace, every instruction is in a numbered orange box. Do the boxes in order, from the left-most tab to the right-most tab.
 
 **Words you will see in this lab**
 - **Auditor:** a person whose job is to check that a company really did what it says it did.
@@ -32,125 +32,53 @@ By the end of this lab you will be able to review an AI evidence packet against 
 
 - If you haven't already done so, click the `WEB PORTS` dropdown in your classroom environment. From that menu click `aux1:2224`.
 - On the page that opens in your browser, click `5.2 The Auditor's Read` in the left sidebar.
+- Then do Step 1 to Step 7 in the workspace. You do not need to keep this page open while you work.
 
-## Procedure
+## What You Will Do in the Workspace
 
-1. **Read the packet, all the way through.** Do not judge anything yet. The question an auditor asks is not "is this neat?". It is "is there enough here to believe that the company really watched over its AI?"
-    - Click the tab called `Submitted Packet`. It is probably already open.
-    - Read the whole packet from top to bottom.
+Everything you do in this lab happens in the workspace.
 
-0. **Check each of the six sections.** Every packet must have six sections. A section can look fine because it has a heading and an entry, and still fail to prove what the section is for.
-    - Click the `Auditor Findings` tab.
-    - In the section **Check each of the six required components**, use the drop-down next to each one.
-    - Pick **Present in substance** if it really proves what it should. Pick **Present in name only** if it is there but does not prove it. Pick **Missing** if it is not there at all.
+- The workspace has five tabs. Start on the left-most tab and work to the right. You never need to go back to a tab you have finished.
+- On each tab, work from top to bottom. Every instruction is in an orange box with a step number, from Step 1 to Step 7. Everything outside the orange boxes is the material you need for that step.
+- If a step asks you to answer something, the answer box is inside the orange box.
+- Stuck? Each orange box has hints you can open, and most have a **Show the answer** button.
+- At the bottom of each tab, click **Go to the next tab** when you have finished every step on it.
+- Most answers are drop-down menus. Everything you type or pick saves by itself. The counter at the top right shows how many answers you have filled in.
+- The last tab, Challenges, is optional. It does not count towards the counter.
 
-    <details><summary>ANSWER:</summary>
+### Tab 1: The Packet (Steps 1 and 2)
 
-    Sections 1, 2, 5, and 6 are present in substance. Sections 3 and 4 are present in name only. Section 3 gives a quality score that nobody can interpret, and section 4 gives numbers for the reviewers but no judgement on whether they were doing their job.
+![The Packet tab, showing Step 1 above the submitted evidence packet](images/lab-5.2/1-the-packet.png)
 
-    </details>
+You read a finished evidence packet that somebody else put together, the way an auditor would. Then you check each of its six sections: is it there in substance, there in name only, or missing?
 
-0. **Find the first problem.** Section 4 is about whether the human checking was real. Ask what in that section tells an auditor that the checkers were doing their job properly.
-    - Click the `Auditor Findings` tab.
-    - In the section **Finding 1**, use the drop-down to pick where in the packet the problem is.
-    - In the box below, write what is wrong, why an auditor would care, and what would fix it.
+### Tab 2: Findings (Steps 3 to 5)
 
-    <details><summary>Hint 1: where to look</summary>
+![The Findings tab, showing Step 3 above section 4 of the packet](images/lab-5.2/2-findings.png)
 
-    Look again at section 4. It gives override rates for each reviewer. Ask: what in that section tells an auditor whether the reviewers themselves are doing real checking?
+You write three findings, one per step, each with the part of the packet it is about shown right under it. For each one you say what is wrong, why an auditor would care, and what would fix it.
 
-    </details>
+### Tab 3: Verdict (Steps 6 and 7)
 
-    <details><summary>Hint 2: a sentence to start from</summary>
+![The Verdict tab, showing Step 6 above the student's three findings](images/lab-5.2/3-verdict.png)
 
-    Fill in the blanks: "Section ______ gives ______ but contains no ______, so an auditor cannot tell whether ______. Fix: add ______."
+You rank your findings to pick the worst, and decide whether you would accept the packet as it stands.
 
-    </details>
+### Tab 4: Auditor Findings
 
-    <details><summary>ANSWER:</summary>
+![The Auditor Findings tab, showing the findings built from the student's answers](images/lab-5.2/4-auditor-findings.png)
 
-    Section 4 gives override rates for each reviewer but has no assessment of the reviewers themselves. Nothing tells the auditor whether the reviewers are really checking. The table of rates does not show that anyone looked into R-A's 2%. The fix is to add the assessment of the reviewers.
+You do not type anything here. This tab gathers your answers into your auditor's findings. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 
-    </details>
+### Tab 5: Challenges (optional, Steps 8 to 10)
 
-0. **Look at the quality score.** Section 3 has a Business Quality Score. A number by itself only means something if you know what it was measured against.
-    - Click the `Submitted Packet` tab and find the entry in section 3.
-    - Ask: can I tell what this number means?
+![The Challenges tab, showing the Bronze challenge above the submitted packet](images/lab-5.2/5-challenges.png)
 
-0. **Find the second problem.** The score has no rulebook attached to it. Nothing in the packet says which standard it was marked against, and there is no version, no list of rules, and no link.
-    - Click the `Auditor Findings` tab.
-    - In the section **Finding 2**, use the drop-down to pick where in the packet the problem is.
-    - In the box below, write what is wrong, why an auditor would care, and what would fix it.
+Three extra challenges for anyone who finishes early:
 
-    <details><summary>Hint 1: a sentence to start from</summary>
-
-    Fill in the blanks: "The Business Quality Score of ______ has no ______ attached, so an auditor cannot tell what it ______. Fix: attach ______."
-
-    </details>
-
-    <details><summary>ANSWER:</summary>
-
-    "Business Quality Score: 82" means nothing unless you know the rulebook it was marked against. A different rulebook would give a different number. The fix is to attach the quality standard, with its version.
-
-    </details>
-
-0. **Look at where the records are kept.** Records need to be kept somewhere that will still exist when an auditor comes. The packet has a column that says where each paper is kept.
-    - Click the `Submitted Packet` tab.
-    - Look at the last column of the packet, the one about where each item is kept. Read it for every row.
-
-0. **Find the third problem.** Several papers are recorded as being kept inside the AI platform itself. The AI platforms only keep their records for about 180 days, and then they delete them.
-    - Click the `Auditor Findings` tab.
-    - In the section **Finding 3**, use the drop-down to pick where in the packet the problem is.
-    - In the box below, write what is wrong, why an auditor would care, and what would fix it.
-    - Link it to how long records must be kept.
-
-    <details><summary>Hint 1: a sentence to start from</summary>
-
-    Fill in the blanks: "______ of ______ index rows are retained in ______, which keeps only about ______ days, so the evidence is ______. Fix: ______."
-
-    </details>
-
-    <details><summary>ANSWER:</summary>
-
-    Four of the nine rows say the papers are kept in "Copilot audit log" or "Purview". Those are parts of the AI platform itself, and they keep about 180 days of records. If a company has to keep records for several years, this evidence is gone in about seven months, and the packet cannot be rebuilt when it is really needed. The fix is to copy the evidence into a named system that belongs to the company.
-
-    </details>
-
-0. **Say which problem is the worst.** You have found three problems. Some can be fixed on paper, and some cannot be undone. The unfixable one is the most serious.
-    - Click the `Auditor Findings` tab.
-    - In the section **Rank by severity**, use the drop-down to pick the worst finding.
-
-    <details><summary>ANSWER:</summary>
-
-    The records problem is probably the worst. The other two can be fixed by writing something down, but this evidence will really disappear.
-
-    </details>
-
-0. **Decide whether you would accept the packet.** An auditor's job is to give a clear answer. You either accept it, or you do not accept it yet.
-    - In the section **Your decision**, use the drop-down to pick your answer.
-    - In the box below, write one line saying why, and what it still needs.
-
-    <details><summary>ANSWER:</summary>
-
-    No, do not accept it yet. It needs the assessment of the reviewers, the quality standard, and copies of the evidence kept somewhere that will last.
-
-    </details>
-
-0. **Check that you have finished.** The workspace keeps count of the boxes you have filled in.
-    - Look at the top right of the workspace. It says something like `X of Y answers filled in`.
-    - When X is the same as Y, you are done.
-    - Your answers save automatically as you type, so there is nothing to save or send.
-    - If you would like a copy for yourself, click the `Save as PDF` button on the `Auditor Findings` tab.
-
-## Challenges
-
-These are optional. Your answers to them are saved on the `Challenges` tab.
-
-**🥉 Bronze:** There is a fourth, smaller weakness. The packet says it covers April to September 2026, but look at what actually proves each part of that time. There is one marked sample, from April to June, and all the incidents are from July onwards. A tool that is reviewed once a month should have many more review records than this over six months. Work out how many it should have, and how many this packet has. Write the finding, and say why it is less serious than the three main ones.
-
-**🥈 Silver:** For each of your three findings, say which of the six sections it belongs to and which of an auditor's questions it fails to answer.
-
-**🥇 Gold:** Rewrite your findings as a one-page memo from an auditor. It should say what is wrong, how serious it is, what you recommend, and have a line for the company's reply.
+- **Bronze:** find a fourth, smaller weakness in the packet's time coverage.
+- **Silver:** match each finding to a packet section and to the auditor's question it fails to answer.
+- **Gold:** rewrite your findings as a one-page memo from an auditor.
 
 ## Conclusion
 

@@ -1,25 +1,30 @@
 title: The Auditor's Read
 tabs:
   - id: packet
-    title: Submitted Packet
-    about:
-      what: "A finished evidence packet that somebody else put together."
-      why: "This time you are the auditor. An auditor is a person who checks a company's proof. Read it as someone who does not trust it yet: is there enough here to believe the company really watched over its AI?"
-      todo: "Read all of it. Do not fix anything. Just notice what is wrong or missing."
-    type: doc
-    source: submitted-packet.md
-  - id: answer
-    title: Auditor Findings
-    about:
-      what: "Your report on the packet: what is wrong with it, which problem is the worst, and whether you would accept it."
-      why: "A finding is a problem that an auditor writes down. Writing findings clearly is how you make sure the company fixes them."
-      todo: "Fill it in from top to bottom, following the lab steps."
-    type: form
-    heading: Auditor Findings
-    intro: "Read the packet as an auditor would. The question is not whether it is neat, but whether there is enough here to believe oversight happened."
-    sections:
-      - title: "Check each of the six required components"
-        help: "Is each one present in substance, or only in name?"
+    title: The Packet
+    type: steps
+    steps:
+      - title: Read the packet all the way through
+        text: |
+          This time you are the auditor: the person who checks a company's proof. Someone else has built an evidence packet, and it looks good at first glance. You will read it like someone who does not trust it yet, and write down what is wrong.
+
+          Read the whole packet below, from top to bottom. Do not judge anything yet, and do not fix anything. The question an auditor asks is not "is this neat?". It is "is there enough here to believe the company really watched over its AI?"
+
+          There is nothing to type in this step.
+        show:
+          - doc: submitted-packet.md
+
+      - title: Check each of the six sections
+        text: |
+          Every packet must have six sections. A section can look fine because it has a heading and an entry, and still fail to prove what the section is for.
+
+          For each section, choose one:
+
+          - **Present in substance:** it really proves what it should.
+          - **Present in name only:** it is there, but it does not prove it.
+          - **Missing:** it is not there at all.
+
+          The six sections of the packet are below again.
         fields:
           - {id: c1, kind: select, label: "1. Business purpose statement", options: &comp ["Present in substance", "Present in name only", "Missing"]}
           - {id: c2, kind: select, label: "2. System instructions and baseline business rules", options: *comp}
@@ -27,43 +32,158 @@ tabs:
           - {id: c4, kind: select, label: "4. HITL override summary and reviewer quality audit", options: *comp}
           - {id: c5, kind: select, label: "5. Incident and escalation history", options: *comp}
           - {id: c6, kind: select, label: "6. Change-control and approval log", options: *comp}
-      - title: "Finding 1"
+        answer: "Sections 1, 2, 5, and 6 are present in substance. Sections 3 and 4 are present in name only. Section 3 gives a quality score that nobody can interpret, and section 4 gives numbers for the reviewers but no judgement on whether they were doing their job."
+        show:
+          - doc: submitted-packet.md
+            section: 1. Business purpose statement
+          - doc: submitted-packet.md
+            section: 2. System instructions and baseline business rules
+          - doc: submitted-packet.md
+            section: 3. Sampled review records and quality scores
+          - doc: submitted-packet.md
+            section: 4. HITL override summary and reviewer quality audit
+          - doc: submitted-packet.md
+            section: 5. Incident and escalation history
+          - doc: submitted-packet.md
+            section: 6. Change-control and approval log
+
+  - id: answer
+    title: Findings
+    type: steps
+    steps:
+      - title: "Write finding 1: the human checking"
+        text: |
+          Section 4, below, is about whether the human checking was real. It gives override rates for each reviewer. Ask: what in this section tells an auditor whether the reviewers themselves are doing real checking?
+
+          1. Choose where in the packet the problem is.
+          2. Write what is wrong, why an auditor would care, and what would fix it.
         fields:
           - {id: f1-where, kind: select, label: "Where in the packet is it?", options: &where ["Section 1", "Section 2", "Section 3", "Section 4", "Section 5", "Section 6", "The retention-location column across the whole index"]}
           - {id: f1-what, kind: textarea, rows: 3, label: "What is wrong, why an auditor cares, and what would fix it"}
-      - title: "Finding 2"
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "Section ______ gives ______ but contains no ______, so an auditor cannot tell whether ______. Fix: add ______."'
+        answer: "`Section 4`. It gives override rates for each reviewer but has no assessment of the reviewers themselves. Nothing tells the auditor whether the reviewers are really checking, and the table of rates does not show that anyone looked into R-A's 2%. The fix is to add the assessment of the reviewers."
+        show:
+          - doc: submitted-packet.md
+            section: 4. HITL override summary and reviewer quality audit
+
+      - title: "Write finding 2: the quality score"
+        text: |
+          Section 3, below, has a Business Quality Score. A number by itself only means something if you know what it was measured against. Ask: can I tell what this number means?
+
+          Nothing in the packet says which quality standard (rulebook) the score was marked against. There is no version, no list of rules, and no link.
+
+          1. Choose where in the packet the problem is.
+          2. Write what is wrong, why an auditor would care, and what would fix it.
         fields:
           - {id: f2-where, kind: select, label: "Where in the packet is it?", options: *where}
           - {id: f2-what, kind: textarea, rows: 3, label: "What is wrong, why an auditor cares, and what would fix it"}
-      - title: "Finding 3"
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "The Business Quality Score of ______ has no ______ attached, so an auditor cannot tell what it ______. Fix: attach ______."'
+        answer: "`Section 3`. \"Business Quality Score: 82\" means nothing unless you know the rulebook it was marked against. A different rulebook would give a different number. The fix is to attach the quality standard, with its version."
+        show:
+          - doc: submitted-packet.md
+            section: 3. Sampled review records and quality scores
+
+      - title: "Write finding 3: where the records are kept"
+        text: |
+          Records need to be kept somewhere that will still exist when an auditor comes. The last column of every table in the packet below, **Retention location**, says where each paper is kept. Read it for every row.
+
+          Several papers are kept inside the AI platform itself. The AI platforms only keep their records for about 180 days, and then they delete them.
+
+          1. Choose where in the packet the problem is.
+          2. Write what is wrong, why an auditor would care, and what would fix it. Link it to how long records must be kept.
         fields:
           - {id: f3-where, kind: select, label: "Where in the packet is it?", options: *where}
           - {id: f3-what, kind: textarea, rows: 3, label: "What is wrong, why an auditor cares, and what would fix it"}
-      - title: "Rank by severity"
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "______ of ______ index rows are retained in ______, which keeps only about ______ days, so the evidence is ______. Fix: ______."'
+        answer: "`The retention-location column across the whole index`. Four of the nine rows say the papers are kept in \"Copilot audit log\" or \"Purview\". Those are parts of the AI platform itself, and they keep about 180 days of records. If a company has to keep records for several years, this evidence is gone in about seven months, and the packet cannot be rebuilt when it is really needed. The fix is to copy the evidence into a named system that belongs to the company."
+        show:
+          - doc: submitted-packet.md
+
+  - id: verdict
+    title: Verdict
+    type: steps
+    steps:
+      - title: Say which problem is the worst
+        text: |
+          You have found three problems. Some can be fixed on paper, and some cannot be undone. The one that cannot be undone is the most serious.
+
+          Your three findings are below. Choose the worst one.
         fields:
           - {id: worst, kind: select, label: "Most severe finding", options: ["Finding 1", "Finding 2", "Finding 3"]}
-      - title: "Your decision"
+        answer: "`Finding 3`, the records problem, is probably the worst. The other two can be fixed by writing something down, but this evidence will really disappear."
+        show:
+          - answers: [f1-what, f2-what, f3-what]
+
+      - title: Decide whether you would accept the packet
+        text: |
+          An auditor's job is to give a clear answer. You either accept the packet, or you do not accept it yet.
+
+          Choose your answer, then write one line saying why, and what the packet still needs. Your findings are below.
         fields:
           - {id: accept, kind: select, label: "Would you accept the packet as it stands?", options: ["Yes, accept as it stands", "No, do not accept yet"]}
           - {id: accept-why, kind: text, label: "One line: why, and what it needs"}
+        answer: "`No, do not accept yet`. It needs the assessment of the reviewers, the quality standard, and copies of the evidence kept somewhere that will last."
+        show:
+          - answers: [f1-what, f2-what, f3-what]
+
+  - id: report
+    title: Auditor Findings
+    type: report
+    heading: Auditor Findings
+    intro: "The question is not whether the packet is neat, but whether there is enough here to believe oversight happened. Spotting what is absent is the real test of knowing what auditors expect. To keep a copy, click Save as PDF."
+    sections:
+      - {title: "The six required components", fields: [c1, c2, c3, c4, c5, c6]}
+      - {title: "Finding 1", fields: [f1-where, f1-what]}
+      - {title: "Finding 2", fields: [f2-where, f2-what]}
+      - {title: "Finding 3", fields: [f3-where, f3-what]}
+      - {title: "Rank by severity", fields: [worst]}
+      - {title: "Your decision", fields: [accept, accept-why]}
+
   - id: challenges
     title: Challenges
-    about:
-      what: "Three optional bonus questions, called bronze, silver and gold."
-      why: "For people who finish early. Nobody has to do them."
-      todo: "Type your answers here if you try them."
-    type: form
+    type: steps
     optional: true
-    heading: Challenges
-    intro: "Optional. Each challenge stands alone."
-    sections:
-      - title: "Bronze"
-        help: "There is a fourth, softer weakness. The packet claims to cover 2026-Q2 to 2026-Q3, but look at what actually evidences each part of that span. For a workflow on a monthly review cadence, how many review records should a six-month packet contain, and how many does this one have?"
+    steps:
+      - title: "Bronze challenge: the fourth, smaller weakness"
+        text: |
+          This tab is optional. Nothing here counts towards your progress.
+
+          The packet below says it covers April to September 2026. Look at what actually proves each part of that time. There is one marked sample, from April to June, and all the incidents are from July onwards.
+
+          A tool that is reviewed once a month should have many more review records than this over six months. Work out how many it should have, and how many this packet has. Write the finding, and say why it is less serious than the three main ones.
         fields:
           - {id: bronze, kind: textarea, rows: 4, label: "The finding, and why it is less severe than the three main defects"}
-      - title: "Silver"
+        answer: "A monthly review over six months should leave six review records; this packet has one, for April to June only. July to September has incidents but no quality review at all. It is less severe than the three main findings because the missing reviews may exist and just not have been filed, so it can be fixed by adding them."
+        show:
+          - doc: submitted-packet.md
+
+      - title: "Silver challenge: match each finding to a section and a question"
+        text: |
+          For each of your three findings, say which of the six sections it belongs to, and which of an auditor's questions it fails to answer. Your findings are below.
         fields:
           - {id: silver, kind: textarea, rows: 4, label: "For each of your three findings: which of the six packet components it sits in, and which auditor question it fails to answer"}
-      - title: "Gold"
+        show:
+          - answers: [f1-what, f2-what, f3-what]
+          - markdown: |
+              | Section | The auditor's question |
+              |---|---|
+              | 1. Business purpose statement | What is this tool for? |
+              | 2. System instructions and baseline business rules | What was it told to do? |
+              | 3. Sampled review records and quality scores | Did you check its quality, and when? |
+              | 4. HITL override summary and reviewer quality audit | Was the human checking real? |
+              | 5. Incident and escalation history | What went wrong, and what did you do about it? |
+              | 6. Change-control and approval log | What changed, and who approved it? |
+
+      - title: "Gold challenge: the auditor's memo"
+        text: |
+          Rewrite your findings as a one-page memo from an auditor. It should say what is wrong, how serious it is, what you recommend, and have a line for the company's reply. Your findings and verdict are below.
         fields:
           - {id: gold, kind: textarea, rows: 6, label: "A one-page auditor's finding memo: finding, risk rating, recommendation, and a management-response line"}
+        show:
+          - answers: [f1-what, f2-what, f3-what, worst, accept-why]
