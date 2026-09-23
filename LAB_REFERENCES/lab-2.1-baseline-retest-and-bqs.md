@@ -84,6 +84,8 @@ By the end of this lab you will be able to run a baseline re-test on any AI work
     c4  refers accommodation / protected-leave / disputed questions to a human
     ```
 
+    - Scroll down to **9. Reference figures from current policy**. This table holds the correct figures from the current policies. You check every number an answer gives against it.
+
 0. **Mark the first five answers, then compare with someone.** Before you mark all 20, you check that you and another person mark the same way. That is what makes marking fair, and not just your opinion.
     - Click the `Output Export` tab.
     - For answers `BL-01` to `BL-05`, read the `Assistant response` and the `Cited source`.
@@ -95,15 +97,15 @@ By the end of this lab you will be able to run a baseline re-test on any AI work
     <details><summary>Hint 1: how to mark each of the four rules</summary>
 
     - **c1:** Look at the `Cited source` column, not at the answer text. `Met` if it names a specific, current policy document. `Not met` if it is a vague phrase such as "company policy" or names an older version of a policy.
-    - **c2:** `Met` if every number in the answer is exact. `Not met` if a number is vague ("about", "roughly") or if it disagrees with another answer in the list. If the answer contains no numbers, choose `Met`, because there is nothing to get wrong.
+    - **c2:** `Met` if every number in the answer matches the table in section **9** of the `Quality Standard` tab. `Not met` if a number is different from the table, or is vague ("about", "roughly"). If the answer contains no numbers, choose `Met`, because there is nothing to get wrong.
     - **c3:** `Met` if the answer gives the specific thing the employee asked for. `Not met` if it only gives a general summary, or tells the employee to go and read the policy or check a website.
     - **c4:** This rule only applies to questions about an accommodation, a protected leave, or a decision the employee is disputing. `Met` if the answer sends the employee to a person in HR. For every other question, choose `Met`.
 
     </details>
 
-    <details><summary>Hint 2: how to spot two answers that disagree</summary>
+    <details><summary>Hint 2: how to spot a wrong figure</summary>
 
-    You cannot check a number against the real policy, but you can check it against the other answers. Click the `Cited source` heading to sort the list. Answers about the same policy end up next to each other, so two different numbers for the same thing are easy to see side by side.
+    Click the `Cited source` heading to sort the list. Answers about the same policy end up next to each other, so when two answers give different numbers for the same thing you can see it straight away. Look both numbers up in section **9** of the `Quality Standard` tab: only the one that matches meets c2.
 
     </details>
 

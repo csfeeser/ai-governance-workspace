@@ -89,38 +89,41 @@ By the end of this lab you will be able to diagnose and document a quality regre
 
     </details>
 
-0. **Check whether the prompt changed.** If someone had changed the instructions given to PolicyPal, you might see the questions or answers suddenly look different in style.
-    - Click the `Scored Sample` tab.
-    - Read down the `Question` column before and after your date. Ask: are the questions written in the same way?
+0. **Check whether the prompt changed.** The prompt is the set of instructions PolicyPal is given. You cannot see the prompt itself, but the platform gives PolicyPal a new version number every time someone changes its instructions and publishes them. Do not judge this from the answers. Wordier answers could come from a new prompt or from a new model, so the answers cannot tell you which one it was.
+    - Click the `Activity Log` tab.
+    - Click the word `CreationTime` at the top of that column. The rows now line up in date order.
+    - Read down the `AgentVersion` column. Ask: is the version number the same before and after your date?
     - Click the `Test Record` tab.
     - In the same section, use the drop-down called **Modified prompt** to pick what you found.
 
+    > Not every platform shows an agent version. If yours does not, ask whoever manages the assistant for the dates its instructions were changed. The question you are answering is the same.
+
     <details><summary>ANSWER:</summary>
 
-    The questions are written in the same way all the way through. There is no sign that the prompt changed.
+    `AgentVersion` is `1.4` on every row, before and after the drop. Nobody published new instructions, so the prompt did not change.
 
     </details>
 
-0. **Check whether the inputs changed.** The inputs are the documents PolicyPal reads to find its answers. If those changed, the answers would change too.
-    - Click the `Scored Sample` tab.
-    - Look at the `Cited source` column again. Ask: are the same policy documents being used before and after your date?
+0. **Check whether the inputs changed.** The inputs are the documents PolicyPal reads to find its answers. If those changed, the answers would change too. The activity log records which documents PolicyPal actually read each time.
+    - Stay on the `Activity Log` tab, still sorted by `CreationTime`.
+    - Read down the `AccessedResources` column. Ask: does PolicyPal read the same set of documents before and after your date?
     - Click the `Test Record` tab.
     - In the same section, use the drop-down called **Changed inputs** to pick what you found.
 
     <details><summary>ANSWER:</summary>
 
-    The same policy documents are used before and after the drop. The inputs are stable.
+    Before and after the drop, PolicyPal reads the same five documents: `PTO Policy 2025`, `Expense & Travel Policy 2025`, `Benefits Guide 2025`, `Code of Conduct 2025`, and `Remote Work Policy 2024`. Nothing new appears and nothing goes missing, so the inputs did not change. (Another column does change later in the month. That is the Silver challenge. It starts after the drop, so it cannot be what caused it.)
 
     </details>
 
-0. **Go and look at the AI model.** Three of the four causes are now ruled out. The last one is the AI model. The platform keeps a diary that says which AI model was running each time PolicyPal was used, and you are going to check it.
-    - Click the `Activity Log` tab.
+0. **Go and look at the AI model.** Three of the four causes are now ruled out. The last one is the AI model. The same activity log also records which AI model was running each time PolicyPal was used.
+    - Stay on the `Activity Log` tab.
     - Find the three columns called `ModelProviderName`, `ModelName`, and `ModelVersion`. They say which AI model was running.
 
     > Real logs do not always show all three. It depends on the platform and how it is set up. The company name is the one you can most often see, and the version number is the one you see least. Look at whichever of these you are given. The method is the same.
 
 0. **Find the date the AI model changed.** If the model was swapped a day or two before the answers got worse, that is very strong evidence.
-    - Click the word `CreationTime` at the top of that column. The rows now line up in date order.
+    - Make sure the rows are still in `CreationTime` order.
     - Read down the `ModelName` and `ModelVersion` columns together.
     - Find where they change.
     - Click the `Test Record` tab.
@@ -195,7 +198,7 @@ By the end of this lab you will be able to diagnose and document a quality regre
 
     <details><summary>Hint 2: an example answer</summary>
 
-    "Reviewed the scored sample, compared it to baseline, and tested the four causes against the activity log."
+    "Compared current scores with baseline scores in the scored sample. Tested the four causes: policy against the cited sources' effective dates, and prompt, inputs and model against the AgentVersion, AccessedResources and model columns of the activity log."
 
     </details>
 

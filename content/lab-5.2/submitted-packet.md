@@ -42,7 +42,7 @@
 
 | Item | Source artifact | Date | Coverage period | Retention location |
 |---|---|---|---|---|
-| Escalation: verbose/off-tone after model change | ticket-modelswap.md | 2026-08-18 | 2026-Q3 | Claude workspace |
+| Escalation: vague answers after vendor model change (score 90 to 69) | ticket-modelswap.md | 2026-08-18 | 2026-Q3 | Purview |
 | Escalation: latency spike at 9:00 | ticket-latency.md | 2026-09-09 | 2026-Q3 | Copilot audit log |
 
 ## 6. Change-control and approval log

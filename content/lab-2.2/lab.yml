@@ -31,11 +31,11 @@ tabs:
     title: Activity Log
     about:
       what: "The platform's diary for the same weeks. Each row records one time somebody used PolicyPal, including which AI model was running at that moment."
-      why: "The AI model is the 'brain' behind PolicyPal, and another company makes it. If that company quietly swapped it for a different one, you would see it here. That could explain why the answers got worse."
-      todo: "Click 'CreationTime' to put the rows in date order. Watch the ModelName and ModelVersion columns and notice if they change."
+      why: "This log shows what PolicyPal read, which version of its instructions it was running, and which AI model was behind it. If any of those changed, you would see it here. That could explain why the answers got worse."
+      todo: "Click 'CreationTime' to put the rows in date order. The lab steps will send you to AccessedResources (what it read), AgentVersion (its instructions), and the three Model columns."
     type: table
     source: activity-log.csv
-    note: "The platform's activity log for the same period. Look at the model columns: ModelProviderName, ModelName and ModelVersion. Click CreationTime to sort by date."
+    note: "The platform's activity log for the same period. Click CreationTime to sort by date. AccessedResources shows the documents read, AgentVersion the version of PolicyPal's instructions, and ModelProviderName, ModelName and ModelVersion the AI model."
     hide: [Operation, AppIdentity, AgentName, SensitivityLabelId, XPIADetected, IsPrompt]
   - id: answer
     title: Test Record
@@ -63,14 +63,14 @@ tabs:
             kind: select
             label: "Modified prompt"
             options:
-              - "Ruled out: the questions are phrased the same way before and after the drop"
-              - "Not ruled out: the phrasing of the questions changed around the date of the drop"
+              - "Ruled out: AgentVersion is the same before and after the drop, so PolicyPal's instructions were not changed"
+              - "Not ruled out: AgentVersion changed around the date of the drop"
           - id: r_inputs
             kind: select
             label: "Changed inputs"
             options:
-              - "Ruled out: the same policy documents are cited before and after the drop"
-              - "Not ruled out: the documents being cited changed around the date of the drop"
+              - "Ruled out: AccessedResources lists the same documents before and after the drop"
+              - "Not ruled out: the documents in AccessedResources changed around the date of the drop"
       - title: "The vendor model update"
         fields:
           - {id: m_change, kind: textarea, rows: 2, label: "What changed in the model fields, and on what date?"}

@@ -1,7 +1,7 @@
 # HITL override summary and reviewer quality audit
 
 **Workflow:** PolicyPal
-**Period:** 2026-Q2 (reviewer log, quarter sample)
+**Period:** 2026-Q2 (reviewer log, 30 days, 2026-05-19 to 2026-06-17)
 **Reviewer pool:** 5 HR operations reviewers (R-A to R-E)
 
 ## Override summary

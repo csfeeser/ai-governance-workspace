@@ -4,11 +4,11 @@
 
 **Read an evidence packet the way an auditor would and write up its defects, ranked by severity.**
 
-Knowing what auditors expect is tested by whether you can spot its absence, not by whether you can recite the list. In this lab you receive a completed evidence packet submitted by someone else. It looks competent. It has three real defects: a missing component, quality scores that cannot be interpreted, and evidence that will not survive its own retention requirement. You find them, explain why each one matters to an auditor, say what would fix it, and rank them.
+Knowing what auditors expect is tested by whether you can spot its absence, not by whether you can recite the list. In this lab you receive a completed evidence packet submitted by someone else. It looks competent. It has three real defects: a component that is there in name only because the substance that should fill it is missing, quality scores that cannot be interpreted, and evidence that will not survive its own retention requirement. You find them, explain why each one matters to an auditor, say what would fix it, and rank them.
 
 In this lab, you will:
 - Check a packet section by section against the six required components
-- Identify a missing component, uninterpretable scores, and a retention failure
+- Identify a component present in name only, uninterpretable scores, and a retention failure
 - Explain why platform-only retention fails a multi-year requirement
 - Write three findings and rank them by severity
 
@@ -112,7 +112,7 @@ By the end of this lab you will be able to review an AI evidence packet against 
 
     <details><summary>ANSWER:</summary>
 
-    Four of the nine rows say the papers are kept in "Copilot audit log", "Purview" or "Claude workspace". Those platforms keep about 180 days of records. If a company has to keep records for several years, this evidence is gone in about seven months, and the packet cannot be rebuilt when it is really needed. The fix is to copy the evidence into a named system that belongs to the company.
+    Four of the nine rows say the papers are kept in "Copilot audit log" or "Purview". Those are parts of the AI platform itself, and they keep about 180 days of records. If a company has to keep records for several years, this evidence is gone in about seven months, and the packet cannot be rebuilt when it is really needed. The fix is to copy the evidence into a named system that belongs to the company.
 
     </details>
 
@@ -154,4 +154,4 @@ These are optional. Your answers to them are saved on the `Challenges` tab.
 
 ## Conclusion
 
-In this lab you read a peer's evidence packet as an auditor, found a missing component, uninterpretable quality scores, and evidence that will not survive its own retention requirement, and wrote defensible findings ranked by severity. Spotting what is absent is the real test of knowing what auditors expect.
+In this lab you read a peer's evidence packet as an auditor, found a component present in name only, uninterpretable quality scores, and evidence that will not survive its own retention requirement, and wrote defensible findings ranked by severity. Spotting what is absent is the real test of knowing what auditors expect.

@@ -66,3 +66,21 @@ than **5 points** from the recorded baseline, whichever comes first. A movement 
 that band is logged and watched; a movement past it triggers a diagnosis (Lab 2.2). The
 alarm level is set here, in advance, so that a later result is measured against it rather
 than judged after the fact.
+
+## 9. Reference figures from current policy
+
+Criterion c2 is scored against these figures, copied from the current HR Policy Library.
+A response that states a different figure, or hedges one ("about", "roughly"), does not
+meet c2. A response that states no figure at all meets c2; whether it should have
+given one is judged under c3.
+
+| Topic | Current figure | Source |
+|---|---|---|
+| PTO accrual, years one to four | 15 days per year | PTO Policy 2025 |
+| Notice for planned PTO of 3+ consecutive days | At least two weeks | PTO Policy 2025 |
+| Bereavement leave | 5 working days per eligible event | PTO Policy 2025 |
+| Mileage reimbursement, personal vehicle | $0.67 per mile | Expense & Travel Policy 2025 |
+| Domestic meal per diem | $64 per day | Expense & Travel Policy 2025 |
+| Health plan enrollment window for new hires | 30 days from hire date | Benefits Guide 2025 |
+| Benefits change after a qualifying life event | Within 30 days of the event | Benefits Guide 2025 |
+| 401(k) match | 100% of the first 4% of eligible pay | Benefits Guide 2025 |

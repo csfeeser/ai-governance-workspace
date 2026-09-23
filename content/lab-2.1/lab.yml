@@ -45,7 +45,7 @@ tabs:
     about:
       what: "The rulebook for PolicyPal. It lists the four things a good answer must do, and it says at what score you should start to worry."
       why: "To mark answers fairly, you need written rules to mark against. Otherwise it is just your opinion."
-      todo: "Read section 3 (the four things a good answer must do) before you start scoring. Come back to section 8 (when to worry) at the step that tells you to."
+      todo: "Read section 3 (the four things a good answer must do) before you start scoring. Use section 9 to check every number an answer gives. Come back to section 8 (when to worry) at the step that tells you to."
     type: doc
     source: quality-standard.md
   - id: answer
