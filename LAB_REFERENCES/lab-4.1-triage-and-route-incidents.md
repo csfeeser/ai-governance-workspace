@@ -21,7 +21,7 @@ By the end of this lab you will be able to triage an AI incident into a category
 - **What you are doing:** Five different things have gone wrong with AI tools. For each one you will decide what kind of problem it is, who should deal with it, and how quickly.
 - **Why it matters:** You cannot fix everything yourself, and you should not try. The skill is to quickly get each problem to the right person. Getting it wrong wastes time, or leaves a serious problem sitting.
 - **You do not have to:** download anything, open a spreadsheet, or write long answers. Nearly everything is a drop-down menu, and everything you pick saves by itself.
-- **If you feel lost:** every tab starts with a blue box that says what the tab is and what to do there. Read that box first.
+- **If you feel lost:** in the workspace, every instruction is in a numbered orange box. Do the boxes in order, from the left-most tab to the right-most tab.
 
 **Words you will see in this lab**
 - **Incident:** something that went wrong.
@@ -39,148 +39,42 @@ By the end of this lab you will be able to triage an AI incident into a category
 
 - If you haven't already done so, click the `WEB PORTS` dropdown in your classroom environment. From that menu click `aux1:2224`.
 - On the page that opens in your browser, click `4.1 Triage and Route Five Incidents` in the left sidebar.
+- Then do Step 1 to Step 8 in the workspace. You do not need to keep this page open while you work.
 
-## Procedure
+## What You Will Do in the Workspace
 
-1. **Read all five incidents before you sort any.** Some of them only make sense once you have read the others, so do not start sorting straight away.
-    - Click the tab called `Incident Log`. It is probably already open.
-    - Read all five incidents from top to bottom.
+Everything you do in this lab happens in the workspace.
 
-0. **Sort incident 1.** Now sort the first problem. You pick the type of problem, the person responsible, and what to do.
-    - Click the `My Triage` tab.
-    - In the section **Incident 1**, use the three drop-downs to pick the **Category**, the **Responsible owner**, and the **Action**.
-    - Pick the owner that names a job, for example "the team that ...". Do not pick one that is only a department.
+- The workspace has four tabs. Start on the left-most tab and work to the right. You never need to go back to a tab you have finished.
+- On each tab, work from top to bottom. Every instruction is in an orange box with a step number, from Step 1 to Step 8. Everything outside the orange boxes is the material you need for that step.
+- If a step asks you to answer something, the answer box is inside the orange box.
+- Stuck? Each orange box has hints you can open, and most have a **Show the answer** button.
+- At the bottom of each tab, click **Go to the next tab** when you have finished every step on it.
+- Nearly every answer is a drop-down menu. Everything you pick saves by itself. The counter at the top right shows how many answers you have filled in.
 
-    <details><summary>ANSWER:</summary>
+### Tab 1: Incident Log (Step 1)
 
-    - Category: `Business content`. The AI faithfully repeated an out-of-date policy document, so the fix is to remove the old document from where the AI reads, not to change the AI.
-    - Owner: `The team that owns the HR policy library`. This names a responsibility, not a department.
-    - Action: `Escalate now`.
+![The Incident Log tab, showing Step 1 above the five incidents](images/lab-4.1/1-incident-log.png)
 
-    </details>
+You read all five incidents before you sort any, because some only make sense once you have read the others.
 
-0. **Sort incident 2.**
-    - In the section **Incident 2**, pick the **Category**, the **Responsible owner**, and the **Action**.
+### Tab 2: Triage (Steps 2 to 6)
 
-    <details><summary>ANSWER:</summary>
+![The Triage tab, showing Step 2 and its three drop-downs above Incident 1](images/lab-4.1/2-triage.png)
 
-    - Category: `Technical or vendor`. The AI model version changed and the output changed with it.
-    - Owner: `The team responsible for the platform and the vendor relationship`.
-    - Action: `Escalate now`.
+One step per incident. Each step shows its incident and the five categories right under it. For each one you choose the category, the owner named by responsibility, and what to do. Incident 4 fits two categories, and incident 5 may not need escalating yet.
 
-    </details>
+### Tab 3: Next Moves (Steps 7 and 8)
 
-0. **Sort incident 3, and pay attention to urgency.** Anything to do with private data being shown to the wrong person is urgent. It cannot wait for the next monthly review.
-    - In the section **Incident 3**, pick the **Category**, the **Responsible owner**, and the **Action**.
+![The Next Moves tab, showing Step 7 and the choices for a stalled handoff](images/lab-4.1/3-next-moves.png)
 
-    <details><summary>ANSWER:</summary>
+You decide what to do if a handoff goes nowhere, then pick the one incident you would deal with first.
 
-    - Category: `Security or privacy`. Another customer's private data was shown.
-    - Owner: `The information-security function, with the legal function notified`.
-    - Action: `Escalate immediately`.
+### Tab 4: My Triage
 
-    </details>
+![The My Triage tab, showing the triage built from the student's answers](images/lab-4.1/4-my-triage.png)
 
-0. **Notice that incident 4 fits two categories.** Real problems do not always fit one box. Here you pick the two boxes that fit, and in the next step you decide which one matters more.
-    - In the section **Incident 4**, use the two category drop-downs to pick the two categories that fit.
-    - It does not matter which drop-down each one goes in for now.
-
-    <details><summary>ANSWER:</summary>
-
-    It is `Business content` (the tax document that the AI reads from is out of date). It is also `Risk or compliance` (the AI gave a confident, specific, wrong answer about tax that someone could act on).
-
-    </details>
-
-0. **Decide which of the two matters more, and why.** When a problem fits two categories, you handle the worse risk first. The other one can be mentioned later.
-    - In the section **Incident 4**, check that **The category that matters more** shows the one you decided on. If it is the wrong way round, swap the two drop-downs.
-    - Pick the **Responsible owner** and the **Action**.
-    - In the last box, write one line saying why that risk is the bigger one.
-
-    <details><summary>Hint 1: a sentence to start from</summary>
-
-    Fill in the blanks: "Someone acting on ______ could ______, which is a larger harm than ______."
-
-    </details>
-
-    <details><summary>Hint 2: an example answer</summary>
-
-    "Someone acting on wrong tax advice could misstate a filing, which is a larger harm than an outdated document sitting in the source."
-
-    </details>
-
-    <details><summary>ANSWER:</summary>
-
-    - Category that matters more: `Risk or compliance`. Someone acting on wrong tax advice is the bigger harm.
-    - Owner: `The risk and compliance function`. You may also tell the owner of the documents, but the escalation goes to risk and compliance.
-
-    </details>
-
-0. **Sort incident 5.** This one is not as urgent as it may sound. Not every problem needs to be escalated straight away.
-    - In the section **Incident 5**, pick the **Category**, the **Responsible owner**, and the **Action**.
-
-    <details><summary>ANSWER:</summary>
-
-    - Category: `Technical or vendor`. A slow-down that repeats every morning.
-    - Owner: `The team responsible for the affected technology`.
-    - Action: `Monitor and log, do not escalate yet`.
-
-    </details>
-
-0. **Say what would make you escalate incident 5.** "Monitor" does not mean "ignore". It means you have decided in advance what would make it serious enough to escalate.
-    - In the section **Incident 5**, in the last box, write one line about what would have to change for you to escalate it now.
-
-    <details><summary>Hint 1: a sentence to start from</summary>
-
-    Fill in the blanks: "I would escalate if ______ were quantified as ______, or if it started happening ______."
-
-    </details>
-
-    <details><summary>Hint 2: an example answer</summary>
-
-    "I would escalate if the lost requests were quantified as affecting real work, or if it started happening at other times of day."
-
-    </details>
-
-    <details><summary>ANSWER:</summary>
-
-    It is a "monitor and log" item, not an escalation yet. It comes and goes, the tech team already knows about it, and nobody has worked out what it costs. Escalate it if numbers show that it is happening more often or costing more.
-
-    </details>
-
-0. **Decide what you would do if the message goes nowhere.** Passing a problem on is not the same as solving it. Often the person does not answer, says it is not their job, or nobody owns the thing at all.
-    - In the section **If the route stalls**, use the drop-down to pick your first move.
-
-    <details><summary>ANSWER:</summary>
-
-    Send it to whoever is responsible by their job, take a problem nobody owns to the risk and compliance team, go to the owner's manager, or write down the gap and set a follow-up date. All of those are sensible. Waiting for the next monthly review is not. A problem that nobody will act on is a finding in its own right.
-
-    </details>
-
-0. **Check that none of your owners is just a department.** A department name does not tell you who will do the work.
-    - Go back through your five **Responsible owner** choices.
-    - If any of them is only a department (for example "The IT department"), change it to the choice that names a job.
-
-0. **Pick the one problem you would deal with first.** With five problems you cannot fix everything at once, so you need a way to choose.
-    - In the section **Escalate first**, use the drop-down to pick the incident.
-    - In the box below it, write one line saying why. Think about how bad it is and how urgent it is.
-
-    <details><summary>Hint 1: a sentence to start from</summary>
-
-    Fill in the blanks: "Because ______ has the highest ______ and the highest ______."
-
-    </details>
-
-    <details><summary>ANSWER:</summary>
-
-    Incident 3. Private data is being shown right now and nobody knows how far it has spread. It is both the most urgent and the most serious.
-
-    </details>
-
-0. **Check that you have finished.** The workspace keeps count of the boxes you have filled in.
-    - Look at the top right of the workspace. It says something like `X of Y answers filled in`.
-    - When X is the same as Y, you are done.
-    - Your answers save automatically as you pick them, so there is nothing to save or send.
-    - If you would like a copy for yourself, click the `Save as PDF` button on the `My Triage` tab.
+You do not type anything here. This tab gathers your answers into one triage sheet. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 
 ## Conclusion
 

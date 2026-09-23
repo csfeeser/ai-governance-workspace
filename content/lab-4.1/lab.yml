@@ -2,23 +2,27 @@ title: Triage and Route Five Incidents
 tabs:
   - id: incidents
     title: Incident Log
-    about:
-      what: "Five short stories about things that went wrong with AI tools at a company."
-      why: "You have to sort them. For each one you decide what kind of problem it is, who should deal with it, and how quickly."
-      todo: "Read all five before you do anything else. Some of them only make sense once you have read the others."
-    type: doc
-    source: incidents.md
+    type: steps
+    steps:
+      - title: Read all five incidents
+        text: |
+          Five different things have gone wrong with AI tools at a company. For each one you will decide what kind of problem it is, who should deal with it, and how quickly. This is called triage, the way nurses sort patients in an emergency room.
+
+          Some of the incidents only make sense once you have read the others, so read all five below before you sort any. There is nothing to type in this step.
+        show:
+          - doc: incidents.md
+
   - id: answer
-    title: My Triage
-    about:
-      what: "Your sorting sheet. For each problem you pick the kind of problem it is, the person who should deal with it, and what to do next."
-      why: "Sorting problems quickly and sending each one to the right person is the whole job. Doing it well stops small problems from turning into big ones."
-      todo: "Use the drop-down menus. Follow the lab steps and do one incident at a time."
-    type: form
-    heading: Triage
-    intro: "Read all five incidents on the Incident Log tab before you classify any. For each incident, choose a category, the responsible owner, and what to do. Name the owner by what they are responsible for, not by department."
-    sections:
-      - title: "Incident 1"
+    title: Triage
+    type: steps
+    steps:
+      - title: Sort incident 1
+        text: |
+          For the incident below, choose three things:
+
+          - **Category:** what kind of problem it is. The five categories are listed under the incident.
+          - **Responsible owner:** who should deal with it. Choose an owner that names a job, for example "the team that ...". Do not choose one that is only a department, such as "The IT department". A department name does not tell you who will do the work.
+          - **Action:** what to do and how quickly.
         fields:
           - id: i1-cat
             kind: select
@@ -40,33 +44,120 @@ tabs:
             kind: select
             label: "Action"
             options: &acts ["Escalate immediately", "Escalate now", "Monitor and log, do not escalate yet"]
-      - title: "Incident 2"
+        answer: |
+          - Category: `Business content`. The AI faithfully repeated an out-of-date policy document, so the fix is to remove the old document from where the AI reads, not to change the AI.
+          - Owner: `The team that owns the HR policy library`. This names a responsibility, not a department.
+          - Action: `Escalate now`.
+        show:
+          - doc: incidents.md
+            section: Incident 1
+          - markdown: &catlist |
+              #### The five categories
+
+              - **Business rule:** the AI broke a rule the business set for it.
+              - **Business content:** the material the AI reads from is wrong, missing, or out of date.
+              - **Security or privacy:** private data was shown, leaked, or misused.
+              - **Technical or vendor:** the computer system, the AI model, the connections, or the speed.
+              - **Risk or compliance:** the company could get into legal, regulatory, or money trouble.
+
+      - title: Sort incident 2
+        text: |
+          Choose the category, the responsible owner, and the action for the incident below. Remember: choose an owner that names a job, not only a department.
         fields:
           - {id: i2-cat, kind: select, label: "Category", options: *cats}
           - {id: i2-owner, kind: select, label: "Responsible owner", options: *owners}
           - {id: i2-action, kind: select, label: "Action", options: *acts}
-      - title: "Incident 3"
-        help: "Security or privacy incidents do not wait for the monthly review."
+        answer: |
+          - Category: `Technical or vendor`. The AI model version changed and the output changed with it.
+          - Owner: `The team responsible for the platform and the vendor relationship`.
+          - Action: `Escalate now`.
+        show:
+          - doc: incidents.md
+            section: Incident 2
+          - markdown: *catlist
+
+      - title: Sort incident 3, and watch the urgency
+        text: |
+          Anything to do with private data being shown to the wrong person is urgent. It cannot wait for the next monthly review.
+
+          Choose the category, the responsible owner, and the action for the incident below.
         fields:
           - {id: i3-cat, kind: select, label: "Category", options: *cats}
           - {id: i3-owner, kind: select, label: "Responsible owner", options: *owners}
           - {id: i3-action, kind: select, label: "Action", options: *acts}
-      - title: "Incident 4"
-        help: "This one fits two categories. Choose both, then decide which risk matters more."
+        answer: |
+          - Category: `Security or privacy`. Another customer's private data was shown.
+          - Owner: `The information-security function, with the legal function notified`.
+          - Action: `Escalate immediately`.
+        show:
+          - doc: incidents.md
+            section: Incident 3
+          - markdown: *catlist
+
+      - title: Sort incident 4, which fits two categories
+        text: |
+          Real problems do not always fit one box. The incident below fits two categories. When that happens, you handle the worse risk first.
+
+          1. Decide which two categories fit.
+          2. Put the one that matters more in **The category that matters more**, and the other in **The other category that also fits**.
+          3. Choose the responsible owner and the action.
+          4. Write one line saying why that risk is the bigger one.
         fields:
           - {id: i4-cat, kind: select, label: "The category that matters more", options: *cats}
           - {id: i4-other, kind: select, label: "The other category that also fits", options: *cats}
           - {id: i4-owner, kind: select, label: "Responsible owner", options: *owners}
           - {id: i4-action, kind: select, label: "Action", options: *acts}
           - {id: i4-why, kind: text, label: "One line: why does that risk dominate?"}
-      - title: "Incident 5"
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "Someone acting on ______ could ______, which is a larger harm than ______."'
+          - title: "Hint 2: an example answer"
+            text: '"Someone acting on wrong tax advice could misstate a filing, which is a larger harm than an outdated document sitting in the source."'
+        answer: |
+          - The category that matters more: `Risk or compliance`. The AI gave a confident, specific, wrong answer about tax that someone has already acted on.
+          - The other category: `Business content`. The tax document the AI reads from is out of date.
+          - Owner: `The risk and compliance function`. You may also tell the owner of the documents, but the escalation goes to risk and compliance.
+          - Action: `Escalate now`.
+        show:
+          - doc: incidents.md
+            section: Incident 4
+          - markdown: *catlist
+
+      - title: Sort incident 5, and decide when you would escalate
+        text: |
+          This one is not as urgent as it may sound. Not every problem needs to be escalated straight away.
+
+          Choose the category, the responsible owner, and the action for the incident below.
+
+          "Monitor" does not mean "ignore". It means you have decided in advance what would make the problem serious enough to escalate. In the last box, write what would have to change for you to escalate it now.
         fields:
           - {id: i5-cat, kind: select, label: "Category", options: *cats}
           - {id: i5-owner, kind: select, label: "Responsible owner", options: *owners}
           - {id: i5-action, kind: select, label: "Action", options: *acts}
           - {id: i5-threshold, kind: text, label: "What would have to change for you to escalate this now?"}
-      - title: "If the route stalls"
-        help: "Routing is a handoff, not a resolution. The owner does not respond, disputes that they own it, or no one owns the affected thing."
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "I would escalate if ______ were quantified as ______, or if it started happening ______."'
+          - title: "Hint 2: an example answer"
+            text: '"I would escalate if the lost requests were quantified as affecting real work, or if it started happening at other times of day."'
+        answer: |
+          - Category: `Technical or vendor`. A slow-down that repeats every morning.
+          - Owner: `The team responsible for the affected technology`.
+          - Action: `Monitor and log, do not escalate yet`. It comes and goes, the technical team already knows about it, and nobody has worked out what it costs. Escalate it if numbers show that it is happening more often or costing more.
+        show:
+          - doc: incidents.md
+            section: Incident 5
+          - markdown: *catlist
+
+  - id: next
+    title: Next Moves
+    type: steps
+    steps:
+      - title: Decide what you would do if the handoff goes nowhere
+        text: |
+          Passing a problem on is not the same as solving it. Often the owner does not answer, says it is not their job, or nobody owns the thing at all.
+
+          Choose your first move if that happens.
         fields:
           - id: stall
             kind: select
@@ -77,7 +168,33 @@ tabs:
               - "Escalate to whoever the owner reports to"
               - "Log the gap with a dated follow-up"
               - "Wait for the next monthly review"
-      - title: "Escalate first"
+        answer: "Any of the first four is sensible: send it to whoever is responsible by their job, take a problem nobody owns to the risk and compliance function, go to the owner's manager, or write down the gap and set a follow-up date. Waiting for the next monthly review is not. A problem that nobody will act on is a finding in its own right."
+
+      - title: Pick the one incident you would deal with first
+        text: |
+          With five problems you cannot fix everything at once, so you need a way to choose. Think about how bad each one is and how urgent it is.
+
+          Your triage choices are below. Choose the incident you would escalate first, and write one line saying why.
         fields:
           - {id: first, kind: select, label: "The one incident you would escalate first", options: ["Incident 1", "Incident 2", "Incident 3", "Incident 4", "Incident 5"]}
           - {id: first-why, kind: text, label: "One line: why? (impact combined with urgency)"}
+        hints:
+          - title: "Hint 1: a sentence to start from"
+            text: 'Fill in the blanks: "Because ______ has the highest ______ and the highest ______."'
+        answer: "`Incident 3`. Private data is being shown right now and nobody knows how far it has spread. It is both the most urgent and the most serious."
+        show:
+          - answers: [i1-cat, i1-action, i2-cat, i2-action, i3-cat, i3-action, i4-cat, i4-action, i5-cat, i5-action]
+
+  - id: report
+    title: My Triage
+    type: report
+    heading: Triage
+    intro: "Each incident with its category, its owner named by responsibility, and what to do. Routing a finding is not the same as closing it. To keep a copy, click Save as PDF."
+    sections:
+      - {title: "Incident 1", fields: [i1-cat, i1-owner, i1-action]}
+      - {title: "Incident 2", fields: [i2-cat, i2-owner, i2-action]}
+      - {title: "Incident 3", fields: [i3-cat, i3-owner, i3-action]}
+      - {title: "Incident 4", fields: [i4-cat, i4-other, i4-owner, i4-action, i4-why]}
+      - {title: "Incident 5", fields: [i5-cat, i5-owner, i5-action, i5-threshold]}
+      - {title: "If the route stalls", fields: [stall]}
+      - {title: "Escalate first", fields: [first, first-why]}
