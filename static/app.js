@@ -479,11 +479,12 @@ function makeScorecard(tab, opts = {}) {
   const sc = tab.scorecard, editable = tab.editable || {};
   const marking = Object.keys(editable).length && !opts.open;
   const el = h("div", { class: "scorecard" + (marking && opts.sticky !== false ? " sticky" : "") });
-  // A mark comes from the student's answer when they gave one, otherwise from the data
-  // (rows a lab has already marked for them).
+  // A mark already in the data (a row the lab has marked for the student) always wins; the
+  // student's answer only fills rows the data leaves blank. That way an answer saved under an
+  // older version of the lab, for a row that is now pre-marked, cannot change the score.
   const cur = (i, col) => {
-    const a = col in editable ? state.answers[`t:${tab.id}:${i}:${col}`] : null;
-    const v = a != null && a !== "" ? a : tab.rows[i][col];
+    const d = tab.rows[i][col];
+    const v = d === "1" || d === "0" ? d : col in editable ? state.answers[`t:${tab.id}:${i}:${col}`] : d;
     return v === "1" ? 1 : v === "0" ? 0 : null;
   };
   const baselineBqs = Number((tab.rows.map(r => r[sc.baseline_bqs]).find(v => v !== "")) || NaN);
