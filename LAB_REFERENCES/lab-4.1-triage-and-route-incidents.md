@@ -54,19 +54,19 @@ Everything you do in this lab happens in the workspace.
 
 ### Tab 1: Triage (Steps 1 to 5)
 
-![The Triage tab, showing Step 1 and its three drop-downs above incident 1](images/lab-4.1/1-triage.png)
+![The Triage tab, showing Step 1 and its three drop-downs above incident 1](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-4-1-1-triage.png)
 
 One step per incident. Each step shows its incident and what each possible owner is responsible for; each category and action is explained in its drop-down. For each incident you choose the category, the owner named by responsibility, and how quickly to act. Incident 4 fits two categories, and one incident may not need escalating yet.
 
 ### Tab 2: Next Moves (Steps 6 and 7)
 
-![The Next Moves tab, showing Step 6 above all five incidents](images/lab-4.1/2-next-moves.png)
+![The Next Moves tab, showing Step 6 above all five incidents](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-4-1-2-next-moves.png)
 
 You pick the one incident you would deal with first, then decide what to do when an owner you escalated to does not reply.
 
 ### Tab 3: My Triage
 
-![The My Triage tab, showing the triage built from the student's answers](images/lab-4.1/3-my-triage.png)
+![The My Triage tab, showing the triage built from the student's answers](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-4-1-3-my-triage.png)
 
 You do not type anything here. This tab gathers your answers into one triage sheet. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 

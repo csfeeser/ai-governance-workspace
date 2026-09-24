@@ -50,25 +50,25 @@ Everything you do in this lab happens in the workspace.
 
 ### Tab 1: The Folder (Steps 1 to 9)
 
-![The Folder tab, showing a paper with the step that asks about it right underneath](images/lab-5.1/1-the-folder.png)
+![The Folder tab, showing a paper with the step that asks about it right underneath](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-5-1-1-the-folder.png)
 
 Step 1 says what the auditor has asked for and lists the six sections of the packet. Then you see the eight papers one at a time, and under each one you choose its section, or leave it out. A paper belongs only if it is about PolicyPal and is evidence for Q2.
 
 ### Tab 2: Gaps (Steps 10 and 11)
 
-![The Gaps tab, showing the June issues and who is responsible for what, above Step 10](images/lab-5.1/2-gaps.png)
+![The Gaps tab, showing the June issues and who is responsible for what, above Step 10](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-5-1-2-gaps.png)
 
 Two gaps, one step each, with what you need to read right above it. You decide what the missing change record for section 6 should show, check whether the reviewer summary in section 4 covers the whole quarter, and choose who can supply each missing piece.
 
 ### Tab 3: Storage (Step 12)
 
-![The Storage tab, showing Step 12 above the records rule and where records can be kept](images/lab-5.1/3-storage.png)
+![The Storage tab, showing Step 12 above the records rule and where records can be kept](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-5-1-3-storage.png)
 
 You choose where the copies are kept so they last as long as the company's records rule requires.
 
 ### Tab 4: My Packet
 
-![The My Packet tab, showing the evidence packet built from the student's answers](images/lab-5.1/4-my-packet.png)
+![The My Packet tab, showing the evidence packet built from the student's answers](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-5-1-4-my-packet.png)
 
 You do not type anything here. This tab gathers your answers into the finished packet. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 

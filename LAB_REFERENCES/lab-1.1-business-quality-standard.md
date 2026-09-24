@@ -67,25 +67,25 @@ Everything you do in this lab happens in the workspace. You do not need to keep 
 
 ### Tab 1: PolicyPal Basics (Steps 1 and 2)
 
-![The PolicyPal Basics tab, showing Step 1 in an orange box above PolicyPal's intake record](images/lab-1.1/1-policypal-basics.png)
+![The PolicyPal Basics tab, showing Step 1 in an orange box above PolicyPal's intake record](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-1-1-1-policypal-basics.png)
 
 You read PolicyPal's intake record, the fact sheet the previous owner left you. You write one sentence saying what PolicyPal is for. Then you look up its risk tier, and use the tier to find how often PolicyPal must be checked and how many of its answers to check each time.
 
 ### Tab 2: Open Issues (Steps 3 and 4)
 
-![The Open Issues tab, showing Step 3 above the list of eight problems, each with an Owner drop-down](images/lab-1.1/2-open-issues.png)
+![The Open Issues tab, showing Step 3 above the list of eight problems, each with an Owner drop-down](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-1-1-2-open-issues.png)
 
 You read eight problems people have reported with PolicyPal. For each one, you choose who owns it: you, or the platform team. Then you explain the two choices that were hardest to make.
 
 ### Tab 3: Write the Standard (Steps 5 to 9)
 
-![The Write the Standard tab, showing Step 5 above the two problems it asks about](images/lab-1.1/3-write-the-standard.png)
+![The Write the Standard tab, showing Step 5 above the two problems it asks about](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-1-1-3-write-the-standard.png)
 
 You write the rulebook, one part per step. Each step shows the one or two problems it is about, right under the step. You write what a correct answer looks like, the rules PolicyPal must always follow, the errors that are never acceptable, when a person must take over, and how much two answers to the same question may differ.
 
 ### Tab 4: My Answer
 
-![The My Answer tab, showing the finished Business Quality Standard built from the student's answers](images/lab-1.1/4-my-answer.png)
+![The My Answer tab, showing the finished Business Quality Standard built from the student's answers](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-1-1-4-my-answer.png)
 
 You do not type anything here. This tab builds your finished Business Quality Standard from the answers you gave in the steps. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 

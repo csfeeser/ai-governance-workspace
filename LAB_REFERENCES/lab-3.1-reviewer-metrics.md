@@ -54,38 +54,38 @@ end challenge section -->
 
 ### Tab 1: The Log (Steps 1 and 2)
 
-![The Log tab, showing Step 1 above the reviewer log](images/lab-3.1/1-the-log.png)
+![The Log tab, showing Step 1 above the reviewer log](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-3-1-1-the-log.png)
 
 You learn what the reviewer log records and what an override is. Then you see why the team's overall override rate cannot prove, on its own, that every reviewer is really checking.
 
 ### Tab 2: The Reviewers (Steps 3 to 5)
 
-![The Reviewers tab, showing Step 3 above the override rate for each reviewer](images/lab-3.1/2-the-reviewers.png)
+![The Reviewers tab, showing Step 3 above the override rate for each reviewer](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-3-1-2-the-reviewers.png)
 
 You spot the reviewer who almost never disagrees with PolicyPal and rule out the innocent explanation, that they just had easy cases. Then you spot the reviewer who disagrees the most, and work out whether it is the reviewer or PolicyPal. Every table opens already broken down the way its step needs.
 
 ### Tab 3: Trend and Repeats (Steps 6 and 7)
 
-![The Trend and Repeats tab, showing Step 6 above the override rate for each week](images/lab-3.1/3-trend-and-repeats.png)
+![The Trend and Repeats tab, showing Step 6 above the override rate for each week](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-3-1-3-trend-and-repeats.png)
 
 You read how the override rate changed week by week and check PolicyPal's quality for the same period, to tell whether the AI or the reviewers changed. Then you check the secret repeat cases to see who decided the same case two different ways.
 
 ### Tab 4: Next Step (Step 8)
 
-![The Next Step tab, showing Step 8 above the student's earlier answers about R-A](images/lab-3.1/4-next-step.png)
+![The Next Step tab, showing Step 8 above the student's earlier answers about R-A](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-3-1-4-next-step.png)
 
 You decide who owns fixing the most serious finding. Lab 3.2 is where you write the plan.
 
 ### Tab 5: My Findings
 
-![The My Findings tab, showing the findings built from the student's answers](images/lab-3.1/5-my-findings.png)
+![The My Findings tab, showing the findings built from the student's answers](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-3-1-5-my-findings.png)
 
 You do not type anything here. This tab gathers your answers into one set of findings. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 
 <!-- challenge section
 ### Tab 6: Challenges (optional, Steps 9 to 11)
 
-![The Challenges tab, showing the Bronze challenge above the override rate for each reviewer](images/lab-3.1/6-challenges.png)
+![The Challenges tab, showing the Bronze challenge above the override rate for each reviewer](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-3-1-6-challenges.png)
 
 Three extra challenges for anyone who finishes early:
 

@@ -50,32 +50,32 @@ end challenge section -->
 
 ### Tab 1: The Finding (Step 1)
 
-![The Finding tab, showing Step 1 above the written finding about reviewer R-A](images/lab-3.2/1-the-finding.png)
+![The Finding tab, showing Step 1 above the written finding about reviewer R-A](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-3-2-1-the-finding.png)
 
 You read the finding about reviewer R-A and choose how the plan should state it: as a gap in the process, with the numbers, rather than a fault in one person.
 
 ### Tab 2: The Plan (Steps 2 and 3)
 
-![The Plan tab, showing Step 2 above a table of the four corrective actions](images/lab-3.2/2-the-plan.png)
+![The Plan tab, showing Step 2 above a table of the four corrective actions](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-3-2-2-the-plan.png)
 
 You choose the corrective action that fixes the gap, using a table of what each action changes, and a temporary protection that covers the gap until the fix is in place.
 
 ### Tab 3: Verification (Steps 4 to 6)
 
-![The Verification tab, showing Step 4 above PolicyPal's review cadence](images/lab-3.2/3-verification.png)
+![The Verification tab, showing Step 4 above PolicyPal's review cadence](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-3-2-3-verification.png)
 
 You choose when the fix will be checked, the number that will mean it worked, and the data that number will come from. This is the part most plans leave out.
 
 ### Tab 4: Remediation Plan
 
-![The Remediation Plan tab, showing the plan built from the student's answers](images/lab-3.2/4-remediation-plan.png)
+![The Remediation Plan tab, showing the plan built from the student's answers](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-3-2-4-remediation-plan.png)
 
 You do not type anything here. This tab gathers your answers into one remediation plan. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 
 <!-- challenge section
 ### Tab 5: Bronze: Plan for R-B (optional, Step 9)
 
-![The Bronze tab, showing the challenge above the facts about reviewer R-B](images/lab-3.2/5-bronze-plan-for-r-b.png)
+![The Bronze tab, showing the challenge above the facts about reviewer R-B](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-3-2-5-bronze-plan-for-r-b.png)
 
 An extra challenge for anyone who finishes early: write a second plan, for reviewer R-B, who disagrees with the AI far more than everyone else.
 end challenge section -->

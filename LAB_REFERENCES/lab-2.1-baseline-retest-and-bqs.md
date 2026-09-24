@@ -53,31 +53,31 @@ Everything you do in this lab happens in the workspace.
 
 ### Tab 1: The Two Files (Step 1)
 
-![The Two Files tab, showing Step 1 above the Activity Log and the Output Export](images/lab-2.1/1-the-two-files.png)
+![The Two Files tab, showing Step 1 above the Activity Log and the Output Export](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-2-1-1-the-two-files.png)
 
 You learn the difference between the two kinds of export an AI platform can give you, an activity log and a content export, and choose the one that can show whether PolicyPal's answers are getting worse.
 
 ### Tab 2: Mark the Answers (Steps 2 and 3)
 
-![The Mark the Answers tab, showing Step 2 above the scoring rules and five answers](images/lab-2.1/2-mark-the-answers.png)
+![The Mark the Answers tab, showing Step 2 above the scoring rules and five answers](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-2-1-2-mark-the-answers.png)
 
 You mark five of PolicyPal's answers against four rules, choosing Met or Not met for each. The rules and the correct policy figures are shown right under the step. Then, if you have time, you compare your marks with a partner's.
 
 ### Tab 3: Your Result (Steps 4 and 5)
 
-![The Your Result tab, showing Step 4 above the score box](images/lab-2.1/3-your-result.png)
+![The Your Result tab, showing Step 4 above the score box](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-2-1-3-your-result.png)
 
 The workspace adds your marks to the 15 already marked. You say whether answer quality is going up or down compared with the baseline, and whether the score has reached the alarm level set in advance.
 
 ### Tab 4: The Cause (Steps 6 and 7)
 
-![The Cause tab, showing Step 6 above the marked answers in date order and the activity log](images/lab-2.1/4-the-cause.png)
+![The Cause tab, showing Step 6 above the marked answers in date order and the activity log](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-2-1-4-the-cause.png)
 
 You find the date the marks started to drop, check the activity log for what changed around that date, and write down the most likely cause. Then you decide who to speak to about it.
 
 ### Tab 5: My Answer
 
-![The My Answer tab, showing the result built from the student's answers](images/lab-2.1/5-my-answer.png)
+![The My Answer tab, showing the result built from the student's answers](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-2-1-5-my-answer.png)
 
 You do not type anything here. This tab gathers your answers into one result. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 

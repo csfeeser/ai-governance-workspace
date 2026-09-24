@@ -50,25 +50,25 @@ Everything you do in this lab happens in the workspace.
 
 ### Tab 1: The Drop (Steps 1 and 2)
 
-![The Drop tab, showing Step 1 above the score box and the alarm level](images/lab-2.2/1-the-drop.png)
+![The Drop tab, showing Step 1 above the score box and the alarm level](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-2-2-1-the-drop.png)
 
 The answers from the next monthly review have already been marked. You decide whether the drop is big enough to investigate, then find the date it started and which kinds of question it affects.
 
 ### Tab 2: Check the Causes (Steps 3 to 6)
 
-![The Check the Causes tab, showing Step 3 above the activity log's model columns](images/lab-2.2/2-check-the-causes.png)
+![The Check the Causes tab, showing Step 3 above the activity log's model columns](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-2-2-2-check-the-causes.png)
 
 You check the four possible causes one at a time, each with its evidence shown under the step. The AI model changed again, but the timing does not fit. Then you decide whether PolicyPal's new answers are really wrong, or whether the Quality Standard is out of date.
 
 ### Tab 3: Conclusion (Steps 7 and 8)
 
-![The Conclusion tab, showing Step 7 above the student's earlier answers](images/lab-2.2/3-conclusion.png)
+![The Conclusion tab, showing Step 7 above the student's earlier answers](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-2-2-3-conclusion.png)
 
 You write the conclusion of the test record, then decide who to speak to and what happens next.
 
 ### Tab 4: My Answer
 
-![The My Answer tab, showing the test record built from the student's answers](images/lab-2.2/4-my-answer.png)
+![The My Answer tab, showing the test record built from the student's answers](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-2-2-4-my-answer.png)
 
 You do not type anything here. This tab gathers your answers into one test record. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 
@@ -77,7 +77,7 @@ NOTE: written for the earlier version of this lab (model-change cause); update b
 
 ### Tab 6: Challenges (optional, Steps 12 to 14)
 
-![The Challenges tab, showing the Bronze challenge above a second marked sample](images/lab-2.2/6-challenges.png)
+![The Challenges tab, showing the Bronze challenge above a second marked sample](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-2-2-6-challenges.png)
 
 Three extra challenges for anyone who finishes early:
 

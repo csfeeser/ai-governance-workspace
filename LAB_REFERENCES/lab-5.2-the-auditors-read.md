@@ -47,26 +47,26 @@ end challenge section -->
 
 ### Tab 1: The Packet (Steps 1 to 7)
 
-![The Packet tab, showing one section of the packet with the step that judges it right underneath](images/lab-5.2/1-the-packet.png)
+![The Packet tab, showing one section of the packet with the step that judges it right underneath](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-5-2-1-the-packet.png)
 
 Step 1 sets the scene and shows the top of the draft Q3 packet. Then you see the six sections one at a time, each with the auditor's question for it, and judge each one right underneath: there in substance, there in name only, or missing. For the incident and change sections, a list of what happened in Q3 from your earlier labs is shown with them.
 
 ### Tab 2: Findings (Steps 8 and 9)
 
-![The Findings tab, showing section 4 of the packet above Step 8](images/lab-5.2/2-findings.png)
+![The Findings tab, showing section 4 of the packet above Step 8](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-5-2-2-findings.png)
 
 For each of the two sections that are there in name only, you choose what is missing. The answer explains why an auditor would care and what would fix it.
 
 ### Tab 3: Auditor Findings
 
-![The Auditor Findings tab, showing the findings built from the student's answers](images/lab-5.2/3-auditor-findings.png)
+![The Auditor Findings tab, showing the findings built from the student's answers](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-5-2-3-auditor-findings.png)
 
 You do not type anything here. This tab gathers your answers into your findings. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 
 <!-- challenge section
 ### Tab 4: Challenges (optional)
 
-![The Challenges tab, showing the Bronze challenge above the submitted packet](images/lab-5.2/4-challenges.png)
+![The Challenges tab, showing the Bronze challenge above the submitted packet](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-5-2-4-challenges.png)
 
 Three extra challenges for anyone who finishes early:
 

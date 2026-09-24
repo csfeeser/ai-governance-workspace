@@ -52,26 +52,26 @@ end challenge section -->
 
 ### Tab 1: What Happened (Steps 1 to 4)
 
-![The What Happened tab, showing Step 1 above the case file](images/lab-4.2/1-what-happened.png)
+![The What Happened tab, showing Step 1 above the case file](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-4-2-1-what-happened.png)
 
 You read the case file, then write what was observed using only facts the owner could check. You choose the frequency that gives a fair picture, tick the files to attach as proof, and write what you have already ruled out.
 
 ### Tab 2: Impact and Ask (Steps 5 to 7)
 
-![The Impact and Ask tab, showing Step 5 above the sales team notes](images/lab-4.2/2-impact-and-ask.png)
+![The Impact and Ask tab, showing Step 5 above the sales team notes](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-4-2-2-impact-and-ask.png)
 
 You write what the problem is costing, then choose the one specific thing you want the owner to do and when you need a reply.
 
 ### Tab 3: Escalation Ticket
 
-![The Escalation Ticket tab, showing the ticket built from the student's answers](images/lab-4.2/3-escalation-ticket.png)
+![The Escalation Ticket tab, showing the ticket built from the student's answers](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-4-2-3-escalation-ticket.png)
 
 You do not type anything here. This tab gathers your answers into the finished ticket, under the triage result from Lab 4.1. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 
 <!-- challenge section
 ### Tab 4: Bronze: Second Ticket (optional, Step 8)
 
-![The Bronze tab, showing the challenge above a second, more urgent incident](images/lab-4.2/4-bronze-second-ticket.png)
+![The Bronze tab, showing the challenge above a second, more urgent incident](https://static.alta3.com/courses/ai-governance/screenshots/LAB_REFERENCES-images-lab-4-2-4-bronze-second-ticket.png)
 
 An extra challenge for anyone who finishes early: write the ticket for a more serious incident, where private customer information was shown to the wrong person.
 end challenge section -->
