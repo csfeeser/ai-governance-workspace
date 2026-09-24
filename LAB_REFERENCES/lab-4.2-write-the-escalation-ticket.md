@@ -45,7 +45,7 @@ Everything you do in this lab happens in the workspace.
 - If a step asks you to answer something, the answer box is inside the orange box.
 - Stuck? Each orange box has hints you can open, and most have a **Show the answer** button.
 - At the bottom of each tab, click **Go to the next tab** when you have finished every step on it.
-- Some answers you write, and some you pick from a drop-down menu. Everything saves by itself. The counter at the top right shows how many answers you have filled in.
+- Some answers you write, some you pick from a drop-down menu, and one is a list of boxes you tick. Everything saves by itself. The counter at the top right shows how many answers you have filled in.
 <!-- challenge section
 - The last tab, Bronze: Second Ticket, is optional. It does not count towards the counter.
 end challenge section -->
@@ -54,7 +54,7 @@ end challenge section -->
 
 ![The What Happened tab, showing Step 1 above the case file](images/lab-4.2/1-what-happened.png)
 
-You read the case file, then write what was observed using only facts the owner could check. You choose the frequency that gives a fair picture and the files to attach as proof, and write what you have already ruled out.
+You read the case file, then write what was observed using only facts the owner could check. You choose the frequency that gives a fair picture, tick the files to attach as proof, and write what you have already ruled out.
 
 ### Tab 2: Impact and Ask (Steps 5 to 7)
 

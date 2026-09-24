@@ -234,6 +234,7 @@ function bind(key, fn) {
 
 function renderField(f) {
   const key = "f:" + f.id, id = "fld-" + f.id;
+  if (f.kind === "checklist") return renderChecklist(f, key, id);
   let input;
   if (f.kind === "select") {
     input = h("select", { id }, h("option", { value: "" }, "Choose\u2026"),
@@ -250,6 +251,21 @@ function renderField(f) {
     h("label", { for: id }, f.label, !f.required && h("span", { class: "optional" }, " (optional)")),
     f.example && h("div", { class: "example" }, "Example: " + f.example),
     input);
+}
+
+// Tick boxes. The answer is the ticked options, one per line, in the order they are listed.
+function renderChecklist(f, key, id) {
+  const boxes = f.options.map((o, i) => h("input", { type: "checkbox", id: `${id}-${i}`, value: o }));
+  const show = v => { const on = new Set((v || "").split("\n")); boxes.forEach(b => { b.checked = on.has(b.value); }); };
+  show(state.answers[key]);
+  const redraw = bind(key, show);
+  boxes.forEach(b => b.addEventListener("change", () =>
+    queueSave(key, boxes.filter(x => x.checked).map(x => x.value).join("\n"), redraw)));
+  return h("div", { class: "field" },
+    h("div", { class: "field-label", id: `${id}-label` }, f.label, !f.required && h("span", { class: "optional" }, " (optional)")),
+    f.example && h("div", { class: "example" }, "Example: " + f.example),
+    h("div", { class: "checklist", role: "group", "aria-labelledby": `${id}-label` },
+      boxes.map((b, i) => h("label", { for: `${id}-${i}` }, b, h("span", {}, f.options[i])))));
 }
 
 // ---------------------------------------------------------------- steps

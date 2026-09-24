@@ -119,6 +119,12 @@ class ValidateContent(unittest.TestCase):
         self.edit("lab-legacy/lab.yml", ', options: [a, b]}', '}')
         self.assertCaught("pick", "options")
 
+    def test_checklist_field_without_options(self):
+        self.add_legacy_lab()
+        self.edit("lab-legacy/lab.yml", "{id: pick, kind: select, label: \"Pick\", options: [a, b]}",
+                  "{id: pick, kind: checklist, label: \"Pick\"}")
+        self.assertCaught("pick", "options")
+
     def test_unknown_field_kind(self):
         self.edit("lab-1.1/lab.yml", "{id: tier, kind: text,", "{id: tier, kind: txt,")
         self.assertCaught("kind 'txt'", "did you mean 'text'")

@@ -40,7 +40,9 @@ for tab in lab["tabs"]:
         continue
     for s in tab["steps"]:
         out += [f"### Step {n}: {s['title']}", "", s["text"].rstrip(), ""]
-        out += [f"- **Answer box** `[{f['id']}]` ({f['kind']}): {f['label']}" for f in s.get("fields") or []]
+        for f in s.get("fields") or []:
+            out.append(f"- **Answer box** `[{f['id']}]` ({f['kind']}): {f['label']}")
+            out += [f"  - {o}" for o in f.get("options") or []]
         if s.get("fields"): out.append("")
         for h in s.get("hints") or []:
             out += [f"<details><summary>{h['title']}</summary>", "", h["text"].rstrip(), "", "</details>", ""]

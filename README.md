@@ -137,7 +137,8 @@ An editable table needs an `id` (answers are keyed by it). To show the student's
 step, repeat the table with the same `id` and `readonly: true`. A `report` tab lists field ids from the
 steps; a missing answer says which step to go back to.
 
-**Form fields** (`kind:`): `text`, `textarea`, `select` (needs `options:`), and `lines` (expands
+**Form fields** (`kind:`): `text`, `textarea`, `select` (a drop-down; needs `options:`), `checklist`
+(a tick box per option; needs `options:`; the answer is the ticked options, one per line), and `lines` (expands
 into `count` one-line inputs, `min` of them required). `example:` shows a grey example above the
 field. `required: false` makes a field optional.
 

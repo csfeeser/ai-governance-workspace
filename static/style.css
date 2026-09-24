@@ -63,7 +63,11 @@ body { font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; 
 .form .help { color: var(--muted); margin: 0 0 10px; font-size: 15px; }
 .field { margin: 12px 0 16px; }
 .field label { display: block; font-weight: 600; margin-bottom: 4px; }
-.field input, .field textarea { width: 100%; font: inherit; padding: 9px 11px; border: 1px solid #b9c2ce; border-radius: 6px; background: #fff; }
+.field .field-label { font-weight: 600; margin-bottom: 4px; }
+.checklist { display: grid; gap: 6px; }
+.checklist label { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; margin: 0; padding: 8px 11px; border: 1px solid #b9c2ce; border-radius: 6px; background: #fff; cursor: pointer; }
+.checklist input[type=checkbox] { width: 18px; height: 18px; margin: 2px 0 0; flex: none; accent-color: var(--accent); }
+.field input:not([type=checkbox]), .field textarea { width: 100%; font: inherit; padding: 9px 11px; border: 1px solid #b9c2ce; border-radius: 6px; background: #fff; }
 .field input:focus, .field textarea:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
 .example { background: #f3f6fa; border-left: 3px solid #9db6d8; padding: 6px 10px; margin-bottom: 6px; font-size: 14px; color: #44546a; border-radius: 0 4px 4px 0; }
 .optional { font-weight: 400; color: var(--muted); font-size: 14px; }
@@ -121,7 +125,7 @@ table.crit th, table.crit td { padding: 5px 14px; }
 .step-text li { margin: 3px 0; }
 .step-text code, .hint code { background: #fbe7b8; padding: 1px 5px; border-radius: 4px; }
 .step .field { margin: 14px 0 6px; }
-.step .field input, .step .field textarea, .step .field select { border-color: #d7b25e; }
+.step .field input, .step .field textarea, .step .field select, .step .checklist label { border-color: #d7b25e; }
 .hint { background: #fffdf6; border: 1px solid #efd08f; border-radius: 6px; padding: 6px 12px; margin: 10px 0 0; }
 .hint summary { cursor: pointer; font-weight: 600; color: #8a5a00; }
 .hint[open] summary { margin-bottom: 4px; }

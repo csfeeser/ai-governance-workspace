@@ -18,7 +18,7 @@ import yaml
 ID_RE = re.compile(r"^[\w-]+$")   # ids end up inside saved-answer keys, so keep them simple
 LAB_ID_RE = re.compile(r"^[\w.-]+$")   # lab ids only appear in URLs, so dots are fine
 TAB_TYPES = {"doc", "table", "form", "steps", "report"}
-FIELD_KINDS = {"text", "textarea", "select", "lines"}
+FIELD_KINDS = {"text", "textarea", "select", "checklist", "lines"}
 
 LAB_KEYS = {"title", "tabs"}
 TAB_KEYS = {"id", "title", "type", "optional", "source", "note", "computed", "hide", "labels",
@@ -229,10 +229,10 @@ def check_form_fields(sections, prefix, where, rep, seen_ids):
                 continue
             if kind != "lines" and not f.get("label"):
                 rep.error(fw, "needs a 'label' (the question the student sees)")
-            if kind == "select":
+            if kind in ("select", "checklist"):
                 options_ok(f.get("options"), fw, rep)
             elif "options" in f:
-                rep.error(fw, "'options' only applies to kind: select")
+                rep.error(fw, "'options' only applies to kind: select or checklist")
             if kind == "textarea" and "rows" in f and not isinstance(f["rows"], int):
                 rep.error(fw, "'rows' must be a whole number")
             if kind == "lines":

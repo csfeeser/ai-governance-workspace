@@ -16,10 +16,9 @@ tabs:
         fields:
           - {id: seen, kind: textarea, rows: 3, label: "What was observed"}
         hints:
-          - title: "Hint 1: facts or feelings?"
-            text: 'A fact comes with something the owner could check: a date, a number, a record. Which notes in the case file are someone''s feeling, and which are someone''s guess about the cause?'
-          - title: "Hint 2: a sentence to start from"
-            text: 'Fill in the blanks: "Since ______, drafts average ______ words (______), up from ______ words in July, and read as ______."'
+          - title: "Hint 1: where to look"
+            text: |
+              Look in the "What the records show" part of the case file for the line on draft length. It gives the length before and after, and the date the drafts changed. The "Sales team notes" are mostly feelings ("feels lazier") and a guess about the cause, and the date there is when the team lead noticed, not when the drafts changed.
         answer: |
           "Since 2026-09-01, drafts average 190 words (two or three paragraphs), up from 70 words in July, and read as informal."
 
@@ -53,23 +52,28 @@ tabs:
 
       - title: Choose the proof to attach
         text: |
-          A claim with no proof is easy to dismiss. From the files alone, the owner should be able to check what you observed, how often it happens, and that the model changed. Choose the files to attach.
+          A claim with no proof is easy to dismiss. From the files alone, the owner should be able to check what you observed, how often it happens, and that the model changed. Tick each file you would attach, and only those. What the records show is below.
         fields:
-          - id: attach
-            kind: select
+          - id: attach-files
+            kind: checklist
             label: "Evidence attached"
             options:
-              - "sample-2026-09.csv, sample-2026-07.csv, activity-log-2026-08-31.csv, sales-tone-standard.pdf"
-              - "sample-2026-09.csv, customer-replies.eml, team-lead-report.txt, sales-tone-standard.pdf"
-              - "activity-log-2026-08-31.csv, sample-2026-09.csv, customer-replies.eml, team-lead-report.txt"
-              - "activity-log-2026-08-31.csv, sample-2026-07.csv, sample-2026-09.csv, customer-replies.eml"
+              - "sample-2026-09.csv: the 50 drafts from 2026-09-01 to 2026-09-18, each with its score"
+              - "sample-2026-07.csv: the 50 drafts from July, each with its score"
+              - "activity-log-2026-08-31.csv: the activity-log lines showing the model version change"
+              - "sales-tone-standard.pdf: the standard both samples were scored against"
+              - "team-lead-report.txt: the report the team lead posted to the incident queue"
+              - "customer-replies.eml: the 9 customer replies about tone"
         answer: |
-          `sample-2026-09.csv, sample-2026-07.csv, activity-log-2026-08-31.csv, sales-tone-standard.pdf`. The two samples show how often, before and after. The standard shows what "fail" means, so the owner can check the scores. The log shows the model change.
+          Attach four files: `sample-2026-09.csv`, `sample-2026-07.csv`, `activity-log-2026-08-31.csv` and `sales-tone-standard.pdf`.
 
-          Every other set leaves something out: the second has no log and no July sample, the third has no standard and no July sample, and the fourth has no standard. The team lead's report and the customer replies add feelings, not proof.
+          - The two samples show how often drafts fail, now and before the change.
+          - The standard shows what "fail" means, so the owner can check the scores.
+          - The log shows the model change.
+          - Leave out the team lead's report and the customer replies. They show how people feel about the drafts. They do not help the owner check what you observed, how often it happens, or the model change.
         show:
           - doc: case-file.md
-            section: Files you could attach
+            section: What the records show
 
       - title: Say what you have already ruled out
         text: |
@@ -77,10 +81,9 @@ tabs:
         fields:
           - {id: notcause, kind: textarea, rows: 3, label: "Already ruled out"}
         hints:
-          - title: "Hint 1: what to look for"
-            text: "For each row, did it change shortly before 2026-09-01? If it changed long before, and the drafts were fine for a while afterwards, it did not cause the change."
-          - title: "Hint 2: a sentence to start from"
-            text: 'Fill in the blanks: "Ruled out: the system prompt (unchanged since ______), the product sheets (last changed ______, and drafts were fine for ______ after), the ______ (unchanged since 2026-02-02), and ______."'
+          - title: "Hint 1: where to look"
+            text: |
+              Go down the **Last changed** column in the "Checks already made" table and compare each date with 2026-09-01, when the drafts changed. A change made long before that date, with the drafts still fine for weeks afterwards, did not cause it. A row that shows no difference did not cause it either. One row changed the day before.
         answer: |
           "Ruled out: the system prompt (unchanged since 2026-06-30), the product sheets (last changed 2026-08-17, and drafts were fine for two weeks after), the Sales Tone Standard (unchanged since 2026-02-02), and how reps word their requests (no difference from July)."
 
@@ -99,8 +102,9 @@ tabs:
         fields:
           - {id: cost, kind: textarea, rows: 3, label: "Business impact"}
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "About ______ customer emails a week are drafted by the assistant, and ______% of sampled drafts fail the tone standard. Reps are ______, and ______ customers have ______ since 2026-09-01."'
+          - title: "Hint 1: where to look"
+            text: |
+              In "What the records show", find how many customer emails a week the assistant drafts, and what share of the recent sample fails the tone standard. In "Sales team notes", find what the reps are doing about it and how many customers have replied about the tone. Leave out anything with no number or record behind it.
         answer: '"About 200 customer emails a week are drafted by the assistant, and 36% of sampled drafts fail the tone standard. Reps are rewriting drafts by hand, and 9 customers have replied about the tone since 2026-09-01. Off-tone emails reach customers under the company''s name."'
         show:
           - doc: case-file.md
@@ -162,7 +166,7 @@ tabs:
     sections:
       - {title: "What was observed", fields: [seen]}
       - {title: "How often, and since when", fields: [freq]}
-      - {title: "Evidence attached", fields: [attach]}
+      - {title: "Evidence attached", fields: [attach-files]}
       - {title: "Already ruled out", fields: [notcause]}
       - {title: "Business impact", fields: [cost]}
       - {title: "The ask", fields: [ask-pick]}
