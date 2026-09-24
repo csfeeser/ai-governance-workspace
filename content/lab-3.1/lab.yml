@@ -164,14 +164,11 @@ tabs:
           - **First look:** the date the reviewer first saw the case, and what they decided.
           - **Second look:** the date they saw the same case again, and what they decided that time.
 
-          In the log these appear as two rows, one with `a` at the end of the case number (the first look) and one with `b` (the second look). Here they are side by side.
-
           For each row, compare the **First decision** with the **Second decision**. Which reviewer decided the same case two different ways?
         fields:
           - {id: dup_reviewer, kind: select, label: "Which reviewer decided the same case two different ways?", options: [R-A, R-B, R-C, R-D, R-E, "None of them"]}
         answer: "`R-D`, on case `DUP-05`: approve on 27 May, reject on 11 June. Everyone else made the same decision both times. Note that R-A was consistent too: consistency alone does not prove someone is reading, because approving everything is also consistent."
         show:
-          - markdown: "Tip: click any column heading to sort the table by that column. Click it again to reverse the order."
           - table:
               source: repeat-cases.csv
               tools: false
