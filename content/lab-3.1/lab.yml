@@ -159,7 +159,7 @@ tabs:
 
           A careful reviewer makes the same decision both times. A reviewer who is not really reading may not.
 
-          The table below has one row for each repeated case, six in all:
+          The table below has one row for each repeated case, one for each reviewer:
 
           - **First look:** the date the reviewer first saw the case, and what they decided.
           - **Second look:** the date they saw the same case again, and what they decided that time.
@@ -167,7 +167,7 @@ tabs:
           For each row, compare the **First decision** with the **Second decision**. Which reviewer decided the same case two different ways?
         fields:
           - {id: dup_reviewer, kind: select, label: "Which reviewer decided the same case two different ways?", options: [R-A, R-B, R-C, R-D, R-E, "None of them"]}
-        answer: "`R-D`, on case `DUP-05`: approve on 27 May, reject on 11 June. Everyone else made the same decision both times. Note that R-A was consistent too: consistency alone does not prove someone is reading, because approving everything is also consistent."
+        answer: "`R-D`, on case `DUP-04`: approve on 27 May, reject on 11 June. Everyone else made the same decision both times. Note that R-A was consistent too: consistency alone does not prove someone is reading, because approving everything is also consistent."
         show:
           - table:
               source: repeat-cases.csv

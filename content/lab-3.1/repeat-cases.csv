@@ -2,6 +2,5 @@ case,reviewer,case_type,ai_decision,first_date,first_decision,second_date,second
 DUP-01,R-A,pto,approve,2026-05-21,approve,2026-06-04,approve
 DUP-02,R-B,expense,approve,2026-05-23,reject,2026-06-07,reject
 DUP-03,R-C,benefits,approve,2026-05-24,approve,2026-06-10,approve
-DUP-04,R-D,travel,reject,2026-05-22,reject,2026-06-02,reject
-DUP-05,R-D,conduct,approve,2026-05-27,approve,2026-06-11,reject
-DUP-06,R-E,benefits,approve,2026-05-25,approve,2026-06-13,approve
+DUP-04,R-D,conduct,approve,2026-05-27,approve,2026-06-11,reject
+DUP-05,R-E,benefits,approve,2026-05-25,approve,2026-06-13,approve

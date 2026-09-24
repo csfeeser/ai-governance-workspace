@@ -24,7 +24,7 @@ Two reviewers fall outside the normal range. R-A overrides 2% of AI decisions ag
 team average of 18%, with a near-zero rate in every week and every case type; the pattern
 is consistent with rubber-stamping and is the subject of a separate remediation plan. R-B
 overrides 43% of decisions on the same case mix the other reviewers handle, which points
-to the reviewer rather than the AI. R-D decided one of two seeded duplicate cases
+to the reviewer rather than the AI. R-D decided a seeded duplicate case
 inconsistently. The rising override trend was cross-checked against the Q2 quality audit;
 output quality was stable over the period, so the trend reflects reviewer behavior, not AI
 degradation, and warrants monitoring.
