@@ -461,7 +461,7 @@ function renderTable(tab) {
       const k = rows.reduce((t, x) => t + Number(x.r[sum.column]), 0);
       total = ["All", String(rows.length), String(k), rows.length ? `${Math.round(100 * k / rows.length)}%` : "–"];
     }
-    return h("div", { class: "tablewrap" }, h("table", { class: "data" },
+    return h("div", { class: "tablewrap" + (tab.fit ? " fit" : "") }, h("table", { class: "data" + (tab.fit ? " fit" : "") },
       h("thead", {}, h("tr", { class: "heads" }, head.map(x => h("th", { style: "cursor:default" }, x)))),
       h("tbody", {}, body.map(r => h("tr", {}, r.map((x, j) => h("td", { class: j ? "num" : "" }, x)))),
         h("tr", { class: "total" }, total.map((x, j) => h("td", { class: j ? "num" : "" }, x))))));

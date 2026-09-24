@@ -111,7 +111,7 @@ class ValidateContent(unittest.TestCase):
         self.assertCaught("'low' is already used", "unique")
 
     def test_duplicate_tab_title(self):
-        self.edit("lab-3.1/lab.yml", "title: High Outlier", "title: Low Outlier")
+        self.edit("lab-3.1/lab.yml", "title: Next Step", "title: The Log")
         self.assertCaught("same title")
 
     def test_select_field_without_options(self):
@@ -209,7 +209,7 @@ class ValidateContent(unittest.TestCase):
         self.assertCaught("view 'scorcard'", "did you mean 'scorecard'")
 
     def test_step_table_group_column_that_does_not_exist(self):
-        self.edit("lab-3.1/lab.yml", "group: reviewer, split: case_type}", "group: reviewr, split: case_type}")
+        self.edit("lab-3.1/lab.yml", "group: reviewer, split: case_type,", "group: reviewr, split: case_type,")
         self.assertCaught("group column 'reviewr'", "did you mean 'reviewer'")
 
     def test_echoed_answer_that_no_step_asks_for(self):
