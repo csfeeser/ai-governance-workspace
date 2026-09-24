@@ -273,18 +273,21 @@ function renderChecklist(f, key, id) {
 // A tab made of numbered steps. Each step is a coloured box holding the instructions and any
 // answer boxes, followed by the material the student needs for that step.
 function renderSteps(tab) {
-  return h("div", { class: "steps" }, tab.steps.map(s => [
+  // Normally a step's material follows its box; `show_first` puts it above, so the student reads it
+  // and then answers straight underneath.
+  return h("div", { class: "steps" }, tab.steps.map(s => { const box =
     h("section", { class: "step", id: `step-${s.number}` },
       h("div", { class: "step-label" }, `Step ${s.number}`),
       h("h2", { class: "step-title" }, s.title),
       h("div", { class: "step-text" }, docNode(s.html)),
       s.fields.map(renderField),
       s.hints.map(x => h("details", { class: "hint" }, h("summary", {}, x.title), docNode(x.html))),
-      s.answer && h("details", { class: "hint answer" }, h("summary", {}, "Show the answer"), docNode(s.answer))),
-    s.show.map(m => h("div", { class: "material" },
+      s.answer && h("details", { class: "hint answer" }, h("summary", {}, "Show the answer"), docNode(s.answer)));
+    const material = s.show.map(m => h("div", { class: "material" },
       m.kind === "doc" ? h("div", { class: "doc" }, docNode(m.html))
-        : m.kind === "answers" ? renderEcho(m.fields) : renderTable(m))),
-  ]));
+        : m.kind === "answers" ? renderEcho(m.fields) : renderTable(m)));
+    return s.show_first ? [material, box] : [box, material];
+  }));
 }
 
 // Answers the student gave in earlier steps, shown again read-only where a later step needs them.

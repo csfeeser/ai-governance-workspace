@@ -9,7 +9,7 @@ This is the capstone. When an auditor asks you to show that oversight of an AI w
 In this lab, you will:
 - Sort candidate papers into the six packet sections, keeping only papers about this workflow and this quarter
 - Choose the version of a document that was in force during the period, even when a newer one exists
-- Tell a gap in the evidence apart from a problem the evidence shows
+- Check whether each section's evidence covers the whole period
 - Name who can supply each missing piece of evidence
 - Choose a place to keep the copies that outlasts the AI platform's own records
 
@@ -35,34 +35,34 @@ By the end of this lab you will be able to assemble an audit-ready evidence pack
 
 - If you haven't already done so, click the `WEB PORTS` dropdown in your classroom environment. From that menu click `aux1:2224`.
 - On the page that opens in your browser, click `5.1 Assemble the AI Evidence Packet` in the left sidebar.
-- Then do Step 1 to Step 4 in the workspace. You do not need to keep this page open while you work.
+- Then do Step 1 to Step 12 in the workspace. You do not need to keep this page open while you work.
 
 ## What You Will Do in the Workspace
 
 Everything you do in this lab happens in the workspace.
 
 - The workspace has four tabs. Start on the left-most tab and work to the right. You never need to go back to a tab you have finished.
-- On each tab, work from top to bottom. Every instruction is in an orange box with a step number, from Step 1 to Step 4. Everything outside the orange boxes is the material you need for that step.
+- On each tab, work from top to bottom. Every instruction is in an orange box with a step number, from Step 1 to Step 12. Everything outside the orange boxes is the material you need. On the first two tabs, the material comes first and the box that asks about it is right underneath.
 - If a step asks you to answer something, the answer box is inside the orange box.
-- Stuck? Each orange box has a hint you can open, and a **Show the answer** button.
+- Stuck? Most orange boxes have a hint you can open, and each question has a **Show the answer** button.
 - At the bottom of each tab, click **Go to the next tab** when you have finished every step on it.
 - Every answer is a drop-down menu or a list of boxes to tick. Everything saves by itself. The counter at the top right shows how many answers you have filled in.
 
-### Tab 1: The Folder (Step 1)
+### Tab 1: The Folder (Steps 1 to 9)
 
-![The Folder tab, showing Step 1 with a drop-down for each paper above the six packet sections](images/lab-5.1/1-the-folder.png)
+![The Folder tab, showing a paper with the step that asks about it right underneath](images/lab-5.1/1-the-folder.png)
 
-You put each of the eight papers into its section of the packet, or leave it out. A paper belongs only if it is about PolicyPal and is evidence for Q2.
+Step 1 says what the auditor has asked for and lists the six sections of the packet. Then you see the eight papers one at a time, and under each one you choose its section, or leave it out. A paper belongs only if it is about PolicyPal and is evidence for Q2.
 
-### Tab 2: Gaps (Steps 2 and 3)
+### Tab 2: Gaps (Steps 10 and 11)
 
-![The Gaps tab, showing Step 2 and its list of possible gaps](images/lab-5.1/2-gaps.png)
+![The Gaps tab, showing the June issues and who is responsible for what, above Step 10](images/lab-5.1/2-gaps.png)
 
-You tick the real gaps in the packet, telling them apart from problems the papers show, then choose who can supply each missing piece.
+Two gaps, one step each, with what you need to read right above it. You decide what the missing change record for section 6 should show, check whether the reviewer summary in section 4 covers the whole quarter, and choose who can supply each missing piece.
 
-### Tab 3: Storage (Step 4)
+### Tab 3: Storage (Step 12)
 
-![The Storage tab, showing Step 4 above the records rule and where records can be kept](images/lab-5.1/3-storage.png)
+![The Storage tab, showing Step 12 above the records rule and where records can be kept](images/lab-5.1/3-storage.png)
 
 You choose where the copies are kept so they last as long as the company's records rule requires.
 
@@ -74,4 +74,4 @@ You do not type anything here. This tab gathers your answers into the finished p
 
 ## Conclusion
 
-In this lab you assembled PolicyPal's Q2 evidence packet from a folder of real and decoy papers. You kept the rules that were in force in Q2 rather than the newest ones, left out another tool's quality record, listed the two gaps with who can fill each, and chose a place to keep the copies that outlasts the platform's 180 days. That packet is what "we have oversight" looks like when an auditor asks for proof. What you carry to your own workflows is the test for each paper (this workflow, this period) and the habit of listing your own gaps.
+In this lab you assembled PolicyPal's Q2 evidence packet from a folder of real and decoy papers. You kept the rules that were in force in Q2 rather than the newest ones, left out another tool's quality record, listed the two gaps with who can supply each, and chose a place to keep the copies that outlasts the platform's 180 days. That packet is what "we have oversight" looks like when an auditor asks for proof. What you carry to your own workflows is the test for each paper (this workflow, this period) and the habit of listing your own gaps.

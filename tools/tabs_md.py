@@ -49,7 +49,7 @@ for tab in lab["tabs"]:
         if s.get("answer"):
             out += ["<details><summary>Show the answer</summary>", "", s["answer"].rstrip(), "", "</details>", ""]
         if s.get("show"):
-            out += ["**Material below the step:**", ""]
+            out += ["**Material above the step:**" if s.get("show_first") else "**Material below the step:**", ""]
             for m in s["show"]:
                 if "doc" in m:
                     body = (d / m["doc"]).read_text(encoding="utf-8").rstrip()

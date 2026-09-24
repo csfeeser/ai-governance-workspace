@@ -4,40 +4,22 @@ tabs:
     title: The Folder
     type: steps
     steps:
-      - title: Sort the papers into the packet
+      - title: See what the auditor has asked for
         text: |
           Today is Monday 2026-09-28. The company's internal audit team is checking how its AI tools are looked after, and has asked for PolicyPal's evidence packet for Q2 2026 (2026-04-01 to 2026-06-30). An auditor is a person whose job is to check that a company really did what it says it did. "We looked after it" is not proof. Papers are.
 
-          You took over PolicyPal in July (Lab 1.1), so Q2 was before your time. The previous owner's papers have been exported from their shared drive into one folder of eight papers. They are below, after the six sections of the packet.
+          You took over PolicyPal in July (Lab 1.1), so Q2 was before your time. The previous owner's papers have been exported from their shared drive into one folder of eight papers. The packet has six sections, listed below, and each answers one question an auditor asks.
 
           A paper goes in the packet only if both of these are true:
 
           - it is about PolicyPal
           - it is evidence for Q2: it was made during Q2, or it was in force during Q2
 
-          For each paper, choose the section it goes in, or **Leave it out**.
-        fields:
-          - {id: p-a1, kind: select, label: "a1-business-purpose", options: &secs ["1. Business purpose statement", "2. System instructions and baseline business rules", "3. Sampled review records and quality scores", "4. HITL override summary and reviewer quality audit", "5. Incident and escalation history", "6. Change-control and approval log", "Leave it out"]}
-          - {id: p-a2, kind: select, label: "a2-system-instructions-v3", options: *secs}
-          - {id: p-a3, kind: select, label: "a3-system-instructions-v2", options: *secs}
-          - {id: p-a4, kind: select, label: "a4-review-sample-q2", options: *secs}
-          - {id: p-a5, kind: select, label: "a5-hitl-override-summary-q2", options: *secs}
-          - {id: p-a6, kind: select, label: "a6-remediation-plan-RA", options: *secs}
-          - {id: p-a7, kind: select, label: "a7-incident-history", options: *secs}
-          - {id: p-a8, kind: select, label: "a8-finance-assistant-sample-q2", options: *secs}
+          There is nothing to choose in this step. In the next eight steps you see one paper at a time, and choose its section right under it.
         hints:
           - title: "Hint 1: where to look"
             text: |
-              The top of each paper gives its workflow and its dates: look for **Workflow**, and for **Effective**, **Period** or **Plan date**. The two tables give theirs in the **workflow**, **quarter** and **retest_date** columns. For every paper, check whose it is, and whether its dates fall in 2026-04-01 to 2026-06-30. A paper that took effect after that did not govern PolicyPal in Q2, however new it is. One section takes two papers.
-        answer: |
-          - `a1-business-purpose`: section 1.
-          - `a2-system-instructions-v3`: leave it out. It took effect on 2026-07-13, after the quarter ended, so it is not what PolicyPal was told to do in Q2. It will belong in the Q3 packet.
-          - `a3-system-instructions-v2`: section 2. It was in force for the whole of Q2. It is superseded now, but an auditor asks what PolicyPal was told to do during the period, not today.
-          - `a4-review-sample-q2`: section 3.
-          - `a5-hitl-override-summary-q2` and `a6-remediation-plan-RA`: both section 4. One is the summary of the human checking, the other the plan to fix a reviewer who was not checking.
-          - `a7-incident-history`: section 5.
-          - `a8-finance-assistant-sample-q2`: leave it out. Its `workflow` column says `FinanceAssistant`: it is another AI tool's quality record.
-          - Nothing in the folder goes in section 6.
+              The top of each paper gives its workflow and its dates: look for **Workflow**, and for **Effective**, **Period** or **Plan date**. The two tables give theirs in the **Workflow**, **Quarter** and **Re-test date** columns. For every paper, check whose it is, and whether its dates fall in 2026-04-01 to 2026-06-30. A paper that took effect after that did not govern PolicyPal in Q2, however new it is. One section takes two papers.
         show:
           - markdown: |
               #### The six sections of the packet
@@ -50,101 +32,137 @@ tabs:
               | 4. HITL override summary and reviewer quality audit | Was the human checking real? (HITL means "human in the loop": a person checking the AI.) |
               | 5. Incident and escalation history | What went wrong, and what did you do about it? |
               | 6. Change-control and approval log | What changed, and who approved it? |
-          - markdown: "#### Paper: a1-business-purpose"
+
+      - title: "Paper 1 of 8: a1-business-purpose"
+        text: |
+          The paper is above. Choose the section it goes in, or **Leave it out**.
+        fields:
+          - {id: p-a1, kind: select, label: "Where does a1-business-purpose go?", options: &secs ["1. Business purpose statement", "2. System instructions and baseline business rules", "3. Sampled review records and quality scores", "4. HITL override summary and reviewer quality audit", "5. Incident and escalation history", "6. Change-control and approval log", "Leave it out"]}
+        answer: "`1. Business purpose statement`. It says what PolicyPal is for and who uses it, and it was in force all through Q2 (effective 2026-03-02, last reviewed 2026-06-05)."
+        show_first: true
+        show:
+          - markdown: "#### Paper 1 of 8: a1-business-purpose"
           - doc: a1-business-purpose.md
-          - markdown: "#### Paper: a2-system-instructions-v3"
+
+      - title: "Paper 2 of 8: a2-system-instructions-v3"
+        text: |
+          The paper is above. Choose the section it goes in, or **Leave it out**.
+        fields:
+          - {id: p-a2, kind: select, label: "Where does a2-system-instructions-v3 go?", options: *secs}
+        answer: "`Leave it out`. v3 took effect on 2026-07-13, after Q2 ended, so it is not what PolicyPal was told to do in Q2, even though it is the newest version. It will belong in the Q3 packet."
+        show_first: true
+        show:
+          - markdown: "#### Paper 2 of 8: a2-system-instructions-v3"
           - doc: a2-system-instructions-v3.md
-          - markdown: "#### Paper: a3-system-instructions-v2"
+
+      - title: "Paper 3 of 8: a3-system-instructions-v2"
+        text: |
+          The paper is above. Choose the section it goes in, or **Leave it out**.
+        fields:
+          - {id: p-a3, kind: select, label: "Where does a3-system-instructions-v2 go?", options: *secs}
+        answer: "`2. System instructions and baseline business rules`. v2 was in force from 2026-03-02 to 2026-07-12, the whole of Q2. It is superseded now, but the auditor asks what PolicyPal was told to do during Q2, not today."
+        show_first: true
+        show:
+          - markdown: "#### Paper 3 of 8: a3-system-instructions-v2"
           - doc: a3-system-instructions-v2.md
-          - markdown: "#### Paper: a4-review-sample-q2"
+
+      - title: "Paper 4 of 8: a4-review-sample-q2"
+        text: |
+          The paper is above. Choose the section it goes in, or **Leave it out**.
+        fields:
+          - {id: p-a4, kind: select, label: "Where does a4-review-sample-q2 go?", options: *secs}
+        answer: "`3. Sampled review records and quality scores`. It is PolicyPal's (see the **Workflow** column), and it holds the three monthly re-tests from April, May and June."
+        show_first: true
+        show:
+          - markdown: "#### Paper 4 of 8: a4-review-sample-q2"
           - table: &a4 {source: a4-review-sample-q2.csv, tools: false, fit: true, labels: {workflow: Workflow, quarter: Quarter, standard_version: Scored against, retest_date: Re-test date, answers_scored: Answers scored, c1_met: c1 met, c2_met: c2 met, c3_met: c3 met, c4_met: c4 met, criteria_met: Criteria met, bqs: Score}}
-          - markdown: "#### Paper: a5-hitl-override-summary-q2"
+
+      - title: "Paper 5 of 8: a5-hitl-override-summary-q2"
+        text: |
+          The paper is above. Choose the section it goes in, or **Leave it out**.
+        fields:
+          - {id: p-a5, kind: select, label: "Where does a5-hitl-override-summary-q2 go?", options: *secs}
+        answer: "`4. HITL override summary and reviewer quality audit`. It is PolicyPal's summary of how often the human reviewers disagreed with the AI, with a judgement of the reviewers, from inside Q2."
+        show_first: true
+        show:
+          - markdown: "#### Paper 5 of 8: a5-hitl-override-summary-q2"
           - doc: a5-hitl-override-summary-q2.md
-          - markdown: "#### Paper: a6-remediation-plan-RA"
+
+      - title: "Paper 6 of 8: a6-remediation-plan-RA"
+        text: |
+          The paper is above. Choose the section it goes in, or **Leave it out**.
+        fields:
+          - {id: p-a6, kind: select, label: "Where does a6-remediation-plan-RA go?", options: *secs}
+        answer: "`4. HITL override summary and reviewer quality audit`. It is the plan to fix the reviewer problem that `a5` found, dated 2026-06-18, inside Q2. Section 4 holds both papers."
+        show_first: true
+        show:
+          - markdown: "#### Paper 6 of 8: a6-remediation-plan-RA"
           - doc: a6-remediation-plan-RA.md
-          - markdown: "#### Paper: a7-incident-history"
+
+      - title: "Paper 7 of 8: a7-incident-history"
+        text: |
+          The paper is above. Choose the section it goes in, or **Leave it out**.
+        fields:
+          - {id: p-a7, kind: select, label: "Where does a7-incident-history go?", options: *secs}
+        answer: "`5. Incident and escalation history`. It lists what went wrong in Q2 and what was done about it, including the June issues nobody picked up."
+        show_first: true
+        show:
+          - markdown: "#### Paper 7 of 8: a7-incident-history"
           - doc: a7-incident-history.md
-          - markdown: "#### Paper: a8-finance-assistant-sample-q2"
+
+      - title: "Paper 8 of 8: a8-finance-assistant-sample-q2"
+        text: |
+          The paper is above. Choose the section it goes in, or **Leave it out**.
+        fields:
+          - {id: p-a8, kind: select, label: "Where does a8-finance-assistant-sample-q2 go?", options: *secs}
+        answer: "`Leave it out`. Its **Workflow** column says `FinanceAssistant`: it is another AI tool's quality record, laid out like PolicyPal's."
+        show_first: true
+        show:
+          - markdown: "#### Paper 8 of 8: a8-finance-assistant-sample-q2"
           - table: {<<: *a4, source: a8-finance-assistant-sample-q2.csv}
 
   - id: gaps
     title: Gaps
     type: steps
     steps:
-      - title: Find the gaps
+      - title: "Gap 1: what is missing from section 6"
         text: |
-          A packet with a missing paper is bad. A missing paper that nobody mentioned is worse, because the auditor will find it and ask why it was hidden. So a packet lists its own gaps.
+          No paper in the folder went in section 6, which answers "What changed in PolicyPal, and who approved it?". That is a gap. A packet lists its own gaps, so the auditor hears about them from you instead of finding them.
 
-          A gap is evidence the packet should hold for Q2 but does not. A problem that the evidence shows is not a gap: the auditor will see it on the paper and ask about it, and that is how it should be.
-
-          The papers you put in the packet are below. Tick every gap.
+          Above are the issues raised in June and who is responsible for what. Choose what the missing record should show, and who can supply it.
         fields:
-          - id: gaps-found
-            kind: checklist
-            label: "Known gaps"
+          - id: gap6-what
+            kind: select
+            label: "What should section 6's missing record show?"
             options:
-              - "Section 6 is empty: nothing in the folder records what changed in PolicyPal in Q2, or who approved it"
-              - "Section 4 is short: the reviewer summary covers 2026-05-19 to 2026-06-17, not the whole of Q2"
-              - "Section 2 is out of date: v2 has since been replaced by v3, so the rules on file are not current"
-              - "Section 3 used the wrong yardstick: Q2 was scored with the previous owner's checklist, not today's standard"
-              - "Section 4 is unfinished: the plan for R-A has no result, because its re-check date is 2026-07-18"
-              - "Section 5 is incomplete: six issues raised in June were never routed to anyone before the quarter ended"
-        hints:
-          - title: "Hint 1: where to look"
-            text: |
-              For each option, ask two questions. Is the thing it describes inside Q2 (2026-04-01 to 2026-06-30)? And is evidence missing, or is the evidence there and showing something that went wrong? Compare the **Period** line at the top of `a5` with the dates of Q2, and the **Re-check date** in `a6` with the end of Q2.
-        answer: |
-          Two gaps: section 6 is empty, and section 4's reviewer summary covers only 30 days of the quarter's 91.
-
-          - Section 2: v2 is the right paper. It was in force in Q2, and the packet is about Q2.
-          - Section 3: Q2 was scored against the checklist in force at the time. Re-scoring the past against today's standard would not show what the previous owner checked.
-          - R-A's plan: the re-check on 2026-07-18 is after the quarter, so its result belongs in the Q3 packet.
-          - The June issues: the incident history shows them. That is a real problem for the auditor to ask about, but the evidence is there, so it is not a gap.
-        show:
-          - markdown: |
-              #### What is in your packet
-
-              | Section | Paper |
-              |---|---|
-              | 1 | `a1-business-purpose` |
-              | 2 | `a3-system-instructions-v2` (in force 2026-03-02 to 2026-07-12) |
-              | 3 | `a4-review-sample-q2` |
-              | 4 | `a5-hitl-override-summary-q2` and `a6-remediation-plan-RA` |
-              | 5 | `a7-incident-history` |
-              | 6 | Nothing |
-          - markdown: "#### Paper: a4-review-sample-q2"
-          - table: *a4
-          - markdown: "#### Paper: a5-hitl-override-summary-q2"
-          - doc: a5-hitl-override-summary-q2.md
-          - markdown: "#### Paper: a6-remediation-plan-RA"
-          - doc: a6-remediation-plan-RA.md
-          - markdown: "#### Paper: a7-incident-history"
-          - doc: a7-incident-history.md
-
-      - title: Say who can supply the missing evidence
-        text: |
-          A gap on its own is only half the job. The packet also says who will produce the missing evidence, so it actually arrives. Ask whoever holds the records, not a department that would have to pass it on.
-
-          For each gap, choose who can supply it. What changed in PolicyPal during Q2 is in the incident history below, and what each owner is responsible for is in the table.
-        fields:
+              - "IT's change to PolicyPal's AI model version in June (issue 5), and who approved it"
+              - "The change from v2 to v3 of PolicyPal's rules, and who approved the new rules"
+              - "The removal of PTO Policy 2023 from the HR Policy Library, and who approved it"
+              - "The handover of PolicyPal from the previous owner to you, and who approved it"
           - id: gap6-owner
             kind: select
-            label: "Section 6: who can supply the record of what changed in Q2?"
+            label: "Who can supply that record?"
             options: &gapowners
               - "The team responsible for the platform and the vendor relationship"
               - "The function that owns the PolicyPal system instructions"
               - "The team that owns the HR policy library"
               - "The function that runs the human review process for PolicyPal"
-          - {id: gap4-owner, kind: select, label: "Section 4: who can supply the reviewer log for the rest of Q2?", options: *gapowners}
         hints:
           - title: "Hint 1: where to look"
             text: |
-              In the incident history, find the June issue that describes something being changed in PolicyPal, and check who made that change. Then check whether PolicyPal's instructions changed in Q2: `v2` was in force from 2026-03-02 to 2026-07-12. For section 4, look at the owners table for who is responsible for the reviewer log.
+              Section 6 is about changes made to PolicyPal itself during Q2 (2026-04-01 to 2026-06-30). Go down the **Problem** column for something that was changed, and check its **Raised** date. Then find who is responsible for that kind of thing in the second table.
         answer: |
-          - Section 6: `The team responsible for the platform and the vendor relationship`. The only change recorded in Q2 is issue 5, the model version change made by IT in June. The instructions did not change in Q2 (v2 was in force all quarter), and the policy library and the reviewers are not changes to PolicyPal itself.
-          - Section 4: `The function that runs the human review process for PolicyPal`. They run the reviewers and keep the reviewer log.
+          - `IT's change to PolicyPal's AI model version in June (issue 5)`. It is the one change to PolicyPal in Q2, and nobody was told about it.
+            - v2 to v3 happened on 2026-07-13, after Q2.
+            - PTO Policy 2023 was never removed, and the library is PolicyPal's reading material, not PolicyPal itself.
+            - The handover was in July.
+          - `The team responsible for the platform and the vendor relationship`. They run the AI models, so they hold the record of the change and of who approved it.
+        show_first: true
         show:
-          - markdown: |
+          - markdown: "_Gap 1. Read the two tables below, then answer Step 10 underneath them._"
+          - doc: a7-incident-history.md
+            section: Issues logged in June but not routed
+          - markdown: &owners |
               #### Who is responsible for what
 
               | Owner | What they are responsible for |
@@ -153,8 +171,34 @@ tabs:
               | The function that owns the PolicyPal system instructions | Writing, approving and publishing PolicyPal's instructions (v2, v3) |
               | The team that owns the HR policy library | The HR policy documents PolicyPal reads from |
               | The function that runs the human review process for PolicyPal | The reviewers, how they review, and the reviewer log |
-          - markdown: "#### Paper: a7-incident-history"
-          - doc: a7-incident-history.md
+
+      - title: "Gap 2: does section 4 cover the whole quarter?"
+        text: |
+          A section can have a paper and still be short, because the paper covers less time than the packet. The packet covers Q2: 2026-04-01 to 2026-06-30.
+
+          Above is the reviewer summary you put in section 4. Decide whether it covers the whole quarter, and who can supply anything that is missing.
+        fields:
+          - id: gap4-cover
+            kind: select
+            label: "Does a5-hitl-override-summary-q2 cover the whole of Q2?"
+            options:
+              - "No: it covers only 2026-05-19 to 2026-06-17, so April, early May and late June are missing"
+              - "Yes: its Period line says 2026-Q2, so it covers the quarter the auditor has asked about"
+              - "Yes: its 212 decisions are far more than the 20 answers used in each monthly quality re-test"
+              - "No: it leaves out reviewer R-A, whose decisions are covered by a separate remediation plan"
+          - {id: gap4-owner, kind: select, label: "Who can supply the reviewer log for the rest of Q2?", options: *gapowners}
+        hints:
+          - title: "Hint 1: where to look"
+            text: |
+              Read the **Period** line at the top of the paper, including the dates in brackets, and compare them with 2026-04-01 to 2026-06-30. Then check the table for who keeps the reviewer log.
+        answer: |
+          - `No: it covers only 2026-05-19 to 2026-06-17`. Its Period line says 2026-Q2, but the dates in brackets are 30 days of a 91-day quarter. R-A is in the table like everyone else, and the number of decisions says nothing about which dates they cover.
+          - `The function that runs the human review process for PolicyPal`. They run the reviewers and keep the reviewer log.
+        show_first: true
+        show:
+          - markdown: "_Gap 2. Read the reviewer summary below, then answer Step 11 underneath it._"
+          - doc: a5-hitl-override-summary-q2.md
+          - markdown: *owners
 
   - id: storage
     title: Storage
@@ -199,6 +243,6 @@ tabs:
     intro: "Workflow: PolicyPal. Coverage: 2026-Q2 (2026-04-01 to 2026-06-30). Prepared on 2026-09-28 by PolicyPal's Business AI Owner for the internal audit team. This is what \"we have oversight\" looks like when an auditor asks for proof. To keep a copy, click Save as PDF."
     sections:
       - {title: "Where each paper goes", fields: [p-a1, p-a2, p-a3, p-a4, p-a5, p-a6, p-a7, p-a8]}
-      - {title: "Known gaps", fields: [gaps-found]}
-      - {title: "Who will supply the missing evidence", fields: [gap6-owner, gap4-owner]}
+      - {title: "Known gap 1: section 6", fields: [gap6-what, gap6-owner]}
+      - {title: "Known gap 2: section 4", fields: [gap4-cover, gap4-owner]}
       - {title: "Where the exported copies are kept", fields: [keep-where]}

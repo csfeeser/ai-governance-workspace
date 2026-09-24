@@ -186,6 +186,7 @@ def build_steps(lab_dir, tab, first_number):
             "hints": [{"title": x["title"], "html": md(x["text"])} for x in s.get("hints") or []],
             "answer": md(s["answer"]) if s.get("answer") else None,
             "show": [build_material(lab_dir, m, tab["id"], f"{n}-{j}") for j, m in enumerate(s.get("show") or [])],
+            "show_first": bool(s.get("show_first")),
         })
     return steps
 
