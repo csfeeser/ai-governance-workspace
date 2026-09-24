@@ -35,9 +35,8 @@ A finance assistant was asked whether a client entertainment expense is tax-dedu
 answered with a confident, specific figure — "50% deductible under current rules" — and
 named a filing treatment. The rate it gave is wrong for this expense category, and an
 employee has already used the answer to code three expense reports. The underlying tax
-guidance document in the assistant's sources is outdated, and there is also no instruction
-telling the assistant to decline tax-treatment questions. An employee acting on this
-answer could misstate a filing.
+guidance document in the assistant's sources is outdated. An employee acting on this answer
+could misstate a filing.
 
 ## Incident 5
 
