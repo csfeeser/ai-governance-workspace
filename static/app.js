@@ -403,7 +403,8 @@ function renderTable(tab) {
       tbody.replaceChildren(...rs.map(({ r, i }) => h("tr", {}, cols.map(c => cell(r, i, c)))));
     }
     drawBody();
-    return h("div", { class: "tablewrap" + (card ? " with-card" : "") }, table);
+    if (tab.fit) table.classList.add("fit");
+    return h("div", { class: "tablewrap" + (card ? " with-card" : "") + (tab.fit ? " fit" : "") }, table);
   }
 
   function cell(r, i, c) {

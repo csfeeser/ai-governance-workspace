@@ -98,6 +98,10 @@ table.data tr.total td { font-weight: 700; background: #eef1f5; }
 .stat-hint { font-size: 12px; color: var(--warn); }
 .scorecard.sticky { position: sticky; top: 0; z-index: 5; }
 .crit-details summary { cursor: pointer; color: var(--accent); font-size: 14px; margin: 2px 0 6px; }
+/* `fit: true`: columns only as wide as their contents, so short numbers sit side by side */
+.tablewrap.fit { display: inline-block; max-width: 100%; vertical-align: top; }
+table.data.fit { width: auto; }
+table.data.fit td.num { padding-left: 24px; }
 .tablewrap.with-card { max-height: max(300px, calc(100vh - 430px)); }
 table.crit { width: auto; background: #fff; border: 1px solid var(--line); }
 table.crit th, table.crit td { padding: 5px 14px; }

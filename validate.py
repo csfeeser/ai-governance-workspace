@@ -31,7 +31,7 @@ STEP_KEYS = {"title", "text", "fields", "hints", "answer", "show"}
 HINT_KEYS = {"title", "text"}
 MATERIAL_KINDS = {"doc", "markdown", "table", "answers"}
 TABLE_KEYS = {"id", "source", "note", "computed", "hide", "labels", "editable", "summary", "scorecard",
-              "where", "readonly", "tools", "view", "group", "split", "sort"}
+              "where", "readonly", "tools", "view", "group", "split", "sort", "fit"}
 TABLE_VIEWS = {"rows", "scorecard"}
 REPORT_SECTION_KEYS = {"title", "help", "fields"}
 

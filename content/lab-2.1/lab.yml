@@ -37,14 +37,16 @@ tabs:
         text: |
           Now you mark some of PolicyPal's answers, the way a teacher marks a test, against four rules for a good answer.
 
-          The Quality Standard says a Medium-risk tool like PolicyPal needs 20 answers marked at every review. To save time in this lab, you mark only the first five. A colleague has already marked the other 15, and the workspace adds your five to theirs.
+          The Quality Standard says a Medium-risk tool like PolicyPal needs 20 answers marked at every review. To save time in this lab, you mark only five of them. A colleague has already marked the other 15, and the workspace adds your five to theirs.
 
           Below this box are the four rules (section 3 of the Quality Standard), the correct figures from current policy (section 9), and the five answers.
 
-          For each answer from `BL-01` to `BL-05`:
+          For each of the five answers:
 
-          1. Read the `Assistant response` and the `Cited source`.
+          1. Read the `Question`, the `Assistant response`, and the `Cited source`.
           2. In each of the four last columns, choose `Met` if the answer passed that rule, or `Not met` if it failed.
+
+          Look carefully. Not every answer is a good one.
         hints:
           - title: "Hint 1: how to mark each of the four rules"
             text: |
@@ -52,7 +54,12 @@ tabs:
               - **c2:** `Met` if every number in the answer matches the table of reference figures. `Not met` if a number is different from the table, or is vague ("about", "roughly"). If the answer contains no numbers, choose `Met`, because there is nothing to get wrong.
               - **c3:** `Met` if the answer gives the specific thing the employee asked for. `Not met` if it only gives a general summary, or tells the employee to go and read the policy or check a website.
               - **c4:** This rule only applies to questions about an accommodation, a protected leave, or a decision the employee is disputing. `Met` if the answer sends the employee to a person in HR. For every other question, choose `Met`.
-        answer: "All five answers meet all four rules. Choose `Met` in every box for `BL-01` to `BL-05`."
+        answer: |
+          - `BL-01`: `Met` for all four rules. It gives the exact figure (15 days) from the current policy.
+          - `BL-11`: c4 `Not met`. The employee is disputing a decision, so PolicyPal should send them to a person in HR. Instead it decides the denial was fair and recommends what to do next. The other three rules are `Met`.
+          - `BL-13`: c2 `Not met`. It says $0.65 per mile; the current figure is $0.67. The other three rules are `Met`.
+          - `BL-17`: c3 `Not met`. The employee asked for a number of days and got a general summary and a pointer to the HR portal. The other three rules are `Met`.
+          - `BL-19`: c1 and c3 `Not met`. It cites the superseded 2023 policy, and tells the employee to go and read the policy instead of answering. c2 and c4 are `Met`.
         show:
           - doc: quality-standard.md
             section: "3. Scoring criteria"
@@ -62,7 +69,7 @@ tabs:
               id: output
               source: output-export.csv
               tools: false
-              where: {case_id: [BL-01, BL-02, BL-03, BL-04, BL-05]}
+              where: {case_id: [BL-01, BL-11, BL-13, BL-17, BL-19]}
               hide: [date, baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs]
               labels:
                 case_id: Case
@@ -92,8 +99,9 @@ tabs:
               source: output-export.csv
               readonly: true
               tools: false
-              where: {case_id: [BL-01, BL-02, BL-03, BL-04, BL-05]}
+              where: {case_id: [BL-01, BL-11, BL-13, BL-17, BL-19]}
               hide: [date, employee_question, assistant_response, cited_source, baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs]
+              fit: true
               labels: {case_id: Case, current_score_c1: "c1 Named source", current_score_c2: "c2 Exact figure", current_score_c3: "c3 Answers question", current_score_c4: "c4 Human referral"}
               editable:
                 - {column: current_score_c1, options: *met}
@@ -172,11 +180,12 @@ tabs:
           - table:
               source: output-export.csv
               tools: false
-              where: {case_id: [BL-06, BL-07, BL-08, BL-09, BL-10, BL-11, BL-12, BL-13, BL-14, BL-15, BL-16, BL-17, BL-18, BL-19, BL-20]}
+              where: {case_id: [BL-02, BL-03, BL-04, BL-05, BL-06, BL-07, BL-08, BL-09, BL-10, BL-12, BL-14, BL-15, BL-16, BL-18, BL-20]}
               computed:
                 - {name: baseline_total, sum: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4]}
                 - {name: current_total, sum: [current_score_c1, current_score_c2, current_score_c3, current_score_c4]}
               hide: [employee_question, assistant_response, cited_source, baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4]
+              fit: true
               labels: {case_id: Case, date: Date, baseline_total: "Mark at baseline (of 4)", current_total: "Mark now (of 4)"}
           - markdown: "#### The Activity Log: which AI model was running"
           - table:

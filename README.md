@@ -125,6 +125,7 @@ More things a step can show under it:
 | `answers: [field-id, ...]` | the student's earlier answers, read-only, updating live, so no step needs a trip back to an earlier tab |
 | `table:` with `group:`, `split:`, `sort:` | the table opened already grouped, split or sorted; the menus still work |
 | `table:` with `view: scorecard` | only the live Business Quality Score panel for that table |
+| `table:` with `fit: true` | columns only as wide as their contents (good for short numbers) |
 
 One editable table can be split across steps (for example the first five rows, then the rest): give each
 part the same `id` and `source` and a different `where:`. Their answers are one set.
