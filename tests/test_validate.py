@@ -213,8 +213,8 @@ class ValidateContent(unittest.TestCase):
         self.assertCaught("group column 'reviewr'", "did you mean 'reviewer'")
 
     def test_echoed_answer_that_no_step_asks_for(self):
-        self.edit("lab-2.2/lab.yml", "- answers: [cause]", "- answers: [caus]")
-        self.assertCaught("'caus', which is not an answer box", "did you mean 'cause'")
+        self.edit("lab-2.2/lab.yml", "- answers: [tr_conclusion]", "- answers: [tr_conclusoin]")
+        self.assertCaught("'tr_conclusoin', which is not an answer box", "did you mean 'tr_conclusion'")
 
     def test_command_line_exit_codes(self):
         self.assertEqual(validate.main(["validate.py", str(self.content)]), 0)

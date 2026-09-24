@@ -174,7 +174,7 @@ tabs:
         hints:
           - title: "Hint 1: a sentence to start from"
             text: 'Fill in the blanks: "The marks start to drop on ______. The day before, on ______, the ______ changed from ______ to ______."'
-        answer: "The AI model changed. Answers score lower than their baseline from `2026-08-12`. On `2026-08-11`, the day before, the Activity Log shows `ModelName` changing from `gpt-4o` to `gpt-55-high` and `ModelVersion` from `2024-11-20` to `2025-06-15`. The company that makes the model stayed the same (`OpenAI`), so this is a new version from the same vendor. Lab 2.2 shows how to rule out the other possible causes."
+        answer: "The AI model changed. Answers score lower than their baseline from `2026-08-12`. On `2026-08-11`, the day before, the Activity Log shows `ModelName` changing from `gpt-4o` to `gpt-55-high` and `ModelVersion` from `2024-11-20` to `2025-06-15`. The company that makes the model stayed the same (`OpenAI`), so this is a new version from the same vendor. In Lab 2.2 you will see that a drop is not always the model, and how to rule the other causes in or out."
         show:
           - markdown: "#### The answers your colleague marked, in date order"
           - table:
