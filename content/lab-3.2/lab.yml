@@ -15,15 +15,20 @@ tabs:
           - describes a gap in how the work is done, not a fault in a person
           - includes the numbers, so it can be checked
         fields:
-          - id: finding_stmt
+          - id: finding_choice
             kind: select
             label: "Which statement should open the plan?"
             options:
-              - "R-A is not doing their job properly and should be replaced."
+              - "Reviewer R-A is not doing the job properly and should be replaced: R-A's override rate is 2% against a team average of 18%, near zero in every week and case type."
               - "Approvals from reviewer R-A are not getting an independent check: R-A's override rate is 2% against a team average of 18%, near zero in every week and case type."
-              - "PolicyPal's proposals are approved too often."
-              - "R-A needs to be more careful when reviewing cases."
-        answer: "The second one: `Approvals from reviewer R-A are not getting an independent check...`. It names the gap in the process (approvals without an independent check) and gives the numbers. The first blames a person, which is neither fair nor fixable in a plan. The third points at the AI, which Lab 3.1 ruled out. The fourth is a wish with no numbers, so no one could check it later."
+              - "PolicyPal proposes decisions that are too easy to approve: R-A agrees with 98% of its proposals against a team average of 82%, in every week and case type."
+              - "Reviewer R-A needs to take more care with flagged cases: R-A agrees with PolicyPal far more often than the other reviewers do, in most weeks and case types."
+        answer: |
+          The second one: `Approvals from reviewer R-A are not getting an independent check...`. It names a gap in the process and gives numbers anyone can check.
+
+          - The first has the same numbers, but it blames a person and jumps to a punishment. That is neither fair nor something a plan can fix.
+          - The third blames PolicyPal. Lab 3.1 showed the other reviewers override the same kinds of proposal, so the AI is not the difference.
+          - The fourth blames a person too, and has no numbers, so no one could check it later.
         show:
           - doc: finding.md
 
@@ -35,7 +40,7 @@ tabs:
         text: |
           The first thing the plan does is check that the worry is real: a second reviewer re-marks a sample of R-A's recent approvals. If the pattern holds, one corrective action follows.
 
-          The table below says what each possible action changes, and which kind of problem it fixes. Your finding is about approvals that are not getting an independent check. Choose the action that fixes that.
+          Below are four possible actions and what each one changes, followed by some facts about R-A and how reviewing works today. Use the facts to rule out the actions that would not fix your finding, then choose the one that would.
         fields:
           - id: action
             kind: select
@@ -45,16 +50,32 @@ tabs:
               - "Ongoing second-review sampling"
               - "Workload rebalancing"
               - "Reassignment"
-        answer: "`Ongoing second-review sampling`. It puts an independent check back on R-A's approvals, and on every reviewer's, for as long as it runs. Re-training helps if R-A does not understand the standard, but it does not add a check. Rebalancing and reassignment treat it as a workload or a person problem, and the gap would stay. (A real plan often pairs sampling with re-training.)"
+        answer: |
+          `Ongoing second-review sampling`. The finding is that R-A's approvals are not getting an independent check, and the facts show that nobody re-checks any reviewer today. Sampling adds exactly that check, for every reviewer.
+
+          - Re-training: R-A already passed the training, like everyone else.
+          - Workload rebalancing: R-A's workload is the same as the others'.
+          - Reassignment: it removes R-A, but every reviewer's decisions would still go unchecked.
         show:
           - markdown: |
-              | Action | What it changes | The problem it fixes |
-              |---|---|---|
-              | Targeted re-training on the review standard | The reviewer is taught the standard again | A reviewer who does not understand the rules |
-              | Ongoing second-review sampling | A second reviewer re-checks a sample of every reviewer's decisions, every month | Decisions that nobody independently checks |
-              | Workload rebalancing | Fewer cases per reviewer | A reviewer rushing because they have too many cases |
-              | Reassignment | The reviewer moves to other work | A reviewer who should not be reviewing at all |
-          - answers: [finding_stmt]
+              #### The four actions
+
+              | Action | What it changes |
+              |---|---|
+              | Targeted re-training on the review standard | R-A is taught the review standard again |
+              | Ongoing second-review sampling | Each month, a second reviewer re-checks a sample of every reviewer's decisions |
+              | Workload rebalancing | R-A is given fewer cases to review |
+              | Reassignment | R-A moves to other work, and another reviewer takes over R-A's cases |
+          - markdown: |
+              #### Facts about R-A and how reviewing works today
+
+              | Fact | |
+              |---|---|
+              | Training | R-A completed the review-standard training in March 2026 and passed, like the other four reviewers |
+              | Workload | R-A reviewed 42 cases in the 30 days, the same as R-B, R-C and R-E (R-D reviewed 44) |
+              | Checks on reviewers | Nobody re-checks any reviewer's decisions: each reviewer's call is final |
+              | Experience | R-A has reviewed PolicyPal cases since it launched in March 2026 |
+          - answers: [finding_choice]
 
       - title: Add a temporary protection
         text: |
@@ -62,15 +83,15 @@ tabs:
 
           Choose the interim safeguard.
         fields:
-          - id: interim_pick
+          - id: interim_choice
             kind: select
             label: "Interim safeguard"
             options:
-              - "A second reviewer checks every one of R-A's approvals until the fix is in place"
-              - "Ask R-A to be more careful for now"
-              - "Switch PolicyPal off until the fix is in place"
-              - "Nothing: wait for the re-check date"
-        answer: "`A second reviewer checks every one of R-A's approvals`. It closes the gap straight away and only for the approvals at risk. Asking R-A to be careful adds no check. Switching PolicyPal off punishes 1,900 employees for one reviewer's pattern. Doing nothing leaves the gap open for a month."
+              - "A second reviewer checks every one of R-A's approvals until the new sampling is running"
+              - "R-A is asked to take extra care with every approval until the new sampling is running"
+              - "PolicyPal is switched off for all employees until the new sampling is running"
+              - "Nothing changes until the re-check date, when the new numbers are reviewed"
+        answer: "`A second reviewer checks every one of R-A's approvals`. It closes the gap straight away, and only for the approvals at risk. Asking R-A for extra care adds no independent check. Switching PolicyPal off takes it away from 1,900 employees because of one reviewer's pattern. Changing nothing leaves the gap open for a month."
         show:
           - answers: [action]
 
@@ -80,7 +101,9 @@ tabs:
     steps:
       - title: Choose when you will check again
         text: |
-          Without a re-check date, "we will check later" never happens. The date comes from how often PolicyPal must be reviewed, which depends on its risk tier (Lab 1.1). The row below shows PolicyPal's.
+          Without a re-check date, "we will check later" never happens. The date comes from how often PolicyPal must be reviewed, which depends on its risk tier (Lab 1.1).
+
+          Below are some facts about PolicyPal and the chart of review cadences. Find what you need.
 
           When should the plan say the fix will be checked?
         fields:
@@ -92,12 +115,27 @@ tabs:
               - "One month after the plan starts"
               - "One quarter (three months) after the plan starts"
               - "Whenever the review team has time"
-        answer: "`One month after the plan starts`. PolicyPal is Medium risk, and Medium-risk tools are reviewed monthly, so the re-check lines up with the next regular review. \"Whenever the review team has time\" is not a date, and never happens."
+        answer: "`One month after the plan starts`. PolicyPal's risk tier is Medium, and the chart says Medium-risk tools are reviewed monthly, so the re-check lines up with the next regular review. The 30-day log and the quarterly quality review are about past checks, not how often PolicyPal must be reviewed. \"Whenever the review team has time\" is not a date, and never happens."
         show:
           - markdown: |
-              | PolicyPal's risk tier | Review cadence |
+              #### PolicyPal facts
+
+              | Fact | |
               |---|---|
-              | Medium | Monthly |
+              | Deployed | 2026-03-02 |
+              | Monthly active users | About 1,900 |
+              | Assigned risk tier | Medium |
+              | Reviewer pool | 5 HR operations reviewers |
+              | Reviewer log export used in Lab 3.1 | 30 days, 19 May to 17 June |
+              | Quality review in Lab 3.1 | April to June (one quarter) |
+          - markdown: |
+              #### Review cadence by risk tier
+
+              | Risk tier | Review cadence | Baseline sample size |
+              |---|---|---|
+              | Low | Quarterly | 10 responses |
+              | Medium | Monthly | 20 responses |
+              | High | Weekly | 30 responses |
 
       - title: Choose the number that will mean it worked
         text: |
@@ -105,15 +143,20 @@ tabs:
 
           The numbers from the finding are below. Choose the measurable target.
         fields:
-          - id: target_pick
+          - id: target_choice
             kind: select
             label: "Measurable target"
             options:
-              - "R-A's reviewing improves"
-              - "R-A's override rate is back within 5 points of the team average, over a two-week sample"
-              - "R-A's override rate is 0%"
-              - "No complaints about R-A from employees"
-        answer: "`Within 5 points of the team average, over a two-week sample`. It is a number, measured over a stated period, so anyone can check it. \"Improves\" cannot be checked. 0% would mean R-A never disagrees at all, which is the problem itself. Employees never see the reviews, so they would not complain either way."
+              - "R-A's reviewing is clearly more careful and thorough, as judged by R-A's manager over a two-week period"
+              - "R-A's override rate is back within 5 points of the team average, measured over a two-week sample of decisions"
+              - "R-A's override rate goes up from 2%, measured over a two-week sample of R-A's decisions"
+              - "No employee complaints about R-A's decisions are received during a two-week period"
+        answer: |
+          `Within 5 points of the team average, over a two-week sample`. It is a number with a clear pass line, measured over a stated period, so anyone can check it.
+
+          - "More careful and thorough" is an opinion, not a number.
+          - "Goes up from 2%" has no line to pass: 3% would count as success.
+          - Employees never see the reviews, so they would not complain either way.
         show:
           - markdown: |
               | From the finding | |
@@ -126,14 +169,14 @@ tabs:
         text: |
           A target is only useful if you know where its number will come from. Choose the data you will look at on the re-check date. The sources you could use are described below.
         fields:
-          - id: evidence_pick
+          - id: evidence_choice
             kind: select
             label: "Evidence for the re-check"
             options:
-              - "A fresh export of the reviewer log for the re-check period"
-              - "PolicyPal's activity log for the re-check period"
-              - "R-A's manager's opinion"
-              - "Employee complaints about PolicyPal"
+              - "A fresh export of the reviewer log, covering the two weeks before the re-check date"
+              - "PolicyPal's activity log, covering the two weeks before the re-check date"
+              - "A written view from R-A's manager on how R-A has done since the plan started"
+              - "The employee complaints about PolicyPal received since the plan started"
         answer: "`A fresh export of the reviewer log`. It is the same list you measured R-A's override rate from in Lab 3.1, so the before and after numbers compare like with like. The activity log records PolicyPal's use and model, not reviewers' decisions. An opinion is not a number, and employees never see the reviews."
         show:
           - markdown: |
@@ -143,7 +186,7 @@ tabs:
               | PolicyPal's activity log | Every time PolicyPal was used: who, when, which AI model, and which documents it read |
               | R-A's manager | Their view of how R-A is doing |
               | Employee complaints | Problems employees report with PolicyPal's answers |
-          - answers: [target_pick]
+          - answers: [target_choice]
 
   - id: answer
     title: Remediation Plan
@@ -151,12 +194,12 @@ tabs:
     heading: Remediation Plan
     intro: "Workflow: PolicyPal. Owner: the function that runs the human review process for PolicyPal. First step: a second reviewer re-marks a sample of R-A's recent approvals to confirm the pattern. The test of a good plan: someone else, a month from now, can look at the verification section and say plainly whether the fix worked. To keep a copy, click Save as PDF."
     sections:
-      - {title: "1. Finding", fields: [finding_stmt]}
+      - {title: "1. Finding", fields: [finding_choice]}
       - {title: "2. Corrective action", fields: [action]}
-      - {title: "3. Interim safeguard", fields: [interim_pick]}
+      - {title: "3. Interim safeguard", fields: [interim_choice]}
       - {title: "4. Verification: re-check date", fields: [recheck_when]}
-      - {title: "5. Verification: measurable target", fields: [target_pick]}
-      - {title: "6. Verification: evidence", fields: [evidence_pick]}
+      - {title: "5. Verification: measurable target", fields: [target_choice]}
+      - {title: "6. Verification: evidence", fields: [evidence_choice]}
 
 # NOTE: the Bronze challenge below was written for the earlier version of this lab, where the plan was
 # typed out in free text. Update it to match the drop-down plan before restoring.
