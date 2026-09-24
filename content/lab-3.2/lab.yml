@@ -4,37 +4,26 @@ tabs:
     title: The Finding
     type: steps
     steps:
-      - title: Read the finding and name the real problem
+      - title: Choose how to state the finding
         text: |
-          In the last lab you found a reviewer, R-A, who almost never disagrees with the AI. Now you write a plan to fix that.
+          In Lab 3.1 you found that reviewer R-A almost never disagrees with PolicyPal, and you decided the fix belongs to the function that runs the human review process. Now you write the plan for fixing it, called a remediation plan ("remediate" means "fix").
 
-          Below is the finding: the written-down report of the problem. Read it all the way through. Notice the two key numbers: R-A disagrees with the AI 2% of the time, and the team average is 18%.
+          The plan goes to the manager who runs the review process and into PolicyPal's records, and it is one of the six papers an auditor checks in Module 5. An auditor is a person whose job is to check a company's proof. A plan only counts if someone reading it a month from now can say plainly whether the fix worked.
 
-          It is easy to blame a person. But the way a company works is usually the real cause, and that is what you can actually fix. Choose the statement that describes the real problem.
+          Below is the written finding about R-A. Read it. Then choose the statement that should open the plan. A good finding:
+
+          - describes a gap in how the work is done, not a fault in a person
+          - includes the numbers, so it can be checked
         fields:
-          - id: real
+          - id: finding_stmt
             kind: select
-            label: "What is the real problem?"
+            label: "Which statement should open the plan?"
             options:
-              - "The reviewer is at fault and should be replaced"
-              - "The review process is not producing consistent, independent judgment"
-              - "The AI is at fault"
-        answer: "The review process is not producing consistent, independent judgment. This is a gap in the process, not a fault in one person."
-        show:
-          - doc: finding.md
-
-      - title: Describe the problem in one sentence
-        text: |
-          Write the problem as a gap in how the work is done, not as a comment about a person. That keeps the plan fair and fixable.
-
-          Write one sentence, using the numbers from the finding below.
-        fields:
-          - {id: finding, kind: textarea, rows: 3, label: "Finding"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Approvals from reviewer ______ are not receiving independent review: their override rate is ______ against a team average of ______, with a near-zero rate in every ______ and ______."'
-          - title: "Hint 2: an example answer"
-            text: '"Approvals from reviewer R-A are not receiving independent review: R-A''s override rate is 2% against a team average of 18%, with a near-zero rate in every week and case type."'
+              - "R-A is not doing their job properly and should be replaced."
+              - "Approvals from reviewer R-A are not getting an independent check: R-A's override rate is 2% against a team average of 18%, near zero in every week and case type."
+              - "PolicyPal's proposals are approved too often."
+              - "R-A needs to be more careful when reviewing cases."
+        answer: "The second one: `Approvals from reviewer R-A are not getting an independent check...`. It names the gap in the process (approvals without an independent check) and gives the numbers. The first blames a person, which is neither fair nor fixable in a plan. The third points at the AI, which Lab 3.1 ruled out. The fourth is a wish with no numbers, so no one could check it later."
         show:
           - doc: finding.md
 
@@ -44,11 +33,9 @@ tabs:
     steps:
       - title: Choose what to do about it
         text: |
-          The first step of any plan like this is to check whether the worry is true: a second reviewer re-marks a sample of R-A's recent approvals. After that, you pick the action that follows.
+          The first thing the plan does is check that the worry is real: a second reviewer re-marks a sample of R-A's recent approvals. If the pattern holds, one corrective action follows.
 
-          Choose one of the four actions. Then, if you like, write one line saying why that action fixes the problem. The line is optional.
-
-          Your finding sentence is below.
+          The table below says what each possible action changes, and which kind of problem it fixes. Your finding is about approvals that are not getting an independent check. Choose the action that fixes that.
         fields:
           - id: action
             kind: select
@@ -58,40 +45,32 @@ tabs:
               - "Ongoing second-review sampling"
               - "Workload rebalancing"
               - "Reassignment"
-          - {id: action_why, kind: text, required: false, label: "One line: why does this action address the finding?"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "This addresses the finding because it ______ the ______ that was missing."'
-          - title: "Hint 2: an example answer"
-            text: '"Ongoing second-review sampling addresses the finding because it puts independent judgment back into every reviewer''s approvals, not just R-A''s."'
+        answer: "`Ongoing second-review sampling`. It puts an independent check back on R-A's approvals, and on every reviewer's, for as long as it runs. Re-training helps if R-A does not understand the standard, but it does not add a check. Rebalancing and reassignment treat it as a workload or a person problem, and the gap would stay. (A real plan often pairs sampling with re-training.)"
         show:
-          - answers: [finding]
-
-      - title: Say who is responsible
-        text: |
-          A plan with no owner does not get done, because everyone assumes someone else has it.
-
-          Name the owner by the job they do, not by a person's name, because people change jobs. The owner here is the team or function that runs the human review process for PolicyPal.
-        fields:
-          - {id: owner, kind: text, label: "Owner"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "The ______ that runs the ______ process for PolicyPal."'
-          - title: "Hint 2: an example answer"
-            text: '"The function that runs the human review process for PolicyPal."'
+          - markdown: |
+              | Action | What it changes | The problem it fixes |
+              |---|---|---|
+              | Targeted re-training on the review standard | The reviewer is taught the standard again | A reviewer who does not understand the rules |
+              | Ongoing second-review sampling | A second reviewer re-checks a sample of every reviewer's decisions, every month | Decisions that nobody independently checks |
+              | Workload rebalancing | Fewer cases per reviewer | A reviewer rushing because they have too many cases |
+              | Reassignment | The reviewer moves to other work | A reviewer who should not be reviewing at all |
+          - answers: [finding_stmt]
 
       - title: Add a temporary protection
         text: |
-          The real fix will take weeks. In the meantime the problem is still there, so you need an interim safeguard: something that protects the workflow until the fix is done.
+          The real fix takes weeks to put in place. Until then, R-A's approvals are still going out without an independent check. An interim safeguard is a temporary protection that covers that gap until the fix is working.
 
-          Write what protects the workflow until then. The action you chose is below.
+          Choose the interim safeguard.
         fields:
-          - {id: interim, kind: textarea, rows: 2, label: "Interim safeguard"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "______% second review of ______''s ______ until the ______ is in place."'
-          - title: "Hint 2: an example answer"
-            text: '"100% second review of R-A''s approvals until the corrective action is in place."'
+          - id: interim_pick
+            kind: select
+            label: "Interim safeguard"
+            options:
+              - "A second reviewer checks every one of R-A's approvals until the fix is in place"
+              - "Ask R-A to be more careful for now"
+              - "Switch PolicyPal off until the fix is in place"
+              - "Nothing: wait for the re-check date"
+        answer: "`A second reviewer checks every one of R-A's approvals`. It closes the gap straight away and only for the approvals at risk. Asking R-A to be careful adds no check. Switching PolicyPal off punishes 1,900 employees for one reviewer's pattern. Doing nothing leaves the gap open for a month."
         show:
           - answers: [action]
 
@@ -99,33 +78,42 @@ tabs:
     title: Verification
     type: steps
     steps:
-      - title: Pick the date you will check again
+      - title: Choose when you will check again
         text: |
-          Without a date, "we will check later" never happens.
+          Without a re-check date, "we will check later" never happens. The date comes from how often PolicyPal must be reviewed, which depends on its risk tier (Lab 1.1). The row below shows PolicyPal's.
 
-          PolicyPal is rated Medium risk, and Medium-risk tools are reviewed once a month (see the row below). Type a date one month from today.
+          When should the plan say the fix will be checked?
         fields:
-          - {id: recheck, kind: text, label: "Re-check date"}
+          - id: recheck_when
+            kind: select
+            label: "Re-check date"
+            options:
+              - "One week after the plan starts"
+              - "One month after the plan starts"
+              - "One quarter (three months) after the plan starts"
+              - "Whenever the review team has time"
+        answer: "`One month after the plan starts`. PolicyPal is Medium risk, and Medium-risk tools are reviewed monthly, so the re-check lines up with the next regular review. \"Whenever the review team has time\" is not a date, and never happens."
         show:
           - markdown: |
-              | Risk tier | Review cadence |
+              | PolicyPal's risk tier | Review cadence |
               |---|---|
-              | Medium (PolicyPal) | Monthly |
+              | Medium | Monthly |
 
-      - title: Decide what number will mean it worked
+      - title: Choose the number that will mean it worked
         text: |
-          "Improved" is not a number. Someone who was not there should be able to look at your target and say plainly "yes, it worked" or "no, it did not".
+          "Improved" is not a number. The target must let someone who was not here look at the result and say plainly "yes, it worked" or "no, it did not".
 
-          Write the exact number that will mean the problem is fixed. The numbers from the finding are below.
-
-          This is the part most plans leave out. If a plan does not say what "fixed" looks like as a number, it is not a remediation plan.
+          The numbers from the finding are below. Choose the measurable target.
         fields:
-          - {id: target, kind: textarea, rows: 3, label: "Measurable target"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "______''s override rate is within ______ points of the team average, over a ______ sample."'
-          - title: "Hint 2: an example answer"
-            text: '"R-A''s override rate within 5 points of the team average, and zero recurrence of approving cases that peers override on the same case type, over a two-week sample."'
+          - id: target_pick
+            kind: select
+            label: "Measurable target"
+            options:
+              - "R-A's reviewing improves"
+              - "R-A's override rate is back within 5 points of the team average, over a two-week sample"
+              - "R-A's override rate is 0%"
+              - "No complaints about R-A from employees"
+        answer: "`Within 5 points of the team average, over a two-week sample`. It is a number, measured over a stated period, so anyone can check it. \"Improves\" cannot be checked. 0% would mean R-A never disagrees at all, which is the problem itself. Employees never see the reviews, so they would not complain either way."
         show:
           - markdown: |
               | From the finding | |
@@ -134,36 +122,44 @@ tabs:
               | Team average override rate | 18% |
               | Weeks with a zero rate for R-A | 3 of 4 |
 
-      - title: Say where the number will come from
+      - title: Choose where the number will come from
         text: |
-          A target is only useful if you know where the number will come from.
-
-          Name the data you will look at when you check. Think back to the list you used in the last lab to measure an override rate. Your target is below.
+          A target is only useful if you know where its number will come from. Choose the data you will look at on the re-check date. The sources you could use are described below.
         fields:
-          - {id: evidence, kind: textarea, rows: 2, label: "Evidence"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "A fresh ______ export for the ______ period."'
-          - title: "Hint 2: an example answer"
-            text: '"A fresh reviewer-log export for the re-check period."'
+          - id: evidence_pick
+            kind: select
+            label: "Evidence for the re-check"
+            options:
+              - "A fresh export of the reviewer log for the re-check period"
+              - "PolicyPal's activity log for the re-check period"
+              - "R-A's manager's opinion"
+              - "Employee complaints about PolicyPal"
+        answer: "`A fresh export of the reviewer log`. It is the same list you measured R-A's override rate from in Lab 3.1, so the before and after numbers compare like with like. The activity log records PolicyPal's use and model, not reviewers' decisions. An opinion is not a number, and employees never see the reviews."
         show:
-          - answers: [target]
+          - markdown: |
+              | Source | What it records |
+              |---|---|
+              | The reviewer log | Every flagged case: what PolicyPal proposed, what the reviewer decided, and who the reviewer was |
+              | PolicyPal's activity log | Every time PolicyPal was used: who, when, which AI model, and which documents it read |
+              | R-A's manager | Their view of how R-A is doing |
+              | Employee complaints | Problems employees report with PolicyPal's answers |
+          - answers: [target_pick]
 
   - id: answer
     title: Remediation Plan
     type: report
     heading: Remediation Plan
-    intro: "The test of a good plan: someone else, a month from now, can look at the verification section and say plainly whether the fix worked. In real life a copy goes to the reviewer's manager and to the record for this workflow, and it is one of the six papers in the evidence packet (Module 5). To keep a copy, click Save as PDF."
+    intro: "Workflow: PolicyPal. Owner: the function that runs the human review process for PolicyPal. First step: a second reviewer re-marks a sample of R-A's recent approvals to confirm the pattern. The test of a good plan: someone else, a month from now, can look at the verification section and say plainly whether the fix worked. To keep a copy, click Save as PDF."
     sections:
-      - {title: "The real problem", fields: [real]}
-      - {title: "1. Finding", fields: [finding]}
-      - {title: "2. Action", fields: [action, action_why]}
-      - {title: "3. Owner", fields: [owner]}
-      - {title: "4. Interim safeguard", fields: [interim]}
-      - {title: "5. Verification: re-check date", fields: [recheck]}
-      - {title: "6. Verification: measurable target", fields: [target]}
-      - {title: "7. Verification: evidence", fields: [evidence]}
+      - {title: "1. Finding", fields: [finding_stmt]}
+      - {title: "2. Corrective action", fields: [action]}
+      - {title: "3. Interim safeguard", fields: [interim_pick]}
+      - {title: "4. Verification: re-check date", fields: [recheck_when]}
+      - {title: "5. Verification: measurable target", fields: [target_pick]}
+      - {title: "6. Verification: evidence", fields: [evidence_pick]}
 
+# NOTE: the Bronze challenge below was written for the earlier version of this lab, where the plan was
+# typed out in free text. Update it to match the drop-down plan before restoring.
 # challenge section: commented out. Remove the leading '# ' from each line below to restore it.
 #   - id: bronze
 #     title: "Bronze: Plan for R-B"
