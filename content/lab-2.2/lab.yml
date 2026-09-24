@@ -38,7 +38,7 @@ tabs:
           1. Find the first date on which an answer's mark now is lower than its mark at baseline.
           2. Look at the questions of the answers that dropped. Are they all kinds of question, or one kind?
         fields:
-          - {id: change_date, kind: text, label: "Date the quality drop begins"}
+          - {id: drop_start, kind: text, label: "Date the quality drop begins"}
           - {id: drop_pattern, kind: select, label: "Which answers dropped?", options: ["All kinds of questions", "Only questions about paid time off (PTO)", "Only questions about expenses", "Only questions about benefits"]}
         hints:
           - title: "Hint: where to look"
@@ -83,7 +83,7 @@ tabs:
               - "Not ruled out: the model changed just before the drop"
         answer: "`Ruled out: the model changed, but the timing does not fit the drop`. The model did change on 2026-08-25, from `gpt-55-high` back to `gpt-4o`, the model PolicyPal used before Lab 2.1. But the answers kept their marks for a whole week after that, and the drop only starts on 2026-09-02. If the model were the cause, the drop would start straight after the change."
         show:
-          - answers: [change_date]
+          - answers: [drop_start]
           - table: {source: activity-log.csv, tools: false, hide: [UserId, Operation, AppHost, AppIdentity, AgentName, AgentVersion, AccessedResources, SensitivityLabelId, XPIADetected, AISystemPlugin, MessageId, IsPrompt]}
 
       - title: Check whether the prompt changed
@@ -92,7 +92,7 @@ tabs:
 
           Below is the activity log again, showing `AgentVersion`. Is it the same before and after your drop date?
         fields:
-          - id: r_prompt
+          - id: prompt_check
             kind: select
             label: "The prompt"
             options:
@@ -100,7 +100,7 @@ tabs:
               - "Not ruled out: AgentVersion changed around the date of the drop"
         answer: "`Ruled out`. `AgentVersion` is `1.4` on every row. Nobody published new instructions."
         show:
-          - answers: [change_date]
+          - answers: [drop_start]
           - table: {source: activity-log.csv, tools: false, hide: [UserId, Operation, AppHost, AppIdentity, AgentName, AccessedResources, SensitivityLabelId, XPIADetected, AISystemPlugin, ModelProviderName, ModelName, ModelVersion, MessageId, IsPrompt]}
 
       - title: Check the documents and the policy
@@ -112,7 +112,7 @@ tabs:
 
           Below are two tables. The first shows which documents PolicyPal read each time (`AccessedResources`). The second shows the policy each answer cites, with its effective date. Look at what appears around your drop date, and choose what you found.
         fields:
-          - id: r_policy
+          - id: policy_check
             kind: select
             label: "The documents and the policy"
             options:
@@ -121,7 +121,7 @@ tabs:
               - "The company policy changed: a new, official policy took effect"
         answer: "`The company policy changed`. From 2026-09-02, PTO questions read `PTO Policy 2026.docx` instead of the 2025 version, and the answers cite `PTO Policy 2026 (effective 2026-09-01)`. It is a named policy with an official start date, one day before the drop, so the rules really changed."
         show:
-          - answers: [change_date]
+          - answers: [drop_start]
           - markdown: "#### Documents PolicyPal read"
           - table: {source: activity-log.csv, tools: false, hide: [UserId, Operation, AppHost, AppIdentity, AgentName, AgentVersion, SensitivityLabelId, XPIADetected, AISystemPlugin, ModelProviderName, ModelName, ModelVersion, MessageId, IsPrompt]}
           - markdown: "#### The policy each answer cites"
@@ -157,14 +157,14 @@ tabs:
 
           In two or three sentences, say what caused the drop, the evidence for it, and whether PolicyPal itself is at fault. What you found in the earlier steps is below.
         fields:
-          - {id: tr_conclusion, kind: textarea, rows: 4, label: "What caused the drop, the evidence, and whether PolicyPal is at fault"}
+          - {id: conclusion, kind: textarea, rows: 4, label: "What caused the drop, the evidence, and whether PolicyPal is at fault"}
         hints:
           - title: "Hint 1: a sentence to start from"
             text: 'Fill in the blanks: "The drop in PTO answers from ______ is caused by ______, which took effect on ______. Evidence: ______. PolicyPal is ______; the ______ in the Quality Standard are out of date."'
           - title: "Hint 2: an example answer"
             text: '"The drop in PTO answers from 2026-09-02 is caused by a company policy change: PTO Policy 2026 took effect on 2026-09-01. Evidence: from that date PolicyPal reads and cites PTO Policy 2026, and only PTO answers dropped, all on the exact-figure rule. The model change on 2026-08-25 came a week too early, and the prompt did not change. PolicyPal is quoting the new policy correctly; the reference figures in the Quality Standard are out of date."'
         show:
-          - answers: [change_date, drop_pattern, r_model, r_prompt, r_policy, answers_wrong]
+          - answers: [drop_start, drop_pattern, r_model, prompt_check, policy_check, answers_wrong]
 
       - title: Decide who to speak to
         text: |
@@ -183,7 +183,7 @@ tabs:
           - {id: handoff_why, kind: text, label: "Why? One line."}
         answer: "`The team that owns the HR policy library`, then you update the standard. The policy changed, so the owners of the policy confirm it is official, and you, as the Business AI Owner, update the reference figures in the Quality Standard and re-set the baseline. The platform team cannot help: nothing is wrong with the model. Doing nothing is also wrong, because every future review would keep raising the same false alarm."
         show:
-          - answers: [tr_conclusion]
+          - answers: [conclusion]
 
   - id: answer
     title: My Answer
@@ -192,10 +192,10 @@ tabs:
     intro: "What was tested: the PolicyPal workflow, 20 answers from 2026-08-26 to 2026-09-18 (cases L22-01 to L22-20), marked against the PolicyPal Business Quality Standard. A third party should be able to read this record cold and know what was found and what happens next. To keep a copy, click Save as PDF."
     sections:
       - {title: "Is an investigation needed?", fields: [alarm_met]}
-      - {title: "The drop", fields: [change_date, drop_pattern]}
-      - {title: "The four causes checked", fields: [r_model, r_prompt, r_policy]}
+      - {title: "The drop", fields: [drop_start, drop_pattern]}
+      - {title: "The four causes checked", fields: [r_model, prompt_check, policy_check]}
       - {title: "Are the answers wrong?", fields: [answers_wrong]}
-      - {title: "Conclusion", fields: [tr_conclusion]}
+      - {title: "Conclusion", fields: [conclusion]}
       - {title: "Next step", fields: [handoff, handoff_why]}
 
 # NOTE: the challenges below were written for the earlier version of this lab, where the cause was the
