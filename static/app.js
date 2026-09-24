@@ -478,8 +478,11 @@ function makeScorecard(tab, opts = {}) {
   const sc = tab.scorecard, editable = tab.editable || {};
   const marking = Object.keys(editable).length && !opts.open;
   const el = h("div", { class: "scorecard" + (marking && opts.sticky !== false ? " sticky" : "") });
+  // A mark comes from the student's answer when they gave one, otherwise from the data
+  // (rows a lab has already marked for them).
   const cur = (i, col) => {
-    const v = col in editable ? state.answers[`t:${tab.id}:${i}:${col}`] : tab.rows[i][col];
+    const a = col in editable ? state.answers[`t:${tab.id}:${i}:${col}`] : null;
+    const v = a != null && a !== "" ? a : tab.rows[i][col];
     return v === "1" ? 1 : v === "0" ? 0 : null;
   };
   const baselineBqs = Number((tab.rows.map(r => r[sc.baseline_bqs]).find(v => v !== "")) || NaN);
