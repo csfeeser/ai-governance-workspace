@@ -234,6 +234,7 @@ function bind(key, fn) {
 
 function renderField(f) {
   const key = "f:" + f.id, id = "fld-" + f.id;
+  if (f.kind === "checklist") return renderChecklist(f, key, id);
   let input;
   if (f.kind === "select") {
     input = h("select", { id }, h("option", { value: "" }, "Choose\u2026"),
@@ -252,23 +253,41 @@ function renderField(f) {
     input);
 }
 
+// Tick boxes. The answer is the ticked options, one per line, in the order they are listed.
+function renderChecklist(f, key, id) {
+  const boxes = f.options.map((o, i) => h("input", { type: "checkbox", id: `${id}-${i}`, value: o }));
+  const show = v => { const on = new Set((v || "").split("\n")); boxes.forEach(b => { b.checked = on.has(b.value); }); };
+  show(state.answers[key]);
+  const redraw = bind(key, show);
+  boxes.forEach(b => b.addEventListener("change", () =>
+    queueSave(key, boxes.filter(x => x.checked).map(x => x.value).join("\n"), redraw)));
+  return h("div", { class: "field" },
+    h("div", { class: "field-label", id: `${id}-label` }, f.label, !f.required && h("span", { class: "optional" }, " (optional)")),
+    f.example && h("div", { class: "example" }, "Example: " + f.example),
+    h("div", { class: "checklist", role: "group", "aria-labelledby": `${id}-label` },
+      boxes.map((b, i) => h("label", { for: `${id}-${i}` }, b, h("span", {}, f.options[i])))));
+}
+
 // ---------------------------------------------------------------- steps
 
 // A tab made of numbered steps. Each step is a coloured box holding the instructions and any
 // answer boxes, followed by the material the student needs for that step.
 function renderSteps(tab) {
-  return h("div", { class: "steps" }, tab.steps.map(s => [
+  // Normally a step's material follows its box; `show_first` puts it above, so the student reads it
+  // and then answers straight underneath.
+  return h("div", { class: "steps" }, tab.steps.map(s => { const box =
     h("section", { class: "step", id: `step-${s.number}` },
       h("div", { class: "step-label" }, `Step ${s.number}`),
       h("h2", { class: "step-title" }, s.title),
       h("div", { class: "step-text" }, docNode(s.html)),
       s.fields.map(renderField),
       s.hints.map(x => h("details", { class: "hint" }, h("summary", {}, x.title), docNode(x.html))),
-      s.answer && h("details", { class: "hint answer" }, h("summary", {}, "Show the answer"), docNode(s.answer))),
-    s.show.map(m => h("div", { class: "material" },
+      s.answer && h("details", { class: "hint answer" }, h("summary", {}, "Show the answer"), docNode(s.answer)));
+    const material = s.show.map(m => h("div", { class: "material" },
       m.kind === "doc" ? h("div", { class: "doc" }, docNode(m.html))
-        : m.kind === "answers" ? renderEcho(m.fields) : renderTable(m))),
-  ]));
+        : m.kind === "answers" ? renderEcho(m.fields) : renderTable(m)));
+    return s.show_first ? [material, box] : [box, material];
+  }));
 }
 
 // Answers the student gave in earlier steps, shown again read-only where a later step needs them.
@@ -403,7 +422,8 @@ function renderTable(tab) {
       tbody.replaceChildren(...rs.map(({ r, i }) => h("tr", {}, cols.map(c => cell(r, i, c)))));
     }
     drawBody();
-    return h("div", { class: "tablewrap" + (card ? " with-card" : "") }, table);
+    if (tab.fit) table.classList.add("fit");
+    return h("div", { class: "tablewrap" + (card ? " with-card" : "") + (tab.fit ? " fit" : "") }, table);
   }
 
   function cell(r, i, c) {
@@ -429,7 +449,9 @@ function renderTable(tab) {
       s.addEventListener("change", () => { queueSave(key, s.value, redraw); mark(); if (card) card.update(); });
       return h("td", {}, s);
     }
-    return h("td", { class: isNum(c) ? "num" : "" }, r[c]);
+    // Short values (case numbers, dates, decisions) never wrap onto two lines.
+    const cls = [isNum(c) && "num", String(r[c]).length <= 12 && "nowrap"].filter(Boolean).join(" ");
+    return h("td", { class: cls }, r[c]);
   }
 
   function groupView(rows) {
@@ -460,7 +482,7 @@ function renderTable(tab) {
       const k = rows.reduce((t, x) => t + Number(x.r[sum.column]), 0);
       total = ["All", String(rows.length), String(k), rows.length ? `${Math.round(100 * k / rows.length)}%` : "–"];
     }
-    return h("div", { class: "tablewrap" }, h("table", { class: "data" },
+    return h("div", { class: "tablewrap" + (tab.fit ? " fit" : "") }, h("table", { class: "data" + (tab.fit ? " fit" : "") },
       h("thead", {}, h("tr", { class: "heads" }, head.map(x => h("th", { style: "cursor:default" }, x)))),
       h("tbody", {}, body.map(r => h("tr", {}, r.map((x, j) => h("td", { class: j ? "num" : "" }, x)))),
         h("tr", { class: "total" }, total.map((x, j) => h("td", { class: j ? "num" : "" }, x))))));
@@ -478,8 +500,12 @@ function makeScorecard(tab, opts = {}) {
   const sc = tab.scorecard, editable = tab.editable || {};
   const marking = Object.keys(editable).length && !opts.open;
   const el = h("div", { class: "scorecard" + (marking && opts.sticky !== false ? " sticky" : "") });
+  // A mark already in the data (a row the lab has marked for the student) always wins; the
+  // student's answer only fills rows the data leaves blank. That way an answer saved under an
+  // older version of the lab, for a row that is now pre-marked, cannot change the score.
   const cur = (i, col) => {
-    const v = col in editable ? state.answers[`t:${tab.id}:${i}:${col}`] : tab.rows[i][col];
+    const d = tab.rows[i][col];
+    const v = d === "1" || d === "0" ? d : col in editable ? state.answers[`t:${tab.id}:${i}:${col}`] : d;
     return v === "1" ? 1 : v === "0" ? 0 : null;
   };
   const baselineBqs = Number((tab.rows.map(r => r[sc.baseline_bqs]).find(v => v !== "")) || NaN);

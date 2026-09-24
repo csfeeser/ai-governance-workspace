@@ -125,6 +125,7 @@ More things a step can show under it:
 | `answers: [field-id, ...]` | the student's earlier answers, read-only, updating live, so no step needs a trip back to an earlier tab |
 | `table:` with `group:`, `split:`, `sort:` | the table opened already grouped, split or sorted; the menus still work |
 | `table:` with `view: scorecard` | only the live Business Quality Score panel for that table |
+| `table:` with `fit: true` | columns only as wide as their contents (good for short numbers) |
 
 One editable table can be split across steps (for example the first five rows, then the rest): give each
 part the same `id` and `source` and a different `where:`. Their answers are one set.
@@ -136,7 +137,11 @@ An editable table needs an `id` (answers are keyed by it). To show the student's
 step, repeat the table with the same `id` and `readonly: true`. A `report` tab lists field ids from the
 steps; a missing answer says which step to go back to.
 
-**Form fields** (`kind:`): `text`, `textarea`, `select` (needs `options:`), and `lines` (expands
+A step's material (`show:`) normally appears below its box; `show_first: true` puts it above, so
+the student reads it and answers straight underneath.
+
+**Form fields** (`kind:`): `text`, `textarea`, `select` (a drop-down; needs `options:`), `checklist`
+(a tick box per option; needs `options:`; the answer is the ticked options, one per line), and `lines` (expands
 into `count` one-line inputs, `min` of them required). `example:` shows a grey example above the
 field. `required: false` makes a field optional.
 

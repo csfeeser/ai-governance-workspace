@@ -1,12 +1,12 @@
-# AI Evidence Packet
+# AI Evidence Packet: PolicyPal, 2026-Q3
 
 ## Packet header
 
 | Field | Value |
 |---|---|
 | Workflow | PolicyPal (HR policy assistant, Microsoft Copilot) |
-| Prepared by | J. Okafor |
-| Packet coverage period | 2026-Q2 to 2026-Q3 |
+| Packet coverage period | 2026-Q3 (2026-07-01 to 2026-09-30) |
+| Prepared by | P. Haddad, for PolicyPal's Business AI Owner |
 | Date assembled | 2026-10-02 |
 
 ## Known gaps
@@ -15,39 +15,41 @@
 
 ## 1. Business purpose statement
 
-| Item | Source artifact | Date | Coverage period | Retention location |
+| Item | Source file | Date | Coverage period | Retention location |
 |---|---|---|---|---|
-| PolicyPal purpose statement | purpose-statement.md | 2026-03-02 | ongoing | GRC evidence library / PolicyPal / 2026 |
-| PolicyPal scope and out-of-scope note | scope-note.md | 2026-03-02 | ongoing | GRC evidence library / PolicyPal / 2026 |
+| PolicyPal business purpose statement | business-purpose.md | 2026-03-02, last reviewed 2026-06-05 | Ongoing | GRC evidence library / PolicyPal / 2026 |
 
 ## 2. System instructions and baseline business rules
 
-| Item | Source artifact | Date | Coverage period | Retention location |
+| Item | Source file | Date | Coverage period | Retention location |
 |---|---|---|---|---|
-| System instructions v3 + business rules | policypal-sysinstructions-v3.md | 2026-06-01 | 2026-06-01 onward | GRC evidence library / PolicyPal / 2026 |
+| System instructions v2 and business rules | system-instructions-v2.md | 2026-03-02 | 2026-07-01 to 2026-07-12 | GRC evidence library / PolicyPal / 2026 |
+| System instructions v3 and business rules | system-instructions-v3.md | 2026-07-13 | 2026-07-13 onward | GRC evidence library / PolicyPal / 2026 |
 
 ## 3. Sampled review records and quality scores
 
-| Item | Source artifact | Date | Coverage period | Retention location |
+| Item | Source file | Date | Coverage period | Retention location |
 |---|---|---|---|---|
-| Q2 review sample, Business Quality Score: 82 (Q2 sample, n=20) | q2-review-sample.csv | 2026-07-01 | 2026-Q2 | Copilot audit log |
+| Monthly re-tests, 20 marked answers each. Business Quality Score: July 88, August 81, September 83 | q3-retests.csv (60 marked answers) | 2026-09-18 | 2026-Q3 | Copilot audit log |
 
 ## 4. HITL override summary and reviewer quality audit
 
-| Item | Source artifact | Date | Coverage period | Retention location |
+| Item | Source file | Date | Coverage period | Retention location |
 |---|---|---|---|---|
-| Override rates by reviewer (R-A to R-E), team 18% | q2-override-rates.csv | 2026-07-01 | 2026-Q2 | Purview |
+| Override rates by reviewer (R-A to R-E), team 17% | q3-override-rates.csv | 2026-09-30 | 2026-Q3 | Purview audit |
 
 ## 5. Incident and escalation history
 
-| Item | Source artifact | Date | Coverage period | Retention location |
+| Item | Source file | Date | Coverage period | Retention location |
 |---|---|---|---|---|
-| Escalation: vague answers after vendor model change (score 90 to 69) | ticket-modelswap.md | 2026-08-18 | 2026-Q3 | Purview |
-| Escalation: latency spike at 9:00 | ticket-latency.md | 2026-09-09 | 2026-Q3 | Copilot audit log |
+| Eight open issues from the handover given owners (old PTO policy cited, no human-referral trigger, and six more) | handover-issue-routing.md | 2026-07-06 | 2026-Q3 | GRC evidence library / PolicyPal / 2026 |
+| Answers vaguer after the model version changed on 2026-08-11 (score 88 to 81). Routed to the platform team; model moved back 2026-08-25 | ticket-model-change.md | 2026-08-17 | 2026-Q3 | Purview audit |
+| PTO answers marked down after PTO Policy 2026 took effect on 2026-09-01. Routed to the HR policy library team; the Quality Standard's PTO figures to be updated | ticket-pto-policy-2026.md | 2026-09-21 | 2026-Q3 | GRC evidence library / PolicyPal / 2026 |
+| PTO Policy 2023 still cited for carryover (cap given as 10 days, current cap 3). Routed to the HR policy library team | ticket-pto-2023.md | 2026-09-22 | 2026-Q3 | GRC evidence library / PolicyPal / 2026 |
 
 ## 6. Change-control and approval log
 
-| Item | Source artifact | Date | Coverage period | Retention location |
+| Item | Source file | Date | Coverage period | Retention location |
 |---|---|---|---|---|
-| System-instructions change log (v2 to v3) | sysinstructions-changelog.md | 2026-06-01 | 2026-Q2 | GRC evidence library / PolicyPal / 2026 |
-| Deployment approval record | deploy-approval.pdf | 2026-03-01 | one-time | GRC evidence library / PolicyPal / 2026 |
+| System instructions v2 to v3: approved and published | instructions-change-approval.md | 2026-07-13 | 2026-Q3 | GRC evidence library / PolicyPal / 2026 |
+| Platform change record: model version changed 2026-08-11 and moved back 2026-08-25 | platform-change-record.csv | 2026-08-25 | 2026-Q3 | Copilot audit log |

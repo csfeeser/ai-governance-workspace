@@ -170,7 +170,8 @@ def build_material(lab_dir, item, tab_id, n):
     return {"kind": "table", "id": spec.get("id", f"{tab_id}-{n}"), **table,
             "show_rows": show, "readonly": bool(spec.get("readonly")),
             "tools": spec.get("tools", True), "view": spec.get("view", "rows"),
-            "group": spec.get("group", ""), "split": spec.get("split", ""), "sort": spec.get("sort", "")}
+            "group": spec.get("group", ""), "split": spec.get("split", ""), "sort": spec.get("sort", ""),
+            "fit": bool(spec.get("fit"))}
 
 
 def build_steps(lab_dir, tab, first_number):
@@ -185,6 +186,7 @@ def build_steps(lab_dir, tab, first_number):
             "hints": [{"title": x["title"], "html": md(x["text"])} for x in s.get("hints") or []],
             "answer": md(s["answer"]) if s.get("answer") else None,
             "show": [build_material(lab_dir, m, tab["id"], f"{n}-{j}") for j, m in enumerate(s.get("show") or [])],
+            "show_first": bool(s.get("show_first")),
         })
     return steps
 

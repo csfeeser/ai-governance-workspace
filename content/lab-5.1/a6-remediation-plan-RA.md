@@ -1,30 +1,34 @@
-# HITL override summary and reviewer quality audit — remediation plan (R-A)
+# Remediation plan: reviewer R-A
 
 **Workflow:** PolicyPal
-**Finding date:** 2026-06-18
-**Owner:** The function that runs HR operations review
+**Plan date:** 2026-06-18
+**Owner:** The function that runs the human review process for PolicyPal
 
 ## Finding
 
-Approvals from reviewer R-A are not receiving independent judgment: R-A's override rate is
+Approvals from reviewer R-A are not getting an independent check: R-A's override rate is
 2% against a team average of 18%, near zero in every week and case type.
+
+## First step
+
+A second reviewer re-marks a sample of R-A's recent approvals to confirm the pattern.
 
 ## Action
 
-Targeted re-training on the review standard plus a required second review on a sample of
-R-A's approvals, so approvals are checked against an independent decision.
+Ongoing second-review sampling: each month, a second reviewer re-checks a sample of every
+reviewer's decisions.
 
 ## Interim safeguard
 
-100% second review on all of R-A's approvals until the re-check date.
+A second reviewer checks every one of R-A's approvals until the new sampling is running.
 
 ## Verification
 
-- **Re-check date:** 2026-07-18 (one month; Medium-tier cadence).
-- **Measurable target:** R-A override rate within 5 points of the team average, and zero
-  recurrence of approving cases that peers override on the same case type, over a two-week
-  sample.
-- **Evidence:** a fresh reviewer-log pull for the re-check period.
+- **Re-check date:** 2026-07-18, one month after the plan starts (Medium-tier cadence).
+- **Measurable target:** R-A's override rate within 5 points of the team average, over a
+  two-week sample.
+- **Evidence:** a fresh export of the reviewer log, covering the two weeks before the
+  re-check date.
 
 ## Distribution
 

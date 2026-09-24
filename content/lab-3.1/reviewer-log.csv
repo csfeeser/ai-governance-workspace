@@ -22,7 +22,7 @@ date,week,case_id,case_type,reviewer,ai_decision,human_decision
 2026-05-21,W1,RV-0003,benefits,R-A,approve,approve
 2026-05-21,W1,RV-0006,conduct,R-A,route-to-human,route-to-human
 2026-05-21,W1,RV-0009,conduct,R-A,approve,approve
-2026-05-22,W1,DUP-04a,travel,R-D,reject,reject
+2026-05-22,W1,RV-0201,travel,R-D,reject,reject
 2026-05-22,W1,RV-0086,conduct,R-C,approve,approve
 2026-05-22,W1,RV-0087,expense,R-C,reject,reject
 2026-05-22,W1,RV-0090,pto,R-C,reject,reject
@@ -46,7 +46,7 @@ date,week,case_id,case_type,reviewer,ai_decision,human_decision
 2026-05-24,W1,RV-0089,travel,R-C,approve,approve
 2026-05-24,W1,RV-0128,conduct,R-D,approve,approve
 2026-05-24,W1,RV-0163,pto,R-E,approve,approve
-2026-05-25,W1,DUP-06a,benefits,R-E,approve,approve
+2026-05-25,W1,DUP-05a,benefits,R-E,approve,approve
 2026-05-25,W1,RV-0001,travel,R-A,approve,approve
 2026-05-25,W1,RV-0004,conduct,R-A,approve,approve
 2026-05-25,W1,RV-0042,pto,R-B,approve,reject
@@ -59,7 +59,7 @@ date,week,case_id,case_type,reviewer,ai_decision,human_decision
 2026-05-26,W2,RV-0059,travel,R-B,reject,route-to-human
 2026-05-26,W2,RV-0096,expense,R-C,approve,approve
 2026-05-26,W2,RV-0138,conduct,R-D,route-to-human,route-to-human
-2026-05-27,W2,DUP-05a,conduct,R-D,approve,approve
+2026-05-27,W2,DUP-04a,conduct,R-D,approve,approve
 2026-05-27,W2,RV-0016,benefits,R-A,route-to-human,route-to-human
 2026-05-27,W2,RV-0019,benefits,R-A,approve,approve
 2026-05-27,W2,RV-0051,travel,R-B,approve,approve
@@ -105,7 +105,7 @@ date,week,case_id,case_type,reviewer,ai_decision,human_decision
 2026-06-01,W2,RV-0139,travel,R-D,approve,approve
 2026-06-01,W2,RV-0174,travel,R-E,approve,approve
 2026-06-01,W2,RV-0179,expense,R-E,approve,approve
-2026-06-02,W3,DUP-04b,travel,R-D,reject,reject
+2026-06-02,W3,RV-0202,travel,R-D,reject,reject
 2026-06-02,W3,RV-0022,expense,R-A,approve,approve
 2026-06-02,W3,RV-0029,conduct,R-A,approve,approve
 2026-06-02,W3,RV-0067,conduct,R-B,approve,approve
@@ -168,7 +168,7 @@ date,week,case_id,case_type,reviewer,ai_decision,human_decision
 2026-06-10,W4,DUP-03b,benefits,R-C,approve,approve
 2026-06-10,W4,RV-0077,pto,R-B,reject,reject
 2026-06-10,W4,RV-0151,benefits,R-D,approve,route-to-human
-2026-06-11,W4,DUP-05b,conduct,R-D,approve,reject
+2026-06-11,W4,DUP-04b,conduct,R-D,approve,reject
 2026-06-11,W4,RV-0040,expense,R-A,reject,reject
 2026-06-11,W4,RV-0112,conduct,R-C,approve,reject
 2026-06-11,W4,RV-0115,pto,R-C,approve,approve
@@ -179,7 +179,7 @@ date,week,case_id,case_type,reviewer,ai_decision,human_decision
 2026-06-12,W4,RV-0034,expense,R-A,approve,approve
 2026-06-12,W4,RV-0119,expense,R-C,approve,approve
 2026-06-12,W4,RV-0191,benefits,R-E,reject,route-to-human
-2026-06-13,W4,DUP-06b,benefits,R-E,approve,approve
+2026-06-13,W4,DUP-05b,benefits,R-E,approve,approve
 2026-06-13,W4,RV-0078,conduct,R-B,approve,route-to-human
 2026-06-13,W4,RV-0080,pto,R-B,approve,reject
 2026-06-13,W4,RV-0111,travel,R-C,approve,approve

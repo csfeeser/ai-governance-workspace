@@ -3,7 +3,7 @@
 **Workflow:** PolicyPal
 **Version:** v2
 **Effective:** 2026-03-02
-**Status:** superseded by v3 on 2026-06-01
+**Status:** superseded by v3 on 2026-07-13
 
 ## System instructions (summary)
 

@@ -4,186 +4,244 @@ tabs:
     title: The Packet
     type: steps
     steps:
-      - title: Read the packet all the way through
+      - title: Read the packet the way an auditor will
         text: |
-          This time you are the auditor: the person who checks a company's proof. Someone else has built an evidence packet, and it looks good at first glance. You will read it like someone who does not trust it yet, and write down what is wrong.
+          Today is Friday 2026-10-02. Internal audit will want PolicyPal's packet for Q3 (2026-07-01 to 2026-09-30) next, the quarter you have run it since Lab 1.1. A colleague, P. Haddad, has drafted it for you. Before it goes to the auditors, read it the way they will: as someone who does not trust it yet.
 
-          Read the whole packet below, from top to bottom. Do not judge anything yet, and do not fix anything. The question an auditor asks is not "is this neat?". It is "is there enough here to believe the company really watched over its AI?"
+          The question an auditor asks is not "is this neat?". It is "is there enough here to believe the company really watched over its AI?" A section can look fine because it has a heading and an entry, and still fail to prove what it is for.
 
-          There is nothing to type in this step.
-        show:
-          - doc: submitted-packet.md
+          The top of the packet is below. In the next six steps you see one section at a time, with the auditor's question for it, and judge it right underneath. For each section you choose one:
 
-      - title: Check each of the six sections
-        text: |
-          Every packet must have six sections. A section can look fine because it has a heading and an entry, and still fail to prove what the section is for.
-
-          For each section, choose one:
-
-          - **Present in substance:** it really proves what it should.
-          - **Present in name only:** it is there, but it does not prove it.
+          - **Present in substance:** it really answers the auditor's question for Q3.
+          - **Present in name only:** it has an entry, but an auditor could not use it to answer the question.
           - **Missing:** it is not there at all.
 
-          The six sections of the packet are below again.
-        fields:
-          - {id: c1, kind: select, label: "1. Business purpose statement", options: &comp ["Present in substance", "Present in name only", "Missing"]}
-          - {id: c2, kind: select, label: "2. System instructions and baseline business rules", options: *comp}
-          - {id: c3, kind: select, label: "3. Sampled review records and quality scores", options: *comp}
-          - {id: c4, kind: select, label: "4. HITL override summary and reviewer quality audit", options: *comp}
-          - {id: c5, kind: select, label: "5. Incident and escalation history", options: *comp}
-          - {id: c6, kind: select, label: "6. Change-control and approval log", options: *comp}
-        answer: "Sections 1, 2, 5, and 6 are present in substance. Sections 3 and 4 are present in name only. Section 3 gives a quality score that nobody can interpret, and section 4 gives numbers for the reviewers but no judgement on whether they were doing their job."
+          There is nothing to choose in this step.
         show:
           - doc: submitted-packet.md
+            section: Packet header
+          - doc: submitted-packet.md
+            section: Known gaps
+
+      - title: "Section 1 of 6: Business purpose statement"
+        text: |
+          The section is above. Judge it against the auditor's question.
+        fields:
+          - {id: sec1, kind: select, label: "Section 1", options: &comp ["Present in substance", "Present in name only", "Missing"]}
+        hints:
+          - title: "Hint 1: where to look"
+            text: |
+              Read the **Item** and **Coverage period** columns. Does the row say what PolicyPal is for, and does it apply to the whole of Q3?
+        answer: "`Present in substance`. It says what PolicyPal is for and who uses it, and it applies all through Q3."
+        show_first: true
+        show:
+          - markdown: "#### Section 1 of 6. The auditor's question: What is this tool for?"
+          - doc: submitted-packet.md
             section: 1. Business purpose statement
+
+      - title: "Section 2 of 6: System instructions and baseline business rules"
+        text: |
+          The section is above. Judge it against the auditor's question.
+        fields:
+          - {id: sec2, kind: select, label: "Section 2", options: *comp}
+        hints:
+          - title: "Hint 1: where to look"
+            text: |
+              Q3 runs from 2026-07-01 to 2026-09-30. Read the **Coverage period** of each row. Between them, do the rows cover every day of Q3?
+        answer: "`Present in substance`. v2 covers 2026-07-01 to 2026-07-12 and v3 covers 2026-07-13 onward, so between them the rules for every day of Q3 are there."
+        show_first: true
+        show:
+          - markdown: "#### Section 2 of 6. The auditor's question: What was it told to do?"
           - doc: submitted-packet.md
             section: 2. System instructions and baseline business rules
+
+      - title: "Section 3 of 6: Sampled review records and quality scores"
+        text: |
+          The section is above. Judge it against the auditor's question.
+        fields:
+          - {id: sec3, kind: select, label: "Section 3", options: *comp}
+        hints:
+          - title: "Hint 1: where to look"
+            text: |
+              Read the **Item** column and ask yourself: could you tell from this row alone whether 83 is a good score or a bad one? What would you need to know about how the answers were marked?
+        answer: "`Present in name only`. It gives three scores, but nothing says which quality standard, or which version of it, the answers were marked against. Without that nobody can tell what 88, 81 or 83 means."
+        show_first: true
+        show:
+          - markdown: "#### Section 3 of 6. The auditor's question: Did you check its quality, and when?"
           - doc: submitted-packet.md
             section: 3. Sampled review records and quality scores
+
+      - title: "Section 4 of 6: HITL override summary and reviewer quality audit"
+        text: |
+          The section is above. Judge it against the auditor's question.
+        fields:
+          - {id: sec4, kind: select, label: "Section 4", options: *comp}
+        hints:
+          - title: "Hint 1: where to look"
+            text: |
+              The auditor's question is whether the human checking was real. Does a list of override rates answer that on its own? Think back to Lab 3.1: R-A's 2% looked fine until you worked out what it meant.
+        answer: "`Present in name only`. It gives each reviewer's override rate, but nothing says whether the reviewers were really checking. Lab 3.1 showed that a normal-looking number can hide a reviewer who approves everything."
+        show_first: true
+        show:
+          - markdown: "#### Section 4 of 6. The auditor's question: Was the human checking real? (HITL means \"human in the loop\": a person checking the AI.)"
           - doc: submitted-packet.md
             section: 4. HITL override summary and reviewer quality audit
+
+      - title: "Section 5 of 6: Incident and escalation history"
+        text: |
+          The section is above. Judge it against the auditor's question.
+        fields:
+          - {id: sec5, kind: select, label: "Section 5", options: *comp}
+        hints:
+          - title: "Hint 1: where to look"
+            text: |
+              Go down the list of what happened in Q3, above, and look for each event in the **Item** column of the packet's rows.
+        answer: "`Present in substance`. The handover routing, the model change, the PTO policy change and the old PTO document are all there, each with who it went to."
+        show_first: true
+        show:
+          - markdown: "#### Section 5 of 6. The auditor's question: What went wrong, and what did you do about it?"
+          - markdown: &q3 |
+              #### What happened in Q3, from your earlier labs
+
+              - 2026-07-06: you took over PolicyPal and gave the eight open issues owners (Lab 1.1).
+              - 2026-07-13: v3 of PolicyPal's rules took effect, replacing v2.
+              - 2026-08-11: the AI model version changed and the score fell from 88 to 81 (Lab 2.1). The platform team moved it back on 2026-08-25.
+              - 2026-09-01: PTO Policy 2026 took effect, and the Quality Standard's PTO figures went out of date (Lab 2.2).
+              - September: PolicyPal was still citing PTO Policy 2023 for carryover questions (Lab 4.1).
           - doc: submitted-packet.md
             section: 5. Incident and escalation history
+
+      - title: "Section 6 of 6: Change-control and approval log"
+        text: |
+          The section is above. Judge it against the auditor's question.
+        fields:
+          - {id: sec6, kind: select, label: "Section 6", options: *comp}
+        hints:
+          - title: "Hint 1: where to look"
+            text: |
+              Go down the list of what happened in Q3, above, and pick out the changes made to PolicyPal itself. Look for each one in the **Item** column of the packet's rows.
+        answer: "`Present in substance`. The two changes to PolicyPal itself are there: the move to v3 of the rules, and the model version change and move back. The PTO policy change and the old PTO document are changes to the policy library, not to PolicyPal, so they belong in section 5."
+        show_first: true
+        show:
+          - markdown: "#### Section 6 of 6. The auditor's question: What changed, and who approved it?"
+          - markdown: *q3
           - doc: submitted-packet.md
             section: 6. Change-control and approval log
 
-  - id: answer
+  - id: findings
     title: Findings
     type: steps
     steps:
-      - title: "Write finding 1: the human checking"
+      - title: "Finding 1: the human checking"
         text: |
-          Section 4, below, is about whether the human checking was real. It gives override rates for each reviewer. Ask: what in this section tells an auditor whether the reviewers themselves are doing real checking?
-
-          1. Choose where in the packet the problem is.
-          2. Write what is wrong, why an auditor would care, and what would fix it.
+          A finding is a problem an auditor writes down: what is wrong, why it matters, and what would fix it. You judged two sections present in name only. Start with section 4, above. What is missing from it?
         fields:
-          - {id: f1-where, kind: select, label: "Where in the packet is it?", options: &where ["Section 1", "Section 2", "Section 3", "Section 4", "Section 5", "Section 6", "The retention-location column across the whole index"]}
-          - {id: f1-what, kind: textarea, rows: 3, label: "What is wrong, why an auditor cares, and what would fix it"}
+          - id: f1-missing
+            kind: select
+            label: "What is missing from section 4?"
+            options:
+              - "Any judgement of the reviewers: whether each one really checked, and the result of R-A's July re-check"
+              - "How many decisions each reviewer made in Q3, so the auditor can see how busy the review team was"
+              - "Q2's override rates next to Q3's, so the auditor can see whether the team's 17% is going up or down"
+              - "The names of the five reviewers, so the auditor can interview each one about how they do their reviews"
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Section ______ gives ______ but contains no ______, so an auditor cannot tell whether ______. Fix: add ______."'
-        answer: "`Section 4`. It gives override rates for each reviewer but has no assessment of the reviewers themselves. Nothing tells the auditor whether the reviewers are really checking, and the table of rates does not show that anyone looked into R-A's 2%. The fix is to add the assessment of the reviewers."
+          - title: "Hint 1: where to look"
+            text: |
+              Section 4's question is "was the human checking real?". An override rate is only a number. Think back to Lab 3.1: what did you have to work out about R-A and R-B before the numbers meant anything? Then think of Lab 3.2's plan for R-A: its re-check was due on 2026-07-18, inside Q3. Is its result anywhere in this packet?
+        answer: |
+          `Any judgement of the reviewers`. Section 4 gives each reviewer's override rate, but nothing says whether they were really checking. Lab 3.1 showed that a 2% rate can mean a reviewer approves everything, and the result of R-A's re-check on 2026-07-18 is not in the packet at all.
+
+          - Why the auditor cares: without it, the auditor cannot tell whether the human checking was real, which is the whole question of section 4.
+          - The fix: add the reviewer quality audit for Q3, with the result of R-A's re-check.
+          - Decision counts, Q2's rates and names are all extra numbers or people. None of them says whether anyone checked properly.
+        show_first: true
         show:
+          - markdown: "#### Section 4. The auditor's question: Was the human checking real?"
           - doc: submitted-packet.md
             section: 4. HITL override summary and reviewer quality audit
 
-      - title: "Write finding 2: the quality score"
+      - title: "Finding 2: the quality scores"
         text: |
-          Section 3, below, has a Business Quality Score. A number by itself only means something if you know what it was measured against. Ask: can I tell what this number means?
-
-          Nothing in the packet says which quality standard (rulebook) the score was marked against. There is no version, no list of rules, and no link.
-
-          1. Choose where in the packet the problem is.
-          2. Write what is wrong, why an auditor would care, and what would fix it.
+          Now section 3, above. What is missing from it?
         fields:
-          - {id: f2-where, kind: select, label: "Where in the packet is it?", options: *where}
-          - {id: f2-what, kind: textarea, rows: 3, label: "What is wrong, why an auditor cares, and what would fix it"}
+          - id: f2-missing
+            kind: select
+            label: "What is missing from section 3?"
+            options:
+              - "Which quality standard, and which version of it, the three monthly scores were marked against"
+              - "The marked answers themselves, so the auditor can re-mark a few and check the scores are right"
+              - "A score for each of the four rules, so the auditor can see which rule caused August's drop"
+              - "The name of the person who marked each re-test, so the auditor can check they were trained"
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "The Business Quality Score of ______ has no ______ attached, so an auditor cannot tell what it ______. Fix: attach ______."'
-        answer: "`Section 3`. \"Business Quality Score: 82\" means nothing unless you know the rulebook it was marked against. A different rulebook would give a different number. The fix is to attach the quality standard, with its version."
+          - title: "Hint 1: where to look"
+            text: |
+              Read the **Item** and **Source file** columns of section 3: what is already there? Then think back to Lab 2.2. What did you find out about the Quality Standard in September, and what would that do to a September score?
+        answer: |
+          `Which quality standard, and which version of it`. A score only means something against the rulebook it was marked with. In Q3 that rulebook went out of date: PTO Policy 2026 took effect on 2026-09-01, and the Quality Standard still listed the 2025 PTO figures (Lab 2.2). So September's 83 means something different depending on which version was used.
+
+          - Why the auditor cares: without the standard, nobody can tell what 88, 81 or 83 means, or compare them.
+          - The fix: attach the Quality Standard, with the version and date each re-test used.
+          - The marked answers are already there: `q3-retests.csv` holds all 60. Scores for each rule and the markers' names are useful, but without the standard they still cannot be read.
+        show_first: true
         show:
+          - markdown: "#### Section 3. The auditor's question: Did you check its quality, and when?"
           - doc: submitted-packet.md
             section: 3. Sampled review records and quality scores
-
-      - title: "Write finding 3: where the records are kept"
-        text: |
-          Records need to be kept somewhere that will still exist when an auditor comes. The last column of every table in the packet below, **Retention location**, says where each paper is kept. Read it for every row.
-
-          Several papers are kept inside the AI platform itself. The AI platforms only keep their records for about 180 days, and then they delete them.
-
-          1. Choose where in the packet the problem is.
-          2. Write what is wrong, why an auditor would care, and what would fix it. Link it to how long records must be kept.
-        fields:
-          - {id: f3-where, kind: select, label: "Where in the packet is it?", options: *where}
-          - {id: f3-what, kind: textarea, rows: 3, label: "What is wrong, why an auditor cares, and what would fix it"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "______ of ______ index rows are retained in ______, which keeps only about ______ days, so the evidence is ______. Fix: ______."'
-        answer: "`The retention-location column across the whole index`. Four of the nine rows say the papers are kept in \"Copilot audit log\" or \"Purview\". Those are parts of the AI platform itself, and they keep about 180 days of records. If a company has to keep records for several years, this evidence is gone in about seven months, and the packet cannot be rebuilt when it is really needed. The fix is to copy the evidence into a named system that belongs to the company."
-        show:
-          - doc: submitted-packet.md
-
-  - id: verdict
-    title: Verdict
-    type: steps
-    steps:
-      - title: Say which problem is the worst
-        text: |
-          You have found three problems. Some can be fixed on paper, and some cannot be undone. The one that cannot be undone is the most serious.
-
-          Your three findings are below. Choose the worst one.
-        fields:
-          - {id: worst, kind: select, label: "Most severe finding", options: ["Finding 1", "Finding 2", "Finding 3"]}
-        answer: "`Finding 3`, the records problem, is probably the worst. The other two can be fixed by writing something down, but this evidence will really disappear."
-        show:
-          - answers: [f1-what, f2-what, f3-what]
-
-      - title: Decide whether you would accept the packet
-        text: |
-          An auditor's job is to give a clear answer. You either accept the packet, or you do not accept it yet.
-
-          Choose your answer, then write one line saying why, and what the packet still needs. Your findings are below.
-        fields:
-          - {id: accept, kind: select, label: "Would you accept the packet as it stands?", options: ["Yes, accept as it stands", "No, do not accept yet"]}
-          - {id: accept-why, kind: text, label: "One line: why, and what it needs"}
-        answer: "`No, do not accept yet`. It needs the assessment of the reviewers, the quality standard, and copies of the evidence kept somewhere that will last."
-        show:
-          - answers: [f1-what, f2-what, f3-what]
 
   - id: report
     title: Auditor Findings
     type: report
     heading: Auditor Findings
-    intro: "The question is not whether the packet is neat, but whether there is enough here to believe oversight happened. Spotting what is absent is the real test of knowing what auditors expect. To keep a copy, click Save as PDF."
+    intro: "Review of PolicyPal's draft evidence packet for 2026-Q3, read the way internal audit will read it, on 2026-10-02. The question is not whether the packet is neat, but whether there is enough here to believe oversight happened. To keep a copy, click Save as PDF."
     sections:
-      - {title: "The six required components", fields: [c1, c2, c3, c4, c5, c6]}
-      - {title: "Finding 1", fields: [f1-where, f1-what]}
-      - {title: "Finding 2", fields: [f2-where, f2-what]}
-      - {title: "Finding 3", fields: [f3-where, f3-what]}
-      - {title: "Rank by severity", fields: [worst]}
-      - {title: "Your decision", fields: [accept, accept-why]}
+      - {title: "The six sections", fields: [sec1, sec2, sec3, sec4, sec5, sec6]}
+      - {title: "Finding 1: the human checking", fields: [f1-missing]}
+      - {title: "Finding 2: the quality scores", fields: [f2-missing]}
 
-  - id: challenges
-    title: Challenges
-    type: steps
-    optional: true
-    steps:
-      - title: "Bronze challenge: the fourth, smaller weakness"
-        text: |
-          This tab is optional. Nothing here counts towards your progress.
-
-          The packet below says it covers April to September 2026. Look at what actually proves each part of that time. There is one marked sample, from April to June, and all the incidents are from July onwards.
-
-          A tool that is reviewed once a month should have many more review records than this over six months. Work out how many it should have, and how many this packet has. Write the finding, and say why it is less serious than the three main ones.
-        fields:
-          - {id: bronze, kind: textarea, rows: 4, label: "The finding, and why it is less severe than the three main defects"}
-        answer: "A monthly review over six months should leave six review records; this packet has one, for April to June only. July to September has incidents but no quality review at all. It is less severe than the three main findings because the missing reviews may exist and just not have been filed, so it can be fixed by adding them."
-        show:
-          - doc: submitted-packet.md
-
-      - title: "Silver challenge: match each finding to a section and a question"
-        text: |
-          For each of your three findings, say which of the six sections it belongs to, and which of an auditor's questions it fails to answer. Your findings are below.
-        fields:
-          - {id: silver, kind: textarea, rows: 4, label: "For each of your three findings: which of the six packet components it sits in, and which auditor question it fails to answer"}
-        show:
-          - answers: [f1-what, f2-what, f3-what]
-          - markdown: |
-              | Section | The auditor's question |
-              |---|---|
-              | 1. Business purpose statement | What is this tool for? |
-              | 2. System instructions and baseline business rules | What was it told to do? |
-              | 3. Sampled review records and quality scores | Did you check its quality, and when? |
-              | 4. HITL override summary and reviewer quality audit | Was the human checking real? |
-              | 5. Incident and escalation history | What went wrong, and what did you do about it? |
-              | 6. Change-control and approval log | What changed, and who approved it? |
-
-      - title: "Gold challenge: the auditor's memo"
-        text: |
-          Rewrite your findings as a one-page memo from an auditor. It should say what is wrong, how serious it is, what you recommend, and have a line for the company's reply. Your findings and verdict are below.
-        fields:
-          - {id: gold, kind: textarea, rows: 6, label: "A one-page auditor's finding memo: finding, risk rating, recommendation, and a management-response line"}
-        show:
-          - answers: [f1-what, f2-what, f3-what, worst, accept-why]
+# challenge section: commented out. Remove the leading '# ' from each line below to restore it.
+# NOTE: these challenges were written for the old packet (April to September, one marked sample,
+# "Where in the packet" drop-downs and f1-what/f2-what/f3-what answers). The packet now covers Q3 only
+# and the findings use new ids. The Verdict tab (worst, accept-why) and the written finding fields
+# (f1-what, f2-what, f3-what) no longer exist. Update them to match before restoring.
+#   - id: challenges
+#     title: Challenges
+#     type: steps
+#     optional: true
+#     steps:
+#       - title: "Bronze challenge: the fourth, smaller weakness"
+#         text: |
+#           This tab is optional. Nothing here counts towards your progress.
+#
+#           The packet below says it covers April to September 2026. Look at what actually proves each part of that time. There is one marked sample, from April to June, and all the incidents are from July onwards.
+#
+#           A tool that is reviewed once a month should have many more review records than this over six months. Work out how many it should have, and how many this packet has. Write the finding, and say why it is less serious than the three main ones.
+#         fields:
+#           - {id: bronze, kind: textarea, rows: 4, label: "The finding, and why it is less severe than the three main defects"}
+#         answer: "A monthly review over six months should leave six review records; this packet has one, for April to June only. July to September has incidents but no quality review at all. It is less severe than the three main findings because the missing reviews may exist and just not have been filed, so it can be fixed by adding them."
+#         show:
+#           - doc: submitted-packet.md
+#
+#       - title: "Silver challenge: match each finding to a section and a question"
+#         text: |
+#           For each of your three findings, say which of the six sections it belongs to, and which of an auditor's questions it fails to answer. Your findings are below.
+#         fields:
+#           - {id: silver, kind: textarea, rows: 4, label: "For each of your three findings: which of the six packet components it sits in, and which auditor question it fails to answer"}
+#         show:
+#           - answers: [f1-what, f2-what, f3-what]
+#           - markdown: |
+#               | Section | The auditor's question |
+#               |---|---|
+#               | 1. Business purpose statement | What is this tool for? |
+#               | 2. System instructions and baseline business rules | What was it told to do? |
+#               | 3. Sampled review records and quality scores | Did you check its quality, and when? |
+#               | 4. HITL override summary and reviewer quality audit | Was the human checking real? |
+#               | 5. Incident and escalation history | What went wrong, and what did you do about it? |
+#               | 6. Change-control and approval log | What changed, and who approved it? |
+#
+#       - title: "Gold challenge: the auditor's memo"
+#         text: |
+#           Rewrite your findings as a one-page memo from an auditor. It should say what is wrong, how serious it is, what you recommend, and have a line for the company's reply. Your findings and verdict are below.
+#         fields:
+#           - {id: gold, kind: textarea, rows: 6, label: "A one-page auditor's finding memo: finding, risk rating, recommendation, and a management-response line"}
+#         show:
+#           - answers: [f1-what, f2-what, f3-what, worst, accept-why]

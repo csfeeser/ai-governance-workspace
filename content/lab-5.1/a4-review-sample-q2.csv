@@ -1,13 +1,5 @@
-workflow,quarter,standard_version,case_id,date,employee_question,score_c1,score_c2,score_c3,score_c4,bqs_q2
-PolicyPal,2026-Q2,"PolicyPal Business Quality Standard v2 (2026-04-10)",Q2-01,2026-04-08,"PTO accrual year two",1,1,1,1,92
-PolicyPal,2026-Q2,"PolicyPal Business Quality Standard v2 (2026-04-10)",Q2-02,2026-04-15,"Mileage rate",1,1,1,1,
-PolicyPal,2026-Q2,"PolicyPal Business Quality Standard v2 (2026-04-10)",Q2-03,2026-04-22,"Health enrollment window",1,1,1,1,
-PolicyPal,2026-Q2,"PolicyPal Business Quality Standard v2 (2026-04-10)",Q2-04,2026-04-29,"Bereavement days",1,1,1,1,
-PolicyPal,2026-Q2,"PolicyPal Business Quality Standard v2 (2026-04-10)",Q2-05,2026-05-06,"401k match",1,0,1,1,
-PolicyPal,2026-Q2,"PolicyPal Business Quality Standard v2 (2026-04-10)",Q2-06,2026-05-13,"Per diem domestic",1,1,1,1,
-PolicyPal,2026-Q2,"PolicyPal Business Quality Standard v2 (2026-04-10)",Q2-07,2026-05-20,"Carryover cap",1,1,0,1,
-PolicyPal,2026-Q2,"PolicyPal Business Quality Standard v2 (2026-04-10)",Q2-08,2026-05-27,"Disputed PTO denial",1,1,1,0,
-PolicyPal,2026-Q2,"PolicyPal Business Quality Standard v2 (2026-04-10)",Q2-09,2026-06-03,"Jury duty pay",1,1,1,1,
-PolicyPal,2026-Q2,"PolicyPal Business Quality Standard v2 (2026-04-10)",Q2-10,2026-06-10,"Open enrollment change",1,1,1,1,
-PolicyPal,2026-Q2,"PolicyPal Business Quality Standard v2 (2026-04-10)",Q2-11,2026-06-17,"Home office stipend",0,1,1,1,
-PolicyPal,2026-Q2,"PolicyPal Business Quality Standard v2 (2026-04-10)",Q2-12,2026-06-24,"Notice for planned PTO",1,1,1,1,
+workflow,quarter,standard_version,retest_date,answers_scored,c1_met,c2_met,c3_met,c4_met,criteria_met,bqs
+PolicyPal,2026-Q2,"PolicyPal Quality Checklist v1 (previous owner, 2026-03-02)",2026-04-28,20,19,19,19,18,75 of 80,94
+PolicyPal,2026-Q2,"PolicyPal Quality Checklist v1 (previous owner, 2026-03-02)",2026-05-27,20,18,18,19,18,73 of 80,91
+PolicyPal,2026-Q2,"PolicyPal Quality Checklist v1 (previous owner, 2026-03-02)",2026-06-24,20,19,18,18,18,73 of 80,91
+PolicyPal,2026-Q2,"PolicyPal Quality Checklist v1 (previous owner, 2026-03-02)",Quarter,60,56,55,56,54,221 of 240,92

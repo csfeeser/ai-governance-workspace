@@ -4,14 +4,18 @@ tabs:
     title: The Drop
     type: steps
     steps:
-      - title: Confirm that the score really dropped
+      - title: Is this drop big enough to investigate?
         text: |
-          PolicyPal's answers have got worse. In this lab you work out when it started and what caused it, then write it up.
+          It is a month later, and time for PolicyPal's next monthly review. After Lab 2.1, the platform team moved PolicyPal back to the AI model it used before.
 
-          Somebody has already marked 20 of PolicyPal's answers, so you do not mark anything. The score box below adds up those marks.
+          A colleague has already marked 20 of PolicyPal's answers from 26 August to 18 September against the Quality Standard, the same way you marked answers in Lab 2.1. The score box below adds up their marks. The score is higher than August's 81, but it is still below where it should be.
 
-          Read the **Current Business Quality Score**, the **Recorded baseline**, and the **Change (points)**. Before you look for a cause, make sure there really is a drop to explain.
-        answer: "The current score is `69`, against a recorded baseline of `90`. That is a drop of `21` points."
+          Your job in this lab is to find out why, and to write it down so someone else can act on it. The cause decides who you tell, and sending a problem to the wrong person means nobody fixes it. So do not assume it is the same cause as last month.
+
+          First, decide whether the drop is big enough that the company's own rules say you must investigate. The alarm level (section 8 of the Quality Standard) is below the score box.
+        fields:
+          - {id: alarm_met, kind: select, label: "Has the score reached the alarm level?", options: ["Yes", "No"]}
+        answer: "`Yes`. The score of 83 is below the floor of 85. It has dropped exactly 5 points from the baseline of 88, which is not more than the limit of 5, so only one of the two lines is crossed. Crossing either line is enough, so you must investigate."
         show:
           - table: &card
               id: sample
@@ -24,280 +28,229 @@ tabs:
                   - {label: "c2 Exact figure or entitlement", current: current_score_c2, baseline: baseline_score_c2}
                   - {label: "c3 Answers the question asked", current: current_score_c3, baseline: baseline_score_c3}
                   - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
+          - doc: quality-standard.md
+            section: "8. Quality alarm level"
 
-      - title: Find the date when it went wrong
+      - title: When did it start, and which answers dropped?
         text: |
-          If the marks dropped suddenly on one day, that day points to what changed. If they crept down slowly, that is a different kind of problem.
+          Below are the 20 marked answers in date order. Each has a mark at baseline and a mark now, out of 4.
 
-          Below are the 20 marked answers, in date order. Each has two marks out of 4: the **Baseline score** it got when the baseline was set, and the **Current score** it gets now.
-
-          Read down those two columns together. Find the first date on which the current mark is lower than the baseline mark, and type that date.
+          1. Find the first date on which an answer's mark now is lower than its mark at baseline.
+          2. Look at the questions of the answers that dropped. Are they all kinds of question, or one kind?
         fields:
-          - {id: change_date, kind: text, label: "Date the quality drop begins"}
+          - {id: drop_start, kind: text, label: "Date the quality drop begins"}
+          - {id: drop_pattern, kind: select, label: "Which answers dropped?", options: ["All kinds of questions", "Only questions about paid time off (PTO)", "Only questions about expenses", "Only questions about benefits"]}
         hints:
-          - title: "Hint 1: where to look"
-            text: "Look for the first row where the current mark is lower than the baseline mark. Then ask: do the low marks start at one point, or are they spread out evenly?"
-        answer: "`2026-08-12`. Answers on or after that date get much lower marks, and answers before it are at or near their baseline. It is a sudden step down, not a slow slide."
+          - title: "Hint: where to look"
+            text: "Compare the two mark columns row by row. For every row where the mark now is lower, read its question."
+        answer: |
+          - The drop begins on `2026-09-02`.
+          - `Only questions about paid time off (PTO)`. The five answers that dropped (`L22-09`, `L22-11`, `L22-13`, `L22-17`, `L22-19`) are all about PTO. Expense and benefits answers from the same weeks kept their marks.
         show:
-          - table: &sampletable
+          - table:
               source: sample.csv
+              tools: false
               computed:
                 - {name: baseline_total, sum: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4]}
                 - {name: current_total, sum: [current_score_c1, current_score_c2, current_score_c3, current_score_c4]}
-              hide: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4]
-              labels:
-                case_id: Case
-                employee_question: Question
-                assistant_response: Assistant response
-                cited_source: Cited source
-                baseline_total: "Baseline score (of 4)"
-                current_total: "Current score (of 4)"
+              hide: [assistant_response, cited_source, baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4]
+              fit: true
+              labels: {case_id: Case, date: Date, employee_question: Question, baseline_total: "Mark at baseline (of 4)", current_total: "Mark now (of 4)"}
 
   - id: causes
-    title: Rule Out Causes
+    title: Check the Causes
     type: steps
     steps:
-      - title: Check whether the company policy changed
+      - title: Check the AI model first
         text: |
           When an AI tool's answers get worse, there are four usual reasons:
 
-          - **The inputs changed:** the documents the AI reads from changed.
           - **The AI model changed:** the company that makes the AI's "brain" swapped or updated it.
-          - **The company policy changed:** the real rules changed, so the old answers are now out of date.
           - **The prompt changed:** someone changed the instructions given to the AI.
+          - **The inputs changed:** the documents the AI reads from changed.
+          - **The company policy changed:** the real rules changed, so the answers change with them.
 
-          You check each one against the evidence, and do not just guess. Start with the company policy. If it had changed, the answers would look worse because the rules moved, not because PolicyPal broke.
+          Last month the cause was a model change, so that is the first thing most people check. Below is the activity log, showing which AI model was running each time PolicyPal was used, and your drop date.
 
-          Below are the date and `Cited source` of each answer. Each source name includes the date its policy started. Compare the sources before your drop date with the sources after it, and choose what you found.
+          Did the model change? If it did, does the timing fit the drop?
         fields:
-          - id: r_policy
+          - id: r_model
             kind: select
-            label: "Changed company policy"
+            label: "The AI model"
             options:
-              - "Ruled out: the cited policies and their effective dates are the same before and after the drop"
-              - "Not ruled out: the cited policies or their effective dates changed around the date of the drop"
-        answer: "Ruled out. The sources and their start dates are the same before and after 2026-08-12."
+              - "Ruled out: the model did not change"
+              - "Ruled out: the model changed, but the timing does not fit the drop"
+              - "Not ruled out: the model changed just before the drop"
+        answer: "`Ruled out: the model changed, but the timing does not fit the drop`. The model did change on 2026-08-25, from `gpt-55-high` back to `gpt-4o`, the model PolicyPal used before Lab 2.1. But the answers kept their marks for a whole week after that, and the drop only starts on 2026-09-02. If the model were the cause, the drop would start straight after the change."
         show:
-          - answers: [change_date]
-          - table: {source: sample.csv, tools: false, hide: [employee_question, assistant_response, baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4], labels: {case_id: Case, cited_source: Cited source}}
+          - answers: [drop_start]
+          - table: {source: activity-log.csv, tools: false, hide: [UserId, Operation, AppHost, AppIdentity, AgentName, AgentVersion, AccessedResources, SensitivityLabelId, XPIADetected, AISystemPlugin, MessageId, IsPrompt]}
 
       - title: Check whether the prompt changed
         text: |
-          The prompt is the set of instructions PolicyPal is given. You cannot see the prompt itself, but the platform gives PolicyPal a new version number every time someone changes its instructions and publishes them.
+          The prompt is the set of instructions PolicyPal is given. You cannot see the prompt itself, but the platform gives PolicyPal a new version number, `AgentVersion`, every time someone changes its instructions and publishes them.
 
-          Do not judge this from the answers. Wordier answers could come from a new prompt or from a new model, so the answers cannot tell you which one it was.
-
-          Below is the platform's activity log, in date order, showing the `AgentVersion` column. Is the version number the same before and after your drop date? Choose what you found.
-
-          Not every platform shows an agent version. If yours does not, ask whoever manages the assistant for the dates its instructions were changed.
+          Below is the activity log again, showing `AgentVersion`. Is it the same before and after your drop date?
         fields:
-          - id: r_prompt
+          - id: prompt_check
             kind: select
-            label: "Modified prompt"
+            label: "The prompt"
             options:
-              - "Ruled out: AgentVersion is the same before and after the drop, so PolicyPal's instructions were not changed"
+              - "Ruled out: AgentVersion is the same before and after the drop"
               - "Not ruled out: AgentVersion changed around the date of the drop"
-        answer: "Ruled out. `AgentVersion` is `1.4` on every row, before and after the drop. Nobody published new instructions."
+        answer: "`Ruled out`. `AgentVersion` is `1.4` on every row. Nobody published new instructions."
         show:
-          - answers: [change_date]
+          - answers: [drop_start]
           - table: {source: activity-log.csv, tools: false, hide: [UserId, Operation, AppHost, AppIdentity, AgentName, AccessedResources, SensitivityLabelId, XPIADetected, AISystemPlugin, ModelProviderName, ModelName, ModelVersion, MessageId, IsPrompt]}
 
-      - title: Check whether the inputs changed
+      - title: Check the documents and the policy
         text: |
-          The inputs are the documents PolicyPal reads to find its answers. If those changed, the answers would change too. The activity log records which documents PolicyPal actually read each time.
+          The last two causes are close cousins, and you tell them apart like this:
 
-          Below is the activity log again, showing the `AccessedResources` column. Does PolicyPal read the same set of documents before and after your drop date? Choose what you found.
+          - **The inputs changed** if the documents PolicyPal reads changed but the real rules did not. For example, someone uploaded a draft by mistake.
+          - **The company policy changed** if the rules themselves changed, and PolicyPal is now reading and quoting the new, official policy.
+
+          Below are two tables. The first shows which documents PolicyPal read each time (`AccessedResources`). The second shows the policy each answer cites, with its effective date. Look at what appears around your drop date, and choose what you found.
         fields:
-          - id: r_inputs
+          - id: policy_check
             kind: select
-            label: "Changed inputs"
+            label: "The documents and the policy"
             options:
-              - "Ruled out: AccessedResources lists the same documents before and after the drop"
-              - "Not ruled out: the documents in AccessedResources changed around the date of the drop"
-        answer: "Ruled out. Before and after the drop, PolicyPal reads the same five documents: `PTO Policy 2025`, `Expense & Travel Policy 2025`, `Benefits Guide 2025`, `Code of Conduct 2025`, and `Remote Work Policy 2024`."
+              - "Neither changed: the same documents are read and cited throughout"
+              - "The inputs changed: a draft or wrong document was added"
+              - "The company policy changed: a new, official policy took effect"
+        answer: "`The company policy changed`. From 2026-09-02, PTO questions read `PTO Policy 2026.docx` instead of the 2025 version, and the answers cite `PTO Policy 2026 (effective 2026-09-01)`. It is a named policy with an official start date, one day before the drop, so the rules really changed."
         show:
-          - answers: [change_date]
+          - answers: [drop_start]
+          - markdown: "#### Documents PolicyPal read"
           - table: {source: activity-log.csv, tools: false, hide: [UserId, Operation, AppHost, AppIdentity, AgentName, AgentVersion, SensitivityLabelId, XPIADetected, AISystemPlugin, ModelProviderName, ModelName, ModelVersion, MessageId, IsPrompt]}
+          - markdown: "#### The policy each answer cites"
+          - table: {source: sample.csv, tools: false, hide: [employee_question, assistant_response, baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4], labels: {case_id: Case, date: Date, cited_source: Cited source}}
 
-  - id: model
-    title: The Model
+      - title: Are the new answers actually wrong?
+        text: |
+          The five answers that dropped all lost their mark on c2, the rule that every figure must match the reference figures in the Quality Standard.
+
+          Below are those five answers, and the reference figures (section 9 of the Quality Standard) they were marked against. Compare the figures in the answers with the figures in the standard, and with the policy each answer cites.
+
+          Is PolicyPal wrong, or is something else out of date?
+        fields:
+          - id: answers_wrong
+            kind: select
+            label: "Are the new PTO answers wrong?"
+            options:
+              - "Yes: PolicyPal should still give the 2025 figures"
+              - "No: PolicyPal is quoting the new policy correctly; the Quality Standard's figures are out of date"
+        answer: "`No`. PolicyPal gives the figures from `PTO Policy 2026`, which is now the official policy. The answers were marked down only because the reference figures in the Quality Standard still list the 2025 figures (15 days a year, a carryover cap of 5, 5 bereavement days, two weeks' notice). The yardstick is out of date, not the tool."
+        show:
+          - table: {source: sample.csv, tools: false, where: {case_id: [L22-09, L22-11, L22-13, L22-17, L22-19]}, hide: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4], labels: {case_id: Case, date: Date, employee_question: Question, assistant_response: Assistant response, cited_source: Cited source}}
+          - doc: quality-standard.md
+            section: "9. Reference figures from current policy"
+
+  - id: conclusion
+    title: Conclusion
     type: steps
     steps:
-      - title: Find the date the AI model changed
+      - title: Write the conclusion
         text: |
-          Three of the four causes are ruled out. The last one is the AI model. The activity log also records which AI model was running each time PolicyPal was used, in three columns: `ModelProviderName`, `ModelName`, and `ModelVersion`.
+          The conclusion is the part of the test record a busy person reads first. It answers "so what happened?".
 
-          Below is the activity log in date order, showing those columns. Read down `ModelName` and `ModelVersion` together, find where they change, and write what changed and on what date.
-
-          Real logs do not always show all three columns. It depends on the platform and how it is set up. The company name is the one you can most often see, and the version number is the one you see least. The method is the same.
+          In two or three sentences, say what caused the drop, the evidence for it, and whether PolicyPal itself is at fault. What you found in the earlier steps is below.
         fields:
-          - {id: m_change, kind: textarea, rows: 2, label: "What changed in the model fields, and on what date?"}
+          - {id: conclusion, kind: textarea, rows: 4, label: "What caused the drop, the evidence, and whether PolicyPal is at fault"}
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "`ModelName` changes from ______ to ______ and `ModelVersion` from ______ to ______, on ______."'
-        answer: "Both change on the same day. `ModelName` changes from `gpt-4o` to `gpt-55-high`, and `ModelVersion` changes from `2024-11-20` to `2025-06-15`, on `2026-08-11`. The company name stays `OpenAI`, so this is a new version from the same company, not a switch to a different company."
+          - title: "Hint: what to synthesize"
+            text: "Draw on the four cause checks you just completed (the model, the prompt, the documents, and whether the answers are wrong). Summarize what caused the drop and whether PolicyPal itself is at fault, or whether something else (the reference figures in the standard) is out of date."
         show:
-          - table: {source: activity-log.csv, tools: false, hide: [UserId, Operation, AppHost, AppIdentity, AgentName, AgentVersion, AccessedResources, SensitivityLabelId, XPIADetected, AISystemPlugin, MessageId, IsPrompt]}
+          - answers: [drop_start, drop_pattern, r_model, prompt_check, policy_check, answers_wrong]
 
-      - title: Write down the cause and the proof
+      - title: Decide who to speak to
         text: |
-          Cause and effect need to be close together in time. Compare the date the model changed with the date the marks dropped. Both of your answers are below.
+          Send a finding to whoever can change the thing that is out of date. Your conclusion is below.
 
-          Then write one sentence that names the cause and gives the proof: the tab, the column, and the values. A cause without proof is only a guess, and someone who was not here needs to be able to check what you say.
+          Choose who you would speak to, then write one line saying why.
         fields:
-          - {id: cause, kind: textarea, rows: 3, label: "State the cause in one sentence and cite the specific evidence (tab, column, values)."}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Cause: ______. Evidence: in the ______, ______ changes from ______ to ______ on ______, ______ before the Business Quality Score drop."'
-          - title: "Hint 2: an example answer"
-            text: '"Cause: vendor model update on 2026-08-11. Evidence: in the Activity Log, ModelName changes from gpt-4o to gpt-55-high and ModelVersion from 2024-11-20 to 2025-06-15 on that date, one day before the Business Quality Score drop."'
-        answer: "The model changed on 2026-08-11 and the marks dropped on 2026-08-12, one day apart. The cause is the vendor model update."
+          - id: handoff
+            kind: select
+            label: "Who do you speak to, and what happens next?"
+            options:
+              - "The platform / technical owner, to change the model again"
+              - "The team that owns the HR policy library, to confirm PTO Policy 2026 is the official policy; then I update the Quality Standard's figures and re-set the baseline"
+              - "The HR operations reviewers, to mark the answers again"
+              - "No one: PolicyPal is right, so there is nothing to do"
+          - {id: handoff_why, kind: text, label: "Why? One line."}
+        answer: "`The team that owns the HR policy library`, then you update the standard. The policy changed, so the owners of the policy confirm it is official, and you, as the Business AI Owner, update the reference figures in the Quality Standard and re-set the baseline. The platform team cannot help: nothing is wrong with the model. Doing nothing is also wrong, because every future review would keep raising the same false alarm."
         show:
-          - answers: [change_date, m_change]
-
-  - id: record
-    title: Test Record
-    type: steps
-    steps:
-      - title: Say what you tested, when, and against what
-        text: |
-          A test record is a short written report of a check. Anyone reading it later should be able to see what you tested, when, and against what rules.
-
-          The facts you need are below. Fill in all three boxes. For **When**, use today's date.
-        fields:
-          - {id: tr_what, kind: textarea, rows: 2, label: "The workflow, and the baseline case set: ID range and count"}
-          - {id: tr_when, kind: text, label: "The date this test was run"}
-          - {id: tr_standard, kind: text, label: "The quality standard name"}
-        hints:
-          - title: "Hint 1: sentences to start from"
-            text: |
-              - What was tested: "The ______ workflow, using the ______-response baseline set, cases ______ to ______."
-              - When: today's date.
-              - Against what standard: the name of the standard.
-          - title: "Hint 2: example answers"
-            text: |
-              - What was tested: "The PolicyPal workflow, using the 20-response baseline set, cases L22-01 to L22-20."
-              - Against what standard: "The PolicyPal Business Quality Standard."
-        show:
-          - markdown: |
-              | What was checked | |
-              |---|---|
-              | Workflow | PolicyPal |
-              | Cases | `L22-01` to `L22-20` (20 responses) |
-              | Standard the answers were marked against | The PolicyPal Business Quality Standard |
-
-      - title: Say how you did the check
-        text: |
-          Someone reading your record needs to know what you did, so they can trust the result or repeat it.
-
-          Write one or two sentences saying what you compared and where you looked. What you found for each cause is below.
-        fields:
-          - {id: tr_method, kind: textarea, rows: 3, label: "How the test was run and what was checked"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Compared the ______ scores with the ______ scores, then tested the ______ causes against the ______."'
-          - title: "Hint 2: an example answer"
-            text: "\"Compared current scores with baseline scores in the scored sample. Tested the four causes: policy against the cited sources' effective dates, and prompt, inputs and model against the AgentVersion, AccessedResources and model columns of the activity log.\""
-        show:
-          - answers: [r_policy, r_prompt, r_inputs, m_change]
-
-      - title: Say what the numbers were
-        text: |
-          The result is the plain facts, without opinion yet.
-
-          Write the score against the baseline, how many answers scored below their own baseline, and which rule (criterion) moved most. All of it is in the score box below. Open **How each criterion moved** to see which rule moved most.
-        fields:
-          - {id: tr_result, kind: textarea, rows: 3, label: "Current score against baseline, how many responses scored below their own baseline, and the criterion that moved most"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "The Business Quality Score fell from ______ to ______; ______ of 20 responses scored below their own baseline; ______ was the criterion most affected."'
-          - title: "Hint 2: an example answer"
-            text: '"The Business Quality Score fell from 90 to 69; 10 of 20 responses scored below their own baseline; c3 was the criterion most affected."'
-        show:
-          - table: *card
-
-      - title: Say what you decided, and why
-        text: |
-          The conclusion answers "so what happened?". It is the part a busy person reads first.
-
-          Say whether quality got worse. If it did, say what caused it and what proof you are pointing to. Your cause sentence from Step 7 is below.
-        fields:
-          - {id: tr_conclusion, kind: textarea, rows: 3, label: "Degraded or not degraded. If degraded: the cause and the evidence you cite for it"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Degradation ______. The cause is ______ on ______. Evidence: ______."'
-          - title: "Hint 2: an example answer"
-            text: '"Degradation confirmed. The cause is a vendor model update on 2026-08-11. Evidence: the model name and version change in the Activity Log on that date, one day before the drop."'
-        show:
-          - answers: [cause]
+          - answers: [conclusion]
 
   - id: answer
     title: My Answer
     type: report
     heading: Quality Test Record
-    intro: "A third party should be able to read this record cold and know what was tested, how, and what you concluded. It is the kind of record that goes in an evidence packet (Module 5) and is attached to an escalation (Module 4). To keep a copy, click Save as PDF."
+    intro: "What was tested: the PolicyPal workflow, 20 answers from 2026-08-26 to 2026-09-18 (cases L22-01 to L22-20), marked against the PolicyPal Business Quality Standard. A third party should be able to read this record cold and know what was found and what happens next. To keep a copy, click Save as PDF."
     sections:
-      - {title: "What was tested", fields: [tr_what]}
-      - {title: "When", fields: [tr_when]}
-      - {title: "Against what standard", fields: [tr_standard]}
-      - {title: "Method", fields: [tr_method]}
-      - {title: "Confirm the drop", fields: [change_date]}
-      - {title: "Three causes ruled out", fields: [r_policy, r_prompt, r_inputs]}
-      - {title: "The vendor model update", fields: [m_change, cause]}
-      - {title: "Result", fields: [tr_result]}
-      - {title: "Conclusion", fields: [tr_conclusion]}
+      - {title: "Is an investigation needed?", fields: [alarm_met]}
+      - {title: "The drop", fields: [drop_start, drop_pattern]}
+      - {title: "The four causes checked", fields: [r_model, prompt_check, policy_check]}
+      - {title: "Are the answers wrong?", fields: [answers_wrong]}
+      - {title: "Conclusion", fields: [conclusion]}
+      - {title: "Next step", fields: [handoff, handoff_why]}
 
-  - id: challenges
-    title: Challenges
-    type: steps
-    optional: true
-    steps:
-      - title: "Bronze challenge: diagnose a second sample"
-        text: |
-          This tab is optional. Nothing here counts towards your progress.
-
-          Below is a second set of marked answers, from a different time period. Its marks dropped too. Find out why, the same way you did in this lab. This time the clue is in the `Source effective date` column.
-
-          Say which cause the second sample points to, and what your proof is.
-        fields:
-          - {id: bronze, kind: textarea, rows: 3, label: "Cause and evidence"}
-        answer: "A changed company policy. From `BR-07` onwards the answers cite `PTO Policy 2026`, effective `2026-08-15`, and give new figures (12 days instead of 15, a 3-day carryover cap instead of 5, 3 bereavement days instead of 5). The answers repeat the new policy correctly; they only score lower because they were marked against the old figures."
-        show:
-          - table:
-              id: bronze
-              source: bronze-sample.csv
-              view: scorecard
-              scorecard:
-                baseline_bqs: baseline_bqs
-                criteria:
-                  - {label: "c1 Current, named source", current: current_score_c1, baseline: baseline_score_c1}
-                  - {label: "c2 Exact figure or entitlement", current: current_score_c2, baseline: baseline_score_c2}
-                  - {label: "c3 Answers the question asked", current: current_score_c3, baseline: baseline_score_c3}
-                  - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
-          - table:
-              source: bronze-sample.csv
-              computed:
-                - {name: baseline_total, sum: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4]}
-                - {name: current_total, sum: [current_score_c1, current_score_c2, current_score_c3, current_score_c4]}
-              hide: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4]
-              labels: {case_id: Case, employee_question: Question, assistant_response: Assistant response, cited_source: Cited source, cited_source_effective: "Source effective date", baseline_total: "Baseline score (of 4)", current_total: "Current score (of 4)"}
-
-      - title: "Silver challenge: find the second change"
-        text: |
-          A second real change is hiding in the activity log below, in the same period as the model change. Find it. Then explain in two or three sentences how it adds to the model change, instead of replacing it as the cause.
-        fields:
-          - {id: silver, kind: textarea, rows: 3, label: "What is it, and how does it compound the model change rather than replace it as the cause?"}
-        hints:
-          - title: "Hint: where to look"
-            text: "Look at the columns other than the model ones. One of them is empty until a date in the same period as the model change."
-        answer: "`AISystemPlugin` is empty until `2026-08-18`, when `BingWebSearch` starts appearing. Web search was switched on a week after the model change. It started after the drop began on 2026-08-12, so it cannot be the cause, but it may make the answers vaguer still, and it means PolicyPal is now reading things from outside the HR Policy Library."
-        show:
-          - table: {source: activity-log.csv, tools: false}
-
-      - title: "Gold challenge: write it for non-technical people"
-        text: |
-          Write your finding as a five-sentence note for people who are not technical. Say what changed, how you know, what it is costing, what you are asking for, and by when. Your cause and conclusion are below.
-        fields:
-          - {id: gold, kind: textarea, rows: 5, label: "Five sentences for non-technical stakeholders: what changed, how you know, what it is costing, what you are asking for, and by when"}
-        show:
-          - answers: [cause, tr_conclusion]
+# NOTE: the challenges below were written for the earlier version of this lab, where the cause was the
+# 2026-08-11 model change. They refer to data that has since changed (and the Bronze sample's baseline
+# is 95, not PolicyPal's recorded baseline of 88); update them before restoring.
+# challenge section: commented out. Remove the leading '# ' from each line below to restore it.
+#   - id: challenges
+#     title: Challenges
+#     type: steps
+#     optional: true
+#     steps:
+#       - title: "Bronze challenge: diagnose a second sample"
+#         text: |
+#           This tab is optional. Nothing here counts towards your progress.
+#
+#           Below is a second set of marked answers, from a different time period. Its marks dropped too. Find out why, the same way you did in this lab. This time the clue is in the `Source effective date` column.
+#
+#           Say which cause the second sample points to, and what your proof is.
+#         fields:
+#           - {id: bronze, kind: textarea, rows: 3, label: "Cause and evidence"}
+#         answer: "A changed company policy. From `BR-07` onwards the answers cite `PTO Policy 2026`, effective `2026-08-15`, and give new figures (12 days instead of 15, a 3-day carryover cap instead of 5, 3 bereavement days instead of 5). The answers repeat the new policy correctly; they only score lower because they were marked against the old figures."
+#         show:
+#           - table:
+#               id: bronze
+#               source: bronze-sample.csv
+#               view: scorecard
+#               scorecard:
+#                 baseline_bqs: baseline_bqs
+#                 criteria:
+#                   - {label: "c1 Current, named source", current: current_score_c1, baseline: baseline_score_c1}
+#                   - {label: "c2 Exact figure or entitlement", current: current_score_c2, baseline: baseline_score_c2}
+#                   - {label: "c3 Answers the question asked", current: current_score_c3, baseline: baseline_score_c3}
+#                   - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
+#           - table:
+#               source: bronze-sample.csv
+#               computed:
+#                 - {name: baseline_total, sum: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4]}
+#                 - {name: current_total, sum: [current_score_c1, current_score_c2, current_score_c3, current_score_c4]}
+#               hide: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4]
+#               labels: {case_id: Case, employee_question: Question, assistant_response: Assistant response, cited_source: Cited source, cited_source_effective: "Source effective date", baseline_total: "Baseline score (of 4)", current_total: "Current score (of 4)"}
+#
+#       - title: "Silver challenge: find the second change"
+#         text: |
+#           A second real change is hiding in the activity log below, in the same period as the model change. Find it. Then explain in two or three sentences how it adds to the model change, instead of replacing it as the cause.
+#         fields:
+#           - {id: silver, kind: textarea, rows: 3, label: "What is it, and how does it compound the model change rather than replace it as the cause?"}
+#         hints:
+#           - title: "Hint: where to look"
+#             text: "Look at the columns other than the model ones. One of them is empty until a date in the same period as the model change."
+#         answer: "`AISystemPlugin` is empty until `2026-08-18`, when `BingWebSearch` starts appearing. Web search was switched on a week after the model change. It started after the drop began on 2026-08-12, so it cannot be the cause, but it may make the answers vaguer still, and it means PolicyPal is now reading things from outside the HR Policy Library."
+#         show:
+#           - table: {source: activity-log.csv, tools: false}
+#
+#       - title: "Gold challenge: write it for non-technical people"
+#         text: |
+#           Write your finding as a five-sentence note for people who are not technical. Say what changed, how you know, what it is costing, what you are asking for, and by when. Your cause and conclusion are below.
+#         fields:
+#           - {id: gold, kind: textarea, rows: 5, label: "Five sentences for non-technical stakeholders: what changed, how you know, what it is costing, what you are asking for, and by when"}
+#         show:
+#           - answers: [cause, tr_conclusion]

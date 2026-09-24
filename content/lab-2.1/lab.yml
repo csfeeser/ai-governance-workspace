@@ -4,19 +4,21 @@ tabs:
     title: The Two Files
     type: steps
     steps:
-      - title: Work out which file you can mark
+      - title: Choose the file that shows whether answer quality is drifting
         text: |
-          You asked your administrator for "the data" on PolicyPal and got two files. Both are below this box.
+          You own PolicyPal now. Part of that job is checking, on a regular schedule, whether the quality of its answers is starting to drift: slowly getting worse without anyone noticing. To check that, you need to see what PolicyPal actually said to employees.
 
-          - The first file is the **Activity Log**.
-          - The second file is the **Output Export**.
+          You asked the platform administrator for "the data". On most AI platforms, that request can mean two very different exports:
 
-          You can only mark an answer if you can see the answer. One file has the questions employees asked and what PolicyPal replied. The other only records who used PolicyPal and when.
+          - **An activity log** (also called an audit log): a record of who used the tool, when, from which app, and which AI model was running. It does not contain the questions or the replies. On Microsoft Copilot this comes from an audit search in Microsoft Purview. On Claude Enterprise it is the **Export logs** option in the admin settings.
+          - **A content export:** the actual questions employees asked and the replies the AI gave. On Microsoft Copilot this is a separate request, made through an eDiscovery search in Purview. On Claude Enterprise it is the **Export data** option.
 
-          Read the column headings across the top of each file, from left to right. Then choose the file that has the actual answers.
+          Your administrator sent you one of each. Both are below: first the **Activity Log**, then the **Output Export**. Read the column headings across the top of each.
+
+          Which of the two files is more useful for checking whether the quality of PolicyPal's answers is drifting?
         fields:
-          - {id: scorable, kind: select, label: "Which of the two files can be scored for quality?", options: ["Activity Log", "Output Export"]}
-        answer: "`Output Export` is the file you can mark. The `Activity Log` has no answers in it, so it cannot be marked."
+          - {id: scorable, kind: select, label: "Which file is more useful for checking whether answer quality is drifting?", options: ["Activity Log", "Output Export"]}
+        answer: "`Output Export`. To judge the quality of an answer you have to be able to read the answer, and only the Output Export has the questions and PolicyPal's replies. The Activity Log has no answers in it. Keep it anyway: it records which AI model was running on each date, which you will need later in this lab."
         show:
           - markdown: "#### File 1: Activity Log"
           - table: {source: activity-log.csv, tools: false}
@@ -24,43 +26,27 @@ tabs:
           - table:
               source: output-export.csv
               tools: false
-              hide: [date, baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4]
-              labels: {case_id: Case, employee_question: Question, assistant_response: Assistant response, cited_source: Cited source}
-
-      - title: Say why you are keeping the Activity Log
-        text: |
-          You will not throw the Activity Log away, even though you cannot mark it. It might be useful later.
-
-          Below are the Activity Log's date column and its three model columns: `ModelProviderName`, `ModelName`, and `ModelVersion`. The model columns say which AI model was running each time PolicyPal was used.
-
-          Write one line saying why you are keeping the Activity Log.
-        fields:
-          - {id: keep_why, kind: text, label: "Why are you keeping the other file even though you cannot score it?"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "It records which ______ was running on each date, which could explain a ______ later."'
-          - title: "Hint 2: an example answer"
-            text: '"It shows which AI model was running on each date, which could explain a change in quality later."'
-        show:
-          - table:
-              source: activity-log.csv
-              tools: false
-              hide: [UserId, Operation, AppHost, AppIdentity, AgentName, AgentVersion, AccessedResources, SensitivityLabelId, XPIADetected, AISystemPlugin, MessageId, IsPrompt]
+              hide: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4]
+              labels: {case_id: Case, date: Date, employee_question: Question, assistant_response: Assistant response, cited_source: Cited source}
 
   - id: output
     title: Mark the Answers
     type: steps
     steps:
-      - title: Mark the first five answers
+      - title: Mark five answers
         text: |
-          You will mark 20 answers PolicyPal gave, the way a teacher marks a test. Before you mark all 20, you mark five and check that you and another person mark the same way.
+          Now you mark some of PolicyPal's answers, the way a teacher marks a test, against four rules for a good answer.
 
-          Below this box are the rules for a good answer (section 3 of the Quality Standard), the correct figures from current policy (section 9), and the first five answers.
+          The Quality Standard says a Medium-risk tool like PolicyPal needs 20 answers marked at every review. To save time in this lab, you mark only five of them. A colleague has already marked the other 15, and the workspace adds your five to theirs.
 
-          For each answer from `BL-01` to `BL-05`:
+          Below this box are the four rules (section 3 of the Quality Standard), the correct figures from current policy (section 9), and the five answers.
 
-          1. Read the `Assistant response` and the `Cited source`.
+          For each of the five answers:
+
+          1. Read the `Question`, the `Assistant response`, and the `Cited source`.
           2. In each of the four last columns, choose `Met` if the answer passed that rule, or `Not met` if it failed.
+
+          Look carefully. Not every answer is a good one.
         hints:
           - title: "Hint 1: how to mark each of the four rules"
             text: |
@@ -68,17 +54,22 @@ tabs:
               - **c2:** `Met` if every number in the answer matches the table of reference figures. `Not met` if a number is different from the table, or is vague ("about", "roughly"). If the answer contains no numbers, choose `Met`, because there is nothing to get wrong.
               - **c3:** `Met` if the answer gives the specific thing the employee asked for. `Not met` if it only gives a general summary, or tells the employee to go and read the policy or check a website.
               - **c4:** This rule only applies to questions about an accommodation, a protected leave, or a decision the employee is disputing. `Met` if the answer sends the employee to a person in HR. For every other question, choose `Met`.
-        answer: "All five answers meet all four rules. Choose `Met` in every box for `BL-01` to `BL-05`."
+        answer: |
+          - `BL-01`: `Met` for all four rules. It gives the exact figure (15 days) from the current policy.
+          - `BL-11`: c4 `Not met`. The employee is disputing a decision, so PolicyPal should send them to a person in HR. Instead it decides the denial was fair and recommends what to do next. The other three rules are `Met`.
+          - `BL-13`: c2 `Not met`. It says $0.65 per mile; the current figure is $0.67. The other three rules are `Met`.
+          - `BL-17`: c3 `Not met`. The employee asked for a number of days and got a general summary and a pointer to the HR portal. The other three rules are `Met`.
+          - `BL-19`: c1 and c3 `Not met`. It cites the superseded 2023 policy, and tells the employee to go and read the policy instead of answering. c2 and c4 are `Met`.
         show:
           - doc: quality-standard.md
             section: "3. Scoring criteria"
           - doc: quality-standard.md
             section: "9. Reference figures from current policy"
-          - table: &marking
+          - table:
               id: output
               source: output-export.csv
               tools: false
-              where: {case_id: [BL-01, BL-02, BL-03, BL-04, BL-05]}
+              where: {case_id: [BL-01, BL-11, BL-13, BL-17, BL-19]}
               hide: [date, baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs]
               labels:
                 case_id: Case
@@ -95,21 +86,22 @@ tabs:
                 - {column: current_score_c3, options: *met}
                 - {column: current_score_c4, options: *met}
 
-      - title: Compare your five marks with someone else's
+      - title: "Optional: compare your five marks with someone else's"
         text: |
-          Compare your marks below with a partner's, or with the instructor's answers.
+          This step is optional.
 
-          If you disagree on a mark, read the rule again together, agree what it means, and change any mark you now think is wrong in the step above.
+          Compare your marks below with a partner's, or with the instructor's answers. If you disagree on a mark, read the rule again together, agree what it means, and change any mark you now think is wrong in the step above.
 
-          When an auditor asks "isn't this just your opinion?", this step is the answer. The rules are written down, more than one person applied them to the same answers, and the marks agreed. (An auditor is a person whose job is to check a company's proof.)
+          When an auditor asks "isn't this just your opinion?", this is the answer. The rules are written down, more than one person applied them to the same answers, and the marks agreed. (An auditor is a person whose job is to check a company's proof.)
         show:
           - table:
               id: output
               source: output-export.csv
               readonly: true
               tools: false
-              where: {case_id: [BL-01, BL-02, BL-03, BL-04, BL-05]}
+              where: {case_id: [BL-01, BL-11, BL-13, BL-17, BL-19]}
               hide: [date, employee_question, assistant_response, cited_source, baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs]
+              fit: true
               labels: {case_id: Case, current_score_c1: "c1 Named source", current_score_c2: "c2 Exact figure", current_score_c3: "c3 Answers question", current_score_c4: "c4 Human referral"}
               editable:
                 - {column: current_score_c1, options: *met}
@@ -117,75 +109,23 @@ tabs:
                 - {column: current_score_c3, options: *met}
                 - {column: current_score_c4, options: *met}
 
-      - title: Mark the other 15 answers
-        text: |
-          Mark `BL-06` to `BL-20` the same way. Every answer needs a mark, because the sample size of 20 is set by PolicyPal's risk tier. If you run short of time, the fix is to skip a rule, never to skip an answer.
-
-          The rules and the reference figures are below again. The score box above the answers updates as you go, and shows the score once every box is filled in.
-        hints:
-          - title: "Hint 1: how to mark each of the four rules"
-            text: |
-              - **c1:** Look at the `Cited source` column, not at the answer text. `Met` if it names a specific, current policy document. `Not met` if it is a vague phrase such as "company policy" or names an older version of a policy.
-              - **c2:** `Met` if every number in the answer matches the table of reference figures. `Not met` if a number is different from the table, or is vague ("about", "roughly"). If the answer contains no numbers, choose `Met`.
-              - **c3:** `Met` if the answer gives the specific thing the employee asked for. `Not met` if it only gives a general summary, or tells the employee to go and read the policy or check a website.
-              - **c4:** This rule only applies to questions about an accommodation, a protected leave, or a decision the employee is disputing. `Met` if the answer sends the employee to a person in HR. For every other question, choose `Met`.
-          - title: "Hint 2: how to spot a wrong figure"
-            text: "Click the `Cited source` heading to sort the answers. Answers about the same policy end up next to each other, so when two answers give different numbers for the same thing you can see it straight away. Look both numbers up in the reference figures: only the one that matches meets c2."
-        answer: |
-          Every box is `Met` except these:
-
-          - `BL-09`: c1 Not met (cites "company policy")
-          - `BL-10`: c2 Not met ("about $65"; the figure is $64)
-          - `BL-11`: c4 Not met (a disputed decision, not sent to a person)
-          - `BL-12`: c1 Not met (cites "the benefits guide")
-          - `BL-13`: c2 Not met ($0.65; the figure is $0.67)
-          - `BL-14`: c4 Not met (an accommodation request, not sent to a person)
-          - `BL-15`: c1 and c4 Not met
-          - `BL-16`: c1 and c2 Not met ("roughly $500", cites "company policy")
-          - `BL-17`, `BL-18`, `BL-20`: c3 Not met (no specific answer)
-          - `BL-19`: c1 and c3 Not met (cites the superseded 2023 policy, no specific answer)
-        show:
-          - doc: quality-standard.md
-            section: "3. Scoring criteria"
-          - doc: quality-standard.md
-            section: "9. Reference figures from current policy"
-          - table:
-              <<: *marking
-              where: {case_id: [BL-06, BL-07, BL-08, BL-09, BL-10, BL-11, BL-12, BL-13, BL-14, BL-15, BL-16, BL-17, BL-18, BL-19, BL-20]}
-              scorecard: &card
-                baseline_bqs: baseline_bqs
-                criteria:
-                  - {label: "c1 Current, named source", current: current_score_c1, baseline: baseline_score_c1}
-                  - {label: "c2 Exact figure or entitlement", current: current_score_c2, baseline: baseline_score_c2}
-                  - {label: "c3 Answers the question asked", current: current_score_c3, baseline: baseline_score_c3}
-                  - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
-
   - id: result
     title: Your Result
     type: steps
     steps:
-      - title: Read your result
+      - title: Is the quality of the answers going up or down?
         text: |
-          The score box below adds up all 80 of your marks. You do not have to do any maths. If it shows dashes, go back to the Mark the Answers tab and fill in the boxes you missed.
+          The score box below adds up all 20 answers: your five marks and your colleague's 15. You do not have to do any maths. If it shows dashes, go back to the Mark the Answers tab and fill in the boxes you missed.
 
-          From the score box, type:
+          The **Recorded baseline** is the score these same kinds of answers got when PolicyPal was first checked. Compare today's score with it. Then open **How each criterion moved** to see which rules changed.
 
-          - your **Current Business Quality Score**
-          - the **Change (points)**: your score minus the recorded baseline
-          - the number of **Responses below their own baseline**: answers that now score lower than they did when the baseline was set
-          - the rule (criterion) that lost the most passing answers. Open **How each criterion moved** and look for the biggest drop in the **Change** column.
+          In a sentence or two, say whether the quality of PolicyPal's answers is going up or down, and how you can tell.
         fields:
-          - {id: current, kind: text, label: "Your current Business Quality Score"}
-          - {id: change, kind: text, label: "Change in points (current minus baseline)"}
-          - {id: below, kind: text, label: "How many responses scored below their own baseline?"}
-          - {id: worst, kind: text, label: "Which criterion lost the most passing responses?"}
-        answer: |
-          If you marked carefully:
-
-          - Current Business Quality Score: `81`
-          - Change: `-7` (the recorded baseline is 88)
-          - Responses below their own baseline: `4`
-          - Criterion that lost the most: `c3` (answers the question asked). Several answers now give a general summary, or send the employee back to the policy, instead of giving the actual answer.
+          - {id: trending, kind: textarea, rows: 3, label: "Is the quality of the answers going up or down? How can you tell?"}
+        hints:
+          - title: "Hint: where to look"
+            text: "Look at the score box below. It shows the recorded baseline and today's score. Then open **How each criterion moved** to see which rules changed. Use those numbers to say whether quality is up or down."
+        answer: "Down. The score is `81` against a recorded baseline of `88`, a drop of 7 points. `4` of the 20 answers scored lower than they did at baseline, and the rule that dropped most is `c3` (answers the question asked): several answers now give a general summary, or send the employee back to the policy, instead of the actual answer."
         show:
           - table: &scorepanel
               id: output
@@ -196,89 +136,90 @@ tabs:
                 - {column: current_score_c2, options: *met}
                 - {column: current_score_c3, options: *met}
                 - {column: current_score_c4, options: *met}
-              scorecard: *card
+              scorecard:
+                baseline_bqs: baseline_bqs
+                criteria:
+                  - {label: "c1 Current, named source", current: current_score_c1, baseline: baseline_score_c1}
+                  - {label: "c2 Exact figure or entitlement", current: current_score_c2, baseline: baseline_score_c2}
+                  - {label: "c3 Answers the question asked", current: current_score_c3, baseline: baseline_score_c3}
+                  - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
 
-      - title: Check your result against the alarm level
+      - title: Has the score reached the alarm level?
         text: |
-          The company decided in advance what score should set off an alarm. You compare your score with that line, so you are not guessing after the fact.
+          The company decided in advance what score should set off an alarm, so nobody has to guess after the fact. The alarm level (section 8 of the Quality Standard) and your score are below.
 
-          Below are the alarm level (section 8 of the Quality Standard) and your score again. Write which of the two lines your result crosses, and whether that means an investigation is needed.
+          Has PolicyPal's score reached the alarm level?
         fields:
-          - {id: alarm, kind: textarea, rows: 2, label: "Which lines are crossed, and does this trigger a diagnosis?"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "My score of ______ is ______ the floor of ______, and a drop of ______ points is ______ the limit of ______."'
-        answer: "81 is below the 85 floor, and a 7-point drop is more than the 5-point limit. Both lines are crossed, so an investigation is needed."
+          - {id: alarm_met, kind: select, label: "Has the score reached the alarm level?", options: ["Yes", "No"]}
+        answer: "`Yes`. A score of 81 is below the floor of 85, and a drop of 7 points is more than the limit of 5. Either one alone would set off the alarm, so an investigation is needed."
         show:
           - doc: quality-standard.md
             section: "8. Quality alarm level"
           - table: *scorepanel
 
-      - title: Say in one sentence whether quality has got worse
-        text: |
-          A clear summary sentence is what a busy manager will actually read.
-
-          Write one sentence. It should say how much the score changed, whether the alarm level was crossed, and how many answers got worse. Your numbers are in the score box below.
-        fields:
-          - {id: degraded, kind: textarea, rows: 3, label: "One sentence that cites the change, whether the alarm level was crossed, and the count of responses below baseline."}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Business quality has ______ and has ______ the alarm level: the Business Quality Score fell ______ points from ______ to ______, and ______ of 20 responses scored below their recorded baseline."'
-          - title: "Hint 2: an example answer"
-            text: '"Business quality has degraded and has crossed the alarm level: the Business Quality Score fell 7 points from 88 to 81, below the 85 floor, and 4 of 20 baseline responses scored below their recorded baseline."'
-        show:
-          - table: *scorepanel
-
-  - id: record
-    title: Test Record
+  - id: cause
+    title: The Cause
     type: steps
     steps:
-      - title: Start the test record
+      - title: Find the most likely cause
         text: |
-          A test record is a short written report of a check. Anyone reading it later should be able to see what you tested, when, and against what rules. You finish this record in Lab 2.2.
+          The score has dropped, and the drop starts on a particular date. Now you find out why.
 
-          The facts you need are below. Fill in all three boxes. For **When**, use today's date.
+          1. In the first table below, the answers your colleague marked are in date order, with each answer's mark at baseline and its mark now (each out of 4). Find the first date on which an answer scored lower than it did at baseline.
+          2. In the second table, the Activity Log shows which AI model was running each time PolicyPal was used, in the columns `ModelProviderName`, `ModelName`, and `ModelVersion`. Look at what changed around that date.
+
+          Write what most likely caused the drop, and the date it happened.
         fields:
-          - {id: tr_what, kind: textarea, rows: 2, label: "What was tested (the workflow, and the baseline case set: ID range and count)"}
-          - {id: tr_when, kind: text, label: "When (the date this test was run)"}
-          - {id: tr_standard, kind: text, label: "Against what standard (name and version)"}
+          - {id: cause, kind: textarea, rows: 3, label: "What most likely caused the drop in quality, and when?"}
         hints:
-          - title: "Hint 1: sentences to start from"
-            text: |
-              - What was tested: "The ______ workflow, using the ______-response baseline set, cases ______ to ______."
-              - When: today's date.
-              - Against what standard: the name of the standard.
-          - title: "Hint 2: example answers"
-            text: |
-              - What was tested: "The PolicyPal workflow, using the 20-response baseline set, cases BL-01 to BL-20."
-              - Against what standard: "The PolicyPal Business Quality Standard."
+          - title: "Hint: where to look"
+            text: "Look at the Activity Log. Compare the three model columns (`ModelProviderName`, `ModelName`, `ModelVersion`) before and after the date you found in step 1 where marks first dropped. What changed?"
+        answer: "The AI model changed. Answers score lower than their baseline from `2026-08-12`. On `2026-08-11`, the day before, the Activity Log shows `ModelName` changing from `gpt-4o` to `gpt-55-high` and `ModelVersion` from `2024-11-20` to `2025-06-15`. The company that makes the model stayed the same (`OpenAI`), so this is a new version from the same vendor. In Lab 2.2 you will see that a drop is not always the model, and how to rule the other causes in or out."
         show:
-          - markdown: |
-              | What you marked | |
-              |---|---|
-              | Workflow | PolicyPal |
-              | Cases | `BL-01` to `BL-20` (20 responses) |
-              | Standard you marked against | Business Quality Standard — PolicyPal |
+          - markdown: "#### The answers your colleague marked, in date order"
+          - table:
+              source: output-export.csv
+              tools: false
+              where: {case_id: [BL-02, BL-03, BL-04, BL-05, BL-06, BL-07, BL-08, BL-09, BL-10, BL-12, BL-14, BL-15, BL-16, BL-18, BL-20]}
+              computed:
+                - {name: baseline_total, sum: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4]}
+                - {name: current_total, sum: [current_score_c1, current_score_c2, current_score_c3, current_score_c4]}
+              hide: [employee_question, assistant_response, cited_source, baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4]
+              fit: true
+              labels: {case_id: Case, date: Date, baseline_total: "Mark at baseline (of 4)", current_total: "Mark now (of 4)"}
+          - markdown: "#### The Activity Log: which AI model was running"
+          - table:
+              source: activity-log.csv
+              tools: false
+              hide: [UserId, Operation, AppHost, AppIdentity, AgentName, AgentVersion, AccessedResources, SensitivityLabelId, XPIADetected, AISystemPlugin, MessageId, IsPrompt]
 
-      - title: Decide what to do first
+      - title: Decide who to speak to
         text: |
-          Quality has got worse. You now decide whether to look for the cause yourself, or to hand the problem straight to the technical team.
+          Now that you know what most likely caused the drop, decide who needs to hear about it. Send it to whoever can change the thing that changed. Your answer from the last step is below.
 
-          A symptom on its own is not much use to someone who has to fix it. Choose what you would do first, then write one line saying why.
+          Choose who you would speak to, then write one line saying why.
         fields:
-          - {id: handoff, kind: select, label: "Quality has degraded. What do you do first?", options: ["Investigate the cause myself first", "Hand it straight to the platform owner"]}
-          - {id: handoff_why, kind: text, label: "Why? One line."}
-        answer: "You look for the cause yourself first. You do not pass on a symptom. Lab 2.2 is where you find the cause and collect the proof the technical team would need."
+          - id: handoff_to
+            kind: select
+            label: "Who do you speak to about the drop in quality?"
+            options:
+              - "The platform / technical owner"
+              - "The team that owns the HR policy library"
+              - "The HR operations reviewers"
+              - "No one yet; keep watching"
+          - {id: contact_why, kind: text, label: "Why? One line."}
+        answer: "`The platform / technical owner`. The cause is a change of AI model, and the model is run by the platform team, not by the business. They are the ones who can find out why the model changed, and whether it can be changed back."
+        show:
+          - answers: [cause]
 
   - id: answer
     title: My Answer
     type: report
-    heading: Test Result and Test Record
-    intro: "This is the record of your baseline re-test. Lab 2.2 finishes the test record. To keep a copy, click Save as PDF."
+    heading: Baseline Re-Test Result
+    intro: "The result of your check on PolicyPal's answer quality. To keep a copy, click Save as PDF."
     sections:
-      - {title: "Which file can you score?", fields: [scorable, keep_why]}
-      - {title: "The result", fields: [current, change, below, worst]}
-      - {title: "Check against the alarm level", fields: [alarm]}
-      - {title: "Has business quality degraded?", fields: [degraded]}
-      - {title: "The test record", fields: [tr_what, tr_when, tr_standard]}
-      - {title: "The handoff", fields: [handoff, handoff_why]}
+      - {title: "The file used to check answer quality", fields: [scorable]}
+      - {title: "Is quality going up or down?", fields: [trending]}
+      - {title: "The alarm level", fields: [alarm_met]}
+      - {title: "The most likely cause", fields: [cause]}
+      - {title: "Who to speak to", fields: [handoff_to, contact_why]}
