@@ -8,14 +8,14 @@ tabs:
         text: |
           It is a month later, and time for PolicyPal's next monthly review. After Lab 2.1, the platform team moved PolicyPal back to the AI model it used before.
 
-          A colleague has already marked 20 of PolicyPal's answers from 26 August to 18 September against the Quality Standard, the same way you marked answers in Lab 2.1. The score box below adds up their marks. The score has dropped again.
+          A colleague has already marked 20 of PolicyPal's answers from 26 August to 18 September against the Quality Standard, the same way you marked answers in Lab 2.1. The score box below adds up their marks. The score is higher than August's 81, but it is still below where it should be.
 
           Your job in this lab is to find out why, and to write it down so someone else can act on it. The cause decides who you tell, and sending a problem to the wrong person means nobody fixes it. So do not assume it is the same cause as last month.
 
           First, decide whether the drop is big enough that the company's own rules say you must investigate. The alarm level (section 8 of the Quality Standard) is below the score box.
         fields:
           - {id: alarm_met, kind: select, label: "Has the score reached the alarm level?", options: ["Yes", "No"]}
-        answer: "`Yes`. The score of 90 is still above the floor of 85, but it has dropped 6 points from the baseline of 96, which is more than the limit of 5. Crossing either line is enough, so you must investigate."
+        answer: "`Yes`. The score of 83 is below the floor of 85. It has dropped exactly 5 points from the baseline of 88, which is not more than the limit of 5, so only one of the two lines is crossed. Crossing either line is enough, so you must investigate."
         show:
           - table: &card
               id: sample
@@ -199,7 +199,8 @@ tabs:
       - {title: "Next step", fields: [handoff, handoff_why]}
 
 # NOTE: the challenges below were written for the earlier version of this lab, where the cause was the
-# 2026-08-11 model change. They refer to data that has since changed; update them before restoring.
+# 2026-08-11 model change. They refer to data that has since changed (and the Bronze sample's baseline
+# is 95, not PolicyPal's recorded baseline of 88); update them before restoring.
 # challenge section: commented out. Remove the leading '# ' from each line below to restore it.
 #   - id: challenges
 #     title: Challenges

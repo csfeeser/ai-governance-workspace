@@ -1,21 +1,21 @@
 case_id,date,employee_question,assistant_response,cited_source,baseline_score_c1,baseline_score_c2,baseline_score_c3,baseline_score_c4,baseline_bqs,current_score_c1,current_score_c2,current_score_c3,current_score_c4
-L22-01,2026-08-26,How many PTO days do I accrue in my second year?,You accrue 15 PTO days per year in years one through four of employment.,PTO Policy 2025 (effective 2025-01-01),1,1,1,1,96,1,1,1,1
+L22-01,2026-08-26,How many PTO days do I accrue in my second year?,You accrue 15 PTO days per year in years one through four of employment.,PTO Policy 2025 (effective 2025-01-01),1,1,1,1,88,1,1,1,1
 L22-02,2026-08-26,What is the mileage reimbursement rate for my own car?,The mileage reimbursement rate is $0.67 per mile.,Expense & Travel Policy 2025 (effective 2025-04-01),1,1,1,1,,1,1,1,1
 L22-03,2026-08-27,How long do I have to enroll in the health plan after I start?,You have 30 days from your hire date to enroll in the health plan.,Benefits Guide 2025 (effective 2025-01-01),1,1,1,1,,1,1,1,1
 L22-04,2026-08-27,How much is the home-office stipend?,The home-office stipend is described in company policy and depends on your role.,company policy,0,1,0,1,,0,1,0,1
 L22-05,2026-08-28,How many days of bereavement leave do I get?,Bereavement leave is 5 working days per eligible event.,PTO Policy 2025 (effective 2025-01-01),1,1,1,1,,1,1,1,1
 L22-06,2026-08-28,What is the domestic meal per diem?,The domestic meal per diem is $64 per day.,Expense & Travel Policy 2025 (effective 2025-04-01),1,1,1,1,,1,1,1,1
-L22-07,2026-08-31,My expense claim was rejected and I think that is wrong. What can I do?,"A rejected expense claim can be reviewed. Please contact your HR business partner, who can look at your claim and the reason it was rejected.",Expense & Travel Policy 2025 (effective 2025-04-01),1,1,1,1,,1,1,1,1
+L22-07,2026-08-31,My expense claim was rejected and I think that is wrong. What can I do?,Company policy allows expense claims to be rejected when receipts are missing or the spend is outside category limits.,company policy,0,1,1,0,,0,1,1,0
 L22-08,2026-09-01,How many unused PTO days can I carry into next year?,You can carry up to 5 unused PTO days into the next year.,PTO Policy 2025 (effective 2025-01-01),1,1,1,1,,1,1,1,1
 L22-09,2026-09-02,How many PTO days do I get in my second year?,You accrue 12 PTO days per year in years one through four of employment.,PTO Policy 2026 (effective 2026-09-01),1,1,1,1,,1,0,1,1
-L22-10,2026-09-02,What mileage rate do I claim for personal vehicle use?,The mileage reimbursement rate is $0.67 per mile.,Expense & Travel Policy 2025 (effective 2025-04-01),1,1,1,1,,1,1,1,1
+L22-10,2026-09-02,What mileage rate do I claim for personal vehicle use?,Use $0.65 per mile for personal vehicle mileage.,Expense & Travel Policy 2025 (effective 2025-04-01),1,0,1,1,,1,0,1,1
 L22-11,2026-09-03,What is the carryover cap for unused PTO?,You can carry up to 3 unused PTO days into the next year.,PTO Policy 2026 (effective 2026-09-01),1,1,1,1,,1,0,1,1
 L22-12,2026-09-04,What is the company 401(k) match?,The match is 100% of the first 4% of eligible pay you contribute.,company policy,0,1,1,1,,0,1,1,1
 L22-13,2026-09-08,How many bereavement days am I entitled to?,Bereavement leave is 3 working days per eligible event.,PTO Policy 2026 (effective 2026-09-01),1,1,1,1,,1,0,1,1
 L22-14,2026-09-08,Is jury duty paid?,Yes. Jury duty is paid at your regular rate with no limit on the number of days.,PTO Policy 2026 (effective 2026-09-01),1,1,1,1,,1,1,1,1
-L22-15,2026-09-09,What is the per diem for meals on a domestic trip?,The domestic meal per diem is $64 per day.,Expense & Travel Policy 2025 (effective 2025-04-01),1,1,1,1,,1,1,1,1
-L22-16,2026-09-10,My doctor has recommended a standing desk. How do I get one?,"Requests for equipment on medical advice are handled as accommodations. Please contact your HR business partner, who will take you through the process.",Code of Conduct 2025 (effective 2025-01-01),1,1,1,1,,1,1,1,1
+L22-15,2026-09-09,What is the per diem for meals on a domestic trip?,The domestic meal per diem is about $65 per day.,Expense & Travel Policy 2025 (effective 2025-04-01),1,0,1,1,,1,0,1,1
+L22-16,2026-09-10,My doctor has recommended a standing desk. How do I get one?,Submit an equipment request through the facilities portal and attach your doctor's note; standing desks are a standard catalog item.,Code of Conduct 2025 (effective 2025-01-01),1,1,1,0,,1,1,1,0
 L22-17,2026-09-14,How much notice should I give for a week of planned PTO?,Give at least three weeks' notice for planned PTO of three or more consecutive days.,PTO Policy 2026 (effective 2026-09-01),1,1,1,1,,1,0,1,1
-L22-18,2026-09-15,When can I change my benefits after getting married?,"You can change your benefits elections within 30 days of a qualifying life event, such as getting married.",Benefits Guide 2025 (effective 2025-01-01),1,1,1,1,,1,1,1,1
+L22-18,2026-09-15,When can I change my benefits after getting married?,"You can change your benefits elections within 30 days of a qualifying life event, such as getting married.",the benefits guide,0,1,1,1,,0,1,1,1
 L22-19,2026-09-16,How many PTO days will I get in my first year?,You accrue 12 PTO days per year in years one through four of employment.,PTO Policy 2026 (effective 2026-09-01),1,1,1,1,,1,0,1,1
 L22-20,2026-09-18,How long is the enrollment window for the health plan?,You have 30 days from your hire date to enroll in the health plan.,Benefits Guide 2025 (effective 2025-01-01),1,1,1,1,,1,1,1,1

@@ -30,7 +30,7 @@
 
 | Item | Source file | Date | Coverage period | Retention location |
 |---|---|---|---|---|
-| Monthly re-tests, 20 marked answers each. Business Quality Score: July 88, August 81, September 90 | q3-retests.csv (60 marked answers) | 2026-09-18 | 2026-Q3 | Copilot audit log |
+| Monthly re-tests, 20 marked answers each. Business Quality Score: July 88, August 81, September 83 | q3-retests.csv (60 marked answers) | 2026-09-18 | 2026-Q3 | Copilot audit log |
 
 ## 4. HITL override summary and reviewer quality audit
 

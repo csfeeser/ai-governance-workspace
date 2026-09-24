@@ -31,7 +31,7 @@ tabs:
 
           - Section 2 holds both versions of the rules, each with the part of Q3 it was in force for.
           - Sections 5 and 6 list the incidents and changes you know happened in Q3.
-          - Section 3 gives three scores but does not say what they were marked against, so nobody can tell what 81 or 90 means.
+          - Section 3 gives three scores but does not say what they were marked against, so nobody can tell what 81 or 83 means.
           - Section 4 gives override rates, but nothing says whether the reviewers were really checking.
         show:
           - markdown: |
@@ -98,9 +98,9 @@ tabs:
             text: |
               Read the **Item** and **Source file** columns of section 3: what is already there? Then think back to Lab 2.2. What did you find out about the Quality Standard in September, and what would that do to a September score?
         answer: |
-          `Which quality standard, and which version of it`. A score only means something against the rulebook it was marked with. In Q3 that rulebook went out of date: PTO Policy 2026 took effect on 2026-09-01, and the Quality Standard still listed the 2025 PTO figures (Lab 2.2). So September's 90 means something different depending on which version was used.
+          `Which quality standard, and which version of it`. A score only means something against the rulebook it was marked with. In Q3 that rulebook went out of date: PTO Policy 2026 took effect on 2026-09-01, and the Quality Standard still listed the 2025 PTO figures (Lab 2.2). So September's 83 means something different depending on which version was used.
 
-          Why the auditor cares: without the standard, nobody can tell what 88, 81 or 90 means, or compare them. Fix: attach the Quality Standard, with the version and date each re-test used.
+          Why the auditor cares: without the standard, nobody can tell what 88, 81 or 83 means, or compare them. Fix: attach the Quality Standard, with the version and date each re-test used.
 
           - The marked answers are already there: `q3-retests.csv` holds all 60.
           - Scores for each rule and the markers' names are useful, but without the standard they still cannot be read.

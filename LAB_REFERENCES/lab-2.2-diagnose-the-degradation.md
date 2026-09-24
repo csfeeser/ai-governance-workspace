@@ -4,7 +4,7 @@
 
 **Find the real cause of a drop in AI answer quality by checking all four possible causes, decide whether the AI is actually at fault, and write a test record that sends the finding to the right owner.**
 
-Confirming that quality dropped is only half of an audit. The half that makes it evidence is naming *why* it dropped, with proof, so the right person can act on it. In Lab 2.1 the cause was a change of AI model. This lab is the next month's review: the score drops again, the model has changed again, and it would be easy to blame it a second time. It is not the model this time. You test the drop against all four causes of degradation, find that a company policy changed, and work out that PolicyPal is quoting the new policy correctly: it is the Quality Standard that is out of date.
+Confirming that quality dropped is only half of an audit. The half that makes it evidence is naming *why* it dropped, with proof, so the right person can act on it. In Lab 2.1 the cause was a change of AI model. This lab is the next month's review: the score is below the alarm floor again, the model has changed again, and it would be easy to blame it a second time. It is not the model this time. You test the drop against all four causes of degradation, find that a company policy changed, and work out that PolicyPal is quoting the new policy correctly: it is the Quality Standard that is out of date.
 
 In this lab, you will:
 - Decide whether a drop is big enough to investigate, using the alarm level
@@ -17,7 +17,7 @@ By the end of this lab you will be able to diagnose and document a quality drop 
 
 ## In Plain Words
 
-- **What you are doing:** PolicyPal's score has dropped again. You will play detective: find when it started, check each possible cause, and work out who needs to hear about it.
+- **What you are doing:** PolicyPal's score is below the alarm level again. You will play detective: find when it started, check each possible cause, and work out who needs to hear about it.
 - **Why it matters:** The cause decides who can fix it. Blaming the wrong thing sends the problem to people who cannot fix it, and sometimes the AI is not broken at all.
 - **You do not have to:** download anything, open a spreadsheet, or do any maths. The workspace does the totals for you, and everything you type saves by itself.
 - **If you feel lost:** in the workspace, every instruction is in a numbered orange box. Do the boxes in order, from the left-most tab to the right-most tab.
