@@ -146,24 +146,25 @@ tabs:
       - {title: "The ask", fields: [ask]}
       - {title: "Response-by", fields: [responseby]}
 
-  - id: bronze
-    title: "Bronze: Second Ticket"
-    type: steps
-    optional: true
-    steps:
-      - title: "Bronze challenge: the data exposure ticket"
-        text: |
-          This tab is optional. Nothing here counts towards your progress.
-
-          Below is a more serious problem: private customer information was shown to the wrong person. Write the ticket for it. The form is the same as before, but what you ask for and when you need it will be very different, because this one is urgent. It calls for the exposure to be stopped straight away, not a fix in the next cycle.
-        fields:
-          - {id: b-incident, kind: text, label: "Incident, category, and the responsible owner"}
-          - {id: b-observed, kind: textarea, rows: 3, label: "What was observed"}
-          - {id: b-often, kind: textarea, rows: 2, label: "How often, and over what period"}
-          - {id: b-evidence, kind: textarea, rows: 3, label: "Evidence attached"}
-          - {id: b-ruledout, kind: textarea, rows: 2, label: "Already ruled out"}
-          - {id: b-impact, kind: textarea, rows: 2, label: "Business impact"}
-          - {id: b-ask, kind: textarea, rows: 3, label: "The ask"}
-          - {id: b-responseby, kind: text, label: "Response-by"}
-        show:
-          - doc: triaged-incident-2.md
+# challenge section: commented out. Remove the leading '# ' from each line below to restore it.
+#   - id: bronze
+#     title: "Bronze: Second Ticket"
+#     type: steps
+#     optional: true
+#     steps:
+#       - title: "Bronze challenge: the data exposure ticket"
+#         text: |
+#           This tab is optional. Nothing here counts towards your progress.
+#
+#           Below is a more serious problem: private customer information was shown to the wrong person. Write the ticket for it. The form is the same as before, but what you ask for and when you need it will be very different, because this one is urgent. It calls for the exposure to be stopped straight away, not a fix in the next cycle.
+#         fields:
+#           - {id: b-incident, kind: text, label: "Incident, category, and the responsible owner"}
+#           - {id: b-observed, kind: textarea, rows: 3, label: "What was observed"}
+#           - {id: b-often, kind: textarea, rows: 2, label: "How often, and over what period"}
+#           - {id: b-evidence, kind: textarea, rows: 3, label: "Evidence attached"}
+#           - {id: b-ruledout, kind: textarea, rows: 2, label: "Already ruled out"}
+#           - {id: b-impact, kind: textarea, rows: 2, label: "Business impact"}
+#           - {id: b-ask, kind: textarea, rows: 3, label: "The ask"}
+#           - {id: b-responseby, kind: text, label: "Response-by"}
+#         show:
+#           - doc: triaged-incident-2.md

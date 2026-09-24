@@ -164,39 +164,40 @@ tabs:
       - {title: "6. Verification: measurable target", fields: [target]}
       - {title: "7. Verification: evidence", fields: [evidence]}
 
-  - id: bronze
-    title: "Bronze: Plan for R-B"
-    type: steps
-    optional: true
-    steps:
-      - title: "Bronze challenge: write a plan for R-B"
-        text: |
-          This tab is optional. Nothing here counts towards your progress.
-
-          Write a second plan for a different problem. Reviewer R-B disagrees with the AI about 43% of the time, when the team average is 18%. The facts are below.
-
-          Choose a different action from your R-A plan, but keep this plan just as checkable: a date, a number, and where the number comes from.
-        fields:
-          - {id: b-finding, kind: textarea, rows: 3, label: "Finding"}
-          - id: b-action
-            kind: select
-            label: "Corrective action"
-            options:
-              - "Targeted re-training on the review standard"
-              - "Ongoing second-review sampling"
-              - "Workload rebalancing"
-              - "Reassignment"
-          - {id: b-action_why, kind: text, required: false, label: "One line: why does this action address the finding?"}
-          - {id: b-owner, kind: text, label: "Owner"}
-          - {id: b-interim, kind: textarea, rows: 2, label: "Interim safeguard"}
-          - {id: b-recheck, kind: text, label: "Re-check date"}
-          - {id: b-target, kind: textarea, rows: 3, label: "Measurable target"}
-          - {id: b-evidence, kind: textarea, rows: 2, label: "Evidence"}
-        show:
-          - markdown: |
-              | Reviewer R-B | |
-              |---|---|
-              | R-B's override rate | 43% (18 of 42 decisions) |
-              | Team average override rate | 18% |
-              | R-B's case mix and AI decisions | The same as the rest of the team |
-              | Review cadence (Medium risk) | Monthly |
+# challenge section: commented out. Remove the leading '# ' from each line below to restore it.
+#   - id: bronze
+#     title: "Bronze: Plan for R-B"
+#     type: steps
+#     optional: true
+#     steps:
+#       - title: "Bronze challenge: write a plan for R-B"
+#         text: |
+#           This tab is optional. Nothing here counts towards your progress.
+#
+#           Write a second plan for a different problem. Reviewer R-B disagrees with the AI about 43% of the time, when the team average is 18%. The facts are below.
+#
+#           Choose a different action from your R-A plan, but keep this plan just as checkable: a date, a number, and where the number comes from.
+#         fields:
+#           - {id: b-finding, kind: textarea, rows: 3, label: "Finding"}
+#           - id: b-action
+#             kind: select
+#             label: "Corrective action"
+#             options:
+#               - "Targeted re-training on the review standard"
+#               - "Ongoing second-review sampling"
+#               - "Workload rebalancing"
+#               - "Reassignment"
+#           - {id: b-action_why, kind: text, required: false, label: "One line: why does this action address the finding?"}
+#           - {id: b-owner, kind: text, label: "Owner"}
+#           - {id: b-interim, kind: textarea, rows: 2, label: "Interim safeguard"}
+#           - {id: b-recheck, kind: text, label: "Re-check date"}
+#           - {id: b-target, kind: textarea, rows: 3, label: "Measurable target"}
+#           - {id: b-evidence, kind: textarea, rows: 2, label: "Evidence"}
+#         show:
+#           - markdown: |
+#               | Reviewer R-B | |
+#               |---|---|
+#               | R-B's override rate | 43% (18 of 42 decisions) |
+#               | Team average override rate | 18% |
+#               | R-B's case mix and AI decisions | The same as the rest of the team |
+#               | Review cadence (Medium risk) | Monthly |

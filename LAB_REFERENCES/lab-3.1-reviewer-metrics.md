@@ -39,14 +39,16 @@ By the end of this lab you will be able to audit whether human oversight of an A
 
 Everything you do in this lab happens in the workspace.
 
-- The workspace has six tabs. Start on the left-most tab and work to the right. You never need to go back to a tab you have finished.
+- The workspace has five tabs. Start on the left-most tab and work to the right. You never need to go back to a tab you have finished.
 - On each tab, work from top to bottom. Every instruction is in an orange box with a step number, from Step 1 to Step 8. Everything outside the orange boxes is the material you need for that step.
 - If a step asks you to answer something, the answer box is inside the orange box.
 - Stuck? Each orange box has hints you can open, and most have a **Show the answer** button.
 - At the bottom of each tab, click **Go to the next tab** when you have finished every step on it.
 - Everything you type saves by itself. The counter at the top right shows how many answers you have filled in.
 - Every table opens already grouped the way its step needs. You can still change the **Group by** and **Split by** menus to explore.
+<!-- challenge section
 - The last tab, Challenges, is optional. It does not count towards the counter.
+end challenge section -->
 
 ### Tab 1: The Log (Steps 1 and 2)
 
@@ -78,6 +80,7 @@ You read how the override rate changed week by week. Then you check the secret r
 
 You do not type anything here. This tab gathers your answers into one set of findings. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 
+<!-- challenge section
 ### Tab 6: Challenges (optional, Steps 9 to 11)
 
 ![The Challenges tab, showing the Bronze challenge above the override rate for each reviewer](images/lab-3.1/6-challenges.png)
@@ -87,6 +90,7 @@ Three extra challenges for anyone who finishes early:
 - **Bronze:** work out the overall rate with R-A left out.
 - **Silver:** find the reviewer whose own rate is climbing week by week.
 - **Gold:** suggest one number to watch every week that would have shown the rise earlier.
+end challenge section -->
 
 ## Conclusion
 

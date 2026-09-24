@@ -39,13 +39,15 @@ By the end of this lab you will be able to diagnose and document a quality regre
 
 Everything you do in this lab happens in the workspace.
 
-- The workspace has six tabs. Start on the left-most tab and work to the right. You never need to go back to a tab you have finished.
+- The workspace has five tabs. Start on the left-most tab and work to the right. You never need to go back to a tab you have finished.
 - On each tab, work from top to bottom. Every instruction is in an orange box with a step number, from Step 1 to Step 11. Everything outside the orange boxes is the material you need for that step.
 - If a step asks you to answer something, the answer box is inside the orange box.
 - Stuck? Each orange box has hints you can open, and most have a **Show the answer** button.
 - At the bottom of each tab, click **Go to the next tab** when you have finished every step on it.
 - Everything you type saves by itself. The counter at the top right shows how many answers you have filled in.
+<!-- challenge section
 - The last tab, Challenges, is optional. It does not count towards the counter.
+end challenge section -->
 
 ### Tab 1: The Drop (Steps 1 and 2)
 
@@ -77,6 +79,7 @@ You write up the test so someone who was not there can act on it: what you teste
 
 You do not type anything here. This tab gathers your answers into one test record. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 
+<!-- challenge section
 ### Tab 6: Challenges (optional, Steps 12 to 14)
 
 ![The Challenges tab, showing the Bronze challenge above a second marked sample](images/lab-2.2/6-challenges.png)
@@ -86,6 +89,7 @@ Three extra challenges for anyone who finishes early:
 - **Bronze:** diagnose a second marked sample from a different period.
 - **Silver:** find a second change hiding in the activity log.
 - **Gold:** write your finding as a five-sentence note for people who are not technical.
+end challenge section -->
 
 ## Conclusion
 

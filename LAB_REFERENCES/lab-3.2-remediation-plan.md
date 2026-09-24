@@ -39,13 +39,15 @@ By the end of this lab you will be able to write a remediation plan an auditor w
 
 Everything you do in this lab happens in the workspace.
 
-- The workspace has five tabs. Start on the left-most tab and work to the right. You never need to go back to a tab you have finished.
+- The workspace has four tabs. Start on the left-most tab and work to the right. You never need to go back to a tab you have finished.
 - On each tab, work from top to bottom. Every instruction is in an orange box with a step number, from Step 1 to Step 8. Everything outside the orange boxes is the material you need for that step.
 - If a step asks you to answer something, the answer box is inside the orange box.
 - Stuck? Each orange box has hints you can open, and most have a **Show the answer** button.
 - At the bottom of each tab, click **Go to the next tab** when you have finished every step on it.
 - Everything you type saves by itself. The counter at the top right shows how many answers you have filled in.
+<!-- challenge section
 - The last tab, Bronze: Plan for R-B, is optional. It does not count towards the counter.
+end challenge section -->
 
 ### Tab 1: The Finding (Steps 1 and 2)
 
@@ -71,11 +73,13 @@ You set a date to check again, the exact number that will mean the fix worked, a
 
 You do not type anything here. This tab gathers your answers into one remediation plan. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 
+<!-- challenge section
 ### Tab 5: Bronze: Plan for R-B (optional, Step 9)
 
 ![The Bronze tab, showing the challenge above the facts about reviewer R-B](images/lab-3.2/5-bronze-plan-for-r-b.png)
 
 An extra challenge for anyone who finishes early: write a second plan, for reviewer R-B, who disagrees with the AI far more than everyone else.
+end challenge section -->
 
 ## Conclusion
 

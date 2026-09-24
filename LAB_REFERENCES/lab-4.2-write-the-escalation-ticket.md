@@ -38,13 +38,15 @@ By the end of this lab you will be able to write an escalation an owner can act 
 
 Everything you do in this lab happens in the workspace.
 
-- The workspace has five tabs. Start on the left-most tab and work to the right. You never need to go back to a tab you have finished.
+- The workspace has four tabs. Start on the left-most tab and work to the right. You never need to go back to a tab you have finished.
 - On each tab, work from top to bottom. Every instruction is in an orange box with a step number, from Step 1 to Step 8. Everything outside the orange boxes is the material you need for that step.
 - If a step asks you to answer something, the answer box is inside the orange box.
 - Stuck? Each orange box has hints you can open, and most have a **Show the answer** button.
 - At the bottom of each tab, click **Go to the next tab** when you have finished every step on it.
 - Everything you type saves by itself. The counter at the top right shows how many answers you have filled in.
+<!-- challenge section
 - The last tab, Bronze: Second Ticket, is optional. It does not count towards the counter.
+end challenge section -->
 
 ### Tab 1: The Incident (Step 1)
 
@@ -70,11 +72,13 @@ You say what the problem is costing, the one specific thing you want the owner t
 
 You do not type anything here. This tab gathers your answers into the finished ticket. Anything you missed says which step to go back to. Click **Save as PDF** if you want a copy.
 
+<!-- challenge section
 ### Tab 5: Bronze: Second Ticket (optional, Step 9)
 
 ![The Bronze tab, showing the challenge above a second, more urgent incident](images/lab-4.2/5-bronze-second-ticket.png)
 
 An extra challenge for anyone who finishes early: write the ticket for a more serious incident, where private customer information was shown to the wrong person.
+end challenge section -->
 
 ## Conclusion
 

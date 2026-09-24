@@ -145,45 +145,46 @@ tabs:
       - {title: "Rank by severity", fields: [worst]}
       - {title: "Your decision", fields: [accept, accept-why]}
 
-  - id: challenges
-    title: Challenges
-    type: steps
-    optional: true
-    steps:
-      - title: "Bronze challenge: the fourth, smaller weakness"
-        text: |
-          This tab is optional. Nothing here counts towards your progress.
-
-          The packet below says it covers April to September 2026. Look at what actually proves each part of that time. There is one marked sample, from April to June, and all the incidents are from July onwards.
-
-          A tool that is reviewed once a month should have many more review records than this over six months. Work out how many it should have, and how many this packet has. Write the finding, and say why it is less serious than the three main ones.
-        fields:
-          - {id: bronze, kind: textarea, rows: 4, label: "The finding, and why it is less severe than the three main defects"}
-        answer: "A monthly review over six months should leave six review records; this packet has one, for April to June only. July to September has incidents but no quality review at all. It is less severe than the three main findings because the missing reviews may exist and just not have been filed, so it can be fixed by adding them."
-        show:
-          - doc: submitted-packet.md
-
-      - title: "Silver challenge: match each finding to a section and a question"
-        text: |
-          For each of your three findings, say which of the six sections it belongs to, and which of an auditor's questions it fails to answer. Your findings are below.
-        fields:
-          - {id: silver, kind: textarea, rows: 4, label: "For each of your three findings: which of the six packet components it sits in, and which auditor question it fails to answer"}
-        show:
-          - answers: [f1-what, f2-what, f3-what]
-          - markdown: |
-              | Section | The auditor's question |
-              |---|---|
-              | 1. Business purpose statement | What is this tool for? |
-              | 2. System instructions and baseline business rules | What was it told to do? |
-              | 3. Sampled review records and quality scores | Did you check its quality, and when? |
-              | 4. HITL override summary and reviewer quality audit | Was the human checking real? |
-              | 5. Incident and escalation history | What went wrong, and what did you do about it? |
-              | 6. Change-control and approval log | What changed, and who approved it? |
-
-      - title: "Gold challenge: the auditor's memo"
-        text: |
-          Rewrite your findings as a one-page memo from an auditor. It should say what is wrong, how serious it is, what you recommend, and have a line for the company's reply. Your findings and verdict are below.
-        fields:
-          - {id: gold, kind: textarea, rows: 6, label: "A one-page auditor's finding memo: finding, risk rating, recommendation, and a management-response line"}
-        show:
-          - answers: [f1-what, f2-what, f3-what, worst, accept-why]
+# challenge section: commented out. Remove the leading '# ' from each line below to restore it.
+#   - id: challenges
+#     title: Challenges
+#     type: steps
+#     optional: true
+#     steps:
+#       - title: "Bronze challenge: the fourth, smaller weakness"
+#         text: |
+#           This tab is optional. Nothing here counts towards your progress.
+#
+#           The packet below says it covers April to September 2026. Look at what actually proves each part of that time. There is one marked sample, from April to June, and all the incidents are from July onwards.
+#
+#           A tool that is reviewed once a month should have many more review records than this over six months. Work out how many it should have, and how many this packet has. Write the finding, and say why it is less serious than the three main ones.
+#         fields:
+#           - {id: bronze, kind: textarea, rows: 4, label: "The finding, and why it is less severe than the three main defects"}
+#         answer: "A monthly review over six months should leave six review records; this packet has one, for April to June only. July to September has incidents but no quality review at all. It is less severe than the three main findings because the missing reviews may exist and just not have been filed, so it can be fixed by adding them."
+#         show:
+#           - doc: submitted-packet.md
+#
+#       - title: "Silver challenge: match each finding to a section and a question"
+#         text: |
+#           For each of your three findings, say which of the six sections it belongs to, and which of an auditor's questions it fails to answer. Your findings are below.
+#         fields:
+#           - {id: silver, kind: textarea, rows: 4, label: "For each of your three findings: which of the six packet components it sits in, and which auditor question it fails to answer"}
+#         show:
+#           - answers: [f1-what, f2-what, f3-what]
+#           - markdown: |
+#               | Section | The auditor's question |
+#               |---|---|
+#               | 1. Business purpose statement | What is this tool for? |
+#               | 2. System instructions and baseline business rules | What was it told to do? |
+#               | 3. Sampled review records and quality scores | Did you check its quality, and when? |
+#               | 4. HITL override summary and reviewer quality audit | Was the human checking real? |
+#               | 5. Incident and escalation history | What went wrong, and what did you do about it? |
+#               | 6. Change-control and approval log | What changed, and who approved it? |
+#
+#       - title: "Gold challenge: the auditor's memo"
+#         text: |
+#           Rewrite your findings as a one-page memo from an auditor. It should say what is wrong, how serious it is, what you recommend, and have a line for the company's reply. Your findings and verdict are below.
+#         fields:
+#           - {id: gold, kind: textarea, rows: 6, label: "A one-page auditor's finding memo: finding, risk rating, recommendation, and a management-response line"}
+#         show:
+#           - answers: [f1-what, f2-what, f3-what, worst, accept-why]

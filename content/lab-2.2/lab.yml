@@ -247,57 +247,58 @@ tabs:
       - {title: "Result", fields: [tr_result]}
       - {title: "Conclusion", fields: [tr_conclusion]}
 
-  - id: challenges
-    title: Challenges
-    type: steps
-    optional: true
-    steps:
-      - title: "Bronze challenge: diagnose a second sample"
-        text: |
-          This tab is optional. Nothing here counts towards your progress.
-
-          Below is a second set of marked answers, from a different time period. Its marks dropped too. Find out why, the same way you did in this lab. This time the clue is in the `Source effective date` column.
-
-          Say which cause the second sample points to, and what your proof is.
-        fields:
-          - {id: bronze, kind: textarea, rows: 3, label: "Cause and evidence"}
-        answer: "A changed company policy. From `BR-07` onwards the answers cite `PTO Policy 2026`, effective `2026-08-15`, and give new figures (12 days instead of 15, a 3-day carryover cap instead of 5, 3 bereavement days instead of 5). The answers repeat the new policy correctly; they only score lower because they were marked against the old figures."
-        show:
-          - table:
-              id: bronze
-              source: bronze-sample.csv
-              view: scorecard
-              scorecard:
-                baseline_bqs: baseline_bqs
-                criteria:
-                  - {label: "c1 Current, named source", current: current_score_c1, baseline: baseline_score_c1}
-                  - {label: "c2 Exact figure or entitlement", current: current_score_c2, baseline: baseline_score_c2}
-                  - {label: "c3 Answers the question asked", current: current_score_c3, baseline: baseline_score_c3}
-                  - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
-          - table:
-              source: bronze-sample.csv
-              computed:
-                - {name: baseline_total, sum: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4]}
-                - {name: current_total, sum: [current_score_c1, current_score_c2, current_score_c3, current_score_c4]}
-              hide: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4]
-              labels: {case_id: Case, employee_question: Question, assistant_response: Assistant response, cited_source: Cited source, cited_source_effective: "Source effective date", baseline_total: "Baseline score (of 4)", current_total: "Current score (of 4)"}
-
-      - title: "Silver challenge: find the second change"
-        text: |
-          A second real change is hiding in the activity log below, in the same period as the model change. Find it. Then explain in two or three sentences how it adds to the model change, instead of replacing it as the cause.
-        fields:
-          - {id: silver, kind: textarea, rows: 3, label: "What is it, and how does it compound the model change rather than replace it as the cause?"}
-        hints:
-          - title: "Hint: where to look"
-            text: "Look at the columns other than the model ones. One of them is empty until a date in the same period as the model change."
-        answer: "`AISystemPlugin` is empty until `2026-08-18`, when `BingWebSearch` starts appearing. Web search was switched on a week after the model change. It started after the drop began on 2026-08-12, so it cannot be the cause, but it may make the answers vaguer still, and it means PolicyPal is now reading things from outside the HR Policy Library."
-        show:
-          - table: {source: activity-log.csv, tools: false}
-
-      - title: "Gold challenge: write it for non-technical people"
-        text: |
-          Write your finding as a five-sentence note for people who are not technical. Say what changed, how you know, what it is costing, what you are asking for, and by when. Your cause and conclusion are below.
-        fields:
-          - {id: gold, kind: textarea, rows: 5, label: "Five sentences for non-technical stakeholders: what changed, how you know, what it is costing, what you are asking for, and by when"}
-        show:
-          - answers: [cause, tr_conclusion]
+# challenge section: commented out. Remove the leading '# ' from each line below to restore it.
+#   - id: challenges
+#     title: Challenges
+#     type: steps
+#     optional: true
+#     steps:
+#       - title: "Bronze challenge: diagnose a second sample"
+#         text: |
+#           This tab is optional. Nothing here counts towards your progress.
+#
+#           Below is a second set of marked answers, from a different time period. Its marks dropped too. Find out why, the same way you did in this lab. This time the clue is in the `Source effective date` column.
+#
+#           Say which cause the second sample points to, and what your proof is.
+#         fields:
+#           - {id: bronze, kind: textarea, rows: 3, label: "Cause and evidence"}
+#         answer: "A changed company policy. From `BR-07` onwards the answers cite `PTO Policy 2026`, effective `2026-08-15`, and give new figures (12 days instead of 15, a 3-day carryover cap instead of 5, 3 bereavement days instead of 5). The answers repeat the new policy correctly; they only score lower because they were marked against the old figures."
+#         show:
+#           - table:
+#               id: bronze
+#               source: bronze-sample.csv
+#               view: scorecard
+#               scorecard:
+#                 baseline_bqs: baseline_bqs
+#                 criteria:
+#                   - {label: "c1 Current, named source", current: current_score_c1, baseline: baseline_score_c1}
+#                   - {label: "c2 Exact figure or entitlement", current: current_score_c2, baseline: baseline_score_c2}
+#                   - {label: "c3 Answers the question asked", current: current_score_c3, baseline: baseline_score_c3}
+#                   - {label: "c4 Human referral where required", current: current_score_c4, baseline: baseline_score_c4}
+#           - table:
+#               source: bronze-sample.csv
+#               computed:
+#                 - {name: baseline_total, sum: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4]}
+#                 - {name: current_total, sum: [current_score_c1, current_score_c2, current_score_c3, current_score_c4]}
+#               hide: [baseline_score_c1, baseline_score_c2, baseline_score_c3, baseline_score_c4, baseline_bqs, current_score_c1, current_score_c2, current_score_c3, current_score_c4]
+#               labels: {case_id: Case, employee_question: Question, assistant_response: Assistant response, cited_source: Cited source, cited_source_effective: "Source effective date", baseline_total: "Baseline score (of 4)", current_total: "Current score (of 4)"}
+#
+#       - title: "Silver challenge: find the second change"
+#         text: |
+#           A second real change is hiding in the activity log below, in the same period as the model change. Find it. Then explain in two or three sentences how it adds to the model change, instead of replacing it as the cause.
+#         fields:
+#           - {id: silver, kind: textarea, rows: 3, label: "What is it, and how does it compound the model change rather than replace it as the cause?"}
+#         hints:
+#           - title: "Hint: where to look"
+#             text: "Look at the columns other than the model ones. One of them is empty until a date in the same period as the model change."
+#         answer: "`AISystemPlugin` is empty until `2026-08-18`, when `BingWebSearch` starts appearing. Web search was switched on a week after the model change. It started after the drop began on 2026-08-12, so it cannot be the cause, but it may make the answers vaguer still, and it means PolicyPal is now reading things from outside the HR Policy Library."
+#         show:
+#           - table: {source: activity-log.csv, tools: false}
+#
+#       - title: "Gold challenge: write it for non-technical people"
+#         text: |
+#           Write your finding as a five-sentence note for people who are not technical. Say what changed, how you know, what it is costing, what you are asking for, and by when. Your cause and conclusion are below.
+#         fields:
+#           - {id: gold, kind: textarea, rows: 5, label: "Five sentences for non-technical stakeholders: what changed, how you know, what it is costing, what you are asking for, and by when"}
+#         show:
+#           - answers: [cause, tr_conclusion]
