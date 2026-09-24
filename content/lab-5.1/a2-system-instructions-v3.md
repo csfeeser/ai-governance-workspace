@@ -2,7 +2,7 @@
 
 **Workflow:** PolicyPal
 **Version:** v3
-**Effective:** 2026-06-01
+**Effective:** 2026-07-13
 **Supersedes:** v2 (effective 2026-03-02)
 
 ## System instructions (summary)
@@ -22,6 +22,8 @@ every substantive answer. It does not speculate where policy is silent.
 
 ## Change from v2
 
-Rule 3 (superseded-version prohibition) and rule 4 (human-referral list) were added in v3
-after the 2026-05 review. v2 had a single general "escalate sensitive questions"
-instruction with no list.
+Rules 3, 4 and 5 were added in v3 after the new Business AI Owner reviewed the open issues
+at handover in July 2026: an old PTO policy still being cited, no trigger for handing
+accommodation and protected-leave questions to a person, and legal detail given about
+statutory leave. v2 had a single general "escalate sensitive questions" instruction with no
+list.

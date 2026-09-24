@@ -4,238 +4,201 @@ tabs:
     title: The Folder
     type: steps
     steps:
-      - title: See what is in the folder and what the packet needs
+      - title: Sort the papers into the packet
         text: |
-          An auditor is coming. An auditor is a person whose job is to check that a company really did what it says it did. They want proof that the company kept an eye on PolicyPal. "We looked after it" is not proof. Papers are.
+          Today is Monday 2026-09-28. The company's internal audit team is checking how its AI tools are looked after, and has asked for PolicyPal's evidence packet for Q2 2026 (2026-04-01 to 2026-06-30). An auditor is a person whose job is to check that a company really did what it says it did. "We looked after it" is not proof. Papers are.
 
-          You have a folder of eight papers. You will choose the right ones, put each in the right section of an evidence packet, and note anything that is missing. There are more papers than you need, and choosing which ones belong is part of the job.
+          You took over PolicyPal in July (Lab 1.1), so Q2 was before your time. The previous owner's papers have been exported from their shared drive into one folder of eight papers. They are below, after the six sections of the packet.
 
-          Below is a list of the eight papers, and the six sections of the packet. Each section answers one question an auditor asks. Read both. There is nothing to type in this step. On the next tabs you fill the packet one section at a time, with the papers for that section shown under each step.
+          A paper goes in the packet only if both of these are true:
+
+          - it is about PolicyPal
+          - it is evidence for Q2: it was made during Q2, or it was in force during Q2
+
+          For each paper, choose the section it goes in, or **Leave it out**.
+        fields:
+          - {id: p-a1, kind: select, label: "a1-business-purpose", options: &secs ["1. Business purpose statement", "2. System instructions and baseline business rules", "3. Sampled review records and quality scores", "4. HITL override summary and reviewer quality audit", "5. Incident and escalation history", "6. Change-control and approval log", "Leave it out"]}
+          - {id: p-a2, kind: select, label: "a2-system-instructions-v3", options: *secs}
+          - {id: p-a3, kind: select, label: "a3-system-instructions-v2", options: *secs}
+          - {id: p-a4, kind: select, label: "a4-review-sample-q2", options: *secs}
+          - {id: p-a5, kind: select, label: "a5-hitl-override-summary-q2", options: *secs}
+          - {id: p-a6, kind: select, label: "a6-remediation-plan-RA", options: *secs}
+          - {id: p-a7, kind: select, label: "a7-incident-history", options: *secs}
+          - {id: p-a8, kind: select, label: "a8-finance-assistant-sample-q2", options: *secs}
+        hints:
+          - title: "Hint 1: where to look"
+            text: |
+              The top of each paper gives its workflow and its dates: look for **Workflow**, and for **Effective**, **Period** or **Plan date**. The two tables give theirs in the **workflow**, **quarter** and **retest_date** columns. For every paper, check whose it is, and whether its dates fall in 2026-04-01 to 2026-06-30. A paper that took effect after that did not govern PolicyPal in Q2, however new it is. One section takes two papers.
+        answer: |
+          - `a1-business-purpose`: section 1.
+          - `a2-system-instructions-v3`: leave it out. It took effect on 2026-07-13, after the quarter ended, so it is not what PolicyPal was told to do in Q2. It will belong in the Q3 packet.
+          - `a3-system-instructions-v2`: section 2. It was in force for the whole of Q2. It is superseded now, but an auditor asks what PolicyPal was told to do during the period, not today.
+          - `a4-review-sample-q2`: section 3.
+          - `a5-hitl-override-summary-q2` and `a6-remediation-plan-RA`: both section 4. One is the summary of the human checking, the other the plan to fix a reviewer who was not checking.
+          - `a7-incident-history`: section 5.
+          - `a8-finance-assistant-sample-q2`: leave it out. Its `workflow` column says `FinanceAssistant`: it is another AI tool's quality record.
+          - Nothing in the folder goes in section 6.
         show:
-          - markdown: &index |
-              #### The eight papers in the folder
-
-              | Paper | What it is |
-              |---|---|
-              | `a1-business-purpose` | A short statement of what PolicyPal is for and who uses it |
-              | `a2-system-instructions-v3` | The rules PolicyPal was told to follow, version 3 |
-              | `a3-system-instructions-v2` | The rules PolicyPal was told to follow, version 2 |
-              | `a4-review-sample-q2` | A table of 12 marked answers from an AI tool, April to June |
-              | `a5-hitl-override-summary-q2` | How often each of five human reviewers disagreed with the AI, plus a note about the reviewers |
-              | `a6-remediation-plan-RA` | A plan to fix a problem with one reviewer, R-A |
-              | `a7-incident-history` | A list of past problems with PolicyPal and what was done about each |
-              | `a8-finance-assistant-sample-q2` | A table of marked answers from an AI tool, laid out like `a4` |
           - markdown: |
               #### The six sections of the packet
 
-              1. **Business purpose statement:** what is this tool for?
-              2. **System instructions and baseline business rules:** what was it told to do?
-              3. **Sampled review records and quality scores:** did you check its quality, and when?
-              4. **HITL override summary and reviewer quality audit:** was the human checking real? (HITL means "human in the loop": a person checking the AI.)
-              5. **Incident and escalation history:** what went wrong, and what did you do about it?
-              6. **Change-control and approval log:** what changed, and who approved it?
-
-  - id: purpose
-    title: Purpose and Rules
-    type: steps
-    steps:
-      - title: "Fill section 1: the business purpose"
-        text: |
-          Section 1 answers the auditor's question "what is this tool for?". The paper below says what PolicyPal is for.
-
-          1. Choose the paper in the **File** drop-down.
-          2. An auditor wants to know when each paper was made and what stretch of time it proves. The dates are near the top of the paper. Type both in **Date and coverage period**.
-        fields:
-          - id: s1-file
-            kind: select
-            label: "File"
-            options: &files ["a1-business-purpose", "a2-system-instructions-v3", "a3-system-instructions-v2", "a4-review-sample-q2", "a5-hitl-override-summary-q2", "a6-remediation-plan-RA", "a7-incident-history", "a8-finance-assistant-sample-q2", "None in the folder"]
-          - {id: s1-when, kind: text, label: "Date and coverage period"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Dated ______; covers ______."'
-        answer: |
-          - File: `a1-business-purpose`
-          - Date and coverage period: "Dated 2026-03-02, last reviewed 2026-06-05; covers 2026-03-02 onward."
-        show:
+              | Section | The auditor's question |
+              |---|---|
+              | 1. Business purpose statement | What is this tool for? |
+              | 2. System instructions and baseline business rules | What was it told to do? |
+              | 3. Sampled review records and quality scores | Did you check its quality, and when? |
+              | 4. HITL override summary and reviewer quality audit | Was the human checking real? (HITL means "human in the loop": a person checking the AI.) |
+              | 5. Incident and escalation history | What went wrong, and what did you do about it? |
+              | 6. Change-control and approval log | What changed, and who approved it? |
           - markdown: "#### Paper: a1-business-purpose"
           - doc: a1-business-purpose.md
-
-      - title: "Fill section 2: the rules PolicyPal was told to follow"
-        text: |
-          Section 2 answers "what was it told to do?". The folder has two versions of PolicyPal's rules, both below. The packet needs the one that was in force. The older one is left out.
-
-          The way to tell is the **Effective** date near the top of each paper.
-
-          1. In **File**, choose the newer version.
-          2. Type its date and the time it covers in **Date and coverage period**.
-          3. Say why the other version is left out.
-        fields:
-          - {id: s2-file, kind: select, label: "File", options: *files}
-          - {id: s2-when, kind: text, label: "Date and coverage period"}
-          - id: excl-a3
-            kind: select
-            label: "Why is a3-system-instructions-v2 excluded?"
-            options: &why ["It is a superseded version of a file already included", "It belongs to a different workflow", "It is a duplicate of another file", "It is the wrong type of file"]
-        hints:
-          - title: "Hint 1: an example answer for the date"
-            text: '"Dated 2026-06-01; covers 2026-06-01 onward."'
-        answer: |
-          - File: `a2-system-instructions-v3`. It started on 2026-06-01, so it is the current version.
-          - Date and coverage period: "Dated 2026-06-01; covers 2026-06-01 onward."
-          - `a3-system-instructions-v2` started on 2026-03-02 and has been replaced. It is left out because it is a superseded version of a file already included.
-        show:
           - markdown: "#### Paper: a2-system-instructions-v3"
           - doc: a2-system-instructions-v3.md
           - markdown: "#### Paper: a3-system-instructions-v2"
           - doc: a3-system-instructions-v2.md
-
-  - id: quality
-    title: Quality and Oversight
-    type: steps
-    steps:
-      - title: "Fill section 3: the marked answers"
-        text: |
-          Section 3 answers "did you check its quality, and when?". Two papers in the folder are tables of marked answers, both below. Only one is about PolicyPal, and a packet about PolicyPal should only hold papers about PolicyPal.
-
-          Compare the first column, `workflow`, in the two tables. Then compare the questions, and how many scoring columns each has.
-
-          1. In **File**, choose the paper about PolicyPal.
-          2. Type its date and the time it covers. The `quarter` and `date` columns tell you.
-          3. Say why the other table is left out.
-        fields:
-          - {id: s3-file, kind: select, label: "File", options: *files}
-          - {id: s3-when, kind: text, label: "Date and coverage period"}
-          - {id: excl-a8, kind: select, label: "Why is a8-finance-assistant-sample-q2 excluded?", options: *why}
-        answer: |
-          - File: `a4-review-sample-q2`. It is the PolicyPal one.
-          - Date and coverage period: "Dated 2026-06-24 (the last case); covers 2026-Q2, April to June 2026."
-          - `a8-finance-assistant-sample-q2` is about a different AI tool, the finance assistant. Its `workflow` column, its questions, and its rulebook are all different. It is left out because it belongs to a different workflow.
-        show:
           - markdown: "#### Paper: a4-review-sample-q2"
-          - table: {source: a4-review-sample-q2.csv, tools: false}
-          - markdown: "#### Paper: a8-finance-assistant-sample-q2"
-          - table: {source: a8-finance-assistant-sample-q2.csv, tools: false}
-
-      - title: "Fill section 4: was the human checking real?"
-        text: |
-          Section 4 has two slots: the summary of the human checking, and the plan to fix a checker who was not doing it properly. Both papers are below.
-
-          1. In the first **File**, choose the summary. Type its date and coverage period.
-          2. In the second **File**, choose the plan. Type its date and coverage period.
-        fields:
-          - {id: s4a-file, kind: select, label: "File (first item)", options: *files}
-          - {id: s4a-when, kind: text, label: "Date and coverage period (first item)"}
-          - {id: s4b-file, kind: select, label: "File (second item)", options: *files}
-          - {id: s4b-when, kind: text, label: "Date and coverage period (second item)"}
-        answer: |
-          - First item: `a5-hitl-override-summary-q2`. "Covers 2026-Q2 (the reviewer log from 2026-05-19 to 2026-06-17)."
-          - Second item: `a6-remediation-plan-RA`. "Dated 2026-06-18; re-check due 2026-07-18."
-        show:
+          - table: &a4 {source: a4-review-sample-q2.csv, tools: false, fit: true, labels: {workflow: Workflow, quarter: Quarter, standard_version: Scored against, retest_date: Re-test date, answers_scored: Answers scored, c1_met: c1 met, c2_met: c2 met, c3_met: c3 met, c4_met: c4 met, criteria_met: Criteria met, bqs: Score}}
           - markdown: "#### Paper: a5-hitl-override-summary-q2"
           - doc: a5-hitl-override-summary-q2.md
           - markdown: "#### Paper: a6-remediation-plan-RA"
           - doc: a6-remediation-plan-RA.md
+          - markdown: "#### Paper: a7-incident-history"
+          - doc: a7-incident-history.md
+          - markdown: "#### Paper: a8-finance-assistant-sample-q2"
+          - table: {<<: *a4, source: a8-finance-assistant-sample-q2.csv}
 
-  - id: history
-    title: History and Gaps
+  - id: gaps
+    title: Gaps
     type: steps
     steps:
-      - title: "Fill section 5: what went wrong"
+      - title: Find the gaps
         text: |
-          Section 5 answers "what went wrong, and what did you do about it?". The paper below lists past problems with PolicyPal.
+          A packet with a missing paper is bad. A missing paper that nobody mentioned is worse, because the auditor will find it and ask why it was hidden. So a packet lists its own gaps.
 
-          Choose it in **File**, and type its date and coverage period.
+          A gap is evidence the packet should hold for Q2 but does not. A problem that the evidence shows is not a gap: the auditor will see it on the paper and ask about it, and that is how it should be.
+
+          The papers you put in the packet are below. Tick every gap.
         fields:
-          - {id: s5-file, kind: select, label: "File", options: *files}
-          - {id: s5-when, kind: text, label: "Date and coverage period"}
+          - id: gaps-found
+            kind: checklist
+            label: "Known gaps"
+            options:
+              - "Section 6 is empty: nothing in the folder records what changed in PolicyPal in Q2, or who approved it"
+              - "Section 4 is short: the reviewer summary covers 2026-05-19 to 2026-06-17, not the whole of Q2"
+              - "Section 2 is out of date: v2 has since been replaced by v3, so the rules on file are not current"
+              - "Section 3 used the wrong yardstick: Q2 was scored with the previous owner's checklist, not today's standard"
+              - "Section 4 is unfinished: the plan for R-A has no result, because its re-check date is 2026-07-18"
+              - "Section 5 is incomplete: six issues raised in June were never routed to anyone before the quarter ended"
+        hints:
+          - title: "Hint 1: where to look"
+            text: |
+              For each option, ask two questions. Is the thing it describes inside Q2 (2026-04-01 to 2026-06-30)? And is evidence missing, or is the evidence there and showing something that went wrong? Compare the **Period** line at the top of `a5` with the dates of Q2, and the **Re-check date** in `a6` with the end of Q2.
         answer: |
-          - File: `a7-incident-history`
-          - Date and coverage period: "Covers 2026-Q2; tickets raised 2026-04-19 and 2026-05-28."
+          Two gaps: section 6 is empty, and section 4's reviewer summary covers only 30 days of the quarter's 91.
+
+          - Section 2: v2 is the right paper. It was in force in Q2, and the packet is about Q2.
+          - Section 3: Q2 was scored against the checklist in force at the time. Re-scoring the past against today's standard would not show what the previous owner checked.
+          - R-A's plan: the re-check on 2026-07-18 is after the quarter, so its result belongs in the Q3 packet.
+          - The June issues: the incident history shows them. That is a real problem for the auditor to ask about, but the evidence is there, so it is not a gap.
         show:
+          - markdown: |
+              #### What is in your packet
+
+              | Section | Paper |
+              |---|---|
+              | 1 | `a1-business-purpose` |
+              | 2 | `a3-system-instructions-v2` (in force 2026-03-02 to 2026-07-12) |
+              | 3 | `a4-review-sample-q2` |
+              | 4 | `a5-hitl-override-summary-q2` and `a6-remediation-plan-RA` |
+              | 5 | `a7-incident-history` |
+              | 6 | Nothing |
+          - markdown: "#### Paper: a4-review-sample-q2"
+          - table: *a4
+          - markdown: "#### Paper: a5-hitl-override-summary-q2"
+          - doc: a5-hitl-override-summary-q2.md
+          - markdown: "#### Paper: a6-remediation-plan-RA"
+          - doc: a6-remediation-plan-RA.md
           - markdown: "#### Paper: a7-incident-history"
           - doc: a7-incident-history.md
 
-      - title: "Fill section 6: what changed, and who approved it"
+      - title: Say who can supply the missing evidence
         text: |
-          Section 6 needs a paper that records what changed in PolicyPal and who approved it. You need to check whether the folder has one.
+          A gap on its own is only half the job. The packet also says who will produce the missing evidence, so it actually arrives. Ask whoever holds the records, not a department that would have to pass it on.
 
-          Read the list of the eight papers below again. Is any of them a record of changes and approvals? Choose what you found.
+          For each gap, choose who can supply it. What changed in PolicyPal during Q2 is in the incident history below, and what each owner is responsible for is in the table.
         fields:
-          - {id: s6-file, kind: select, label: "File", options: *files}
-        answer: "It is not there. Choose `None in the folder`."
-        show:
-          - markdown: *index
-
-      - title: Write down the gap
-        text: |
-          A missing paper is bad. A missing paper that nobody mentioned is worse, because the auditor will find it and ask why you hid it.
-
-          Write what is missing, who is responsible for producing it, and by when. Your answer for section 6 is below.
-        fields:
-          - {id: gaps, kind: textarea, rows: 3, label: "Known gaps"}
+          - id: gap6-owner
+            kind: select
+            label: "Section 6: who can supply the record of what changed in Q2?"
+            options: &gapowners
+              - "The team responsible for the platform and the vendor relationship"
+              - "The function that owns the PolicyPal system instructions"
+              - "The team that owns the HR policy library"
+              - "The function that runs the human review process for PolicyPal"
+          - {id: gap4-owner, kind: select, label: "Section 4: who can supply the reviewer log for the rest of Q2?", options: *gapowners}
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Section ______ (the ______) is missing. Owner: the function that maintains ______. Due ______."'
-          - title: "Hint 2: an example answer"
-            text: '"Section 6 (change-control and approval log) is missing. Owner: the function that maintains the workflow''s configuration records. Due before this packet is submitted."'
+          - title: "Hint 1: where to look"
+            text: |
+              In the incident history, find the June issue that describes something being changed in PolicyPal, and check who made that change. Then check whether PolicyPal's instructions changed in Q2: `v2` was in force from 2026-03-02 to 2026-07-12. For section 4, look at the owners table for who is responsible for the reviewer log.
+        answer: |
+          - Section 6: `The team responsible for the platform and the vendor relationship`. The only change recorded in Q2 is issue 5, the model version change made by IT in June. The instructions did not change in Q2 (v2 was in force all quarter), and the policy library and the reviewers are not changes to PolicyPal itself.
+          - Section 4: `The function that runs the human review process for PolicyPal`. They run the reviewers and keep the reviewer log.
         show:
-          - answers: [s6-file]
+          - markdown: |
+              #### Who is responsible for what
 
-  - id: finish
-    title: Storage and Header
+              | Owner | What they are responsible for |
+              |---|---|
+              | The team responsible for the platform and the vendor relationship | The AI tools' technology: the models, the software, speed and uptime, and the contracts with the AI vendors |
+              | The function that owns the PolicyPal system instructions | Writing, approving and publishing PolicyPal's instructions (v2, v3) |
+              | The team that owns the HR policy library | The HR policy documents PolicyPal reads from |
+              | The function that runs the human review process for PolicyPal | The reviewers, how they review, and the reviewer log |
+          - markdown: "#### Paper: a7-incident-history"
+          - doc: a7-incident-history.md
+
+  - id: storage
+    title: Storage
     type: steps
     steps:
       - title: Say where the copies are kept
         text: |
-          Records that only exist inside the AI platform are deleted by the platform after about 180 days. An auditor may come after that, so copies must be kept somewhere safe that belongs to the company.
-
-          Choose where the exported copies of these papers should be kept.
+          The papers only count as evidence if they still exist when someone asks for them. Choose where the exported copies of the packet's papers should be kept. The company's records rule, and what each place is, are below.
         fields:
-          - id: keep
+          - id: keep-where
             kind: select
-            label: "Where should the exported copies of these items be kept?"
-            options: ["GRC evidence library / PolicyPal / 2026", "Copilot audit log", "Purview", "Claude workspace"]
-        answer: "`GRC evidence library / PolicyPal / 2026`. That is a governance system that belongs to the company. \"Copilot audit log\", \"Purview\" and \"Claude workspace\" are the platforms themselves, and the evidence in them would be gone in about seven months."
+            label: "Where should the exported copies be kept?"
+            options:
+              - "GRC evidence library: the company's own records system, kept for as long as the company's rules require"
+              - "Copilot audit log: where PolicyPal's activity was first recorded, so the copies sit with the originals"
+              - "Purview audit: Microsoft's compliance search for Copilot, which auditors can search by date and user"
+              - "Claude workspace: the other AI platform the company uses, so all AI evidence is kept in one place"
+        hints:
+          - title: "Hint 1: where to look"
+            text: |
+              Read the company's records rule first: how long must this evidence be kept? Then go down the **How long it keeps records** column and cross out every place that keeps records for less than that. Today's date and the start of Q2 tell you how old the oldest Q2 records already are.
+        answer: "`GRC evidence library`. The records rule says three years, and it is the only place that keeps records for as long as the company decides. The other three are parts of the AI platforms, which keep about 180 days. Q2 began on 2026-04-01, about 180 days ago, so the platform's records from early April are already due to be deleted."
         show:
           - markdown: |
-              | Where it is kept | Who it belongs to | How long it lasts |
+              #### The company's records rule
+
+              Evidence that an AI tool was overseen is kept for three years after the end of the period it covers.
+
+              #### Where records can be kept
+
+              | Place | What it is | How long it keeps records |
               |---|---|---|
-              | GRC evidence library | The company's own governance system | As long as the company decides |
-              | Copilot audit log | The AI platform | About 180 days |
-              | Purview | The AI platform | About 180 days |
-              | Claude workspace | The AI platform | About 180 days |
-
-      - title: Fill in the top of the packet
-        text: |
-          The header says what the packet is about and who made it. Type:
-
-          - the workflow: the name of the AI tool
-          - the time span the packet covers. Look at the dates and periods you wrote for each paper, below.
-          - who made it (your name) and today's date
-        fields:
-          - {id: workflow, kind: text, label: "Workflow"}
-          - {id: coverage, kind: text, label: "Packet coverage period"}
-          - {id: prepared, kind: text, label: "Prepared by, and the date assembled"}
-        answer: |
-          - Workflow: `PolicyPal`
-          - Packet coverage period: `2026-Q2` (April to June 2026)
-          - Prepared by: your name, and today's date
-        show:
-          - answers: [s1-when, s2-when, s3-when, s4a-when, s4b-when, s5-when]
+              | GRC evidence library | The company's governance, risk and compliance (GRC) records system | As long as the company's rules require |
+              | Copilot audit log | The record Microsoft Copilot keeps of how PolicyPal was used | About 180 days |
+              | Purview audit | Microsoft's compliance tool for searching that record | About 180 days |
+              | Claude workspace | The workspace of the other AI platform the company uses | About 180 days |
 
   - id: answer
     title: My Packet
     type: report
     heading: AI Evidence Packet
-    intro: "This is what \"we have oversight\" looks like when an auditor asks for proof. To keep a copy, click Save as PDF."
+    intro: "Workflow: PolicyPal. Coverage: 2026-Q2 (2026-04-01 to 2026-06-30). Prepared on 2026-09-28 by PolicyPal's Business AI Owner for the internal audit team. This is what \"we have oversight\" looks like when an auditor asks for proof. To keep a copy, click Save as PDF."
     sections:
-      - {title: "Packet header", fields: [workflow, coverage, prepared]}
-      - {title: "Known gaps", fields: [gaps]}
-      - {title: "1. Business purpose statement", fields: [s1-file, s1-when]}
-      - {title: "2. System instructions and baseline business rules", fields: [s2-file, s2-when, excl-a3]}
-      - {title: "3. Sampled review records and quality scores", fields: [s3-file, s3-when, excl-a8]}
-      - {title: "4. HITL override summary and reviewer quality audit", fields: [s4a-file, s4a-when, s4b-file, s4b-when]}
-      - {title: "5. Incident and escalation history", fields: [s5-file, s5-when]}
-      - {title: "6. Change-control and approval log", fields: [s6-file]}
-      - {title: "Where the exported copies are kept", fields: [keep]}
+      - {title: "Where each paper goes", fields: [p-a1, p-a2, p-a3, p-a4, p-a5, p-a6, p-a7, p-a8]}
+      - {title: "Known gaps", fields: [gaps-found]}
+      - {title: "Who will supply the missing evidence", fields: [gap6-owner, gap4-owner]}
+      - {title: "Where the exported copies are kept", fields: [keep-where]}

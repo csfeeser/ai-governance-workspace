@@ -4,10 +4,10 @@
 
 ## Incident 1
 
-PolicyPal, the HR policy assistant, has been answering PTO carryover questions using "PTO
-Policy 2023." The current policy is "PTO Policy 2025," effective 2025-01-01; the 2023
+PolicyPal, the HR policy assistant, has been answering some PTO carryover questions using
+"PTO Policy 2023." The current policy is "PTO Policy 2026," effective 2026-09-01; the 2023
 document is still present in the grounding source. Over the past two weeks at least nine
-employees were told the carryover cap is 10 days. The current cap is 5 days. Two employees
+employees were told the carryover cap is 10 days. The current cap is 3 days. Two employees
 have already submitted year-end plans based on the wrong figure. The assistant's wording
 and behavior are otherwise unchanged, and it cites the 2023 document by name when asked.
 
