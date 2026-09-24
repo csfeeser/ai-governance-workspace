@@ -10,7 +10,7 @@ In this lab, you will:
 - Assign each incident one of the five incident categories
 - Route each incident to a responsible owner named by responsibility rather than by org-chart title
 - Resolve an incident that fits two categories by deciding which risk matters more
-- Decide whether a low-signal incident meets the bar to escalate now
+- Decide whether a low-signal incident needs escalating yet
 - Decide the next move when an owner does not respond
 - Produce a five-row triage of your own
 
@@ -56,7 +56,7 @@ Everything you do in this lab happens in the workspace.
 
 ![The Triage tab, showing Step 1 and its three drop-downs above incident 1](images/lab-4.1/1-triage.png)
 
-One step per incident. Each step shows its incident, then the five categories, what each possible owner is responsible for, and what each action means. For each incident you choose the category, the owner named by responsibility, and how quickly to act. Incident 4 fits two categories, and one incident may not need escalating yet.
+One step per incident. Each step shows its incident and what each possible owner is responsible for; each category and action is explained in its drop-down. For each incident you choose the category, the owner named by responsibility, and how quickly to act. Incident 4 fits two categories, and one incident may not need escalating yet.
 
 ### Tab 2: Next Moves (Steps 6 and 7)
 
