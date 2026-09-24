@@ -155,18 +155,36 @@ tabs:
 
       - title: Check the secret repeat cases
         text: |
-          To test whether reviewers are really reading, the company slipped the same case to the same reviewer twice, on two different days. A careful reviewer decides it the same way both times.
+          To test whether reviewers are really reading, the company slipped some cases in twice. The same case went to the same reviewer two times, on two different days, a week or two apart. The reviewer did not know it was a repeat.
 
-          Below are only the repeat cases. There are six pairs, each ending in `a` and `b`, for example `DUP-01a` and `DUP-01b`. For each pair, compare the `human_decision` on the `a` row with the one on the `b` row.
+          A careful reviewer makes the same decision both times. A reviewer who is not really reading may not.
+
+          The table below has one row for each repeated case, six in all:
+
+          - **First look:** the date the reviewer first saw the case, and what they decided.
+          - **Second look:** the date they saw the same case again, and what they decided that time.
+
+          In the log these appear as two rows, one with `a` at the end of the case number (the first look) and one with `b` (the second look). Here they are side by side.
+
+          For each row, compare the **First decision** with the **Second decision**. Which reviewer decided the same case two different ways?
         fields:
           - {id: dup_reviewer, kind: select, label: "Which reviewer decided the same case two different ways?", options: [R-A, R-B, R-C, R-D, R-E, "None of them"]}
-        answer: "`R-D`, on one of their two pairs: `DUP-05a` approve, `DUP-05b` reject. Everyone else was consistent. Note that R-A was consistent too; consistency alone does not prove someone is reading."
+        answer: "`R-D`, on case `DUP-05`: approve on 27 May, reject on 11 June. Everyone else made the same decision both times. Note that R-A was consistent too: consistency alone does not prove someone is reading, because approving everything is also consistent."
         show:
+          - markdown: "Tip: click any column heading to sort the table by that column. Click it again to reverse the order."
           - table:
-              <<: *log
+              source: repeat-cases.csv
               tools: false
-              sort: case_id
-              where: {case_id: [DUP-01a, DUP-01b, DUP-02a, DUP-02b, DUP-03a, DUP-03b, DUP-04a, DUP-04b, DUP-05a, DUP-05b, DUP-06a, DUP-06b]}
+              fit: true
+              labels:
+                case: Case
+                reviewer: Reviewer
+                case_type: Case type
+                ai_decision: PolicyPal proposed
+                first_date: First look (date)
+                first_decision: First decision
+                second_date: Second look (date)
+                second_decision: Second decision
 
   - id: next
     title: Next Step
@@ -174,9 +192,11 @@ tabs:
     steps:
       - title: Decide who owns fixing the R-A finding
         text: |
-          R-A's pattern is the most serious finding: approvals that may not be getting an independent check. Findings are routed by responsibility, to whoever runs the thing that is not working.
+          R-A's pattern is the most serious finding. In plain words: R-A's approvals are not getting a real, independent check, and you have already ruled out the innocent explanation (an easy pile of cases).
 
-          The thing that is not working here is the human review process, not PolicyPal and not one person's character. Choose who owns the fix, and write one line saying why. Lab 3.2 is where you write the plan.
+          The fix will be a change to how reviewing is done. For example, a second reviewer could check a sample of R-A's approvals, or R-A could be re-trained on the review standard. So the finding goes to whoever runs the review process, not to whoever runs the AI.
+
+          The first table below says what each possible owner is responsible for. Your earlier answers about R-A are under it. Choose who owns the fix, and write one line saying why. Lab 3.2 is where you write the plan.
         fields:
           - id: next_owner
             kind: select
@@ -187,8 +207,16 @@ tabs:
               - "The team that owns the HR policy library"
               - "No one yet: 2% could just be an easy pile"
           - {id: next_why, kind: text, label: "Why? One line."}
-        answer: "`The function that runs the human review process for PolicyPal`. The gap is in the review process: approvals are not getting an independent check. The platform team runs the AI, not the reviewers, and you have already ruled out the easy-pile explanation."
+        answer: "`The function that runs the human review process for PolicyPal`. It is the only one of the four that can change how reviewing is done: who reviews, how, and whether a second reviewer checks. The platform team runs the AI and the HR policy team writes the policies; neither manages the reviewers. And the easy-pile explanation was ruled out in Step 4."
         show:
+          - markdown: |
+              #### Who is responsible for what
+
+              | Owner | What they are responsible for |
+              |---|---|
+              | The function that runs the human review process for PolicyPal | The five reviewers and how they work: who reviews which cases, their training on the review standard, and extra checks such as a second reviewer |
+              | The platform / technical owner | The technology behind PolicyPal: the AI model, the software, sign-in, and speed |
+              | The team that owns the HR policy library | The HR policy documents PolicyPal reads from, and keeping them current |
           - answers: [low_reviewer, easy_pile, settle_check]
 
   - id: answer

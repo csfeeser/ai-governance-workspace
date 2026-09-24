@@ -430,7 +430,9 @@ function renderTable(tab) {
       s.addEventListener("change", () => { queueSave(key, s.value, redraw); mark(); if (card) card.update(); });
       return h("td", {}, s);
     }
-    return h("td", { class: isNum(c) ? "num" : "" }, r[c]);
+    // Short values (case numbers, dates, decisions) never wrap onto two lines.
+    const cls = [isNum(c) && "num", String(r[c]).length <= 12 && "nowrap"].filter(Boolean).join(" ");
+    return h("td", { class: cls }, r[c]);
   }
 
   function groupView(rows) {

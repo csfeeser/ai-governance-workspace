@@ -84,6 +84,7 @@ table.data thead tr.filters th { top: 34px; padding: 4px 6px; background: #f6f8f
 table.data thead tr.filters input, table.data thead tr.filters select { width: 100%; min-width: 60px; font: inherit; font-size: 13px; padding: 3px 5px; border: 1px solid #b9c2ce; border-radius: 4px; }
 table.data tbody tr:nth-child(even) { background: #fafbfc; }
 table.data td.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.data td.nowrap { white-space: nowrap; }
 table.data td select { font: inherit; padding: 4px 6px; border: 1px solid #b9c2ce; border-radius: 4px; max-width: 100%; }
 table.data td select.unset { border-color: var(--warn); background: #fff8e8; }
 table.data tr.total td { font-weight: 700; background: #eef1f5; }
