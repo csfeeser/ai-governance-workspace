@@ -110,8 +110,8 @@ tabs:
           - {id: i4-speed, kind: select, label: "Action", options: *acts}
           - {id: i4-why, kind: text, label: "One line: why does that risk matter more?"}
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Someone acting on ______ could ______, which is a bigger harm than ______."'
+          - title: "Hint: where to look"
+            text: "Look at the two categories you chose. Which one involves a real person being harmed or the company facing money or legal trouble? That is the bigger risk."
         answer: |
           - The category that matters more: `Risk or compliance`. The assistant gave a confident, wrong tax answer that someone has already acted on, and could lead to a misstated filing.
           - The other category: `Business content`. The tax guidance document the assistant reads from is out of date.
@@ -134,8 +134,8 @@ tabs:
           - {id: i5-speed, kind: select, label: "Action", options: *acts}
           - {id: i5-trigger, kind: text, label: "What would have to change for this to need escalating now?"}
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "I would escalate if ______ were measured as ______, or if it started happening ______."'
+          - title: "Hint: where to look"
+            text: "The incident says 'nobody has quantified how many requests are lost or what work is delayed.' If someone measured that, what would make it urgent? Also, when does it happen now, and when would it be worse?"
         answer: |
           - Category: `Technical or vendor`. A slow-down that repeats every morning.
           - Owner: `The team responsible for the platform and the vendor relationship`. They run the platform, and they already know about it.
@@ -159,8 +159,8 @@ tabs:
           - {id: first, kind: select, label: "The one incident you would escalate first", options: ["Incident 1", "Incident 2", "Incident 3", "Incident 4", "Incident 5"]}
           - {id: first-why, kind: text, label: "One line: why? (harm combined with urgency)"}
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Because ______ has the highest ______ and the highest ______."'
+          - title: "Hint: where to look"
+            text: "Look at your triage for each incident: the action (Escalate immediately, soon, or monitor) and what category it falls under. Which one combines the most urgent action with the highest-risk category?"
         answer: "`Incident 3`. Private data is being shown right now and nobody knows how far it has spread. It is both the most harmful and the most urgent."
         show:
           - doc: incidents.md

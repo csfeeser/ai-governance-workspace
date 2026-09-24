@@ -123,8 +123,8 @@ tabs:
         fields:
           - {id: trending, kind: textarea, rows: 3, label: "Is the quality of the answers going up or down? How can you tell?"}
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Quality is going ______. The score is ______ against a baseline of ______, ______ answers scored lower than they did at baseline, and the rule that dropped most is ______."'
+          - title: "Hint: where to look"
+            text: "Look at the score box below. It shows the recorded baseline and today's score. Then open **How each criterion moved** to see which rules changed. Use those numbers to say whether quality is up or down."
         answer: "Down. The score is `81` against a recorded baseline of `88`, a drop of 7 points. `4` of the 20 answers scored lower than they did at baseline, and the rule that dropped most is `c3` (answers the question asked): several answers now give a general summary, or send the employee back to the policy, instead of the actual answer."
         show:
           - table: &scorepanel
@@ -172,8 +172,8 @@ tabs:
         fields:
           - {id: cause, kind: textarea, rows: 3, label: "What most likely caused the drop in quality, and when?"}
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "The marks start to drop on ______. The day before, on ______, the ______ changed from ______ to ______."'
+          - title: "Hint: where to look"
+            text: "Look at the Activity Log. Compare the three model columns (`ModelProviderName`, `ModelName`, `ModelVersion`) before and after the date you found in step 1 where marks first dropped. What changed?"
         answer: "The AI model changed. Answers score lower than their baseline from `2026-08-12`. On `2026-08-11`, the day before, the Activity Log shows `ModelName` changing from `gpt-4o` to `gpt-55-high` and `ModelVersion` from `2024-11-20` to `2025-06-15`. The company that makes the model stayed the same (`OpenAI`), so this is a new version from the same vendor. In Lab 2.2 you will see that a drop is not always the model, and how to rule the other causes in or out."
         show:
           - markdown: "#### The answers your colleague marked, in date order"

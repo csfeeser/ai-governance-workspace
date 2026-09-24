@@ -1,4 +1,4 @@
-# Reviewer-Quality Finding — R-A
+# Reviewer-Quality Finding: R-A
 
 *A finished finding from a reviewer-metrics analysis of the PolicyPal human-review log
 (30 days, 2026-05-19 to 2026-06-17, 5 reviewers). Supplied for Lab 3.2.*
@@ -10,7 +10,7 @@ example, overrode 5 of 10 conduct cases),
 and R-A's rate was zero in three of the four weeks. The one exception is a single `pto`
 override in W3. In 27 of R-A's 28 approvals, another reviewer overrode a case of the same
 type in the same week. This pattern is consistent with
-rubber-stamping — approving the AI's decision without independent review — but 30 days of
+rubber-stamping (approving the AI's decision without independent review), but 30 days of
 one reviewer's decisions is not enough to be certain, and an unusually clean queue, while
 less likely here, is a real alternative. Recommend a second-review sample of R-A's recent
 approvals to confirm the pattern, followed by remediation with a dated, measurable re-check

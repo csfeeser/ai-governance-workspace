@@ -1,4 +1,4 @@
-# Triaged Incident — Customer-Facing Support Bot (data exposure)
+# Triaged Incident: Customer-Facing Support Bot (data exposure)
 
 *Supplied for the Lab 4.2 Bronze challenge. This incident has already been triaged.*
 
@@ -8,7 +8,7 @@
 |---|---|
 | Category | Security or privacy |
 | Responsible owner | The responsible information-security function, with the legal function notified in parallel |
-| Urgency | Immediate — possible ongoing exposure |
+| Urgency | Immediate: possible ongoing exposure |
 
 ## Supporting facts
 

@@ -159,10 +159,8 @@ tabs:
         fields:
           - {id: conclusion, kind: textarea, rows: 4, label: "What caused the drop, the evidence, and whether PolicyPal is at fault"}
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "The drop in PTO answers from ______ is caused by ______, which took effect on ______. Evidence: ______. PolicyPal is ______; the ______ in the Quality Standard are out of date."'
-          - title: "Hint 2: an example answer"
-            text: '"The drop in PTO answers from 2026-09-02 is caused by a company policy change: PTO Policy 2026 took effect on 2026-09-01. Evidence: from that date PolicyPal reads and cites PTO Policy 2026, and only PTO answers dropped, all on the exact-figure rule. The model change on 2026-08-25 came a week too early, and the prompt did not change. PolicyPal is quoting the new policy correctly; the reference figures in the Quality Standard are out of date."'
+          - title: "Hint: what to synthesize"
+            text: "Draw on the four cause checks you just completed (the model, the prompt, the documents, and whether the answers are wrong). Summarize what caused the drop and whether PolicyPal itself is at fault, or whether something else (the reference figures in the standard) is out of date."
         show:
           - answers: [drop_start, drop_pattern, r_model, prompt_check, policy_check, answers_wrong]
 

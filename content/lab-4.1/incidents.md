@@ -1,4 +1,4 @@
-# Incident Log — Five AI Workflow Incidents
+# Incident Log: Five AI Workflow Incidents
 
 *Five incidents raised against AI workflows this month. Triage each one in Lab 4.1.*
 
@@ -32,7 +32,7 @@ the exposure is ongoing. The bot draws on a shared account-lookup connection.
 ## Incident 4
 
 A finance assistant was asked whether a client entertainment expense is tax-deductible. It
-answered with a confident, specific figure — "50% deductible under current rules" — and
+answered with a confident, specific figure ("50% deductible under current rules"), and
 named a filing treatment. The rate it gave is wrong for this expense category, and an
 employee has already used the answer to code three expense reports. The underlying tax
 guidance document in the assistant's sources is outdated. An employee acting on this answer

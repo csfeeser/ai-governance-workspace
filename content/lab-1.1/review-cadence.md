@@ -1,4 +1,4 @@
-# Reference — Risk Tier and Review Cadence
+# Reference: Risk Tier and Review Cadence
 
 *Shared reference. Used in Lecture 1A, Lab 1.1, and Lab 2.1.*
 

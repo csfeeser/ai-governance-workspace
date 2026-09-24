@@ -1,4 +1,4 @@
-# Business Quality Standard — PolicyPal
+# Business Quality Standard: PolicyPal
 
 *Supplied reference standard. This is a complete, strong instance of the standard a
 Business AI Owner writes in Lab 1.1. Labs 2.1 and 2.2 score PolicyPal responses against
@@ -21,16 +21,16 @@ not assess or change the tier.
 
 Each response is scored against all four criteria. A criterion is met (1) or not met (0).
 
-- **c1 — Current, named source.** The response cites a specific policy document by name,
+- **c1: Current, named source.** The response cites a specific policy document by name,
   and that document is the current version, not a superseded one and not an unnamed
   paraphrase.
-- **c2 — Exact figure or entitlement.** Any number, rate, day count, or entitlement the
+- **c2: Exact figure or entitlement.** Any number, rate, day count, or entitlement the
   response states matches what current policy says, word for word where policy is
   specific.
-- **c3 — Answers the question asked.** The response gives the specific entitlement or
+- **c3: Answers the question asked.** The response gives the specific entitlement or
   answer the employee asked for, not a general summary, a restatement of the question, or
   a paraphrase of the policy's intent.
-- **c4 — Human referral where required.** The response refers the employee to a named
+- **c4: Human referral where required.** The response refers the employee to a named
   human contact for any question about an accommodation, a protected or statutory leave,
   or a decision the employee is disputing.
 

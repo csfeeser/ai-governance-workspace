@@ -116,13 +116,7 @@ tabs:
           - {id: correct-1, kind: text, label: "A criterion that would have caught Issue 1 (an old policy version cited)"}
           - {id: correct-2, kind: text, label: "A criterion that would have caught Issue 3 (two employees given different figures)"}
         hints:
-          - title: "Hint 1: sentences to start from"
-            text: |
-              Fill in the blanks:
-
-              - "The answer cites a ______ policy document."
-              - "Every ______ in the answer matches ______."
-          - title: "Hint 2: example answers"
+          - title: "Hint: example answers"
             text: |
               - "Cites a named, current policy document."
               - "Every claim in the answer matches the entitlement or figure exactly as written in policy."
@@ -138,13 +132,7 @@ tabs:
           - {id: rules-1, kind: text, label: "A rule that would have prevented Issue 3 (different per-diem figures)"}
           - {id: rules-2, kind: text, label: "A rule that would have prevented Issue 7 (legal detail about maternity leave)"}
         hints:
-          - title: "Hint 1: sentences to start from"
-            text: |
-              Fill in the blanks:
-
-              - "Never state a ______ that is not written in ______."
-              - "Never give ______ advice; send those questions to ______."
-          - title: "Hint 2: example answers"
+          - title: "Hint: example answers"
             text: |
               - "Never state a dollar figure or day count that is not written in current policy."
               - "Never give legal or interpretation advice; send those questions to HR."
@@ -160,13 +148,7 @@ tabs:
           - {id: errors-1, kind: text, label: "An unacceptable error shown by Issue 1 (an old policy version cited)"}
           - {id: errors-2, kind: text, label: "An unacceptable error shown by Issue 7 (legal detail about maternity leave)"}
         hints:
-          - title: "Hint 1: sentences to start from"
-            text: |
-              Fill in the blanks:
-
-              - "Citing a ______ policy as if it were ______."
-              - "Answering a ______ question with detail instead of ______."
-          - title: "Hint 2: example answers"
+          - title: "Hint: example answers"
             text: |
               - "Citing an obsolete policy as if it were current."
               - "Answering a protected or statutory leave question with detail instead of referring it to HR."
@@ -182,13 +164,7 @@ tabs:
           - {id: triggers-1, kind: text, label: "A trigger that would have caught Issue 2 (accommodation or protected-leave questions)"}
           - {id: triggers-2, kind: text, label: "A trigger for the situation behind Issue 1 (two versions of one policy in the library)"}
         hints:
-          - title: "Hint 1: sentences to start from"
-            text: |
-              Fill in the blanks:
-
-              - "Any question about ______ or ______."
-              - "Any question where two ______ of the same policy ______."
-          - title: "Hint 2: example answers"
+          - title: "Hint: example answers"
             text: |
               - "Any question about an accommodation or leave."
               - "Any question where two versions of a policy conflict, so it is unclear which one is current."
@@ -205,9 +181,7 @@ tabs:
         fields:
           - {id: tolerance, kind: textarea, rows: 2, label: "How much difference is acceptable between two answers to the same question? (Issue 3)"}
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Two employees who ask the same ______ must get the same ________."'
-          - title: "Hint 2: an example answer"
+          - title: "Hint: an example answer"
             text: '"Two employees who ask the same question must get the same entitlement figure, every time."'
         show:
           - table: {source: open-issues.csv, tools: false, hide: [raised, owner], labels: {"#": "Issue", description: Problem}, where: {"#": [3]}}
