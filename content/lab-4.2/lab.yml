@@ -1,86 +1,93 @@
 title: Write the Escalation Ticket
 tabs:
-  - id: incident
-    title: The Incident
-    type: steps
-    steps:
-      - title: Say what the problem is and who it goes to
-        text: |
-          A problem has already been sorted (triaged) for you, and you know who has to fix it. In this lab you write them a ticket: a message that tells them what is wrong and what you need from them. A vague ticket means the other person has to come back with questions, and the fix is delayed.
-
-          Read the triaged incident below from top to bottom. It has three parts: the **Triage result**, the **Supporting facts**, and the **Evidence available**. Every fact you need for the ticket is there.
-
-          The first thing a receiver needs is what this is about and why they are getting it. In the box, write what the problem is, its category, and who is responsible for it. Copy these from the **Triage result** table. Name the owner by the job they do, not by a department.
-        fields:
-          - {id: incident, kind: text, label: "Incident, category, and the responsible owner"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "______ assistant, category ______, routed to the team responsible for ______."'
-          - title: "Hint 2: an example answer"
-            text: '"Sales-support assistant (Claude), category Technical / vendor, routed to the team responsible for the platform and the vendor relationship for this assistant."'
-        show:
-          - doc: triaged-incident.md
-
   - id: happened
     title: What Happened
     type: steps
     steps:
       - title: Say what is happening
         text: |
-          Say what anyone could see for themselves. "It seems worse" is a feeling. "The replies are 40% longer" is something anyone can check.
+          In Lab 4.1 you sorted incident 2, the sales-support assistant that started writing long, off-tone customer emails, and routed it to the team responsible for the platform and the vendor relationship. Now you write the ticket you send them: a message that says what is wrong and what you need from them. In a real company this goes into the ticketing system your AI incident queue uses.
 
-          Using the supporting facts below, describe what the assistant is doing.
+          The test of a ticket: can the owner start work without coming back to you with a question? A vague ticket means questions, and the fix is delayed. The category, the owner and the action from Lab 4.1 are already at the top of the ticket. You write the rest.
+
+          Below is the case file: the report that came in, what the sales team told you, and what the records show. Not everything in it belongs in a ticket. Read it from top to bottom.
+
+          Start with what was observed: what the assistant is doing, in facts the owner could check for themselves. Leave out feelings and guesses. The owner cannot check those.
         fields:
-          - {id: observed, kind: textarea, rows: 3, label: "What was observed"}
+          - {id: seen, kind: textarea, rows: 3, label: "What was observed"}
         hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Since ______, draft replies are roughly ______% longer than before and have shifted ______ in tone."'
-          - title: "Hint 2: an example answer"
-            text: '"Since 2026-08-12, draft replies are roughly 40% longer than before and have shifted off-tone (informal and verbose)."'
+          - title: "Hint 1: facts or feelings?"
+            text: 'A fact comes with something the owner could check: a date, a number, a record. Which notes in the case file are someone''s feeling, and which are someone''s guess about the cause?'
+          - title: "Hint 2: a sentence to start from"
+            text: 'Fill in the blanks: "Since ______, drafts average ______ words (______), up from ______ words in July, and read as ______."'
+        answer: |
+          "Since 2026-09-01, drafts average 190 words (two or three paragraphs), up from 70 words in July, and read as informal."
+
+          Left out: "feels lazier" and "less professional" are feelings, and "switched us to a cheaper AI" is a guess. The date is when the drafts changed (2026-09-01), not when the team lead first noticed (2026-09-10).
         show:
-          - doc: triaged-incident.md
-            section: Supporting facts
+          - doc: case-file.md
 
       - title: Say how often, and since when
         text: |
-          Numbers turn "it happens a lot" into something a person can judge for themselves.
-
-          Write how many, out of how many, and since when. The numbers are in the supporting facts below.
+          A frequency lets the owner judge how big the problem is. The case file has several numbers that could go here. Choose the one that gives the owner a fair picture.
         fields:
-          - {id: often, kind: textarea, rows: 2, label: "How often, and over what period"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "______ of ______ sampled replies fail the tone standard (______%), since ______, about ______ weeks."'
-        answer: "18 of 50 sampled replies fail the tone standard (36%), since 2026-08-12, about three weeks at the time of writing."
-        show:
-          - doc: triaged-incident.md
-            section: Supporting facts
+          - id: freq
+            kind: select
+            label: "How often, and since when"
+            options:
+              - "Since 2026-09-01 (three weeks): 18 of 50 sampled drafts fail the tone standard (36%), against 3 of 50 in July"
+              - "Since 2026-09-10 (eleven days): 3 of the 5 drafts the team lead checked on Friday 2026-09-18 were off-tone (60%)"
+              - "Since 2026-09-01 (three weeks): 9 customers have replied to ask about tone, out of about 600 emails sent (2%)"
+              - "Since 2026-09-15 (six days): the workflow's Business Quality Score has dropped from 86 to 68, a fall of 18 points"
+        answer: |
+          `Since 2026-09-01 (three weeks): 18 of 50 sampled drafts fail the tone standard (36%), against 3 of 50 in July`. It starts when the drafts changed, counts a fair sample, and compares it with before.
 
-      - title: List your proof
+          - The team lead's check: 2026-09-10 is when they noticed, not when it started, and 5 drafts are too few to judge from.
+          - The customer replies: most customers who get an odd email say nothing, and reps rewrite many drafts before sending, so this undercounts.
+          - The score: 2026-09-15 is when the report came in, and a score says how bad things are, not how often a draft fails.
+        show:
+          - doc: case-file.md
+            section: Sales team notes
+          - doc: case-file.md
+            section: What the records show
+
+      - title: Choose the proof to attach
         text: |
-          A claim with no proof is easy to dismiss. List each piece of evidence below and say what it shows. The list already summarises each one, so there is nothing else to open.
+          A claim with no proof is easy to dismiss. From the files alone, the owner should be able to check what you observed, how often it happens, and that the model changed. Choose the files to attach.
         fields:
-          - {id: evidence, kind: textarea, rows: 3, label: "Evidence attached"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "1. The scored sample of ______ replies, showing ______. 2. The activity-log excerpt, showing ______ on ______. 3. The ______ standard used to score the sample."'
-          - title: "Hint 2: an example answer"
-            text: '"1. The scored sample of 50 replies, showing 18 fail the tone standard. 2. The activity-log excerpt, showing the model identity changed on 2026-08-11. 3. The tone standard used to score the sample."'
-        show:
-          - doc: triaged-incident.md
-            section: Evidence available
+          - id: attach
+            kind: select
+            label: "Evidence attached"
+            options:
+              - "sample-2026-09.csv, sample-2026-07.csv, activity-log-2026-08-31.csv, sales-tone-standard.pdf"
+              - "sample-2026-09.csv, customer-replies.eml, team-lead-report.txt, sales-tone-standard.pdf"
+              - "activity-log-2026-08-31.csv, sample-2026-09.csv, customer-replies.eml, team-lead-report.txt"
+              - "activity-log-2026-08-31.csv, sample-2026-07.csv, sample-2026-09.csv, customer-replies.eml"
+        answer: |
+          `sample-2026-09.csv, sample-2026-07.csv, activity-log-2026-08-31.csv, sales-tone-standard.pdf`. The two samples show how often, before and after. The standard shows what "fail" means, so the owner can check the scores. The log shows the model change.
 
-      - title: Say what you have already checked
+          Every other set leaves something out: the second has no log and no July sample, the third has no standard and no July sample, and the fourth has no standard. The team lead's report and the customer replies add feelings, not proof.
+        show:
+          - doc: case-file.md
+            section: Files you could attach
+
+      - title: Say what you have already ruled out
         text: |
-          Saying what you have already ruled out saves the other person from checking it again.
-
-          Write what you have already checked and found was not the cause. The list is in the supporting facts below.
+          Saying what you have already ruled out saves the owner checking it again. The drafts changed on 2026-09-01. Using the checks below, write each possible cause you have ruled out, and how you know.
         fields:
-          - {id: ruledout, kind: textarea, rows: 2, label: "Already ruled out"}
-        answer: "The material the assistant reads from is unchanged, the instructions given to it (the system prompt) are unchanged, and the way users phrase their questions is unchanged."
+          - {id: notcause, kind: textarea, rows: 3, label: "Already ruled out"}
+        hints:
+          - title: "Hint 1: what to look for"
+            text: "For each row, did it change shortly before 2026-09-01? If it changed long before, and the drafts were fine for a while afterwards, it did not cause the change."
+          - title: "Hint 2: a sentence to start from"
+            text: 'Fill in the blanks: "Ruled out: the system prompt (unchanged since ______), the product sheets (last changed ______, and drafts were fine for ______ after), the ______ (unchanged since 2026-02-02), and ______."'
+        answer: |
+          "Ruled out: the system prompt (unchanged since 2026-06-30), the product sheets (last changed 2026-08-17, and drafts were fine for two weeks after), the Sales Tone Standard (unchanged since 2026-02-02), and how reps word their requests (no difference from July)."
+
+          The model version is the one thing that changed the day before the drafts did, so it is not ruled out. Ruling out the Sales Tone Standard also tells the owner the drafts got worse; the yardstick did not move.
         show:
-          - doc: triaged-incident.md
-            section: Supporting facts
+          - doc: case-file.md
+            section: Checks already made
 
   - id: ask
     title: Impact and Ask
@@ -88,65 +95,84 @@ tabs:
     steps:
       - title: Say what it is costing
         text: |
-          A problem gets fixed faster when people can see what it costs. Write what this is costing the business, with numbers if you can. The supporting facts are below.
+          A problem gets fixed faster when the owner can see what it costs. Write what this is costing the business, using only facts from the case file. "Customers are noticing" is a feeling; a count is a fact.
         fields:
-          - {id: impact, kind: textarea, rows: 2, label: "Business impact"}
+          - {id: cost, kind: textarea, rows: 3, label: "Business impact"}
         hints:
           - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "About ______ customer-facing ______ per week are drafted in the wrong ______, which is a ______ risk."'
-        answer: "About 200 customer-facing emails per week are drafted in the wrong tone, which is a risk to the brand and to consistency."
+            text: 'Fill in the blanks: "About ______ customer emails a week are drafted by the assistant, and ______% of sampled drafts fail the tone standard. Reps are ______, and ______ customers have ______ since 2026-09-01."'
+        answer: '"About 200 customer emails a week are drafted by the assistant, and 36% of sampled drafts fail the tone standard. Reps are rewriting drafts by hand, and 9 customers have replied about the tone since 2026-09-01. Off-tone emails reach customers under the company''s name."'
         show:
-          - doc: triaged-incident.md
-            section: Supporting facts
+          - doc: case-file.md
+            section: Sales team notes
+          - doc: case-file.md
+            section: What the records show
 
       - title: Say exactly what you want them to do
         text: |
-          This is the most important part. If you only say "please look into this", nothing specific will happen.
-
-          Write the one specific thing you want the owner to do. Think about this: the AI model changed the day before the problem started. What could the team that runs the platform do about a model version?
+          This is the most important part of the ticket. "Please look into this" gets nothing specific done. The ask must be something this owner can do, and it must fix the problem you have described. What the owner is responsible for is in the triage result below.
         fields:
-          - {id: ask, kind: textarea, rows: 3, label: "The ask"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Confirm whether the ______ can be ______, and advise a ______."'
-          - title: "Hint 2: an example answer"
-            text: '"Confirm whether the model version can be pinned or rolled back, and advise a timeline."'
+          - id: ask-pick
+            kind: select
+            label: "The ask"
+            options:
+              - "Move the assistant back to model version 2025-10-01 and keep it there until 2026-08-20 passes the tone standard"
+              - "Rewrite the assistant's system prompt so its drafts are shorter and more formal, then re-score a sample of 50 drafts"
+              - "Switch the assistant off for all sales reps until the vendor has fixed model version 2026-08-20 for this account"
+              - "Find out why the assistant's drafts have become longer and less formal since 2026-09-01, and report back to us"
+        answer: |
+          `Move the assistant back to model version 2025-10-01` and keep it there until the new version passes the tone standard. The platform team runs the models, the drafts were fine on the old version, and it is a specific thing they can do.
+
+          - Rewriting the system prompt: the prompt has not changed since June, so it is not the cause, and changing it is not the platform team's job.
+          - Switching the assistant off: the old version worked, so reps would lose the tool for no reason. That is more than an "Escalate soon" problem needs.
+          - Finding out why: this is "please look into this" with more words. You already know what changed.
         show:
-          - doc: triaged-incident.md
-            section: Supporting facts
+          - doc: case-file.md
+            section: Triage result
+          - doc: case-file.md
+            section: What the records show
 
       - title: Say when you need an answer
         text: |
-          People fit work around deadlines. If you do not give one, yours will be last in the queue.
-
-          Say when you need a reply. Match it to how urgent this is: the **Urgency** row below says it is serious, ongoing and customer-facing, but it is not private data being shown.
+          People fit work around deadlines. With no deadline, your ticket goes to the bottom of the queue. Match the deadline to the action you chose in Lab 4.1, shown below. Today is Monday 2026-09-21.
         fields:
-          - {id: responseby, kind: text, label: "Response-by"}
-        hints:
-          - title: "Hint 1: a sentence to start from"
-            text: 'Fill in the blanks: "Initial response within ______ business days; this is ______ and ______."'
-          - title: "Hint 2: an example answer"
-            text: '"Initial response within 3 business days; this is customer-facing and ongoing."'
+          - id: replyby
+            kind: select
+            label: "Response-by"
+            options:
+              - "By 17:00 today, Monday 2026-09-21: customers are getting off-tone emails every single day"
+              - "By Thursday 2026-09-24 (three business days): a real harm to fix this week, nothing exposed"
+              - "At the next monthly AI review in October: drafts are off-tone, but reps can still fix them by hand"
+              - "Within 30 days, by 2026-10-21: the vendor has to be contacted before anything is able to change"
+        answer: |
+          `By Thursday 2026-09-24 (three business days)`. "Escalate soon" means raise it this week, so the owner needs to reply this week.
+
+          - Today: that is for "Escalate immediately", when private data is exposed or harm is spreading right now.
+          - The monthly review: "Escalate soon" says not to wait for it.
+          - 30 days: the fix you asked for is a change the platform team makes themselves, and 30 days of off-tone emails is too long.
         show:
-          - doc: triaged-incident.md
+          - doc: case-file.md
             section: Triage result
 
   - id: answer
     title: Escalation Ticket
     type: report
     heading: Escalation Ticket
-    intro: "The test: could the receiving owner start work from this ticket without replying to ask you a question? A ticket like this is also a line in the evidence packet's incident history (Module 5). To keep a copy, click Save as PDF."
+    intro: "Incident 2 from Lab 4.1, raised Monday 2026-09-21. Workflow: the sales-support assistant (Claude). Category: Technical or vendor. Routed to: the team responsible for the platform and the vendor relationship. Action: Escalate soon. The test: could the owner start work from this ticket without replying to ask you a question? Tickets like this make up a workflow's incident history, which goes into the evidence packet in Module 5. To keep a copy, click Save as PDF."
     sections:
-      - {title: "Incident, category, and routed to", fields: [incident]}
-      - {title: "What was observed", fields: [observed]}
-      - {title: "How often, and over what period", fields: [often]}
-      - {title: "Evidence attached", fields: [evidence]}
-      - {title: "Already ruled out", fields: [ruledout]}
-      - {title: "Business impact", fields: [impact]}
-      - {title: "The ask", fields: [ask]}
-      - {title: "Response-by", fields: [responseby]}
+      - {title: "What was observed", fields: [seen]}
+      - {title: "How often, and since when", fields: [freq]}
+      - {title: "Evidence attached", fields: [attach]}
+      - {title: "Already ruled out", fields: [notcause]}
+      - {title: "Business impact", fields: [cost]}
+      - {title: "The ask", fields: [ask-pick]}
+      - {title: "Response-by", fields: [replyby]}
 
 # challenge section: commented out. Remove the leading '# ' from each line below to restore it.
+# NOTE: this challenge was written for the old ticket form (it starts with an "Incident, category, and
+# the responsible owner" box and uses free text throughout). The main lab now gives the triage result in
+# the ticket's intro and uses drop-downs for frequency, evidence, the ask and response-by. Update it to
+# match before restoring it.
 #   - id: bronze
 #     title: "Bronze: Second Ticket"
 #     type: steps

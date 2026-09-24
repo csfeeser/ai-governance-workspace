@@ -14,9 +14,9 @@ and behavior are otherwise unchanged, and it cites the 2023 document by name whe
 ## Incident 2
 
 A sales-support assistant built on Claude began producing noticeably longer, off-tone
-replies starting 2026-08-12. Draft customer emails that used to run three or four
+replies starting 2026-09-01. Draft customer emails that used to run three or four
 sentences now run two or three paragraphs and read as informal. A check of the platform
-activity log shows the model version changed on 2026-08-11. Sampling 50 recent replies
+activity log shows the model version changed on 2026-08-31. Sampling 50 recent replies
 against the team's tone standard, 18 fail. The workflow's Business Quality Score has moved
 from 86 to 68. About 200 customer emails per week are drafted through this assistant. The
 grounding content and the system prompt have not been changed.

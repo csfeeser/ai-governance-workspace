@@ -14,9 +14,9 @@
 
 - A customer-facing support bot returned another customer's account balance and the last
   four digits of a payment card in a chat reply.
-- Noticed on **2026-09-14** when the receiving customer forwarded the transcript to a
+- Noticed on 2026-09-21 when the receiving customer forwarded the transcript to a
   support agent.
-- Scope is **not yet known**: it is unclear how many sessions were affected or whether the
+- Scope is not yet known: it is unclear how many sessions were affected or whether the
   exposure is still occurring.
 - The bot draws on a shared account-lookup connection.
 - No mitigation has been applied yet.
