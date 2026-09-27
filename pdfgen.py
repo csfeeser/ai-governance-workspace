@@ -186,13 +186,15 @@ def doc_flowables(tab, st):
     return conv.flow
 
 
-def table_flowables(tab, st, answers):
+def table_flowables(tab, st, answers, row_filter=None):
     cols = [c for c in tab["columns"] if c not in tab["hide"]]
     editable = tab["editable"]
     labels = tab["labels"]
+    indices = list(row_filter) if row_filter is not None else list(range(len(tab["rows"])))
     header = [Paragraph(escape(clean(labels.get(c, c))), st["hcell"]) for c in cols]
     data = [header]
-    for i, row in enumerate(tab["rows"]):
+    for i in indices:
+        row = tab["rows"][i]
         cells = []
         for c in cols:
             if c in editable:
@@ -203,11 +205,53 @@ def table_flowables(tab, st, answers):
             cells.append(Paragraph(escape(clean(val)), st["cell"]))
         data.append(cells)
     # Give wider columns to longer content (capped so one column cannot take the page).
-    weights = [26 if c in editable else max(6, min(60, max(len(labels.get(c, c)), *(len(r[c]) for r in tab["rows"]))))
+    weights = [26 if c in editable else max(6, min(60, max(len(labels.get(c, c)),
+               *(len(tab["rows"][i][c]) for i in indices))))
                for c in cols]
     usable = (landscape(letter)[0] if len(cols) > 5 else letter[0]) - 1.2 * inch
     widths = [usable * w / sum(weights) for w in weights]
     return [make_table(data, widths)]
+
+
+def field_flowables(fields, st, answers):
+    flow = []
+    for f in fields:
+        flow.append(Paragraph(escape(clean(f["label"])), st["label"]))
+        value = answers.get(f"f:{f['id']}", "").strip()
+        if value:
+            flow.append(Paragraph(escape(clean(value)).replace("\n", "<br/>"), st["answer"]))
+        else:
+            flow.append(Paragraph("(not answered)", st["muted"]))
+    return flow
+
+
+def material_flowables(m, st, answers):
+    """One block of course material shown under a step: a doc/markdown block, a table, or
+    earlier answers shown again read-only."""
+    if m["kind"] == "doc":
+        conv = HtmlToFlowables(st)
+        conv.feed(m["html"])
+        return conv.flow
+    if m["kind"] == "table":
+        return table_flowables(m, st, answers, row_filter=m["show_rows"])
+    if m["kind"] == "answers":
+        return field_flowables(m["fields"], st, answers)
+    return []
+
+
+def steps_flowables(tab, st, answers):
+    flow = [Paragraph(escape(clean(tab["title"])), st["h1"])]
+    for s in tab["steps"]:
+        step_flow = [Paragraph(escape(clean(f"Step {s['number']}: {s['title']}")), st["h2"])]
+        conv = HtmlToFlowables(st)
+        conv.feed(s["html"])
+        step_flow += conv.flow
+        step_flow += field_flowables(s["fields"], st, answers)
+        material_flow = []
+        for m in s["show"]:
+            material_flow += material_flowables(m, st, answers)
+        flow += (material_flow + step_flow) if s["show_first"] else (step_flow + material_flow)
+    return flow
 
 
 def form_flowables(tab, st, answers):
@@ -218,13 +262,7 @@ def form_flowables(tab, st, answers):
         flow.append(Paragraph(escape(clean(sec["title"])), st["h2"]))
         if sec.get("help"):
             flow.append(Paragraph(f"<i>{escape(clean(sec['help']))}</i>", st["muted"]))
-        for f in sec["fields"]:
-            flow.append(Paragraph(escape(clean(f["label"])), st["label"]))
-            value = answers.get(f"f:{f['id']}", "").strip()
-            if value:
-                flow.append(Paragraph(escape(clean(value)).replace("\n", "<br/>"), st["answer"]))
-            else:
-                flow.append(Paragraph("(not answered)", st["muted"]))
+        flow += field_flowables(sec["fields"], st, answers)
     return flow
 
 
@@ -234,6 +272,8 @@ def render(lab_title, tab, answers):
         story = doc_flowables(tab, st)
     elif tab["type"] == "table":
         story = [Paragraph(escape(clean(tab["title"])), st["h1"])] + table_flowables(tab, st, answers)
+    elif tab["type"] == "steps":
+        story = steps_flowables(tab, st, answers)
     else:
         story = form_flowables(tab, st, answers)
 
